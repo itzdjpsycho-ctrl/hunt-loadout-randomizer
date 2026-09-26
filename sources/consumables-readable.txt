@@ -1,0 +1,211 @@
+﻿ Consumables - Hunt: Showdown 1896 Wiki 
+ Indie game deals 
+ Create account 
+ Log in 
+ Toggle personal tools menu 
+ Create account 
+ Log in 
+ Navigation menu
+ Namespaces 
+ Page 
+ Discussion 
+ English 
+ Views 
+ Read 
+ Sign up to edit 
+ View source 
+ View history 
+ More 
+ Search
+ Navigation 
+ Core Gameplay 
+ Game Modes 
+ Game Progression 
+ Hunters 
+ Currency 
+ Lore 
+ Environment 
+ Maps 
+ World Items 
+ Targets 
+ Monsters 
+ Hazards 
+ Noise Traps 
+ Equipment 
+ Weapons 
+ Ammo 
+ Tools 
+ Consumables 
+ Traits 
+ Cosmetics 
+ Weapon Charms 
+ Equipment Animations 
+ Player Profile 
+ Content Sources 
+ Updates 
+ Events 
+ Twitch Drops 
+ DLC 
+ Story Challenges 
+ Wiki 
+ Main page 
+ Recent changes 
+ Random page 
+ Help about MediaWiki 
+ Contribute to the wiki! 
+ Wiki Policies 
+ Tools 
+ What links here 
+ Related changes 
+ New page 
+ Special pages 
+ Printable version 
+ Page information 
+ Database data 
+ Consumables 
+ From Hunt: Showdown 1896 Wiki
+ Jump to navigation 
+ Jump to search 
+ Consumables make up the secondary utility of a Hunter's loadout, giving powerful one-time effects such as healing shots or thrown bombs. Some Consumables are unlocked at the start, while the rest are unlocked through Bloodline progression. Each Consumable can only be used once, at which point it disappears from the 4-slot inventory and can be replaced by another.
+ In Bounty Hunt and Bounty Clash , players equip a Hunter with their desired loadout of Consumables, Weapons , and Tools before the match, then spawn in with them. 
+In Soul Survivor , players have to search the map for Consumables to equip and utilize.
+ In both modes, Consumables can also be looted from Item Boxes, Downed Hunters, Saddlebags, Hunting Towers, and Watch Towers.
+ You can alphabetically see all Tools by visiting the Consumables Category .
+ Contents
+ 1 Consumable Types 
+ 2 List of Consumables 
+ 2.1 Currently available Consumables 
+ 2.1.1 Resupply 
+ 2.1.2 Fire/Light 
+ 2.1.3 Explosion 
+ 2.1.4 Poison 
+ 2.1.5 Distraction 
+ 2.1.6 Effects over time 
+ 2.1.7 Healing 
+ 2.1.8 Beetle 
+ 2.1.9 Others 
+ 2.2 Tarot Cards 
+ 2.3 Event specific Consumables 
+ 3 Consumable Statistics 
+ Consumable Types 
+ In the Arsenal, Consumables fall under a set of categories:
+ Throwable Consumables 
+ Placeable Consumables 
+ Rending Consumables 
+ Healing Consumables 
+ Noise Consumables 
+ Explosive Consumables 
+ Fire Consumables 
+ Poison Consumables 
+ Vision Consumables 
+ Light Consumables 
+ As all categories are shared with Tools, some categories are sparse (such as Light).
+ List of Consumables 
+ Currently available Consumables 
+ Note: The following categorization does not correspond with that in-game (as seen above) but serves for better grouping (also some consumables fall into multiple categories).
+ Resupply 
+ Ammo Box 
+ Tool Box 
+ Fire/Light 
+ Fire Bomb 
+ Hellfire Bomb 
+ Liquid Fire Bomb 
+ Explosion 
+ Dynamite Stick 
+ Dynamite Bundle 
+ Waxed Dynamite Stick 
+ Big Dynamite Bundle 
+ Sticky Bomb 
+ Frag Bomb 
+ Dark Dynamite Satchel 
+ Poison 
+ Hive Bomb 
+ Poison Bomb 
+ Distraction 
+ Chaos Bomb 
+ Effects over time 
+ Antidote Shot 
+ Antidote Shot (Weak) 
+ Regeneration Shot 
+ Regeneration Shot (Weak) 
+ Stamina Shot 
+ Stamina Shot (Weak) 
+ Healing 
+ Medical Pack 
+ Vitality Shot 
+ Vitality Shot (Weak) 
+ Recovery Shot 
+ Beetle 
+ Stalker Beetle 
+ Choke Beetle 
+ Fire Beetle 
+ Others 
+ Concertina Bomb 
+ Flash Bomb 
+ Tarot Cards 
+ Tarot Cards are single-use Consumables with unique abilities based on their traditional meanings, first introduced in Update 2.5 during the Web of the Empress Event .
+ All cards are Scarce, meaning they cannot be bought with Hunt Dollars . Instead, they can be collected in the following ways:
+ Finding them in the world: 1 random Tarot Card is available in each Bileweaver Infested Compound, and supply points such as the Postal Supply, Clockmaker's Supply, Sealed Hoard, and Event-Specific Points of Interest spawn either specific or random Tarot Cards.
+ Collecting Dark Tribute rewards: 1 Tarot Card is earned at each Dark Tribute stage.
+ Looting them from dead Hunters: Any Tarot Cards carried by dead Hunters can be stolen when looting, so long as you have a free Consumable slot for them.
+ Inspecting a card during a match will cause a small hint pop-up to appear on the top right of the screen detailing the equipped Tarot Card’s effect.
+ All Tarot Cards can be sold for 150 each, even after retrieving them from a mission.
+ The Chariot 
+ The Devil 
+ The Empress 
+ The Fool 
+ The Garden 
+ The Hanged Man 
+ The High Priestess 
+ The Judgement 
+ The Magician 
+ The Moon 
+ The Pathfinder 
+ The Sun 
+ The Tower 
+ The World 
+ Event specific Consumables 
+ Wormseed Shot 
+ Iron Reliquary 
+ Silver Reliquary 
+ Ivory Reliquary 
+ 15-Proof Vapours 
+ 25-Proof Vapours 
+ 50-Proof Vapours 
+ Bronze Wormseed Shot 
+ Silver Wormseed Shot 
+ Gold Wormseed Shot 
+ Consumable Statistics 
+ Consumable Stats of the Dynamite Stick 
+ Consumable Stats quantify the qualities of each Consumable. Unlike weapons, these stats are hardly modified, except for the Pitcher trait extending Throw Range.
+ Damage 
+ Damage value of a consumable hitting a Hunter with its full effect.
+ Damage per Tick 
+ Damage while affected by a consumable
+ Effect Duration 
+ The time a consumable effect lasts in seconds.
+ Effect Radius 
+ Effect radius in meters.
+ Fuse Timer 
+ The time (in seconds) until a consumable detonates
+ Throw Range 
+ The furthest range (in meters) a consumable can be thrown.
+ Control Range 
+ The maximum range (in meters) with which Stalker Beetles and its variants can be used.
+ Melee Damage 
+ Damage value of a light or heavy melee attack that hits a Hunter in the upper torso
+ Stamina Consumption 
+ The stamina consumed (out of 100) with a light or heavy melee attack
+ Retrieved from " https://huntshowdown.wiki.gg/wiki/Consumables?oldid=14800 "
+ Category : Equipment 
+ Report bad advertisement 
+ Cookies help us deliver our services. By using our services, you agree to our use of cookies. 
+ More information OK 
+ This page was last edited on 31 May 2026, at 02:14.
+ Page content is under Creative Commons Attribution-ShareAlike 4.0 License unless otherwise noted.
+ Terms of Service 
+ Privacy policy 
+ Support Wiki 
+ Send a ticket to wiki.gg 
+ Status page 
+ Manage cookie settings 

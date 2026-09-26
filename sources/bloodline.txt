@@ -1,0 +1,296 @@
+﻿Bloodline - Hunt: Showdown 1896 Wiki
+Indie game deals
+Create account
+Log in
+Toggle personal tools menu
+Create account
+Log in
+Navigation menu
+Namespaces
+Page
+Discussion
+English
+Views
+Read
+Sign up to edit
+View source
+View history
+More
+Search
+Navigation
+Core Gameplay
+Game Modes
+Game Progression
+Hunters
+Currency
+Lore
+Environment
+Maps
+World Items
+Targets
+Monsters
+Hazards
+Noise Traps
+Equipment
+Weapons
+Ammo
+Tools
+Consumables
+Traits
+Cosmetics
+Weapon Charms
+Equipment Animations
+Player Profile
+Content Sources
+Updates
+Events
+Twitch Drops
+DLC
+Story Challenges
+Wiki
+Main page
+Recent changes
+Random page
+Help about MediaWiki
+Contribute to the wiki!
+Wiki Policies
+Tools
+What links here
+Related changes
+New page
+Special pages
+Printable version
+Page information
+Database data
+Bloodline
+From Hunt: Showdown 1896 Wiki
+Jump to navigation
+Jump to search
+The Bloodline is the primary progression system in Hunt: Showdown 1896. Players start at Rank 1 and advance until Rank 100 through earning Bloodline . Every rank unlocks either new Tools , Consumables or Traits or grants some Hunt Dollars .
+Bloodline can be gained in various ways:
+Advancing a Hunter (see Hunter Progression ): certain Hunter levels grant a Bloodline bonus
+Retiring a Hunter at level 50 (grants 10,000 Bloodline )
+Dark Tribute reward
+Looting Bloodline XP Envelopes (grants 500 Bloodline )
+If the player reaches Bloodline Rank 100, he has the option to Prestige .
+Contents
+1 Trainee Mode
+2 Bloodline Tiers
+3 Unlocks
+3.1 Starting Equipment
+3.2 Unlockable Equipment
+3.3 Prestige 0 Rewards
+Trainee Mode
+Trainee mode is a special status applied to each new player and is removed when the player first reaches Bloodline Rank 15. In Trainee mode, a player's Hunter is not lost (see Permadeath ) if it gets killed or fails to extract during a Bounty Hunt or Bounty Clash mission.
+Bloodline Tiers
+By progressing through the Bloodline the player also advances its Bloodline Tier. Tier I reaches from Rank 1 to 33, Tier II from Rank 34 to 66 and Tier III from Rank 67 to 100.
+Before Update 2.0 , this Tier was important for non-legendary Hunter recruitment. Now it is only used for the initial Steam and console achievements of reaching those levels for the first time.
+Unlocks
+Starting Equipment
+In addition to all the base versions of Weapons and their Custom Ammo, the following is unlocked starting at Rank 1:
+Tools
+Choke Bombs
+Decoys
+Dusters
+First Aid Kit
+Fusees
+Knife
+Quad Derringer
+Spyglass
+Consumables
+Ammo Box
+Antidote Shot (Weak)
+Dynamite Stick
+Fire Bomb
+Medical Pack
+Regeneration Shot (Weak)
+Stamina Shot (Weak)
+Sticky Bomb
+Vitality Shot (Weak)
+Traits
+Adrenaline
+Blast Sense
+Bloodless
+Bulwark
+Dauntless
+Determination
+Doctor
+Ghoul
+Hornskin
+Lightfoot
+Magpie
+Necromancer
+Packmule
+Quartermaster
+Salveskin
+Unlockable Equipment
+Players unlock additional Tools , Consumables , and Traits as they progress through the Bloodline. In each subsequent Prestige, these reset and must be unlocked again. Some ranks also award Hunt Dollars .
+Unlocks overview table
+Rank
+Unlocks
+1
+All starting Equipment and Traits
+2
+Tool: Throwing Knives
+3
+Trait: Beastface
+4
+Trait: Resilience
+5
+Tool: Heavy Knife
+6
+Trait: Levering
+7
+Consumable: Vitality Shot
+8
+Tool: Throwing Axes
+9
+Trait: Iron Eye
+10
+Consumable: Stamina Shot
+11
+Trait: Fast Fingers 1000
+12
+Trait: Fanning
+13
+Consumable: Regeneration Shot
+14
+Trait: Serpent
+15
+Consumable: Dynamite Bundle
+16
+Trait: Hundred Hands
+17
+Tool: Derringer Pennyshot
+18
+Trait: Assailant
+19
+Consumable: Waxed Dynamite Stick
+20
+Trait: Surefoot
+21
+Consumable: Antidote Shot
+22
+Trait: Scopesmith
+23
+Tool: Flare Pistol
+24
+Trait: Vulture
+25
+Tool: Knuckle Knife
+26
+Trait: Bulletgrubber
+27
+Consumable: Choke Beetle Consumable: Fire Beetle Consumable: Stalker Beetle
+28
+Trait: Martialist
+29
+Tool: Alert Trip Mines Tool: Concertina Trip Mines Tool: Poison Trip Mines
+30
+Trait: Steady Aim
+31
+Consumable: Chaos Bomb
+32
+Trait: Bolt Thrower
+33
+Tool: Throwing Spear
+34
+Trait: Ambidextrous 1,000
+35
+Tool: Bear Traps
+36
+Trait: Poacher Trait: Vigilant
+37
+Consumable: Concertina Bomb
+38
+Trait: Conduit
+39
+Consumable: Poison Bomb
+40
+Trait: Mithridatist
+41
+Consumable: Frag Bomb
+42
+Trait: Beastface
+43
+Consumable: Hellfire Bomb Consumable: Liquid Fire Bomb
+44
+Trait: Witness
+45
+Trait: Physician
+46
+Consumable: Dark Dynamite Satchel
+47
+Trait: Frontiersman
+48
+Consumable: Hive Bomb
+49
+Trait: Whispersmith
+50
+Consumable: Flash Bomb
+51
+Trait: Kiteskin
+52
+Tool: Blank Fire Decoys Tool: Decoy Fuses
+53
+Trait: Decoy Supply
+54
+Trait: Blade Seer
+55
+Consumable: Tool Box
+56
+Trait: Gator Legs
+57
+Trait: Vigor
+58
+Consumable: Big Dynamite Bundle
+59
+Trait: Pain Sense
+60
+Trait: Silent Killer
+61
+Trait: Pitcher
+62
+Trait: Poltergeist 200
+63-66
+200
+67
+1,000
+68-100
+200
+After reaching rank 100, each additional 25,000 Bloodine XP earned rewards an additional 1,000 .
+Prestige 0 Rewards
+Players permanently unlock certain Hunters and Cosmetics the first time they progress through the Bloodline (Prestige 0).
+Prestige 0 reward table
+Rank
+Reward
+1
+Jane Eddings: Rookie Oliver Whitman: Rookie
+5
+Antonia Higuera: Rookie
+11
+Otis Blackwell
+34
+Mercy Zener: Rookie
+50
+Ambrose Hazen: Rookie
+67
+Caitlyn Hammond
+75
+Leon Ultisky: Rookie
+90
+Joan Damon: Rookie
+100
+Vinson Hayes
+Retrieved from " https://huntshowdown.wiki.gg/wiki/Bloodline?oldid=16849 "
+Report bad advertisement
+Cookies help us deliver our services. By using our services, you agree to our use of cookies.
+More information OK
+This page was last edited on 13 September 2026, at 23:09.
+Page content is under Creative Commons Attribution-ShareAlike 4.0 License unless otherwise noted.
+Terms of Service
+Privacy policy
+Support Wiki
+Send a ticket to wiki.gg
+Status page
+Manage cookie settings

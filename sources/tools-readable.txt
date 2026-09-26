@@ -1,0 +1,176 @@
+﻿ Tools - Hunt: Showdown 1896 Wiki 
+ Indie game deals 
+ Create account 
+ Log in 
+ Toggle personal tools menu 
+ Create account 
+ Log in 
+ Navigation menu
+ Namespaces 
+ Page 
+ Discussion 
+ English 
+ Views 
+ Read 
+ Sign up to edit 
+ View source 
+ View history 
+ More 
+ Search
+ Navigation 
+ Core Gameplay 
+ Game Modes 
+ Game Progression 
+ Hunters 
+ Currency 
+ Lore 
+ Environment 
+ Maps 
+ World Items 
+ Targets 
+ Monsters 
+ Hazards 
+ Noise Traps 
+ Equipment 
+ Weapons 
+ Ammo 
+ Tools 
+ Consumables 
+ Traits 
+ Cosmetics 
+ Weapon Charms 
+ Equipment Animations 
+ Player Profile 
+ Content Sources 
+ Updates 
+ Events 
+ Twitch Drops 
+ DLC 
+ Story Challenges 
+ Wiki 
+ Main page 
+ Recent changes 
+ Random page 
+ Help about MediaWiki 
+ Contribute to the wiki! 
+ Wiki Policies 
+ Tools 
+ What links here 
+ Related changes 
+ New page 
+ Special pages 
+ Printable version 
+ Page information 
+ Database data 
+ Tools 
+ From Hunt: Showdown 1896 Wiki
+ Jump to navigation 
+ Jump to search 
+ Tools make up the core utility of a Hunter's loadout. Some Tools are unlocked at the start, while the rest are unlocked through Bloodline progression. Some Tools can only be used a set amount of times, which can be extended with the Frontiersman Trait.
+ In Bounty Hunt and Bounty Clash , players equip a Hunter with their desired loadout of Tools, Weapons , and Consumables before the match, then spawn in with them. 
+In Soul Survivor , players have to search the map for Tools to equip and utilize.
+ You can alphabetically see all Tools by visiting the Tools Category .
+ Contents
+ 1 Tool Types 
+ 2 List of Tools 
+ 2.1 Currently available Tools 
+ 2.1.1 Distraction 
+ 2.1.2 Healing 
+ 2.1.3 Fire/Light 
+ 2.1.4 Melee 
+ 2.1.5 Throwable Melee 
+ 2.1.6 Pocket pistols 
+ 2.1.7 Traps 
+ 2.1.8 Others 
+ 2.2 Removed Tools 
+ 3 Tool Statistics 
+ Tool Types 
+ In the Arsenal, Tools fall under a set of categories:
+ Throwable Tools 
+ Placeable Tools 
+ Rending Tools 
+ Healing Tools 
+ Noise Tools 
+ Explosive Tools 
+ Fire Tools 
+ Poison Tools 
+ Vision Tools 
+ Light Tools 
+ Melee Tools 
+ As all but the Melee category are shared with Consumables, some categories are sparse (such as Healing) or empty (such as Explosive).
+ List of Tools 
+ Currently available Tools 
+ Note: The following categorization does not correspond with that in-game (as seen above) but serves for better grouping.
+ Distraction 
+ Blank Fire Decoys 
+ Decoys 
+ Decoy Fuses 
+ Healing 
+ First Aid Kit 
+ Fire/Light 
+ Flare Pistol 
+ Fusees 
+ Melee 
+ Dusters 
+ Heavy Knife 
+ Knife 
+ Knuckle Knife 
+ Throwable Melee 
+ Throwing Axes 
+ Throwing Knives 
+ Throwing Spear 
+ Pocket pistols 
+ Derringer Pennyshot 
+ Quad Derringer 
+ Traps 
+ Alert Trip Mines 
+ Concertina Trip Mines 
+ Poison Trip Mines 
+ Bear Traps 
+ Others 
+ Choke Bombs 
+ Spyglass 
+ Removed Tools 
+ Multitool 
+ Electric Lamp 
+ Tool Statistics 
+ Tool Stats of the Choke Bombs 
+ Tool Stats quantify the qualities of each Tool. Unlike weapons, these stats are hardly modified, except for the Pitcher trait extending Throw Range.
+ Some Tools such as the Flare Pistol and Quad Derringer utilize Weapon Stats rather than Tool stats.
+ Damage 
+ Damage value of a tool hitting a Hunter with its full effect.
+ For throwables, damage of a tool hitting a Hunter in the upper torso
+ Damage per Tick 
+ Damage while affected by a tool
+ Drop Range 
+ Distance (in meters) at which a projectile drops roughly a head's height (20cm) below the aim point
+ Effect Duration 
+ The time a tool effect lasts in seconds.
+ Effect Radius 
+ Effect radius in meters.
+ Fuse Timer 
+ The time (in seconds) until a tool detonates
+ Muzzle Velocity 
+ The velocity (meters per second) at which a weapon's projectile travels
+ Projectiles travel in a ballistic arc
+ Spread 
+ The relative crosshair spread of a weapon while aiming from the hip
+ Throw Range 
+ The furthest range (in meters) a tool can be thrown.
+ Melee Damage 
+ Damage value of a light or heavy melee attack that hits a Hunter in the upper torso
+ Stamina Consumption 
+ The stamina consumed (out of 100) with a light melee attack, heavy melee attack, or when thrown
+ Retrieved from " https://huntshowdown.wiki.gg/wiki/Tools?oldid=14799 "
+ Category : Equipment 
+ Report bad advertisement 
+ Cookies help us deliver our services. By using our services, you agree to our use of cookies. 
+ More information OK 
+ This page was last edited on 31 May 2026, at 02:12.
+ Page content is under Creative Commons Attribution-ShareAlike 4.0 License unless otherwise noted.
+ Terms of Service 
+ Privacy policy 
+ Support Wiki 
+ Send a ticket to wiki.gg 
+ Status page 
+ Manage cookie settings 

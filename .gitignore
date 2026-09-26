@@ -1,0 +1,10 @@
+# Local test profiles, reports, backups and downloadable build outputs.
+/artifacts/
+/backups/
+/dist/
+/site/
+/Chaos Hunt Randomizer/
+/desktop/vendor/
+/desktop/app.ico
+Thumbs.db
+.DS_Store

@@ -1,0 +1,735 @@
+{
+    "checked":  "2026-09-24",
+    "rulesSource":  "https://www.huntshowdown.com/releasenotes/en_US/update-281781019648",
+    "scope":  "Priced, purchasable ammunition for verified single-pool weapons. Split-reserve and combination weapons use standard ammo. Custom ammo unlocks must be confirmed by the player.",
+    "weapons":  {
+                    "bornheim-no-3":  [
+                                          {
+                                              "id":  "subsonic-ammo",
+                                              "name":  "Subsonic Ammo",
+                                              "cost":  5,
+                                              "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bornheim_No._3"
+                                          }
+                                      ],
+                    "bornheim-no-3-extended":  [
+                                                   {
+                                                       "id":  "subsonic-ammo",
+                                                       "name":  "Subsonic Ammo",
+                                                       "cost":  5,
+                                                       "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bornheim_No._3/Extended"
+                                                   }
+                                               ],
+                    "bornheim-no-3-silencer":  [
+                                                   {
+                                                       "id":  "subsonic-ammo",
+                                                       "name":  "Subsonic Ammo",
+                                                       "cost":  5,
+                                                       "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bornheim_No._3/Silencer"
+                                                   }
+                                               ],
+                    "conversion":  [
+                                       {
+                                           "id":  "fmj-ammo",
+                                           "name":  "FMJ Ammo",
+                                           "cost":  50,
+                                           "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Conversion"
+                                       }
+                                   ],
+                    "conversion-chain-pistol":  [
+                                                    {
+                                                        "id":  "fmj-ammo",
+                                                        "name":  "FMJ Ammo",
+                                                        "cost":  50,
+                                                        "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Conversion/Chain_Pistol"
+                                                    }
+                                                ],
+                    "nagant-m1895":  [
+                                         {
+                                             "id":  "subsonic-ammo",
+                                             "name":  "Subsonic Ammo",
+                                             "cost":  5,
+                                             "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Nagant_M1895"
+                                         }
+                                     ],
+                    "nagant-m1895-silencer":  [
+                                                  {
+                                                      "id":  "subsonic-ammo",
+                                                      "name":  "Subsonic Ammo",
+                                                      "cost":  5,
+                                                      "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Nagant_M1895/Silencer"
+                                                  }
+                                              ],
+                    "new-army":  [
+                                     {
+                                         "id":  "fmj-ammo",
+                                         "name":  "FMJ Ammo",
+                                         "cost":  50,
+                                         "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/New_Army"
+                                     }
+                                 ],
+                    "new-army-swift":  [
+                                           {
+                                               "id":  "fmj-ammo",
+                                               "name":  "FMJ Ammo",
+                                               "cost":  50,
+                                               "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/New_Army/Swift"
+                                           }
+                                       ],
+                    "officer":  [
+                                    {
+                                        "id":  "subsonic-ammo",
+                                        "name":  "Subsonic Ammo",
+                                        "cost":  5,
+                                        "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Officer"
+                                    }
+                                ],
+                    "officer-brawler":  [
+                                            {
+                                                "id":  "subsonic-ammo",
+                                                "name":  "Subsonic Ammo",
+                                                "cost":  5,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Officer/Brawler"
+                                            }
+                                        ],
+                    "pax":  [
+                                {
+                                    "id":  "incendiary-ammo",
+                                    "name":  "Incendiary Ammo",
+                                    "cost":  40,
+                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Pax"
+                                }
+                            ],
+                    "pax-claw":  [
+                                     {
+                                         "id":  "incendiary-ammo",
+                                         "name":  "Incendiary Ammo",
+                                         "cost":  40,
+                                         "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Pax/Claw"
+                                     }
+                                 ],
+                    "pax-trueshot":  [
+                                         {
+                                             "id":  "incendiary-ammo",
+                                             "name":  "Incendiary Ammo",
+                                             "cost":  40,
+                                             "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Pax/Trueshot"
+                                         }
+                                     ],
+                    "scottfield":  [
+                                       {
+                                           "id":  "incendiary-ammo",
+                                           "name":  "Incendiary Ammo",
+                                           "cost":  40,
+                                           "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Scottfield"
+                                       }
+                                   ],
+                    "scottfield-brawler":  [
+                                               {
+                                                   "id":  "incendiary-ammo",
+                                                   "name":  "Incendiary Ammo",
+                                                   "cost":  40,
+                                                   "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Scottfield/Brawler"
+                                               }
+                                           ],
+                    "scottfield-spitfire":  [
+                                                {
+                                                    "id":  "incendiary-ammo",
+                                                    "name":  "Incendiary Ammo",
+                                                    "cost":  40,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Scottfield/Spitfire"
+                                                }
+                                            ],
+                    "scottfield-swift":  [
+                                             {
+                                                 "id":  "incendiary-ammo",
+                                                 "name":  "Incendiary Ammo",
+                                                 "cost":  40,
+                                                 "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Scottfield/Swift"
+                                             }
+                                         ],
+                    "bornheim-no-3-match":  [
+                                                {
+                                                    "id":  "subsonic-ammo",
+                                                    "name":  "Subsonic Ammo",
+                                                    "cost":  5,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bornheim_No._3/Match"
+                                                }
+                                            ],
+                    "centennial-pointman":  [
+                                                {
+                                                    "id":  "poison-ammo",
+                                                    "name":  "Poison Ammo",
+                                                    "cost":  50,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial/Pointman"
+                                                }
+                                            ],
+                    "centennial-shorty":  [
+                                              {
+                                                  "id":  "poison-ammo",
+                                                  "name":  "Poison Ammo",
+                                                  "cost":  50,
+                                                  "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial/Shorty"
+                                              }
+                                          ],
+                    "centennial-shorty-silencer":  [
+                                                       {
+                                                           "id":  "poison-ammo",
+                                                           "name":  "Poison Ammo",
+                                                           "cost":  50,
+                                                           "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial/Shorty_Silencer"
+                                                       }
+                                                   ],
+                    "chu-ko-nu":  [
+                                      {
+                                          "id":  "incendiary-bolt",
+                                          "name":  "Incendiary Bolt",
+                                          "cost":  25,
+                                          "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Chu_Ko_Nu"
+                                      }
+                                  ],
+                    "mosin-obrez":  [
+                                        {
+                                            "id":  "incendiary-ammo",
+                                            "name":  "Incendiary Ammo",
+                                            "cost":  70,
+                                            "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin_Obrez"
+                                        }
+                                    ],
+                    "mosin-obrez-extended":  [
+                                                 {
+                                                     "id":  "incendiary-ammo",
+                                                     "name":  "Incendiary Ammo",
+                                                     "cost":  70,
+                                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin_Obrez/Extended"
+                                                 }
+                                             ],
+                    "mosin-obrez-mace":  [
+                                             {
+                                                 "id":  "incendiary-ammo",
+                                                 "name":  "Incendiary Ammo",
+                                                 "cost":  70,
+                                                 "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin_Obrez/Mace"
+                                             }
+                                         ],
+                    "nagant-m1895-deadeye":  [
+                                                 {
+                                                     "id":  "subsonic-ammo",
+                                                     "name":  "Subsonic Ammo",
+                                                     "cost":  5,
+                                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Nagant_M1895/Deadeye"
+                                                 }
+                                             ],
+                    "nagant-m1895-precision":  [
+                                                   {
+                                                       "id":  "subsonic-ammo",
+                                                       "name":  "Subsonic Ammo",
+                                                       "cost":  5,
+                                                       "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Nagant_M1895/Precision"
+                                                   }
+                                               ],
+                    "rival-78-mace":  [
+                                          {
+                                              "id":  "penny-shot-ammo",
+                                              "name":  "Penny Shot Ammo",
+                                              "cost":  10,
+                                              "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Rival_78/Mace"
+                                          }
+                                      ],
+                    "rival-78-shorty":  [
+                                            {
+                                                "id":  "penny-shot-ammo",
+                                                "name":  "Penny Shot Ammo",
+                                                "cost":  10,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Rival_78/Shorty"
+                                            }
+                                        ],
+                    "scottfield-precision":  [
+                                                 {
+                                                     "id":  "incendiary-ammo",
+                                                     "name":  "Incendiary Ammo",
+                                                     "cost":  40,
+                                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Scottfield/Precision"
+                                                 }
+                                             ],
+                    "specter-1882-shorty":  [
+                                                {
+                                                    "id":  "penny-shot-ammo",
+                                                    "name":  "Penny Shot Ammo",
+                                                    "cost":  10,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Specter_1882/Shorty"
+                                                }
+                                            ],
+                    "terminus-shorty":  [
+                                            {
+                                                "id":  "penny-shot-ammo",
+                                                "name":  "Penny Shot Ammo",
+                                                "cost":  10,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Terminus/Shorty"
+                                            }
+                                        ],
+                    "uppercut":  [
+                                     {
+                                         "id":  "incendiary-ammo",
+                                         "name":  "Incendiary Ammo",
+                                         "cost":  70,
+                                         "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Uppercut"
+                                     }
+                                 ],
+                    "vandal-73c":  [
+                                       {
+                                           "id":  "poison-ammo",
+                                           "name":  "Poison Ammo",
+                                           "cost":  50,
+                                           "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vandal_73C"
+                                       }
+                                   ],
+                    "vandal-73c-bullseye":  [
+                                                {
+                                                    "id":  "poison-ammo",
+                                                    "name":  "Poison Ammo",
+                                                    "cost":  50,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vandal_73C/Bullseye"
+                                                }
+                                            ],
+                    "vandal-73c-striker":  [
+                                               {
+                                                   "id":  "poison-ammo",
+                                                   "name":  "Poison Ammo",
+                                                   "cost":  50,
+                                                   "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vandal_73C/Striker"
+                                               }
+                                           ],
+                    "1865-carbine":  [
+                                         {
+                                             "id":  "subsonic-ammo",
+                                             "name":  "Subsonic Ammo",
+                                             "cost":  10,
+                                             "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/1865_Carbine"
+                                         }
+                                     ],
+                    "1865-carbine-aperture":  [
+                                                  {
+                                                      "id":  "subsonic-ammo",
+                                                      "name":  "Subsonic Ammo",
+                                                      "cost":  10,
+                                                      "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/1865_Carbine/Aperture"
+                                                  }
+                                              ],
+                    "1865-carbine-silencer":  [
+                                                  {
+                                                      "id":  "subsonic-ammo",
+                                                      "name":  "Subsonic Ammo",
+                                                      "cost":  10,
+                                                      "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/1865_Carbine/Silencer"
+                                                  }
+                                              ],
+                    "auto-4-shorty":  [
+                                          {
+                                              "id":  "slug",
+                                              "name":  "Slug",
+                                              "cost":  130,
+                                              "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Auto-4_Shorty"
+                                          }
+                                      ],
+                    "frontier-73c":  [
+                                         {
+                                             "id":  "poison-ammo",
+                                             "name":  "Poison Ammo",
+                                             "cost":  50,
+                                             "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Frontier_73C"
+                                         }
+                                     ],
+                    "frontier-73c-marksman":  [
+                                                  {
+                                                      "id":  "poison-ammo",
+                                                      "name":  "Poison Ammo",
+                                                      "cost":  50,
+                                                      "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Frontier_73C/Marksman"
+                                                  }
+                                              ],
+                    "frontier-73c-silencer":  [
+                                                  {
+                                                      "id":  "poison-ammo",
+                                                      "name":  "Poison Ammo",
+                                                      "cost":  50,
+                                                      "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Frontier_73C/Silencer"
+                                                  }
+                                              ],
+                    "mosin-obrez-match":  [
+                                              {
+                                                  "id":  "incendiary-ammo",
+                                                  "name":  "Incendiary Ammo",
+                                                  "cost":  70,
+                                                  "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin_Obrez/Match"
+                                              }
+                                          ],
+                    "mosin-obrez-sharpeye":  [
+                                                 {
+                                                     "id":  "incendiary-ammo",
+                                                     "name":  "Incendiary Ammo",
+                                                     "cost":  70,
+                                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin_Obrez/Sharpeye"
+                                                 }
+                                             ],
+                    "officer-carbine":  [
+                                            {
+                                                "id":  "subsonic-ammo",
+                                                "name":  "Subsonic Ammo",
+                                                "cost":  5,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Officer/Carbine"
+                                            }
+                                        ],
+                    "officer-carbine-deadeye":  [
+                                                    {
+                                                        "id":  "subsonic-ammo",
+                                                        "name":  "Subsonic Ammo",
+                                                        "cost":  5,
+                                                        "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Officer/Carbine_Deadeye"
+                                                    }
+                                                ],
+                    "uppercut-deadeye":  [
+                                             {
+                                                 "id":  "incendiary-ammo",
+                                                 "name":  "Incendiary Ammo",
+                                                 "cost":  70,
+                                                 "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Uppercut/Deadeye"
+                                             }
+                                         ],
+                    "uppercut-precision":  [
+                                               {
+                                                   "id":  "incendiary-ammo",
+                                                   "name":  "Incendiary Ammo",
+                                                   "cost":  70,
+                                                   "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Uppercut/Precision"
+                                               }
+                                           ],
+                    "vetterli-71":  [
+                                        {
+                                            "id":  "incendiary-ammo",
+                                            "name":  "Incendiary Ammo",
+                                            "cost":  40,
+                                            "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71"
+                                        }
+                                    ],
+                    "vetterli-71-bayonet":  [
+                                                {
+                                                    "id":  "incendiary-ammo",
+                                                    "name":  "Incendiary Ammo",
+                                                    "cost":  40,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71/Bayonet"
+                                                }
+                                            ],
+                    "vetterli-71-deadeye":  [
+                                                {
+                                                    "id":  "incendiary-ammo",
+                                                    "name":  "Incendiary Ammo",
+                                                    "cost":  40,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71/Deadeye"
+                                                }
+                                            ],
+                    "vetterli-71-marksman":  [
+                                                 {
+                                                     "id":  "incendiary-ammo",
+                                                     "name":  "Incendiary Ammo",
+                                                     "cost":  40,
+                                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71/Marksman"
+                                                 }
+                                             ],
+                    "vetterli-71-silencer":  [
+                                                 {
+                                                     "id":  "incendiary-ammo",
+                                                     "name":  "Incendiary Ammo",
+                                                     "cost":  40,
+                                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71/Silencer"
+                                                 }
+                                             ],
+                    "centennial":  [
+                                       {
+                                           "id":  "poison-ammo",
+                                           "name":  "Poison Ammo",
+                                           "cost":  50,
+                                           "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial"
+                                       }
+                                   ],
+                    "centennial-sniper":  [
+                                              {
+                                                  "id":  "poison-ammo",
+                                                  "name":  "Poison Ammo",
+                                                  "cost":  50,
+                                                  "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial/Sniper"
+                                              }
+                                          ],
+                    "centennial-trauma":  [
+                                              {
+                                                  "id":  "poison-ammo",
+                                                  "name":  "Poison Ammo",
+                                                  "cost":  50,
+                                                  "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial/Trauma"
+                                              }
+                                          ],
+                    "infantry-73l":  [
+                                         {
+                                             "id":  "poison-ammo",
+                                             "name":  "Poison Ammo",
+                                             "cost":  50,
+                                             "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Infantry_73L"
+                                         }
+                                     ],
+                    "infantry-73l-bayonet":  [
+                                                 {
+                                                     "id":  "poison-ammo",
+                                                     "name":  "Poison Ammo",
+                                                     "cost":  50,
+                                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Infantry_73L/Bayonet"
+                                                 }
+                                             ],
+                    "infantry-73l-sniper":  [
+                                                {
+                                                    "id":  "poison-ammo",
+                                                    "name":  "Poison Ammo",
+                                                    "cost":  50,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Infantry_73L/Sniper"
+                                                }
+                                            ],
+                    "krag":  [
+                                 {
+                                     "id":  "subsonic-ammo",
+                                     "name":  "Subsonic Ammo",
+                                     "cost":  20,
+                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Krag"
+                                 }
+                             ],
+                    "krag-bayonet":  [
+                                         {
+                                             "id":  "subsonic-ammo",
+                                             "name":  "Subsonic Ammo",
+                                             "cost":  20,
+                                             "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Krag/Bayonet"
+                                         }
+                                     ],
+                    "krag-silencer":  [
+                                          {
+                                              "id":  "subsonic-ammo",
+                                              "name":  "Subsonic Ammo",
+                                              "cost":  20,
+                                              "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Krag/Silencer"
+                                          }
+                                      ],
+                    "krag-sniper":  [
+                                        {
+                                            "id":  "subsonic-ammo",
+                                            "name":  "Subsonic Ammo",
+                                            "cost":  20,
+                                            "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Krag/Sniper"
+                                        }
+                                    ],
+                    "lebel-1886":  [
+                                       {
+                                           "id":  "incendiary-ammo",
+                                           "name":  "Incendiary Ammo",
+                                           "cost":  70,
+                                           "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Lebel_1886"
+                                       }
+                                   ],
+                    "lebel-1886-aperture":  [
+                                                {
+                                                    "id":  "incendiary-ammo",
+                                                    "name":  "Incendiary Ammo",
+                                                    "cost":  70,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Lebel_1886/Aperture"
+                                                }
+                                            ],
+                    "lebel-1886-marksman":  [
+                                                {
+                                                    "id":  "incendiary-ammo",
+                                                    "name":  "Incendiary Ammo",
+                                                    "cost":  70,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Lebel_1886/Marksman"
+                                                }
+                                            ],
+                    "lebel-1886-talon":  [
+                                             {
+                                                 "id":  "incendiary-ammo",
+                                                 "name":  "Incendiary Ammo",
+                                                 "cost":  70,
+                                                 "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Lebel_1886/Talon"
+                                             }
+                                         ],
+                    "mako-1895":  [
+                                      {
+                                          "id":  "fmj-ammo",
+                                          "name":  "FMJ Ammo",
+                                          "cost":  60,
+                                          "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mako_1895"
+                                      }
+                                  ],
+                    "mako-1895-aperture":  [
+                                               {
+                                                   "id":  "fmj-ammo",
+                                                   "name":  "FMJ Ammo",
+                                                   "cost":  60,
+                                                   "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mako_1895/Aperture"
+                                               }
+                                           ],
+                    "mako-1895-claw":  [
+                                           {
+                                               "id":  "fmj-ammo",
+                                               "name":  "FMJ Ammo",
+                                               "cost":  60,
+                                               "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mako_1895/Claw"
+                                           }
+                                       ],
+                    "marathon":  [
+                                     {
+                                         "id":  "incendiary-ammo",
+                                         "name":  "Incendiary Ammo",
+                                         "cost":  40,
+                                         "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Marathon"
+                                     }
+                                 ],
+                    "marathon-swift":  [
+                                           {
+                                               "id":  "incendiary-ammo",
+                                               "name":  "Incendiary Ammo",
+                                               "cost":  40,
+                                               "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Marathon/Swift"
+                                           }
+                                       ],
+                    "mosin-nagant":  [
+                                         {
+                                             "id":  "incendiary-ammo",
+                                             "name":  "Incendiary Ammo",
+                                             "cost":  70,
+                                             "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin-Nagant"
+                                         }
+                                     ],
+                    "mosin-nagant-bayonet":  [
+                                                 {
+                                                     "id":  "incendiary-ammo",
+                                                     "name":  "Incendiary Ammo",
+                                                     "cost":  70,
+                                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin-Nagant/Bayonet"
+                                                 }
+                                             ],
+                    "mosin-nagant-sniper":  [
+                                                {
+                                                    "id":  "incendiary-ammo",
+                                                    "name":  "Incendiary Ammo",
+                                                    "cost":  70,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin-Nagant/Sniper"
+                                                }
+                                            ],
+                    "ranger-73":  [
+                                      {
+                                          "id":  "poison-ammo",
+                                          "name":  "Poison Ammo",
+                                          "cost":  50,
+                                          "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Ranger_73"
+                                      }
+                                  ],
+                    "ranger-73-aperture":  [
+                                               {
+                                                   "id":  "poison-ammo",
+                                                   "name":  "Poison Ammo",
+                                                   "cost":  50,
+                                                   "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Ranger_73/Aperture"
+                                               }
+                                           ],
+                    "ranger-73-swift":  [
+                                            {
+                                                "id":  "poison-ammo",
+                                                "name":  "Poison Ammo",
+                                                "cost":  50,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Ranger_73/Swift"
+                                            }
+                                        ],
+                    "ranger-73-talon":  [
+                                            {
+                                                "id":  "poison-ammo",
+                                                "name":  "Poison Ammo",
+                                                "cost":  50,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Ranger_73/Talon"
+                                            }
+                                        ],
+                    "rival-78":  [
+                                     {
+                                         "id":  "penny-shot-ammo",
+                                         "name":  "Penny Shot Ammo",
+                                         "cost":  10,
+                                         "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Rival_78"
+                                     }
+                                 ],
+                    "rival-78-trauma":  [
+                                            {
+                                                "id":  "penny-shot-ammo",
+                                                "name":  "Penny Shot Ammo",
+                                                "cost":  10,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Rival_78/Trauma"
+                                            }
+                                        ],
+                    "slate":  [
+                                  {
+                                      "id":  "slug",
+                                      "name":  "Slug",
+                                      "cost":  130,
+                                      "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Slate"
+                                  }
+                              ],
+                    "slate-riposte":  [
+                                          {
+                                              "id":  "slug",
+                                              "name":  "Slug",
+                                              "cost":  130,
+                                              "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Slate/Riposte"
+                                          }
+                                      ],
+                    "specter-1882":  [
+                                         {
+                                             "id":  "penny-shot-ammo",
+                                             "name":  "Penny Shot Ammo",
+                                             "cost":  10,
+                                             "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Specter_1882"
+                                         }
+                                     ],
+                    "specter-1882-bayonet":  [
+                                                 {
+                                                     "id":  "penny-shot-ammo",
+                                                     "name":  "Penny Shot Ammo",
+                                                     "cost":  10,
+                                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Specter_1882/Bayonet"
+                                                 }
+                                             ],
+                    "terminus":  [
+                                     {
+                                         "id":  "penny-shot-ammo",
+                                         "name":  "Penny Shot Ammo",
+                                         "cost":  10,
+                                         "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Terminus"
+                                     }
+                                 ],
+                    "vetterli-71-cyclone":  [
+                                                {
+                                                    "id":  "incendiary-ammo",
+                                                    "name":  "Incendiary Ammo",
+                                                    "cost":  40,
+                                                    "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71/Cyclone"
+                                                }
+                                            ],
+                    "auto-5":  [
+                                   {
+                                       "id":  "slug",
+                                       "name":  "Slug",
+                                       "cost":  130,
+                                       "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Auto-5"
+                                   }
+                               ],
+                    "mosin-nagant-avtomat":  [
+                                                 {
+                                                     "id":  "incendiary-ammo",
+                                                     "name":  "Incendiary Ammo",
+                                                     "cost":  70,
+                                                     "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin-Nagant/Avtomat"
+                                                 }
+                                             ]
+                }
+}

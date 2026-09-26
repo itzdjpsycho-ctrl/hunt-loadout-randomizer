@@ -1,0 +1,528 @@
+﻿Hunters - Hunt: Showdown 1896 Wiki
+Indie game deals
+Create account
+Log in
+Toggle personal tools menu
+Create account
+Log in
+Navigation menu
+Namespaces
+Page
+Discussion
+English
+Views
+Read
+Sign up to edit
+View source
+View history
+More
+Search
+Navigation
+Core Gameplay
+Game Modes
+Game Progression
+Hunters
+Currency
+Lore
+Environment
+Maps
+World Items
+Targets
+Monsters
+Hazards
+Noise Traps
+Equipment
+Weapons
+Ammo
+Tools
+Consumables
+Traits
+Cosmetics
+Weapon Charms
+Equipment Animations
+Player Profile
+Content Sources
+Updates
+Events
+Twitch Drops
+DLC
+Story Challenges
+Wiki
+Main page
+Recent changes
+Random page
+Help about MediaWiki
+Contribute to the wiki!
+Wiki Policies
+Tools
+What links here
+Related changes
+New page
+Special pages
+Printable version
+Page information
+Database data
+Hunters
+From Hunt: Showdown 1896 Wiki
+Jump to navigation
+Jump to search
+Hunters are the playable characters of Hunt: Showdown 1896.
+Contents
+1 Recruiting & Sources
+1.1 Free Hunters
+1.2 Common & Legendary Hunters
+1.3 Soul Survivor
+2 Roster
+3 Equipment
+4 Hunter progression
+4.1 Hunter XP & Level
+4.2 Retirement & Dismissal
+5 Health & Death
+5.1 Death & Revival
+5.2 Permadeath
+6 Status Effects
+6.1 Bleeding
+6.2 Burning
+6.3 Poison
+6.4 Wet
+7 Movement
+7.1 Weighed Down
+8 Stamina
+9 Looting
+10 Hunter Voices & Noises
+11 List of all Hunters
+11.1 Free Hunters/Soul Survivor
+11.2 Progression Hunters
+11.2.1 Bloodline Unlocks
+11.2.2 Prestige Unlocks
+11.2.3 Progression Unlocks
+11.3 Legendary Hunters
+11.3.1 Dark Tribute
+11.3.2 Blood Bonds
+11.3.3 DLC
+11.3.4 Event Exclusive
+11.3.5 Mythic Hunters
+11.3.6 Story Challenge Exclusive
+11.3.7 Twitch Drops
+Recruiting & Sources
+Players must recruit Hunters in order to play the game modes Bounty Hunt and Bounty Clash and there are multiple ways to do so. To understand some unlock mechanics and naming conventions, one has to know how Hunter recruitment worked before Update 2.0 .
+Free Hunters
+Each time the player exits a mission (regardless of extraction or death) four free hunters are available.
+These hunters have a basic appearance (and they are always the same four skins) and a random name and come with relatively cheap Weapons , a melee tool and a First Aid Kit as well as a random Consumable and one random Trait . All of their equipment is contraband meaning it cannot be sold to earn Hunt Dollars .
+Common & Legendary Hunters
+If the player desires to, he can spend 100 to recruit a Common or Legendary hunter.
+The difference between those two categories is as follows:
+Common Hunters are still relatively basic looking (and are very similar to the old Tier I Hunter skins, but have a fixed name) and are unlocked during the first progression through the Bloodline (10 in total), which means they will be unlocked by every player without further ado.
+Legendary Hunters have a much more fancy or complex appearance and some are better disguised than others. For some, there is equipment to match the theme. They can be unlocked through either Hunter Tier progression (this aims to bring back some of the old Tier II and III Hunter skins), for Blood Bonds in the in-game store, by purchasing a DLC , through Event progression, Prestige progression, as a Dark Tribute reward, through Twitch Drops or via a Story Challenge .
+They do not come with any equipment but they have 10 which players can spend freely for Traits they have unlocked already depending on their current Bloodline progression.
+Soul Survivor
+The last option to get a Hunter (essentially free) is by winning a game of Soul Survivor . This Hunter gets added to the roster exactly how it ended the game with all its equipment, Traits and experience.
+Before each round the player can choose on of four Hunter skins which are the same ones as the free Hunters. These Hunters also get a random name, which is only visible after the game.
+Roster
+All available Hunters are stored in the player's Hunter roster, from where he can view and select them, change their equipment or retire them (see below). Every new player can store up to 10 Hunters in its roster. Additional slots (up to 100 in total) can be bought for 150 each or gained as a free reward through Dark Tribute . The player cannot actively recruit more Hunters than he has slots in the Roster with the following exceptions:
+If the player wins a game of Soul Survivor with the Roster already full, a temporary slot will be added to accomodate the newly gained Hunter
+Same applies to unlocking any Hunter Skin, since the unlock itself grants one instance of that specific skin
+Equipment
+Each Hunter can carry two weapons (see also Weapon slots ), up to eight Tools and/or Consumables and up to 15 Traits . While each Tool has to be a different one, the Hunter can carry multiple items of the same Consumable if the player so chooses or loots them in-game. Traits must be bought with Upgrade Points , which have to be earned per Hunter via the Hunter progression (see below).
+While for Bounty Hunt and Bounty Clash the player must equip the Hunter beforehand completely, in Soul Survivor a cheap medium or small slot weapon, a random melee tool and a First Aid Kit are given and one random Trait will be assigned per collected Rift. The rest has to be found in the world.
+Hunter progression
+Hunter XP & Level
+Hunters gain Experience Points in missions. The actions performed during each mission (e.g. reviving teammates, collecting Clues, closing Rifts and killing Targets and enemy Hunters) grant XP after successful extraction from the game. Through collecting this XP, the Hunter will level up starting from level 1 to a maxium of level 50. Each level grants Upgrade Points , which can be used to purchase Traits and restore lost Health Chunks (see below). A small Health Chunk costs 1 , a big costs 2 . Bonus XP is transferred to the Bloodline .
+Extra XP can also be gained by looting Hunter XP Envelope .
+Retirement & Dismissal
+If a Hunter reaches level 50 it can be retired. Upon retirement, all current equipment will be returned to the player's arsenal, 10,000 will be added to the Bloodline and the Hunter will be removed from the Roster.
+If the player runs out of Hunter slots or doesn't need a specific Hunter anymore it can be dismissed at any time. Doing so will also return all current equipment to the player's arsenal and remove the Hunter from the Roster, but there will be no transfer to the Bloodline.
+Health & Death
+Each Hunter has 150 Health Points (HP) to start with. These 150 HP are divided in said Health Chunks, which are either 50 or 25 HP in size. The player can distribute them freely, only the lowest 50 HP can not be altered and are always a big Health Chunk.
+The Health Bar at the bottom of the screen displays the current Health Points with 0 HP to the left and 150 HP to the right. All possible combinations are shown in the picure below.
+All possible Health Chunk combinations
+When a Hunter takes damage, it loses Health Points. A partially depleted Health Chunk will slowly regenerate over time (a bit faster using Dark Sight while carrying the Trait Vigor ), but a Health Chunk that has been completely depleted does not regenerate on its own, therefore any method of healing will be needed.
+Hunters can heal through:
+Using a Health Pack (100 HP)
+Using a Medical Pack (100 HP)
+Using a First Aid Kit (restores 50 HP or 100 HP with the Trait Doctor and the Trait Physician speeds up the healing process)
+Using a Vitality Shot (Weak) (75 HP) or Vitality Shot (150 HP)
+Using a Regeneration Shot (Weak) or Regeneration Shot (for a set amount of time Health Chunks will slowly regenerate even if they are depleted completely)
+Killing monsters while carrying the Trait Ghoul
+All other methods that trigger a full restoration from the list below
+Death & Revival
+When the HP are depleted to 0, the Hunter is downed. Every time it gets downed, it will permanently lose one Health Chunk beginning from the right side of the Health Bar (if the Hunter carries the Trait Relentless , no Health Chunk will be lost). In Bounty Hunt and Bounty Clash Teammates can revive downed Hunters, but if all teammates are downed, the team is out of the mission. A revived Hunter stands up with only 50 HP making it easy for enemy Hunters to down him again immediately. With the Trait Resilience all left Health Chunks will be healed fully upon revive. Solo players can revive themselves once with the Trait Necromancer and they will receive a full health restoration (see two paragraphs below) when doing so.
+There is no general revive timer in Hunt: Showdown 1896, so teammates don't have to rush the revive. However, enemies can set the corpse on fire slowly and permanently burning down the remaining Health Chunks, forcing the teammates to engage and try to put out the fire before all Health Chunks are gone. A miniature Health Bar in the icon over a downed Hunter shows Teammates how much HP are left. While downed, there are two burning speeds: fast burn and slow burn. Fast burning will either occur when laying directly in a fire ( Fire Bomb , oil patch etc.) or lasts five seconds after initial ignition. After those five seconds and if not inside a fire it will change to slow burning. Reignition during slow burn will start the five seconds again. Since Update 2.4 even Hunters laying in the water will burn at a very slow rate as long as there is a fire above them (from a Liquid Fire Bomb ).
+Lost Health Chunks can be restored using the following methods (the ones marked with (*) trigger a full health restoration meaning they restore all Health Chunks and heal 150 HP at the same time):
+Banishing a Boss or killing a Wild Target (*)
+Interacting with a Trait Spur using the Trait Remedy (*)
+Interacting with a Sealed Health Pack (*)
+Killing an enemy Hunter while carrying the Trait Rampage (*)
+Using a Recovery Shot
+Using event specific Traits like Peacekeeper , which restores one Health Chunk when looting an enemy Hunter
+Buying them with Upgrade Points in the menu after a sucessful extraction (extracting while carrying a Bounty Token will restore lost Health Chunks for free)
+If a Hunter gets downed multiples times and/or loses all Health Chunks it will die. The only way to revive a dead Hunter is to perform the revive while carrying a Bounty Token (so called "red skull revive" since dead Hunters are marked with a red skull both on the minimap and in the HUD ). To limit the use of this powerful feature, a red skull revive cannot be done via Necromancer and 50 HP are burned of the reviving Teammate (if the Teammate is down to 50 HP as well, it will only burn 49 HP so that he doesn't die from the revive).
+Downed Hunter
+Burning Downed Hunter
+Dead Hunter
+Dead Hunter which can be revived with the Bounty Token
+With all above in mind each combination of Health Chunks has its pros and cons: While a combination of three big health Chunks minimizes the consumption of healing and withstands a direct hit with fire, it also means that a Hunter can be downed only two times before being dead. Also when set on fire while being down the HP start to burn from 100 HP and not from 125 HP (like it would with a small first Health Chunk), giving the reviving teammates less time to react. On the other hand a combination of one big and four small Health Chunks allows the Hunter to be downed four times, but it is much more likely to lose one to fire or deplete one by as less as two hits from a Grunt .
+Permadeath
+If a player is not able to extract from a Bounty Hunt or Bounty Clash alive because of one of the following situations, the Hunter with all its equipment will be lost permanently and only 50% of the gained will be granted:
+The teammates are not able to pick up a Bounty Token to perform a red skull revive and have to leave their mate behind
+The whole team is downed
+A solo is downed or downed again after he already used Necromancer
+The player or team doesn't get to an Extraction Point before the timer runs down to 0:00
+A Hunter carrying the Trait Death Cheat will not be lost in the situations mentioned above. He only loses it's equipment, but the Hunter level and Traits are saved so the player can use this Hunter again.
+In Soul Survivor there is no revive mechanic so getting downed will result in (perma)death instantly.
+Status Effects
+All over the game the player will be confronted with three types of damage over time: Bleeding, Fire/Burning and Poison (see also Hazards ). As a fourth status effect the Hunter can get wet.
+Bleeding
+Bleedings wounds can be caused by (but not limited to):
+Dumdum Ammo
+Bolt and Arrow Ammo
+Sharp melee tools like knives, pitchforks or bayonets
+Concertina Wire, Bear Traps or Frag Bomb
+Stalker Beetle
+Monters such as Hellhounds or Water Devils
+The Assassin Boss Target
+Grunts with knives
+Bleeding can occur in the three intensities light, medium and heavy depending on the source or the amounts of impact or the distance of a shot with Dumdum Ammo. It causes a continuous loss of HP where heavy has the fastest speed and is indicated with either one, two or three drops of blood dripping from the Health Bar. If not stopped, the Hunter will lose HP until 0 and will get downed as a consequence. While in the process of stopping the bleeding, the Hunter cannot do anything else and is more vulnerable to attacks. Also this process takes more time the stronger the bleeding is.
+Example for light bleeding
+As a countermeasure, Hunters can use the Trait Bloodless , which will cause light bleeding only regardless of the source.
+Burning
+Burning can be caused by (but not limited to):
+Incendiary Ammo , Dragon Breath or Starshell Ammo
+Fire Bombs
+Fire Barrel or Alert Trip Mines
+Fire Beetle
+Exploding Immolators (burns a small Health Chunk immediately)
+The Butcher Boss Target or Hellborn Wild Target
+Grunts with lanterns or torches
+Open fires in the world
+Burning causes a continuous loss of HP. If not stopped, burned Health Chunks will be destroyed permanently, whereas a partially burned Health Chunk will regenerate on its own - but more slowly than usual - and is shown charcoaled as an indication. Other than extinguishing the fire by hand it can be stopped by running into a choke cloud or deep water. Also charcoaled Health Chunks regenerate much faster when the Hunter gets wet (see below). If the burning depletes the HP to 0 the Hunter will die (see the Death & Revive section above).
+Example for one burnt Health Chunk before and after extinguishing
+As a countermeasure, Hunters can use the Trait Salveskin , which decreases the burning speed, shortens the extinguishing time and requires to be hit two times with incendiary ammo to be set on fire.
+Poison
+Poisoning can be caused by (but not limited to):
+Poison Ammo
+Poison Bomb or Hive Bomb
+Stalker Beetle
+Poison Barrel or Poison Trip Mines
+Hives or Leeches from the Meatheads
+The Spider Boss Target
+Doctor Grunts
+Poison does not inflict damage over time (unless the Hunter stands in a cloud of poison), but for the time of being poisoned, health does not regenerate on its own and cannot be healed. In addition, the view gets a green tint and is blurry making it harder to see. These effects wear off on its own after a bit of time.
+Example for a poisoned Hunter
+As a countermeasure, Hunters can use a Antidote Shot (Weak) or Antidote Shot to be immune to poison for a set amount of time or use one or multiple of the Traits Mithridatist (drastically reduces the duration of the poison effect) and Magpie (gives a set amount of time of immunity when picking up a Bounty Token).
+Wet
+Hunters get wet by:
+Traversing deep water
+During heavy rain
+Getting hit by a Water Bottle
+After the initial impact, the wet state lasts for 15s during which the Hunter:
+does not burn or catch fire as easily
+recovers charcoaled health faster
+has wet footstep audio and the steps are louder and easier to track
+Movement
+Hunters can move across the map in various ways. Besides standing still they can sprint, walk or crouch, while sprinting is the fastest and loudest of those options and crouching the slowest but most quiet one (see chapter Noises below). In addition, sprinting consumes stamina (see chapter Stamina below) and crouching is indicated with a special icon .
+Besides that, Hunters can jump or vault over objects like hay bales, crates, fences or through windows.
+Weighed Down
+While carrying a heavy load, the Hunter's movement speed is slowed down. Currently only the Maxim M1895 causes this effect.
+Stamina
+There are two types of stamina in the game: sprint stamina and combat stamina.
+As the name suggest, the sprint stamina gets drained when the Hunter sprints for a prolonged amount of time. The Hunter will become audibly out of breath and the running speed decreases, also a lung icon will appear as an indication . The sprint stamina will automatically begin to regenerate if the Hunter stands or walks. With the Trait Greyhound a Hunter can sprint a longer distance before this effect occurs.
+Combat stamina gets depleted during all types of melee combat with throwable , non-throwable and world item melee weapons as well as light and heavy melee attacks with weapons depending on their attachments like bayonets or hatchets. It is indicated by a yellow bar below the Health Bar. When the Hunter runs out of combat stamina, it can no longer perform heavy attacks and the light melee attack speed is also slowed down significantly, though the amount of damage from each attack remains unchanged. Combat stamina also regenerates automatically over time once the attacks stop.
+Partially depleted combat stamina
+Each stamina type cannot regenerate while the other type is in use (e.g. the combat stamina doesn't regenerate while sprinting).
+As a countermeasure, Hunters can use a Stamina Shot (Weak) or Stamina Shot to have infinite stamina for a set amount of time or use one or multiple of the Traits Adrenaline (gives a stamina boost when HP are critically low), Determination (stamina regeneration starts sooner), Conduit (gives a set amount of time with infinite stamina for each investigated Clue or Rift) and Magpie (gives a set amount of time with infinite stamina when picking up a Bounty Token).
+Looting
+Players can loot enemy Hunter's corpses. Doing so will randomly give one instance of a missing or used Tool or a Consumable depending on what the player has used so far. A random amount of Hunt Dollars (50, 75, 100, 200, 500 or 1000 ) will be rewarded instead, if the Hunter is already full on Tools and Consumables. If the player's Hunter carries the Trait Packmule , two Tools and/or Consumables will be looted. With the Trait Vulture players will always loot Hunt Dollars in addition to the Tools and Consumables. These Tools and Consumables are not taken from the enemy's equipment, but are generated during looting, since the enemy Hunter might carry a different set of Tools or is even empty on Consumables.
+If a player kills and loots an enemy Hunter, that has previously downed him, 2 are rewarded for that Hunter as a Retaliation bonus.
+In compliance with the Weapon slots , Players can also swap their Hunter's weapons (one or both) with the ones of the enemy Hunter, as they lay on the ground next to it (e.g. when the own weapon is empty or they are not suitable for the current situation). Besides that, if the player's and the enemy's weapon use the same Ammo , a swap back and forth will transfer any left reserve ammo to the player's weapon (but not more than the weapon can usually carry). If the enemy Hunter gets revived, he now has the player's weapons instead or less reserve ammo depending on the interaction.
+All that above cannot be done while the corpse is burning. In addition, a corpse will remain unlootable if it lost all its HP to fire ("burned out").
+Hunter Voices & Noises
+All Hunters have the same voice style. The only difference is between male and female Hunters. This allows players to be able to understand the sounds Hunters make and not have trouble or have to memorize new voice styles with each new Legendary Hunter.
+Hunters will produce a noise when performing a melee attack, running (without stamina), jumping and vaulting, as well as receiving damage, healing or being revived. A quiet inhale is also heard when aiming down sights. Some of these sounds are more quiet when the Hunter carries one or multiple of the Traits Lightfoot (reduces the noise of falling, climbing, jumping and vaulting), Silent Killer (removes the moaning during melee attacks) and Gator Legs (reduces the noise while crouching through water).
+Furthermore, changing between different pieces of equipment also produces some distinct noise (which gives away the type of equipment to experienced players). These sounds can be reduced with the Trait Whispersmith .
+List of all Hunters
+An alphabetical list of all Hunters is also available in the Hunters category .
+Free Hunters/Soul Survivor
+Progression Hunters
+Bloodline Unlocks
+Jane Eddings: Rookie
+Oliver Whitman: Rookie
+Antonia Higuera: Rookie
+Mercy Zener: Rookie
+Ambrose Hazen: Rookie
+Leon Ulitsky: Rookie
+Joan Damon: Rookie
+Caitlyn Hammond
+Otis Blackwell
+Vinson Hayes
+Prestige Unlocks
+Jesse Buchanan: Rookie
+Laura Gottschalk: Rookie
+Zachary Jones
+Willa Thomas
+Sascha Romanov
+Prudence Stallworth
+Ricky Leeds
+Thaddeus Sumner
+John Victor
+Progression Unlocks
+Players can unlock Survivor and Veteran versions of all Rookie Hunters by reaching Hunter level 50 with each lower tier version once.
+Jane Eddings: Survivor
+Jane Eddings: Veteran
+Oliver Whitman: Survivor
+Oliver Whitman: Veteran
+Antonia Higuera: Survivor
+Antonia Higuera: Veteran
+Mercy Zener: Survivor
+Mercy Zener: Veteran
+Ambrose Hazen: Survivor
+Ambrose Hazen: Veteran
+Leon Ulitsky: Survivor
+Leon Ulitsky: Veteran
+Joan Damon: Survivor
+Joan Damon: Veteran
+Jesse Buchanan: Survivor
+Jesse Buchanan: Veteran
+Laura Gottschalk: Survivor
+Laura Gottschalk: Veteran
+Legendary Hunters
+Dark Tribute
+Bad Hand
+Union Suit: Red Drawers
+Union Suit: Sunday Best
+Blood Bonds
+Bloody Red: Hood
+Bloody Red: Wolf
+Carcass Gunrunner
+Coal Bearer
+Corvid: Bile
+Corvid: Brood
+Death Mask
+Deckhand
+Desert Rose: Blue Skies
+Desert Rose: Dust Devil
+Dire Wolf
+Dorothy Alice: Dream
+Dorothy Alice: Nightmare
+Felis
+Giggles
+Grotesque: Shank
+Grotesque: Gouge
+Hail Mary
+Hawkshaw Jack
+Hex Breaker
+Justin Pierce
+Leo Nuñez
+Luna Wolf
+Marian Lee
+Marshall Brewer
+Midnight's Shadow
+Pappy Redneck
+Private Eye
+Redneck
+Redshirt
+Sea Wolf
+Servant of the Void
+Sheriff Hardin
+Sunshine
+The Bandit
+The Black Coat
+The Foxhound
+The Drowned Kid
+The Drowned Rat
+The Highwayman
+The Hornback
+The Mountain Man
+The Night Acolyte
+The Night Mother
+The Night Seer
+The Ol' Cowpoke
+The Redneck's Daughter
+The Reverend
+The Royal Phantom
+The Scaled Warrior
+The Scarecrow
+The Skinner
+The Spinning Blade
+The Spirited
+The Waldmann
+Tonya Wegman
+Vaquero
+Wight Raven
+Worm Bite
+DLC
+Angel of Death
+Biatatá
+Cain
+Captain Laffite
+Carter
+Dame of the Dead
+Daughter of Decay
+Crossroads Walker
+Dead Blessing
+Ghost Face
+Hayalî
+Iron Bark
+Lady Lewis
+Lilith
+Llorona's Heir
+Lonely Howl
+Luz Mala
+Monroe
+Montresor
+Mountie
+North Star
+Perchta: Dawn
+Perchta: Dusk
+Plains Warden
+Rangda's Shadow
+Roaming Sage
+Scaramuccia
+Scourge: Midian
+Scourge: Morrigan
+Sgt. Bridgewater
+Silver Spur
+Skull Taker
+Sofia
+Teche Wraith
+The Archaeologist
+The Beast Hunter
+The Bone Doctor
+The Bone Mason
+The Concubine
+The Conspirator
+The Cowl
+The Gunslinger
+The Hyena
+The Ironclad
+The Kid
+The Mercenary
+The Miko
+The Moorhound
+The Penitent
+The Phantom
+The Prescient
+The Prodigal Daughter
+The Prodigal Son
+The Rat
+The Reaper
+The Reptilian
+The Researcher
+The Revenant
+The Ronin
+The Sovereign
+The Turncoat
+The Witch Hunter
+Trapper: Buckshot
+Trapper: Snare
+Weird Sister
+Zhong Kui
+Event Exclusive
+Some Hunters were available only through event progression (either free or premium) and some were a limited time Blood Bond purchase during the duration of an event. While they are often unavailable for a period, event exclusive Hunters can return as limited time Blood Blond purchases during seasonal events such as Christmas, Halloween, and Chinese New Year. Those not related to seasonal events may return as permanently available Blood Bond purchases after a period of exclusivity.
+Bruja: Crone
+Bruja: Maiden
+Commander Whitlaw
+Devil's Advocate
+Disciple of Death
+Hell's Profiteer
+Lynch
+Mama Maye
+One Who Flies
+Red Raven
+Sgt. Riggins
+Stormseer
+The Cook
+The Dark Friar
+The Empress
+The Fool: Fugitive
+The Fool: Outlaw
+The Hanged Man
+The Headsman
+The Pale Judge
+The Sharpshooter
+The Skinflint
+The Strongman
+Thorn Wreath
+Welder: Flame
+Welder: Torch
+Zhuge Liu
+Mythic Hunters
+The Mythic rarity denotes Hunters that were exclusive to past events and questlines and can never be obtained again.
+Burnt Marshall
+Butcher's Cleaver
+Cardinal Rain
+Chum
+The Fang Shearer
+False Saint
+Gar
+Harvest: Day
+Harvest: Dusk
+Harvest: Midnight
+Kendoka
+Ochenkov's Widow
+Plague Doctor
+Post Malone: Deposed King
+Post Malone: Ringmaster
+Shade: Drifter
+Shade: High Noon
+The Beekeeper
+The Centipede
+The Exile
+The Scaled Ward
+The Shroud
+The Skinned
+The Statesman
+The Third Son
+The Viper: Frenzy
+The Viper: Onset
+The Viper: Rise
+The Viper: Surge
+The Wayfarer
+Thirteenth Mate
+Wayward Helmsman
+Winky
+Story Challenge Exclusive
+Ambrose Hazen: Enlisted
+Ambrose Hazen: Officer
+Ambrose Hazen: Righteous
+Ambrose Hazen: Righteous
+Desolation's Delegate
+Ironshod Bandit
+Joan Damon: Tracker
+Krampus
+Laura Gottschalk: Righteous
+Laura Gottschalk: Righteous
+Leon Ulitsky: Eluder
+Marrow Hawk
+Otis Blackwell: Warhorse
+Prudence Stallworth: Righteous
+Prudence Stallworth: Righteous
+Tennessee Morgan: Rookie
+Tennessee Morgan: Survivor
+Tennessee Morgan: Veteran
+The Waymaker
+The Third Brother
+The Banished
+Twitch Drops
+Note: Some of these Hunters were available in multiple Twitch Drop campaigns so players who missed them previously were able to unlock them. Billy Story could also be obtained through the questline Billy Story & The Stalker Beetle
+Billy Story
+Head Taker
+Kill Buyer
+Lulu
+Steel Eyed
+The Infected
+Umpire's Bane
+Retrieved from " https://huntshowdown.wiki.gg/wiki/Hunters?oldid=16860 "
+Categories : Pages with broken file links
+Core Gameplay
+Report bad advertisement
+Cookies help us deliver our services. By using our services, you agree to our use of cookies.
+More information OK
+This page was last edited on 15 September 2026, at 01:57.
+Page content is under Creative Commons Attribution-ShareAlike 4.0 License unless otherwise noted.
+Terms of Service
+Privacy policy
+Support Wiki
+Send a ticket to wiki.gg
+Status page
+Manage cookie settings

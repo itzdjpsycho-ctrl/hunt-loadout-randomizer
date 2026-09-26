@@ -1,0 +1,2272 @@
+﻿[
+    {
+        "id":  "baseball-bat",
+        "path":  "assets/equipment/baseball-bat.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Baseball_Bat.png?b3d147",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Baseball_Bat",
+        "originalName":  "Weapon Baseball Bat.png",
+        "width":  256,
+        "height":  128,
+        "sha256":  "E201C27B073434C005F0CC94D39B25D79EDF32EA2AED26632548A422CF3B1FBC"
+    },
+    {
+        "id":  "bornheim-no-3",
+        "path":  "assets/equipment/bornheim-no-3.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Bornheim_No._3.png/256px-Weapon_Bornheim_No._3.png?ca7dc7",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bornheim_No._3",
+        "originalName":  "Weapon Bornheim No. 3.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "02CC63DE4A0977025B85F21EA275D51940700B6C03F9AAEC207A7BCA2B42A760"
+    },
+    {
+        "id":  "bornheim-no-3-extended",
+        "path":  "assets/equipment/bornheim-no-3-extended.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Bornheim_No._3.png/256px-Weapon_Bornheim_No._3.png?ca7dc7",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bornheim_No._3/Extended",
+        "originalName":  "Weapon Bornheim No. 3.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "02CC63DE4A0977025B85F21EA275D51940700B6C03F9AAEC207A7BCA2B42A760"
+    },
+    {
+        "id":  "bornheim-no-3-silencer",
+        "path":  "assets/equipment/bornheim-no-3-silencer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Bornheim_No._3.png/256px-Weapon_Bornheim_No._3.png?ca7dc7",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bornheim_No._3/Silencer",
+        "originalName":  "Weapon Bornheim No. 3.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "02CC63DE4A0977025B85F21EA275D51940700B6C03F9AAEC207A7BCA2B42A760"
+    },
+    {
+        "id":  "cavalry-saber",
+        "path":  "assets/equipment/cavalry-saber.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Cavalry_Saber.png?defbfc",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Cavalry_Saber",
+        "originalName":  "Weapon Cavalry Saber.png",
+        "width":  256,
+        "height":  128,
+        "sha256":  "6E56B4879601D19726B01902BA07D79611A5FE2ED147716E17525179D63F601A"
+    },
+    {
+        "id":  "conversion",
+        "path":  "assets/equipment/conversion.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Conversion.png/256px-Weapon_Conversion.png?fdd604",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Conversion",
+        "originalName":  "Weapon Conversion.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "6CB32F597205AC19DA359E0031E7CDC65498F5AA9FCCF94CCA729FF08B5D57F3"
+    },
+    {
+        "id":  "conversion-chain-pistol",
+        "path":  "assets/equipment/conversion-chain-pistol.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Conversion.png/256px-Weapon_Conversion.png?fdd604",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Conversion/Chain_Pistol",
+        "originalName":  "Weapon Conversion.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "6CB32F597205AC19DA359E0031E7CDC65498F5AA9FCCF94CCA729FF08B5D57F3"
+    },
+    {
+        "id":  "hand-crossbow",
+        "path":  "assets/equipment/hand-crossbow.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Hand_Crossbow.png?f4452f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Hand_Crossbow",
+        "originalName":  "Weapon Hand Crossbow.png",
+        "width":  512,
+        "height":  128,
+        "sha256":  "8121E586A379DC2C9A4F3A7FC1DA7161FD77A81513AB621679DF9FE1FE514B74"
+    },
+    {
+        "id":  "lemat",
+        "path":  "assets/equipment/lemat.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_LeMat.png/256px-Weapon_LeMat.png?30970a",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/LeMat",
+        "originalName":  "Weapon LeMat.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "0ABD13A4095EFF1BDE9CCCC4271A49E6D03B11E7F8D1A29B7262BEB2D308DDD1"
+    },
+    {
+        "id":  "machete",
+        "path":  "assets/equipment/machete.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Machete.png?6b12f4",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Machete",
+        "originalName":  "Weapon Machete.png",
+        "width":  256,
+        "height":  128,
+        "sha256":  "2895857C18A2A6905CBC8A084349E4C7A934C2D049FC30EF5F0C03028B551F0D"
+    },
+    {
+        "id":  "nagant-m1895",
+        "path":  "assets/equipment/nagant-m1895.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Nagant_M1895.png/256px-Weapon_Nagant_M1895.png?5c8db6",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Nagant_M1895",
+        "originalName":  "Weapon Nagant M1895.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "C9AEEF2DA322B810E4338E290FEA193CA8BFBA00EA9914F6BB37604C81EAB5EA"
+    },
+    {
+        "id":  "nagant-m1895-silencer",
+        "path":  "assets/equipment/nagant-m1895-silencer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Nagant_M1895.png/256px-Weapon_Nagant_M1895.png?5c8db6",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Nagant_M1895/Silencer",
+        "originalName":  "Weapon Nagant M1895.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "C9AEEF2DA322B810E4338E290FEA193CA8BFBA00EA9914F6BB37604C81EAB5EA"
+    },
+    {
+        "id":  "new-army",
+        "path":  "assets/equipment/new-army.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_New_Army.png/256px-Weapon_New_Army.png?bd193c",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/New_Army",
+        "originalName":  "Weapon New Army.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "65BDDFCFAF5A981AB383A7A35EC8CFBEDD8B1ECB1EA179E024BED201E488706F"
+    },
+    {
+        "id":  "new-army-swift",
+        "path":  "assets/equipment/new-army-swift.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_New_Army.png/256px-Weapon_New_Army.png?bd193c",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/New_Army/Swift",
+        "originalName":  "Weapon New Army.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "65BDDFCFAF5A981AB383A7A35EC8CFBEDD8B1ECB1EA179E024BED201E488706F"
+    },
+    {
+        "id":  "officer",
+        "path":  "assets/equipment/officer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Officer.png/256px-Weapon_Officer.png?e11080",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Officer",
+        "originalName":  "Weapon Officer.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "22D3693589DAEF433D9F683AE69743F7227EABEE18597F521F88F3F4E18A34A6"
+    },
+    {
+        "id":  "officer-brawler",
+        "path":  "assets/equipment/officer-brawler.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Officer.png/256px-Weapon_Officer.png?e11080",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Officer/Brawler",
+        "originalName":  "Weapon Officer.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "22D3693589DAEF433D9F683AE69743F7227EABEE18597F521F88F3F4E18A34A6"
+    },
+    {
+        "id":  "pax",
+        "path":  "assets/equipment/pax.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Pax.png/256px-Weapon_Pax.png?c4c684",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Pax",
+        "originalName":  "Weapon Pax.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "A6DDE619BD53BB76AD730676E4B895682563D4F0B3770938BD89E950F7ECFFDC"
+    },
+    {
+        "id":  "pax-claw",
+        "path":  "assets/equipment/pax-claw.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Pax.png/256px-Weapon_Pax.png?c4c684",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Pax/Claw",
+        "originalName":  "Weapon Pax.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "A6DDE619BD53BB76AD730676E4B895682563D4F0B3770938BD89E950F7ECFFDC"
+    },
+    {
+        "id":  "pax-trueshot",
+        "path":  "assets/equipment/pax-trueshot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Pax.png/256px-Weapon_Pax.png?c4c684",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Pax/Trueshot",
+        "originalName":  "Weapon Pax.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "A6DDE619BD53BB76AD730676E4B895682563D4F0B3770938BD89E950F7ECFFDC"
+    },
+    {
+        "id":  "scottfield",
+        "path":  "assets/equipment/scottfield.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Scottfield.png/256px-Weapon_Scottfield.png?b2e071",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Scottfield",
+        "originalName":  "Weapon Scottfield.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "9D5C649C772FC1E7258F2EF902279F61822EAD725CB96A575A43CA4B9E421F79"
+    },
+    {
+        "id":  "scottfield-brawler",
+        "path":  "assets/equipment/scottfield-brawler.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Scottfield.png/256px-Weapon_Scottfield.png?b2e071",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Scottfield/Brawler",
+        "originalName":  "Weapon Scottfield.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "9D5C649C772FC1E7258F2EF902279F61822EAD725CB96A575A43CA4B9E421F79"
+    },
+    {
+        "id":  "scottfield-spitfire",
+        "path":  "assets/equipment/scottfield-spitfire.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Scottfield.png/256px-Weapon_Scottfield.png?b2e071",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Scottfield/Spitfire",
+        "originalName":  "Weapon Scottfield.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "9D5C649C772FC1E7258F2EF902279F61822EAD725CB96A575A43CA4B9E421F79"
+    },
+    {
+        "id":  "scottfield-swift",
+        "path":  "assets/equipment/scottfield-swift.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Scottfield.png/256px-Weapon_Scottfield.png?b2e071",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Scottfield/Swift",
+        "originalName":  "Weapon Scottfield.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "9D5C649C772FC1E7258F2EF902279F61822EAD725CB96A575A43CA4B9E421F79"
+    },
+    {
+        "id":  "sparks-pistol",
+        "path":  "assets/equipment/sparks-pistol.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Sparks.png/256px-Weapon_Sparks.png?632113",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Sparks/Pistol",
+        "originalName":  "Weapon Sparks.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "DC5AB5E8ABE1F8726E80D19C2091407E17B3268CE6D0BEE520399EE768645537"
+    },
+    {
+        "id":  "sparks-pistol-silencer",
+        "path":  "assets/equipment/sparks-pistol-silencer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Sparks.png/256px-Weapon_Sparks.png?632113",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Sparks/Pistol_Silencer",
+        "originalName":  "Weapon Sparks.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "DC5AB5E8ABE1F8726E80D19C2091407E17B3268CE6D0BEE520399EE768645537"
+    },
+    {
+        "id":  "bomb-launcher",
+        "path":  "assets/equipment/bomb-launcher.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Bomb_Launcher.png/256px-Weapon_Bomb_Launcher.png?23f64d",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bomb_Launcher",
+        "originalName":  "Weapon Bomb Launcher.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "B0EB9BBD4110DBB19D856F6B6596E94386DDA7C9BF61FD346D7CE1ED73300689"
+    },
+    {
+        "id":  "bornheim-no-3-match",
+        "path":  "assets/equipment/bornheim-no-3-match.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Bornheim_No._3.png/256px-Weapon_Bornheim_No._3.png?ca7dc7",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bornheim_No._3/Match",
+        "originalName":  "Weapon Bornheim No. 3.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "02CC63DE4A0977025B85F21EA275D51940700B6C03F9AAEC207A7BCA2B42A760"
+    },
+    {
+        "id":  "centennial-pointman",
+        "path":  "assets/equipment/centennial-pointman.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Centennial.png/256px-Weapon_Centennial.png?2a33c1",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial/Pointman",
+        "originalName":  "Weapon Centennial.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BDBAD4625169647E1EB606670B74013ED7E62E9A2B8C9FF22D69CAA8DDBD050A"
+    },
+    {
+        "id":  "centennial-shorty",
+        "path":  "assets/equipment/centennial-shorty.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Centennial.png/256px-Weapon_Centennial.png?2a33c1",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial/Shorty",
+        "originalName":  "Weapon Centennial.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BDBAD4625169647E1EB606670B74013ED7E62E9A2B8C9FF22D69CAA8DDBD050A"
+    },
+    {
+        "id":  "centennial-shorty-silencer",
+        "path":  "assets/equipment/centennial-shorty-silencer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Centennial.png/256px-Weapon_Centennial.png?2a33c1",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial/Shorty_Silencer",
+        "originalName":  "Weapon Centennial.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BDBAD4625169647E1EB606670B74013ED7E62E9A2B8C9FF22D69CAA8DDBD050A"
+    },
+    {
+        "id":  "chu-ko-nu",
+        "path":  "assets/equipment/chu-ko-nu.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Chu_Ko_Nu.png?af4525",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Chu_Ko_Nu",
+        "originalName":  "Weapon Chu Ko Nu.png",
+        "width":  512,
+        "height":  128,
+        "sha256":  "616B80419EAD9196CCC226A5F9AEE4F9DF4D7AE882FEDD2747CC29D6EAFB05B9"
+    },
+    {
+        "id":  "combat-axe",
+        "path":  "assets/equipment/combat-axe.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Combat_Axe.png?7a7357",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Combat_Axe",
+        "originalName":  "Weapon Combat Axe.png",
+        "width":  256,
+        "height":  128,
+        "sha256":  "F3B7E7CFD6F0E8605E0D218FA1D929A05471D255C096A513EB9B1C4450A8B6FC"
+    },
+    {
+        "id":  "dolch-96",
+        "path":  "assets/equipment/dolch-96.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Dolch_96.png/256px-Weapon_Dolch_96.png?bc6f0b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Dolch_96",
+        "originalName":  "Weapon Dolch 96.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "48B43113DB13E4A8863B91BDDD80BE1790FF7E1C26844A6F30F06610E1B9F6CC"
+    },
+    {
+        "id":  "dolch-96-bullseye",
+        "path":  "assets/equipment/dolch-96-bullseye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Dolch_96.png/256px-Weapon_Dolch_96.png?bc6f0b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Dolch_96/Bullseye",
+        "originalName":  "Weapon Dolch 96.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "48B43113DB13E4A8863B91BDDD80BE1790FF7E1C26844A6F30F06610E1B9F6CC"
+    },
+    {
+        "id":  "dolch-96-claw",
+        "path":  "assets/equipment/dolch-96-claw.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Dolch_96.png/256px-Weapon_Dolch_96.png?bc6f0b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Dolch_96/Claw",
+        "originalName":  "Weapon Dolch 96.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "48B43113DB13E4A8863B91BDDD80BE1790FF7E1C26844A6F30F06610E1B9F6CC"
+    },
+    {
+        "id":  "drilling-hatchet",
+        "path":  "assets/equipment/drilling-hatchet.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Drilling.png/256px-Weapon_Drilling.png?f932f8",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Drilling/Hatchet",
+        "originalName":  "Weapon Drilling.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "1488B939252F7D26444BF7F72E1114F66DDE43E29A950BB4CC0603115181994E"
+    },
+    {
+        "id":  "drilling-shorty",
+        "path":  "assets/equipment/drilling-shorty.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Drilling.png/256px-Weapon_Drilling.png?f932f8",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Drilling/Shorty",
+        "originalName":  "Weapon Drilling.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "1488B939252F7D26444BF7F72E1114F66DDE43E29A950BB4CC0603115181994E"
+    },
+    {
+        "id":  "flame-rifle",
+        "path":  "assets/equipment/flame-rifle.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Flame_Rifle.png?c9829c",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Flame_Rifle",
+        "originalName":  "Weapon Flame Rifle.png",
+        "width":  512,
+        "height":  128,
+        "sha256":  "63730AA70D5197D0783EECB5D043D29FA09C5B17909C9B83DE14F7E105D916CE"
+    },
+    {
+        "id":  "haymaker",
+        "path":  "assets/equipment/haymaker.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Haymaker.png?a1f197",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Haymaker",
+        "originalName":  "Weapon Haymaker.png",
+        "width":  512,
+        "height":  128,
+        "sha256":  "D8F0B7249B700D451BC980F01878FCFED3FA3D86741F2F6E77B954253BFC210B"
+    },
+    {
+        "id":  "katana",
+        "path":  "assets/equipment/katana.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Katana.png?96bda1",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Katana",
+        "originalName":  "Weapon Katana.png",
+        "width":  256,
+        "height":  128,
+        "sha256":  "96A22D276B0125B3E8257C27F54A746F7CFA169AB393022153904D7007FD2FA5"
+    },
+    {
+        "id":  "mosin-obrez",
+        "path":  "assets/equipment/mosin-obrez.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mosin_Obrez.png/256px-Weapon_Mosin_Obrez.png?83297e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin_Obrez",
+        "originalName":  "Weapon Mosin Obrez.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "261993C908BF406EC75617AE5F87940D371D5B8D06E9CF27284A93BAA4E327E4"
+    },
+    {
+        "id":  "mosin-obrez-extended",
+        "path":  "assets/equipment/mosin-obrez-extended.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mosin_Obrez.png/256px-Weapon_Mosin_Obrez.png?83297e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin_Obrez/Extended",
+        "originalName":  "Weapon Mosin Obrez.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "261993C908BF406EC75617AE5F87940D371D5B8D06E9CF27284A93BAA4E327E4"
+    },
+    {
+        "id":  "mosin-obrez-mace",
+        "path":  "assets/equipment/mosin-obrez-mace.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mosin_Obrez.png/256px-Weapon_Mosin_Obrez.png?83297e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin_Obrez/Mace",
+        "originalName":  "Weapon Mosin Obrez.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "261993C908BF406EC75617AE5F87940D371D5B8D06E9CF27284A93BAA4E327E4"
+    },
+    {
+        "id":  "nagant-m1895-deadeye",
+        "path":  "assets/equipment/nagant-m1895-deadeye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Nagant_M1895.png/256px-Weapon_Nagant_M1895.png?5c8db6",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Nagant_M1895/Deadeye",
+        "originalName":  "Weapon Nagant M1895.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "C9AEEF2DA322B810E4338E290FEA193CA8BFBA00EA9914F6BB37604C81EAB5EA"
+    },
+    {
+        "id":  "nagant-m1895-precision",
+        "path":  "assets/equipment/nagant-m1895-precision.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Nagant_M1895.png/256px-Weapon_Nagant_M1895.png?5c8db6",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Nagant_M1895/Precision",
+        "originalName":  "Weapon Nagant M1895.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "C9AEEF2DA322B810E4338E290FEA193CA8BFBA00EA9914F6BB37604C81EAB5EA"
+    },
+    {
+        "id":  "railroad-hammer",
+        "path":  "assets/equipment/railroad-hammer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Railroad_Hammer.png?f8fca0",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Railroad_Hammer",
+        "originalName":  "Weapon Railroad Hammer.png",
+        "width":  256,
+        "height":  128,
+        "sha256":  "877C20C5E7EDCF150587E9C186C9398565BB951278D9E1BA4721C1820DFD8881"
+    },
+    {
+        "id":  "rival-78-mace",
+        "path":  "assets/equipment/rival-78-mace.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Rival_78.png/256px-Weapon_Rival_78.png?a04a42",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Rival_78/Mace",
+        "originalName":  "Weapon Rival 78.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "A34DA6B1946730BB196FD5821B48DE8B2A529849187827BDD9344010C4353752"
+    },
+    {
+        "id":  "rival-78-shorty",
+        "path":  "assets/equipment/rival-78-shorty.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Rival_78.png/256px-Weapon_Rival_78.png?a04a42",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Rival_78/Shorty",
+        "originalName":  "Weapon Rival 78.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "A34DA6B1946730BB196FD5821B48DE8B2A529849187827BDD9344010C4353752"
+    },
+    {
+        "id":  "romero-77-hatchet",
+        "path":  "assets/equipment/romero-77-hatchet.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Romero_77.png/256px-Weapon_Romero_77.png?28a4f3",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Romero_77/Hatchet",
+        "originalName":  "Weapon Romero 77.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "8271FA967DF42F89E62B6D8EC6512440DC7D7F1DA949A304E2FD3664C11DF137"
+    },
+    {
+        "id":  "romero-77-shorty",
+        "path":  "assets/equipment/romero-77-shorty.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Romero_77.png/256px-Weapon_Romero_77.png?28a4f3",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Romero_77/Shorty",
+        "originalName":  "Weapon Romero 77.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "8271FA967DF42F89E62B6D8EC6512440DC7D7F1DA949A304E2FD3664C11DF137"
+    },
+    {
+        "id":  "scottfield-precision",
+        "path":  "assets/equipment/scottfield-precision.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Scottfield.png/256px-Weapon_Scottfield.png?b2e071",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Scottfield/Precision",
+        "originalName":  "Weapon Scottfield.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "9D5C649C772FC1E7258F2EF902279F61822EAD725CB96A575A43CA4B9E421F79"
+    },
+    {
+        "id":  "specter-1882-shorty",
+        "path":  "assets/equipment/specter-1882-shorty.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Specter_1882.png/256px-Weapon_Specter_1882.png?8c2b99",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Specter_1882/Shorty",
+        "originalName":  "Weapon Specter 1882.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "2544F42A61FCCC4008A5457725314AB4347B9DAD0E9C199D621B9DB6EA57EC1E"
+    },
+    {
+        "id":  "springfield-1866-bullseye",
+        "path":  "assets/equipment/springfield-1866-bullseye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Springfield_1866.png/256px-Weapon_Springfield_1866.png?4a33b2",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Springfield_1866/Bullseye",
+        "originalName":  "Weapon Springfield 1866.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "7750E7C9150F87A767B47047C589251BDFA4B9C7E3948B7418EBF70887257A6C"
+    },
+    {
+        "id":  "springfield-1866-shorty",
+        "path":  "assets/equipment/springfield-1866-shorty.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Springfield_1866.png/256px-Weapon_Springfield_1866.png?4a33b2",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Springfield_1866/Shorty",
+        "originalName":  "Weapon Springfield 1866.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "7750E7C9150F87A767B47047C589251BDFA4B9C7E3948B7418EBF70887257A6C"
+    },
+    {
+        "id":  "springfield-1866-striker",
+        "path":  "assets/equipment/springfield-1866-striker.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Springfield_1866.png/256px-Weapon_Springfield_1866.png?4a33b2",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Springfield_1866/Striker",
+        "originalName":  "Weapon Springfield 1866.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "7750E7C9150F87A767B47047C589251BDFA4B9C7E3948B7418EBF70887257A6C"
+    },
+    {
+        "id":  "terminus-shorty",
+        "path":  "assets/equipment/terminus-shorty.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Terminus.png/256px-Weapon_Terminus.png?d38ae5",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Terminus/Shorty",
+        "originalName":  "Weapon Terminus.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BC933C07329A034E562EE962C8DBE9A765BC401224105D2B615F9615B6D09B5F"
+    },
+    {
+        "id":  "uppercut",
+        "path":  "assets/equipment/uppercut.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Uppercut.png/256px-Weapon_Uppercut.png?cf8461",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Uppercut",
+        "originalName":  "Weapon Uppercut.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FF9CBDFE971A1B348FB0953955F59CFE78A622A6CDA97FE1154A30DD5777DF74"
+    },
+    {
+        "id":  "vandal-73c",
+        "path":  "assets/equipment/vandal-73c.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Vandal_73C.png/256px-Weapon_Vandal_73C.png?eb9fd3",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vandal_73C",
+        "originalName":  "Weapon Vandal 73C.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "D228F2E0AB6BC78A6A798A0A0B5373476EAFFAD66FA370548174361FD4AAAEA6"
+    },
+    {
+        "id":  "vandal-73c-bullseye",
+        "path":  "assets/equipment/vandal-73c-bullseye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Vandal_73C.png/256px-Weapon_Vandal_73C.png?eb9fd3",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vandal_73C/Bullseye",
+        "originalName":  "Weapon Vandal 73C.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "D228F2E0AB6BC78A6A798A0A0B5373476EAFFAD66FA370548174361FD4AAAEA6"
+    },
+    {
+        "id":  "vandal-73c-striker",
+        "path":  "assets/equipment/vandal-73c-striker.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Vandal_73C.png/256px-Weapon_Vandal_73C.png?eb9fd3",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vandal_73C/Striker",
+        "originalName":  "Weapon Vandal 73C.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "D228F2E0AB6BC78A6A798A0A0B5373476EAFFAD66FA370548174361FD4AAAEA6"
+    },
+    {
+        "id":  "1865-carbine",
+        "path":  "assets/equipment/1865-carbine.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_1865_Carbine.png/256px-Weapon_1865_Carbine.png?2baabc",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/1865_Carbine",
+        "originalName":  "Weapon 1865 Carbine.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "624FCBD583B2E7D5E6943EDC45FCA805FBE423E98B5209BE8F06FCBD79FEC961"
+    },
+    {
+        "id":  "1865-carbine-aperture",
+        "path":  "assets/equipment/1865-carbine-aperture.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_1865_Carbine.png/256px-Weapon_1865_Carbine.png?2baabc",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/1865_Carbine/Aperture",
+        "originalName":  "Weapon 1865 Carbine.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "624FCBD583B2E7D5E6943EDC45FCA805FBE423E98B5209BE8F06FCBD79FEC961"
+    },
+    {
+        "id":  "1865-carbine-silencer",
+        "path":  "assets/equipment/1865-carbine-silencer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_1865_Carbine.png/256px-Weapon_1865_Carbine.png?2baabc",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/1865_Carbine/Silencer",
+        "originalName":  "Weapon 1865 Carbine.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "624FCBD583B2E7D5E6943EDC45FCA805FBE423E98B5209BE8F06FCBD79FEC961"
+    },
+    {
+        "id":  "1890-cavalry",
+        "path":  "assets/equipment/1890-cavalry.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_1890_Cavalry.png?e37580",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/1890_Cavalry",
+        "originalName":  "Weapon 1890 Cavalry.png",
+        "width":  512,
+        "height":  128,
+        "sha256":  "379AB339D98DEA06FCB6CE13DEF7C90F65DD3E401BFD593329BA611EDDB0F4B3"
+    },
+    {
+        "id":  "auto-4-shorty",
+        "path":  "assets/equipment/auto-4-shorty.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Auto-5.png/256px-Weapon_Auto-5.png?474360",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Auto-4_Shorty",
+        "originalName":  "Weapon Auto-5.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "3B39242EC57AA52622E18D37D1CFA63653841B4AB2F1D62F9FD62BD5F5E15AEF"
+    },
+    {
+        "id":  "berthier-1892",
+        "path":  "assets/equipment/berthier-1892.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Berthier_1892.png/256px-Weapon_Berthier_1892.png?378314",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Berthier_1892",
+        "originalName":  "Weapon Berthier 1892.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "37AFA86BD716C203344FC977C71E8FDAE7283661AE2A1354523DC53AE1B56A00"
+    },
+    {
+        "id":  "berthier-1892-deadeye",
+        "path":  "assets/equipment/berthier-1892-deadeye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Berthier_1892.png/256px-Weapon_Berthier_1892.png?378314",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Berthier_1892/Deadeye",
+        "originalName":  "Weapon Berthier 1892.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "37AFA86BD716C203344FC977C71E8FDAE7283661AE2A1354523DC53AE1B56A00"
+    },
+    {
+        "id":  "berthier-1892-marksman",
+        "path":  "assets/equipment/berthier-1892-marksman.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Berthier_1892.png/256px-Weapon_Berthier_1892.png?378314",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Berthier_1892/Marksman",
+        "originalName":  "Weapon Berthier 1892.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "37AFA86BD716C203344FC977C71E8FDAE7283661AE2A1354523DC53AE1B56A00"
+    },
+    {
+        "id":  "berthier-1892-riposte",
+        "path":  "assets/equipment/berthier-1892-riposte.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Berthier_1892.png/256px-Weapon_Berthier_1892.png?378314",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Berthier_1892/Riposte",
+        "originalName":  "Weapon Berthier 1892.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "37AFA86BD716C203344FC977C71E8FDAE7283661AE2A1354523DC53AE1B56A00"
+    },
+    {
+        "id":  "bomb-lance",
+        "path":  "assets/equipment/bomb-lance.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Bomb_Launcher.png/256px-Weapon_Bomb_Launcher.png?23f64d",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bomb_Lance",
+        "originalName":  "Weapon Bomb Launcher.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "B0EB9BBD4110DBB19D856F6B6596E94386DDA7C9BF61FD346D7CE1ED73300689"
+    },
+    {
+        "id":  "burgess",
+        "path":  "assets/equipment/burgess.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Burgess.png/256px-Weapon_Burgess.png?b5cd92",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess",
+        "originalName":  "Weapon Burgess.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "0E2CC71F42FA6A60791C1EC57A9F1F99374A1E0C3A6E93EB4E792E12908F3024"
+    },
+    {
+        "id":  "burgess-bayonet",
+        "path":  "assets/equipment/burgess-bayonet.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Burgess.png/256px-Weapon_Burgess.png?b5cd92",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess/Bayonet",
+        "originalName":  "Weapon Burgess.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "0E2CC71F42FA6A60791C1EC57A9F1F99374A1E0C3A6E93EB4E792E12908F3024"
+    },
+    {
+        "id":  "burgess-trauma",
+        "path":  "assets/equipment/burgess-trauma.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Burgess.png/256px-Weapon_Burgess.png?b5cd92",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess/Trauma",
+        "originalName":  "Weapon Burgess.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "0E2CC71F42FA6A60791C1EC57A9F1F99374A1E0C3A6E93EB4E792E12908F3024"
+    },
+    {
+        "id":  "dolch-96-precision",
+        "path":  "assets/equipment/dolch-96-precision.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Dolch_96.png/256px-Weapon_Dolch_96.png?bc6f0b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Dolch_96/Precision",
+        "originalName":  "Weapon Dolch 96.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "48B43113DB13E4A8863B91BDDD80BE1790FF7E1C26844A6F30F06610E1B9F6CC"
+    },
+    {
+        "id":  "frontier-73c",
+        "path":  "assets/equipment/frontier-73c.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Frontier_73C.png/256px-Weapon_Frontier_73C.png?840041",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Frontier_73C",
+        "originalName":  "Weapon Frontier 73C.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BB331FBDD90C5AF9DA041C716F1DC30D9CAC426604D10219637B3EBD9584832C"
+    },
+    {
+        "id":  "frontier-73c-marksman",
+        "path":  "assets/equipment/frontier-73c-marksman.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Frontier_73C.png/256px-Weapon_Frontier_73C.png?840041",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Frontier_73C/Marksman",
+        "originalName":  "Weapon Frontier 73C.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BB331FBDD90C5AF9DA041C716F1DC30D9CAC426604D10219637B3EBD9584832C"
+    },
+    {
+        "id":  "frontier-73c-silencer",
+        "path":  "assets/equipment/frontier-73c-silencer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Frontier_73C.png/256px-Weapon_Frontier_73C.png?840041",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Frontier_73C/Silencer",
+        "originalName":  "Weapon Frontier 73C.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BB331FBDD90C5AF9DA041C716F1DC30D9CAC426604D10219637B3EBD9584832C"
+    },
+    {
+        "id":  "hunting-bow",
+        "path":  "assets/equipment/hunting-bow.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Hunting_Bow.png?bba822",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Hunting_Bow",
+        "originalName":  "Weapon Hunting Bow.png",
+        "width":  512,
+        "height":  128,
+        "sha256":  "BCE25B728A1D57367DF506DDFEE031A534FF60A80052520FDF529D33C705052B"
+    },
+    {
+        "id":  "lemat-carbine",
+        "path":  "assets/equipment/lemat-carbine.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_LeMat.png/256px-Weapon_LeMat.png?30970a",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/LeMat/Carbine",
+        "originalName":  "Weapon LeMat.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "0ABD13A4095EFF1BDE9CCCC4271A49E6D03B11E7F8D1A29B7262BEB2D308DDD1"
+    },
+    {
+        "id":  "lemat-carbine-marksman",
+        "path":  "assets/equipment/lemat-carbine-marksman.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_LeMat.png/256px-Weapon_LeMat.png?30970a",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/LeMat/Carbine_Marksman",
+        "originalName":  "Weapon LeMat.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "0ABD13A4095EFF1BDE9CCCC4271A49E6D03B11E7F8D1A29B7262BEB2D308DDD1"
+    },
+    {
+        "id":  "mosin-obrez-match",
+        "path":  "assets/equipment/mosin-obrez-match.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mosin_Obrez.png/256px-Weapon_Mosin_Obrez.png?83297e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin_Obrez/Match",
+        "originalName":  "Weapon Mosin Obrez.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "261993C908BF406EC75617AE5F87940D371D5B8D06E9CF27284A93BAA4E327E4"
+    },
+    {
+        "id":  "mosin-obrez-sharpeye",
+        "path":  "assets/equipment/mosin-obrez-sharpeye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mosin_Obrez.png/256px-Weapon_Mosin_Obrez.png?83297e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin_Obrez/Sharpeye",
+        "originalName":  "Weapon Mosin Obrez.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "261993C908BF406EC75617AE5F87940D371D5B8D06E9CF27284A93BAA4E327E4"
+    },
+    {
+        "id":  "officer-carbine",
+        "path":  "assets/equipment/officer-carbine.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Officer.png/256px-Weapon_Officer.png?e11080",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Officer/Carbine",
+        "originalName":  "Weapon Officer.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "22D3693589DAEF433D9F683AE69743F7227EABEE18597F521F88F3F4E18A34A6"
+    },
+    {
+        "id":  "officer-carbine-deadeye",
+        "path":  "assets/equipment/officer-carbine-deadeye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Officer.png/256px-Weapon_Officer.png?e11080",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Officer/Carbine_Deadeye",
+        "originalName":  "Weapon Officer.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "22D3693589DAEF433D9F683AE69743F7227EABEE18597F521F88F3F4E18A34A6"
+    },
+    {
+        "id":  "uppercut-deadeye",
+        "path":  "assets/equipment/uppercut-deadeye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Uppercut.png/256px-Weapon_Uppercut.png?cf8461",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Uppercut/Deadeye",
+        "originalName":  "Weapon Uppercut.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FF9CBDFE971A1B348FB0953955F59CFE78A622A6CDA97FE1154A30DD5777DF74"
+    },
+    {
+        "id":  "uppercut-precision",
+        "path":  "assets/equipment/uppercut-precision.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Uppercut.png/256px-Weapon_Uppercut.png?cf8461",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Uppercut/Precision",
+        "originalName":  "Weapon Uppercut.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FF9CBDFE971A1B348FB0953955F59CFE78A622A6CDA97FE1154A30DD5777DF74"
+    },
+    {
+        "id":  "vetterli-71",
+        "path":  "assets/equipment/vetterli-71.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Vetterli_71.png/256px-Weapon_Vetterli_71.png?e9d16f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71",
+        "originalName":  "Weapon Vetterli 71.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "757B3F77F7E46CE1E813505FDA7147C226CBE8B3A6232E9192986693ECE50D7D"
+    },
+    {
+        "id":  "vetterli-71-bayonet",
+        "path":  "assets/equipment/vetterli-71-bayonet.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Vetterli_71.png/256px-Weapon_Vetterli_71.png?e9d16f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71/Bayonet",
+        "originalName":  "Weapon Vetterli 71.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "757B3F77F7E46CE1E813505FDA7147C226CBE8B3A6232E9192986693ECE50D7D"
+    },
+    {
+        "id":  "vetterli-71-deadeye",
+        "path":  "assets/equipment/vetterli-71-deadeye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Vetterli_71.png/256px-Weapon_Vetterli_71.png?e9d16f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71/Deadeye",
+        "originalName":  "Weapon Vetterli 71.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "757B3F77F7E46CE1E813505FDA7147C226CBE8B3A6232E9192986693ECE50D7D"
+    },
+    {
+        "id":  "vetterli-71-marksman",
+        "path":  "assets/equipment/vetterli-71-marksman.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Vetterli_71.png/256px-Weapon_Vetterli_71.png?e9d16f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71/Marksman",
+        "originalName":  "Weapon Vetterli 71.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "757B3F77F7E46CE1E813505FDA7147C226CBE8B3A6232E9192986693ECE50D7D"
+    },
+    {
+        "id":  "vetterli-71-silencer",
+        "path":  "assets/equipment/vetterli-71-silencer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Vetterli_71.png/256px-Weapon_Vetterli_71.png?e9d16f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71/Silencer",
+        "originalName":  "Weapon Vetterli 71.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "757B3F77F7E46CE1E813505FDA7147C226CBE8B3A6232E9192986693ECE50D7D"
+    },
+    {
+        "id":  "centennial",
+        "path":  "assets/equipment/centennial.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Centennial.png/256px-Weapon_Centennial.png?2a33c1",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial",
+        "originalName":  "Weapon Centennial.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BDBAD4625169647E1EB606670B74013ED7E62E9A2B8C9FF22D69CAA8DDBD050A"
+    },
+    {
+        "id":  "centennial-sniper",
+        "path":  "assets/equipment/centennial-sniper.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Centennial.png/256px-Weapon_Centennial.png?2a33c1",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial/Sniper",
+        "originalName":  "Weapon Centennial.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BDBAD4625169647E1EB606670B74013ED7E62E9A2B8C9FF22D69CAA8DDBD050A"
+    },
+    {
+        "id":  "centennial-trauma",
+        "path":  "assets/equipment/centennial-trauma.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Centennial.png/256px-Weapon_Centennial.png?2a33c1",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Centennial/Trauma",
+        "originalName":  "Weapon Centennial.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BDBAD4625169647E1EB606670B74013ED7E62E9A2B8C9FF22D69CAA8DDBD050A"
+    },
+    {
+        "id":  "crossbow",
+        "path":  "assets/equipment/crossbow.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Crossbow.png/256px-Weapon_Crossbow.png?d58ef1",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Crossbow",
+        "originalName":  "Weapon Crossbow.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "E478674D0C9D5DE6E8AB2819225BDC59C71E3BFAE1ECD02141897EEF75E034A5"
+    },
+    {
+        "id":  "crossbow-deadeye",
+        "path":  "assets/equipment/crossbow-deadeye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Crossbow.png/256px-Weapon_Crossbow.png?d58ef1",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Crossbow/Deadeye",
+        "originalName":  "Weapon Crossbow.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "E478674D0C9D5DE6E8AB2819225BDC59C71E3BFAE1ECD02141897EEF75E034A5"
+    },
+    {
+        "id":  "drilling",
+        "path":  "assets/equipment/drilling.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Drilling.png/256px-Weapon_Drilling.png?f932f8",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Drilling",
+        "originalName":  "Weapon Drilling.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "1488B939252F7D26444BF7F72E1114F66DDE43E29A950BB4CC0603115181994E"
+    },
+    {
+        "id":  "homestead-78",
+        "path":  "assets/equipment/homestead-78.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Homestead_78.png?ec646f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Homestead_78",
+        "originalName":  "Weapon Homestead 78.png",
+        "width":  512,
+        "height":  128,
+        "sha256":  "8EBC1C34A912F3CA7EC67108047EA7A3933736293AA457C83D739316F7DF58AC"
+    },
+    {
+        "id":  "infantry-73l",
+        "path":  "assets/equipment/infantry-73l.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Infantry_73L.png/256px-Weapon_Infantry_73L.png?b7ab4c",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Infantry_73L",
+        "originalName":  "Weapon Infantry 73L.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "4E6E1C8BB640BAD4BD09E01E5B84DFD591023CCBA3DDA331C34A69AC1027B091"
+    },
+    {
+        "id":  "infantry-73l-bayonet",
+        "path":  "assets/equipment/infantry-73l-bayonet.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Infantry_73L.png/256px-Weapon_Infantry_73L.png?b7ab4c",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Infantry_73L/Bayonet",
+        "originalName":  "Weapon Infantry 73L.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "4E6E1C8BB640BAD4BD09E01E5B84DFD591023CCBA3DDA331C34A69AC1027B091"
+    },
+    {
+        "id":  "infantry-73l-sniper",
+        "path":  "assets/equipment/infantry-73l-sniper.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Infantry_73L.png/256px-Weapon_Infantry_73L.png?b7ab4c",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Infantry_73L/Sniper",
+        "originalName":  "Weapon Infantry 73L.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "4E6E1C8BB640BAD4BD09E01E5B84DFD591023CCBA3DDA331C34A69AC1027B091"
+    },
+    {
+        "id":  "krag",
+        "path":  "assets/equipment/krag.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Krag.png/256px-Weapon_Krag.png?1bfd6b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Krag",
+        "originalName":  "Weapon Krag.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FB9FDEB0D5882924E4C45A6EA95300D0A0A3D37068E79FB26C8FDFD8DD452523"
+    },
+    {
+        "id":  "krag-bayonet",
+        "path":  "assets/equipment/krag-bayonet.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Krag.png/256px-Weapon_Krag.png?1bfd6b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Krag/Bayonet",
+        "originalName":  "Weapon Krag.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FB9FDEB0D5882924E4C45A6EA95300D0A0A3D37068E79FB26C8FDFD8DD452523"
+    },
+    {
+        "id":  "krag-silencer",
+        "path":  "assets/equipment/krag-silencer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Krag.png/256px-Weapon_Krag.png?1bfd6b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Krag/Silencer",
+        "originalName":  "Weapon Krag.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FB9FDEB0D5882924E4C45A6EA95300D0A0A3D37068E79FB26C8FDFD8DD452523"
+    },
+    {
+        "id":  "krag-sniper",
+        "path":  "assets/equipment/krag-sniper.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Krag.png/256px-Weapon_Krag.png?1bfd6b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Krag/Sniper",
+        "originalName":  "Weapon Krag.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FB9FDEB0D5882924E4C45A6EA95300D0A0A3D37068E79FB26C8FDFD8DD452523"
+    },
+    {
+        "id":  "lebel-1886",
+        "path":  "assets/equipment/lebel-1886.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Lebel_1886.png/256px-Weapon_Lebel_1886.png?bf002f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Lebel_1886",
+        "originalName":  "Weapon Lebel 1886.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FA91257CAB146650D514D6121203729AC64CC1034D487414389619782D29EB2E"
+    },
+    {
+        "id":  "lebel-1886-aperture",
+        "path":  "assets/equipment/lebel-1886-aperture.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Lebel_1886.png/256px-Weapon_Lebel_1886.png?bf002f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Lebel_1886/Aperture",
+        "originalName":  "Weapon Lebel 1886.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FA91257CAB146650D514D6121203729AC64CC1034D487414389619782D29EB2E"
+    },
+    {
+        "id":  "lebel-1886-marksman",
+        "path":  "assets/equipment/lebel-1886-marksman.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Lebel_1886.png/256px-Weapon_Lebel_1886.png?bf002f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Lebel_1886/Marksman",
+        "originalName":  "Weapon Lebel 1886.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FA91257CAB146650D514D6121203729AC64CC1034D487414389619782D29EB2E"
+    },
+    {
+        "id":  "lebel-1886-talon",
+        "path":  "assets/equipment/lebel-1886-talon.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Lebel_1886.png/256px-Weapon_Lebel_1886.png?bf002f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Lebel_1886/Talon",
+        "originalName":  "Weapon Lebel 1886.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "FA91257CAB146650D514D6121203729AC64CC1034D487414389619782D29EB2E"
+    },
+    {
+        "id":  "mako-1895",
+        "path":  "assets/equipment/mako-1895.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mako_1895.png/256px-Weapon_Mako_1895.png?854f2d",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mako_1895",
+        "originalName":  "Weapon Mako 1895.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "2909A1B959BF229E29541487224CD1BABD0C7E73CBCB98E4D659A0965F7CAF00"
+    },
+    {
+        "id":  "mako-1895-aperture",
+        "path":  "assets/equipment/mako-1895-aperture.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mako_1895.png/256px-Weapon_Mako_1895.png?854f2d",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mako_1895/Aperture",
+        "originalName":  "Weapon Mako 1895.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "2909A1B959BF229E29541487224CD1BABD0C7E73CBCB98E4D659A0965F7CAF00"
+    },
+    {
+        "id":  "mako-1895-claw",
+        "path":  "assets/equipment/mako-1895-claw.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mako_1895.png/256px-Weapon_Mako_1895.png?854f2d",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mako_1895/Claw",
+        "originalName":  "Weapon Mako 1895.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "2909A1B959BF229E29541487224CD1BABD0C7E73CBCB98E4D659A0965F7CAF00"
+    },
+    {
+        "id":  "marathon",
+        "path":  "assets/equipment/marathon.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Marathon.png/256px-Weapon_Marathon.png?f4934b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Marathon",
+        "originalName":  "Weapon Marathon.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "0C10F24F95CE79694FF350576A16853948FAF080327AE638BC5C7F9DEC485B95"
+    },
+    {
+        "id":  "marathon-swift",
+        "path":  "assets/equipment/marathon-swift.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Marathon.png/256px-Weapon_Marathon.png?f4934b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Marathon/Swift",
+        "originalName":  "Weapon Marathon.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "0C10F24F95CE79694FF350576A16853948FAF080327AE638BC5C7F9DEC485B95"
+    },
+    {
+        "id":  "martini-henry",
+        "path":  "assets/equipment/martini-henry.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Martini-Henry.png/256px-Weapon_Martini-Henry.png?9b66b8",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Martini-Henry",
+        "originalName":  "Weapon Martini-Henry.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "41F61CF56397C3A64955974C7D263877182F3DB434E57706DA91A7C049E0599E"
+    },
+    {
+        "id":  "martini-henry-deadeye",
+        "path":  "assets/equipment/martini-henry-deadeye.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Martini-Henry.png/256px-Weapon_Martini-Henry.png?9b66b8",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Martini-Henry/Deadeye",
+        "originalName":  "Weapon Martini-Henry.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "41F61CF56397C3A64955974C7D263877182F3DB434E57706DA91A7C049E0599E"
+    },
+    {
+        "id":  "martini-henry-ironside",
+        "path":  "assets/equipment/martini-henry-ironside.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Martini-Henry.png/256px-Weapon_Martini-Henry.png?9b66b8",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Martini-Henry/Ironside",
+        "originalName":  "Weapon Martini-Henry.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "41F61CF56397C3A64955974C7D263877182F3DB434E57706DA91A7C049E0599E"
+    },
+    {
+        "id":  "martini-henry-marksman",
+        "path":  "assets/equipment/martini-henry-marksman.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Martini-Henry.png/256px-Weapon_Martini-Henry.png?9b66b8",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Martini-Henry/Marksman",
+        "originalName":  "Weapon Martini-Henry.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "41F61CF56397C3A64955974C7D263877182F3DB434E57706DA91A7C049E0599E"
+    },
+    {
+        "id":  "martini-henry-riposte",
+        "path":  "assets/equipment/martini-henry-riposte.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Martini-Henry.png/256px-Weapon_Martini-Henry.png?9b66b8",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Martini-Henry/Riposte",
+        "originalName":  "Weapon Martini-Henry.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "41F61CF56397C3A64955974C7D263877182F3DB434E57706DA91A7C049E0599E"
+    },
+    {
+        "id":  "maynard-sniper",
+        "path":  "assets/equipment/maynard-sniper.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Maynard_Sniper.png/256px-Weapon_Maynard_Sniper.png?6c75a0",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Maynard_Sniper",
+        "originalName":  "Weapon Maynard Sniper.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "7F5930950306782D5C909BE1780E86E35BF0D0A9C8FE8B25E11B3481039C8FCC"
+    },
+    {
+        "id":  "mosin-nagant",
+        "path":  "assets/equipment/mosin-nagant.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mosin-Nagant.png/256px-Weapon_Mosin-Nagant.png?a86879",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin-Nagant",
+        "originalName":  "Weapon Mosin-Nagant.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "2AD58368E5DEE22D95F538D5CF4B9DB4D38B7BB2F9121A2B0425DCD5F4FA1053"
+    },
+    {
+        "id":  "mosin-nagant-bayonet",
+        "path":  "assets/equipment/mosin-nagant-bayonet.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mosin-Nagant.png/256px-Weapon_Mosin-Nagant.png?a86879",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin-Nagant/Bayonet",
+        "originalName":  "Weapon Mosin-Nagant.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "2AD58368E5DEE22D95F538D5CF4B9DB4D38B7BB2F9121A2B0425DCD5F4FA1053"
+    },
+    {
+        "id":  "mosin-nagant-sniper",
+        "path":  "assets/equipment/mosin-nagant-sniper.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mosin-Nagant.png/256px-Weapon_Mosin-Nagant.png?a86879",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin-Nagant/Sniper",
+        "originalName":  "Weapon Mosin-Nagant.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "2AD58368E5DEE22D95F538D5CF4B9DB4D38B7BB2F9121A2B0425DCD5F4FA1053"
+    },
+    {
+        "id":  "ranger-73",
+        "path":  "assets/equipment/ranger-73.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Ranger_73.png/256px-Weapon_Ranger_73.png?8de30e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Ranger_73",
+        "originalName":  "Weapon Ranger 73.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "F47259A641616A830EC3268CC240CA494D2FC39ED5BBDAF35AFEF7F5E884442F"
+    },
+    {
+        "id":  "ranger-73-aperture",
+        "path":  "assets/equipment/ranger-73-aperture.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Ranger_73.png/256px-Weapon_Ranger_73.png?8de30e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Ranger_73/Aperture",
+        "originalName":  "Weapon Ranger 73.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "F47259A641616A830EC3268CC240CA494D2FC39ED5BBDAF35AFEF7F5E884442F"
+    },
+    {
+        "id":  "ranger-73-swift",
+        "path":  "assets/equipment/ranger-73-swift.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Ranger_73.png/256px-Weapon_Ranger_73.png?8de30e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Ranger_73/Swift",
+        "originalName":  "Weapon Ranger 73.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "F47259A641616A830EC3268CC240CA494D2FC39ED5BBDAF35AFEF7F5E884442F"
+    },
+    {
+        "id":  "ranger-73-talon",
+        "path":  "assets/equipment/ranger-73-talon.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Ranger_73.png/256px-Weapon_Ranger_73.png?8de30e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Ranger_73/Talon",
+        "originalName":  "Weapon Ranger 73.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "F47259A641616A830EC3268CC240CA494D2FC39ED5BBDAF35AFEF7F5E884442F"
+    },
+    {
+        "id":  "rival-78",
+        "path":  "assets/equipment/rival-78.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Rival_78.png/256px-Weapon_Rival_78.png?a04a42",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Rival_78",
+        "originalName":  "Weapon Rival 78.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "A34DA6B1946730BB196FD5821B48DE8B2A529849187827BDD9344010C4353752"
+    },
+    {
+        "id":  "rival-78-trauma",
+        "path":  "assets/equipment/rival-78-trauma.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Rival_78.png/256px-Weapon_Rival_78.png?a04a42",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Rival_78/Trauma",
+        "originalName":  "Weapon Rival 78.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "A34DA6B1946730BB196FD5821B48DE8B2A529849187827BDD9344010C4353752"
+    },
+    {
+        "id":  "romero-77",
+        "path":  "assets/equipment/romero-77.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Romero_77.png/256px-Weapon_Romero_77.png?28a4f3",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Romero_77",
+        "originalName":  "Weapon Romero 77.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "8271FA967DF42F89E62B6D8EC6512440DC7D7F1DA949A304E2FD3664C11DF137"
+    },
+    {
+        "id":  "romero-77-alamo",
+        "path":  "assets/equipment/romero-77-alamo.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Romero_77.png/256px-Weapon_Romero_77.png?28a4f3",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Romero_77/Alamo",
+        "originalName":  "Weapon Romero 77.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "8271FA967DF42F89E62B6D8EC6512440DC7D7F1DA949A304E2FD3664C11DF137"
+    },
+    {
+        "id":  "romero-77-talon",
+        "path":  "assets/equipment/romero-77-talon.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Romero_77.png/256px-Weapon_Romero_77.png?28a4f3",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Romero_77/Talon",
+        "originalName":  "Weapon Romero 77.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "8271FA967DF42F89E62B6D8EC6512440DC7D7F1DA949A304E2FD3664C11DF137"
+    },
+    {
+        "id":  "shredder",
+        "path":  "assets/equipment/shredder.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Shredder.png?4af6ce",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Shredder",
+        "originalName":  "Weapon Shredder.png",
+        "width":  512,
+        "height":  128,
+        "sha256":  "C298FD62B5E23C49439A768DE4E8C96F4F6D250CD50D77F8A4B6F4B0596A22BF"
+    },
+    {
+        "id":  "slate",
+        "path":  "assets/equipment/slate.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Slate.png/256px-Weapon_Slate.png?1b0c21",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Slate",
+        "originalName":  "Weapon Slate.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "3DC3584A6AE4C6D4835DFDB09A31085324D5B2D1112DE8CA1108600E027AF709"
+    },
+    {
+        "id":  "slate-riposte",
+        "path":  "assets/equipment/slate-riposte.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Slate.png/256px-Weapon_Slate.png?1b0c21",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Slate/Riposte",
+        "originalName":  "Weapon Slate.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "3DC3584A6AE4C6D4835DFDB09A31085324D5B2D1112DE8CA1108600E027AF709"
+    },
+    {
+        "id":  "sparks",
+        "path":  "assets/equipment/sparks.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Sparks.png/256px-Weapon_Sparks.png?632113",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Sparks",
+        "originalName":  "Weapon Sparks.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "DC5AB5E8ABE1F8726E80D19C2091407E17B3268CE6D0BEE520399EE768645537"
+    },
+    {
+        "id":  "sparks-silencer",
+        "path":  "assets/equipment/sparks-silencer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Sparks.png/256px-Weapon_Sparks.png?632113",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Sparks/Silencer",
+        "originalName":  "Weapon Sparks.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "DC5AB5E8ABE1F8726E80D19C2091407E17B3268CE6D0BEE520399EE768645537"
+    },
+    {
+        "id":  "sparks-sniper",
+        "path":  "assets/equipment/sparks-sniper.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Sparks.png/256px-Weapon_Sparks.png?632113",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Sparks/Sniper",
+        "originalName":  "Weapon Sparks.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "DC5AB5E8ABE1F8726E80D19C2091407E17B3268CE6D0BEE520399EE768645537"
+    },
+    {
+        "id":  "specter-1882",
+        "path":  "assets/equipment/specter-1882.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Specter_1882.png/256px-Weapon_Specter_1882.png?8c2b99",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Specter_1882",
+        "originalName":  "Weapon Specter 1882.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "2544F42A61FCCC4008A5457725314AB4347B9DAD0E9C199D621B9DB6EA57EC1E"
+    },
+    {
+        "id":  "specter-1882-bayonet",
+        "path":  "assets/equipment/specter-1882-bayonet.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Specter_1882.png/256px-Weapon_Specter_1882.png?8c2b99",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Specter_1882/Bayonet",
+        "originalName":  "Weapon Specter 1882.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "2544F42A61FCCC4008A5457725314AB4347B9DAD0E9C199D621B9DB6EA57EC1E"
+    },
+    {
+        "id":  "springfield-1866",
+        "path":  "assets/equipment/springfield-1866.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Springfield_1866.png/256px-Weapon_Springfield_1866.png?4a33b2",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Springfield_1866",
+        "originalName":  "Weapon Springfield 1866.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "7750E7C9150F87A767B47047C589251BDFA4B9C7E3948B7418EBF70887257A6C"
+    },
+    {
+        "id":  "springfield-1866-bayonet",
+        "path":  "assets/equipment/springfield-1866-bayonet.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Springfield_1866.png/256px-Weapon_Springfield_1866.png?4a33b2",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Springfield_1866/Bayonet",
+        "originalName":  "Weapon Springfield 1866.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "7750E7C9150F87A767B47047C589251BDFA4B9C7E3948B7418EBF70887257A6C"
+    },
+    {
+        "id":  "springfield-1866-marksman",
+        "path":  "assets/equipment/springfield-1866-marksman.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Springfield_1866.png/256px-Weapon_Springfield_1866.png?4a33b2",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Springfield_1866/Marksman",
+        "originalName":  "Weapon Springfield 1866.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "7750E7C9150F87A767B47047C589251BDFA4B9C7E3948B7418EBF70887257A6C"
+    },
+    {
+        "id":  "terminus",
+        "path":  "assets/equipment/terminus.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Terminus.png/256px-Weapon_Terminus.png?d38ae5",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Terminus",
+        "originalName":  "Weapon Terminus.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "BC933C07329A034E562EE962C8DBE9A765BC401224105D2B615F9615B6D09B5F"
+    },
+    {
+        "id":  "vetterli-71-cyclone",
+        "path":  "assets/equipment/vetterli-71-cyclone.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Vetterli_71.png/256px-Weapon_Vetterli_71.png?e9d16f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Vetterli_71/Cyclone",
+        "originalName":  "Weapon Vetterli 71.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "757B3F77F7E46CE1E813505FDA7147C226CBE8B3A6232E9192986693ECE50D7D"
+    },
+    {
+        "id":  "wildland",
+        "path":  "assets/equipment/wildland.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Wildland.png?2e06f7",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Wildland",
+        "originalName":  "Weapon Wildland.png",
+        "width":  512,
+        "height":  128,
+        "sha256":  "F3EED2481A1C972CD21019147A64F2DAD057331D27C3BEDD5E0E06C48A178019"
+    },
+    {
+        "id":  "auto-5",
+        "path":  "assets/equipment/auto-5.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Auto-5.png/256px-Weapon_Auto-5.png?474360",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Auto-5",
+        "originalName":  "Weapon Auto-5.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "3B39242EC57AA52622E18D37D1CFA63653841B4AB2F1D62F9FD62BD5F5E15AEF"
+    },
+    {
+        "id":  "maynard-sniper-silencer",
+        "path":  "assets/equipment/maynard-sniper-silencer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Maynard_Sniper.png/256px-Weapon_Maynard_Sniper.png?6c75a0",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Maynard_Sniper/Silencer",
+        "originalName":  "Weapon Maynard Sniper.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "7F5930950306782D5C909BE1780E86E35BF0D0A9C8FE8B25E11B3481039C8FCC"
+    },
+    {
+        "id":  "mosin-nagant-avtomat",
+        "path":  "assets/equipment/mosin-nagant-avtomat.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Weapon_Mosin-Nagant.png/256px-Weapon_Mosin-Nagant.png?a86879",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Mosin-Nagant/Avtomat",
+        "originalName":  "Weapon Mosin-Nagant.png",
+        "width":  256,
+        "height":  64,
+        "sha256":  "2AD58368E5DEE22D95F538D5CF4B9DB4D38B7BB2F9121A2B0425DCD5F4FA1053"
+    },
+    {
+        "id":  "nitro-express",
+        "path":  "assets/equipment/nitro-express.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Weapon_Nitro_Express.png?8e6819",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Weapons/Nitro_Express",
+        "originalName":  "Weapon Nitro Express.png",
+        "width":  512,
+        "height":  128,
+        "sha256":  "DF639CFB2604F0BDFBD23670458CE21A3D7E1F7124DB208E10F91C9564790E6E"
+    },
+    {
+        "id":  "blank-fire-decoys",
+        "path":  "assets/equipment/blank-fire-decoys.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Blank_Fire_Decoys.png?74f6a9",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Blank_Fire_Decoys",
+        "originalName":  "Tool Blank Fire Decoys.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "23DB68B539DC832A2B0C9B9F5E0A8A0A168A9F2366C510431051A85E5D45A593"
+    },
+    {
+        "id":  "decoys",
+        "path":  "assets/equipment/decoys.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Decoys.png?10b313",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Decoys",
+        "originalName":  "Tool Decoys.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "FC1A308BE7A2D6A835CDF420ECC020B6A73D720126DCF2906CC20E997DE85AF4"
+    },
+    {
+        "id":  "decoy-fuses",
+        "path":  "assets/equipment/decoy-fuses.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Decoy_Fuses.png?7a97cc",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Decoy_Fuses",
+        "originalName":  "Tool Decoy Fuses.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "5FA699229E5DFE9F04F078897F02D5CC9C07846B19634265A9D33C8570CB1121"
+    },
+    {
+        "id":  "first-aid-kit",
+        "path":  "assets/equipment/first-aid-kit.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_First_Aid_Kit.png?41eeff",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/First_Aid_Kit",
+        "originalName":  "Tool First Aid Kit.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "CD4859454AB240658C5EFAAB55C012A4FBE4974F9C3CDB01702A66BF12CF7379"
+    },
+    {
+        "id":  "flare-pistol",
+        "path":  "assets/equipment/flare-pistol.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Flare_Pistol.png?b1acee",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Flare_Pistol",
+        "originalName":  "Tool Flare Pistol.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "533928BE2FB58546029E82F73925467CA6144AAC73A4D76D486A5DE552D3FE1B"
+    },
+    {
+        "id":  "fusees",
+        "path":  "assets/equipment/fusees.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Fusees.png?65f5a7",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Fusees",
+        "originalName":  "Tool Fusees.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "05E88935F2F555AB30D9DAB3FC62200A450EB3E3DC99165CB28E8D4A366BE799"
+    },
+    {
+        "id":  "dusters",
+        "path":  "assets/equipment/dusters.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Dusters.png?6c5376",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Dusters",
+        "originalName":  "Tool Dusters.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "7CAA6A5F3F9D729B2AD5DD3C9B4229AB7CA96789085F7E78EBD8F15DC44B39FA"
+    },
+    {
+        "id":  "heavy-knife",
+        "path":  "assets/equipment/heavy-knife.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Heavy_Knife.png?e47586",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Heavy_Knife",
+        "originalName":  "Tool Heavy Knife.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "D45FF6FCC1619C4B8A6261BEAD0467BD79A1D26316F58D8469F804D587056B03"
+    },
+    {
+        "id":  "knife",
+        "path":  "assets/equipment/knife.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Knife.png?829d78",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Knife",
+        "originalName":  "Tool Knife.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "941E4EBFCE014170230BF1F5109778DD4B221651F62EABB0DDB2CA7775177CBA"
+    },
+    {
+        "id":  "knuckle-knife",
+        "path":  "assets/equipment/knuckle-knife.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Knuckle_Knife.png?7c576f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Knuckle_Knife",
+        "originalName":  "Tool Knuckle Knife.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "0150B4D75687C395920C3F8CBA9E322F8189544770390C1A3FBC026C8BC6C672"
+    },
+    {
+        "id":  "throwing-axes",
+        "path":  "assets/equipment/throwing-axes.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Throwing_Axes.png?fb4c4d",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Throwing_Axes",
+        "originalName":  "Tool Throwing Axes.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "159B5D2EE5AF3E334140A2F27E0292004435007A14B8C20C1ABA4A6A735F4168"
+    },
+    {
+        "id":  "throwing-knives",
+        "path":  "assets/equipment/throwing-knives.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Throwing_Knives.png?af573b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Throwing_Knives",
+        "originalName":  "Tool Throwing Knives.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "6C57C6A7DA60B68C1E278BA4719DA846407021E8899369FC199B5C62795C18F4"
+    },
+    {
+        "id":  "throwing-spear",
+        "path":  "assets/equipment/throwing-spear.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Throwing_Spear.png?d8d172",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Throwing_Spear",
+        "originalName":  "Tool Throwing Spear.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "40E662C2DB99CD0516C598C435B0FE3DA2B85DA0D92775F4CF7D2E833739C640"
+    },
+    {
+        "id":  "derringer-pennyshot",
+        "path":  "assets/equipment/derringer-pennyshot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Derringer_Pennyshot.png?c323ad",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Derringer_Pennyshot",
+        "originalName":  "Tool Derringer Pennyshot.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "C247A39845F6F7FE4AC5705563A4EF319C0C424CDA7A66EF00568E4BFCC9051D"
+    },
+    {
+        "id":  "quad-derringer",
+        "path":  "assets/equipment/quad-derringer.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Quad_Derringer.png?71f538",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Quad_Derringer",
+        "originalName":  "Tool Quad Derringer.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "F3FA46FC26A6CABC90AA0E170D61A425B9528937DE061826CACEB5E9B557CAE9"
+    },
+    {
+        "id":  "alert-trip-mines",
+        "path":  "assets/equipment/alert-trip-mines.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Alert_Trip_Mines.png?11fff2",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Alert_Trip_Mines",
+        "originalName":  "Tool Alert Trip Mines.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "57037B5628A36414E57815B65CF8DAE79C2FDCAC45F6BECF3B762318462CAA53"
+    },
+    {
+        "id":  "concertina-trip-mines",
+        "path":  "assets/equipment/concertina-trip-mines.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Concertina_Trip_Mines.png?3909a5",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Concertina_Trip_Mines",
+        "originalName":  "Tool Concertina Trip Mines.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "C7003D1B31366BB17834548DC3F2CE05E74DD144C0F426123D4C78B4AECB4EEA"
+    },
+    {
+        "id":  "poison-trip-mines",
+        "path":  "assets/equipment/poison-trip-mines.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Poison_Trip_Mines.png?9e8051",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Poison_Trip_Mines",
+        "originalName":  "Tool Poison Trip Mines.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "4AF44AC9C221E5CEF2736CFC7572F6E097C651BC717AB955812B7E0F9E00EA34"
+    },
+    {
+        "id":  "bear-traps",
+        "path":  "assets/equipment/bear-traps.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Bear_Traps.png?5c7440",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Bear_Traps",
+        "originalName":  "Tool Bear Traps.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "D1A49D818DEBA5E9100AF7D6402AD1078CE5F78CF89A1D5F7F231374D8CF5FD6"
+    },
+    {
+        "id":  "choke-bombs",
+        "path":  "assets/equipment/choke-bombs.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Choke_Bombs.png?492d21",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Choke_Bombs",
+        "originalName":  "Tool Choke Bombs.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "1DDD90F3151E4624FE9BED6C13C95B86907D7AAC95E306425827E68CD126538D"
+    },
+    {
+        "id":  "spyglass",
+        "path":  "assets/equipment/spyglass.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Spyglass.png?d53f55",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Spyglass",
+        "originalName":  "Tool Spyglass.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "D45FCE4552FE89F6D975F49316DF491BED786A35B67C5AACABEC950EDB022ABE"
+    },
+    {
+        "id":  "multitool",
+        "path":  "assets/equipment/multitool.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Tool_Multitool.png?32fd9d",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Multitool",
+        "originalName":  "Tool Multitool.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "274B247DA605F7281F58E17B85AD4807A52A24B51E259B50A7E4A0501DF3B1B7"
+    },
+    {
+        "id":  "electric-lamp",
+        "path":  "assets/equipment/electric-lamp.png",
+        "source":  "https://huntshowdown.wiki.gg/images/thumb/Tool_Electric_Lamp.png/128px-Tool_Electric_Lamp.png?229285",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Tools/Electric_Lamp",
+        "originalName":  "Tool Electric Lamp.png",
+        "width":  128,
+        "height":  72,
+        "sha256":  "E15C3F21A02AB0045878CE17FDD1672AA21FB942BF6249A4150C4F6C9D0B3BA5"
+    },
+    {
+        "id":  "ammo-box",
+        "path":  "assets/equipment/ammo-box.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Ammo_Box.png?1eb52a",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Ammo_Box",
+        "originalName":  "Consumable Ammo Box.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "D30D6E2AA80F8E5C99BF621C81FC9D0244B49ABD479CF1EE95DC83FB37D32169"
+    },
+    {
+        "id":  "tool-box",
+        "path":  "assets/equipment/tool-box.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tool_Box.png?152fc9",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Tool_Box",
+        "originalName":  "Consumable Tool Box.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "23E0AF5E8A39F84E2F388BC25A5CE2962488CD55AF929056DF7B7422384246BC"
+    },
+    {
+        "id":  "fire-bomb",
+        "path":  "assets/equipment/fire-bomb.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Fire_Bomb.png?54f085",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Fire_Bomb",
+        "originalName":  "Consumable Fire Bomb.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "38D31292D035A15C0BD206A951F76E2D0D20799AC97EF502ABFA79535BB8CCE4"
+    },
+    {
+        "id":  "hellfire-bomb",
+        "path":  "assets/equipment/hellfire-bomb.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Hellfire_Bomb.png?eb2d12",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Hellfire_Bomb",
+        "originalName":  "Consumable Hellfire Bomb.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "23B141C69D520A1A3DF856EA5E3FE27DC72CDF690D3FF486342F65FF8A404A04"
+    },
+    {
+        "id":  "liquid-fire-bomb",
+        "path":  "assets/equipment/liquid-fire-bomb.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Liquid_Fire_Bomb.png?4ee589",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Liquid_Fire_Bomb",
+        "originalName":  "Consumable Liquid Fire Bomb.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "5DB91933C96CD20F5BB9CAEBBC25199E3EE3735E5F8B64EB545E28AA54BDA194"
+    },
+    {
+        "id":  "dynamite-stick",
+        "path":  "assets/equipment/dynamite-stick.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Dynamite_Stick.png?c6cc1a",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Dynamite_Stick",
+        "originalName":  "Consumable Dynamite Stick.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "45451117BDB06C8531D188DE19C30C41D8DCE0A449467C8618A8B6BF9709E991"
+    },
+    {
+        "id":  "dynamite-bundle",
+        "path":  "assets/equipment/dynamite-bundle.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Dynamite_Bundle.png?46348c",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Dynamite_Bundle",
+        "originalName":  "Consumable Dynamite Bundle.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "7B4CAF56BCDF738B138F9826DE66257D76EB01874AA1316DDD0D84825A548EEE"
+    },
+    {
+        "id":  "waxed-dynamite-stick",
+        "path":  "assets/equipment/waxed-dynamite-stick.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Waxed_Dynamite_Stick.png?215599",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Waxed_Dynamite_Stick",
+        "originalName":  "Consumable Waxed Dynamite Stick.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "3645AAEAF40FF7B524C214E18A77EF155519D7EEA0715D4D764F3603E076628F"
+    },
+    {
+        "id":  "big-dynamite-bundle",
+        "path":  "assets/equipment/big-dynamite-bundle.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Big_Dynamite_Bundle.png?8cf45e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Big_Dynamite_Bundle",
+        "originalName":  "Consumable Big Dynamite Bundle.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "4DE40137421561723361D67AEDD10382049AC3B0DFCFDE6E9A29757DA7C2A908"
+    },
+    {
+        "id":  "sticky-bomb",
+        "path":  "assets/equipment/sticky-bomb.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Sticky_Bomb.png?4507ef",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Sticky_Bomb",
+        "originalName":  "Consumable Sticky Bomb.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "0BEE356A27B4F53BDAB31BF87CF3E0845DF03598141CE88B11A305B1083859F7"
+    },
+    {
+        "id":  "frag-bomb",
+        "path":  "assets/equipment/frag-bomb.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Frag_Bomb.png?9e5646",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Frag_Bomb",
+        "originalName":  "Consumable Frag Bomb.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "66492D79AE7AC465E5D92D0C740DC8A0FDE149AA237CD62F102752D69FA7E4F6"
+    },
+    {
+        "id":  "dark-dynamite-satchel",
+        "path":  "assets/equipment/dark-dynamite-satchel.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Dark_Dynamite_Satchel.png?992c28",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Dark_Dynamite_Satchel",
+        "originalName":  "Consumable Dark Dynamite Satchel.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "78E64FC9F088814AE8C11030DED6C0D87F5011C6330D7FE0B7ECC3F92EE7275E"
+    },
+    {
+        "id":  "hive-bomb",
+        "path":  "assets/equipment/hive-bomb.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Hive_Bomb.png?555be3",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Hive_Bomb",
+        "originalName":  "Consumable Hive Bomb.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "4EF754EB65BB1F9F9E416673F4A024F6AA8C686051023FF8D5BF77AF0A5ECEB3"
+    },
+    {
+        "id":  "poison-bomb",
+        "path":  "assets/equipment/poison-bomb.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Poison_Bomb.png?81bb31",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Poison_Bomb",
+        "originalName":  "Consumable Poison Bomb.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "283CE35AE8AE91D6AF37E631455DAC994E19F36846D36AEEAD537FD45D992B89"
+    },
+    {
+        "id":  "chaos-bomb",
+        "path":  "assets/equipment/chaos-bomb.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Chaos_Bomb.png?de2beb",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Chaos_Bomb",
+        "originalName":  "Consumable Chaos Bomb.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "F6814F649F4FD3FCA6320AA542A9E4F1F009B09E2879C01F98EEB8360DBC97BA"
+    },
+    {
+        "id":  "antidote-shot",
+        "path":  "assets/equipment/antidote-shot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Antidote_Shot.png?70d0c2",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Antidote_Shot",
+        "originalName":  "Consumable Antidote Shot.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "BCFF429017FA3DFBF84C8E01E8BC10883E1CD314B94E59B56AE82720D27F10CF"
+    },
+    {
+        "id":  "antidote-shot-weak",
+        "path":  "assets/equipment/antidote-shot-weak.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Antidote_Shot_Weak.png?1daf85",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Antidote_Shot_(Weak)",
+        "originalName":  "Consumable Antidote Shot Weak.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "DED69DD1CCB5521117F1622F289DA093CEAC20B8F11C96E6EFF4124D0191D7FE"
+    },
+    {
+        "id":  "regeneration-shot",
+        "path":  "assets/equipment/regeneration-shot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Regeneration_Shot.png?c1d570",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Regeneration_Shot",
+        "originalName":  "Consumable Regeneration Shot.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "48295F268F4FA43D848BCB0603A80962E02FDBBB1CEA91F1BD4A781F46D9191A"
+    },
+    {
+        "id":  "regeneration-shot-weak",
+        "path":  "assets/equipment/regeneration-shot-weak.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Regeneration_Shot_Weak.png?9825fb",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Regeneration_Shot_(Weak)",
+        "originalName":  "Consumable Regeneration Shot Weak.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "80CE56186206AA8D10E6B0421DA876A53DA9E677E0A62767B8A48AC8700AED79"
+    },
+    {
+        "id":  "stamina-shot",
+        "path":  "assets/equipment/stamina-shot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Stamina_Shot.png?f2bbff",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Stamina_Shot",
+        "originalName":  "Consumable Stamina Shot.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "CAA9F6B27E310F7BD46AFBFD6955F1AF75A7586334DD9D530DDD6CA1FBAA322E"
+    },
+    {
+        "id":  "stamina-shot-weak",
+        "path":  "assets/equipment/stamina-shot-weak.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Stamina_Shot_Weak.png?58c95e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Stamina_Shot_(Weak)",
+        "originalName":  "Consumable Stamina Shot Weak.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "1A61FC2189B0A0A86D9BF03DA454BAB8A3E1A7BF312D86AA70BF9ED6B420D0A5"
+    },
+    {
+        "id":  "medical-pack",
+        "path":  "assets/equipment/medical-pack.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Medical_Pack.png?38d68f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Medical_Pack",
+        "originalName":  "Consumable Medical Pack.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "A4D874D4BE61AD4DAC2C0C7CB51C4E7B93C7BAA2ABA7312B61979DFC0D512AAB"
+    },
+    {
+        "id":  "vitality-shot",
+        "path":  "assets/equipment/vitality-shot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Vitality_Shot.png?338957",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Vitality_Shot",
+        "originalName":  "Consumable Vitality Shot.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "EA5E7947754861C23D7FB59397785043770FF6C846690556D4D8376E62340C1E"
+    },
+    {
+        "id":  "vitality-shot-weak",
+        "path":  "assets/equipment/vitality-shot-weak.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Vitality_Shot_Weak.png?c66631",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Vitality_Shot_(Weak)",
+        "originalName":  "Consumable Vitality Shot Weak.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "0AE8ABF777E746F0F002E60B07E2C09E962C5B7B9C930BF4D3266318A266642E"
+    },
+    {
+        "id":  "recovery-shot",
+        "path":  "assets/equipment/recovery-shot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Recovery_Shot.png?893d86",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Recovery_Shot",
+        "originalName":  "Consumable Recovery Shot.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "7E9E8518FF8A6A4184A0ECFE8BE610112B2DA178D3EADCE40C178FC6C1B53171"
+    },
+    {
+        "id":  "stalker-beetle",
+        "path":  "assets/equipment/stalker-beetle.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Stalker_Beetle.png?ce3a1c",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Stalker_Beetle",
+        "originalName":  "Consumable Stalker Beetle.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "143CC5C14FDB45503831ED760E197892D660DE22E112FA7D3B8B34154F2A7A2D"
+    },
+    {
+        "id":  "choke-beetle",
+        "path":  "assets/equipment/choke-beetle.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Choke_Beetle.png?de4f9f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Choke_Beetle",
+        "originalName":  "Consumable Choke Beetle.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "B14C43E4380DC810595D17C13A0ACBB444B231DBD28B524044B63959B601695E"
+    },
+    {
+        "id":  "fire-beetle",
+        "path":  "assets/equipment/fire-beetle.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Fire_Beetle.png?86739a",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Fire_Beetle",
+        "originalName":  "Consumable Fire Beetle.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "DC5F4B07D5CCCDAFEA767163E9A48BDA56C65EB19B068D4314E5B5981FCD28EA"
+    },
+    {
+        "id":  "concertina-bomb",
+        "path":  "assets/equipment/concertina-bomb.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Concertina_Bomb.png?d8f8a4",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Concertina_Bomb",
+        "originalName":  "Consumable Concertina Bomb.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "0831668C4020F288A4ADF16BBB1B02A5F4273B634E7F06C5E9ED9C7FC383A275"
+    },
+    {
+        "id":  "flash-bomb",
+        "path":  "assets/equipment/flash-bomb.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Flash_Bomb.png?878fe7",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Flash_Bomb",
+        "originalName":  "Consumable Flash Bomb.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "4A11CFA69B045D78E8D4B25365F748B37131DC25884AE47BE93E59A0F5FCAFEC"
+    },
+    {
+        "id":  "the-chariot",
+        "path":  "assets/equipment/the-chariot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Chariot.png?be30a8",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Chariot",
+        "originalName":  "Consumable Tarot Card The Chariot.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "B87486ABA9F99725AAA9BB62522A93B60B827F24E8AF0619B6951902A94828D3"
+    },
+    {
+        "id":  "the-devil",
+        "path":  "assets/equipment/the-devil.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Devil.png?a9aa76",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Devil",
+        "originalName":  "Consumable Tarot Card The Devil.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "A04F21D90952D3BD9EA4E4F4132636687E5823A573489C59F5C2F2219A6D8953"
+    },
+    {
+        "id":  "the-empress",
+        "path":  "assets/equipment/the-empress.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Empress.png?4f15e8",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Empress",
+        "originalName":  "Consumable Tarot Card The Empress.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "74269934DD44190967B698FC0AE48E3BC56E006321A18F5DC3E8F8B0AF45298C"
+    },
+    {
+        "id":  "the-fool",
+        "path":  "assets/equipment/the-fool.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Fool.png?7a607f",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Fool",
+        "originalName":  "Consumable Tarot Card The Fool.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "5B718967FD6B91C53DFC56AD01E67BE0A6370B58880164507A99BB4F74F52766"
+    },
+    {
+        "id":  "the-garden",
+        "path":  "assets/equipment/the-garden.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Garden.png?b507e5",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Garden",
+        "originalName":  "Consumable Tarot Card The Garden.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "44C36635BAF64D4872F9149033244F76783A731D6B34A72146BF692B40733F72"
+    },
+    {
+        "id":  "the-hanged-man",
+        "path":  "assets/equipment/the-hanged-man.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Hanged_Man.png?49d325",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Hanged_Man",
+        "originalName":  "Consumable Tarot Card The Hanged Man.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "B362D42A0D523F1E0F192619DAE3BB77C782EE0487516F6895A9885728682365"
+    },
+    {
+        "id":  "the-high-priestess",
+        "path":  "assets/equipment/the-high-priestess.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_High_Priestess.png?69dec4",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_High_Priestess",
+        "originalName":  "Consumable Tarot Card The High Priestess.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "AE3F2940ED33E6582B51C1F896D7104731032AEECA1AF898AB2EB4AFE7DFBACC"
+    },
+    {
+        "id":  "the-judgement",
+        "path":  "assets/equipment/the-judgement.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Judgement.png?ccd599",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Judgement",
+        "originalName":  "Consumable Tarot Card The Judgement.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "C73522B7F72ECBC12A8A61F537F058C29C28E912CB5C997D84C8C344438BCC41"
+    },
+    {
+        "id":  "the-magician",
+        "path":  "assets/equipment/the-magician.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Magician.png?752ecf",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Magician",
+        "originalName":  "Consumable Tarot Card The Magician.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "F360AB605EB3734BF99AB7774A8C230F351DB9A090C18E9B94EB290D96429940"
+    },
+    {
+        "id":  "the-moon",
+        "path":  "assets/equipment/the-moon.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Moon.png?8007d6",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Moon",
+        "originalName":  "Consumable Tarot Card The Moon.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "E10B97D04B167A7AC543401C48C72F3E5CA0D50C81F0E963684DC2E3BD1921BD"
+    },
+    {
+        "id":  "the-pathfinder",
+        "path":  "assets/equipment/the-pathfinder.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Pathfinder.png?10234b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Pathfinder",
+        "originalName":  "Consumable Tarot Card The Pathfinder.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "C899CB3F1829E374CBA677F35FE6AC33C4E77D40526B71F0754CC13D2F348414"
+    },
+    {
+        "id":  "the-sun",
+        "path":  "assets/equipment/the-sun.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Sun.png?3ef3b3",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Sun",
+        "originalName":  "Consumable Tarot Card The Sun.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "DA7EF0C12E2D5015FF75B48EE888DACE60F1BB39A34C0D97C233680E5FA3A9C3"
+    },
+    {
+        "id":  "the-tower",
+        "path":  "assets/equipment/the-tower.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_Tower.png?8d0f3b",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_Tower",
+        "originalName":  "Consumable Tarot Card The Tower.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "A4B14B6CB985253DC4C128E8E31DDD0DECE503E7CDF04CEB62428D3DA713FCC0"
+    },
+    {
+        "id":  "the-world",
+        "path":  "assets/equipment/the-world.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Tarot_Card_The_World.png?9d4ebd",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/The_World",
+        "originalName":  "Consumable Tarot Card The World.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "94F339AB42C14A5CA1D95D36CB462D587E44C6F79A4AD1643D512D84A8406C38"
+    },
+    {
+        "id":  "wormseed-shot",
+        "path":  "assets/equipment/wormseed-shot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Wormseed_Shot_Bronze.png?bb59cc",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Wormseed_Shot",
+        "originalName":  "Consumable Wormseed Shot Bronze.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "49915BB8597CB3877A19381BF6FB06A6E32F00F58347CF37DBE19C8C65F4FAC9"
+    },
+    {
+        "id":  "iron-reliquary",
+        "path":  "assets/equipment/iron-reliquary.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Reliquary_Iron.png?57cb1e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Iron_Reliquary",
+        "originalName":  "Consumable Reliquary Iron.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "84AAC2AB002B61C73A64C4CF7CE2D5C061B83B39CF18B0289D405493E6BB6751"
+    },
+    {
+        "id":  "silver-reliquary",
+        "path":  "assets/equipment/silver-reliquary.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Reliquary_Silver.png?bda011",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Silver_Reliquary",
+        "originalName":  "Consumable Reliquary Silver.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "A484AE675A4487AEA67B36841E2D46355D7086E9741B2C3BDC7D2BDAB0620E32"
+    },
+    {
+        "id":  "ivory-reliquary",
+        "path":  "assets/equipment/ivory-reliquary.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Reliquary_Ivory.png?b6f83e",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Ivory_Reliquary",
+        "originalName":  "Consumable Reliquary Ivory.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "491CBD72BF5B71DED190EE67D69A1F692363BFC2141C6D1B7BE00F0BEE549E2D"
+    },
+    {
+        "id":  "15-proof-vapours",
+        "path":  "assets/equipment/15-proof-vapours.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_15_Proof_Vapour.png?e98899",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/15-Proof_Vapours",
+        "originalName":  "Consumable 15 Proof Vapour.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "3860CD8CEAC3B8B1D56F90681659DDA695CD42F226BC60DAD04EF47124E1FD4E"
+    },
+    {
+        "id":  "25-proof-vapours",
+        "path":  "assets/equipment/25-proof-vapours.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_25_Proof_Vapour.png?b9b0ba",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/25-Proof_Vapours",
+        "originalName":  "Consumable 25 Proof Vapour.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "D2A198ECFFBDBEAB06C4CA25A58AB82A732607E7DCD659BA8B7B114D59E77237"
+    },
+    {
+        "id":  "50-proof-vapours",
+        "path":  "assets/equipment/50-proof-vapours.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_50_Proof_Vapour.png?42ed43",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/50-Proof_Vapours",
+        "originalName":  "Consumable 50 Proof Vapour.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "4B61F3C113A78EC343678FFD162D259F621F965E20DFD6665BC497AA2C1D77AD"
+    },
+    {
+        "id":  "bronze-wormseed-shot",
+        "path":  "assets/equipment/bronze-wormseed-shot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Wormseed_Shot_Bronze.png?bb59cc",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Bronze_Wormseed_Shot",
+        "originalName":  "Consumable Wormseed Shot Bronze.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "49915BB8597CB3877A19381BF6FB06A6E32F00F58347CF37DBE19C8C65F4FAC9"
+    },
+    {
+        "id":  "silver-wormseed-shot",
+        "path":  "assets/equipment/silver-wormseed-shot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Wormseed_Shot_Silver.png?81aa98",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Silver_Wormseed_Shot",
+        "originalName":  "Consumable Wormseed Shot Silver.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "84AF654FB470D44DA242A4824628A0F4A28E8F3888A9BB03840EE43F0F5E0995"
+    },
+    {
+        "id":  "gold-wormseed-shot",
+        "path":  "assets/equipment/gold-wormseed-shot.png",
+        "source":  "https://huntshowdown.wiki.gg/images/Consumable_Wormseed_Shot_Gold.png?a82a6a",
+        "page":  "https://huntshowdown.wiki.gg/wiki/Consumables/Gold_Wormseed_Shot",
+        "originalName":  "Consumable Wormseed Shot Gold.png",
+        "width":  128,
+        "height":  128,
+        "sha256":  "2D9BE4F7314BE36CD30273D72777700B8C88106BF4D4FEB8F45CD93ABFE8E47F"
+    }
+]

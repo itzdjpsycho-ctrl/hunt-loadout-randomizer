@@ -1,0 +1,60 @@
+﻿{
+    "schemaVersion":  2,
+    "researchedOn":  "2026-09-23",
+    "targetPatch":  "2.9",
+    "weaponPositions":  2,
+    "weaponCapacity":  {
+                           "default":  5,
+                           "withQuartermaster":  6
+                       },
+    "equipmentPositions":  8,
+    "equipmentSlotsSharedBetweenToolsAndConsumables":  true,
+    "consumableCategoryLimits":  {
+                                     "throwables":  4,
+                                     "placeables":  4,
+                                     "shots":  4,
+                                     "tarot-cards":  4
+                                 },
+    "sources":  [
+                    "https://www.huntshowdown.com/news/inventory-slot-rework",
+                    "https://www.huntshowdown.com/player-guide",
+                    "https://huntshowdown.wiki.gg/wiki/Hunters",
+                    "https://huntshowdown.wiki.gg/wiki/Bloodline",
+                    "https://huntshowdown.wiki.gg/wiki/Traits/Quartermaster"
+                ],
+    "unresolved":  [
+                       "Per-pistol dual-wield pair capacity and matching rules; generation disabled",
+                       "Custom ammo compatibility, ammo slot counts, availability and prices; generation disabled",
+                       "Per-variant weapon XP thresholds; require exact player arsenal unlock confirmation",
+                       "Player-specific inventory quantities, unlock state and funds must be provided by the player; not inferred",
+                       "Six historical event consumable categories; these items remain excluded"
+                   ],
+    "proposedDefaults":  {
+                             "requireFirstAidKit":  true,
+                             "requireMeleeOption":  true,
+                             "enableScarceItems":  false,
+                             "enableEventUnlocks":  false,
+                             "enableHistoricalEventItems":  false,
+                             "enableRemovedItems":  false,
+                             "enableWorldPickups":  false,
+                             "enableCustomAmmoRandomization":  false,
+                             "enableDualWieldRandomization":  false
+                         },
+    "note":  "Proposed defaults are app design choices. This file is a research specification, not an implemented loadout validator.",
+    "uniqueToolsOnly":  true,
+    "duplicateConsumablesAllowedWithinCategoryLimit":  true,
+    "quartermaster":  {
+                          "bloodlineRank":  1,
+                          "upgradePointCost":  8,
+                          "mustBeEquippedOnHunter":  true,
+                          "source":  "https://huntshowdown.wiki.gg/wiki/Traits/Quartermaster"
+                      },
+    "acquisition":  {
+                        "ownedModeRequiresConfirmedEquippableInstanceCount":  true,
+                        "purchaseModeRequiresItemUnlockAndFunds":  true,
+                        "unknownUnlockState":  "exclude-until-confirmed",
+                        "removedOrUnreviewedEventItems":  "exclude-even-if-ownership-claimed",
+                        "prestigeRequiresRefreshingPlayerUnlockState":  true,
+                        "weaponFamilyFieldIsNotAnUnlockTree":  true
+                    }
+}

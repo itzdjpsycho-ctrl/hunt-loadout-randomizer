@@ -1,0 +1,1587 @@
+﻿ 
+ 
+ 
+ 
+ Weapons - Hunt: Showdown 1896 Wiki 
+
+
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ Indie game deals 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ Create account 
+
+ Log in 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ Toggle personal tools menu 
+
+ 
+ 
+ 
+ 
+ Create account 
+
+ Log in 
+
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+ Navigation menu
+
+ 
+ 
+ 
+ 
+ 
+ Namespaces 
+ 
+
+ 
+ 
+ 
+ 
+ Page 
+ Discussion 
+
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ 
+ 
+ English 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+ 
+
+ 
+ 
+ 
+ 
+ Views 
+ 
+
+ 
+ 
+ 
+ 
+ Read 
+ Sign up to edit 
+ View source 
+ View history 
+
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ 
+ 
+ More 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ Search
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ Navigation 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ 
+ Core Gameplay 
+ 
+
+ 
+ 
+ 
+ 
+ Game Modes 
+ Game Progression 
+ Hunters 
+ Currency 
+ Lore 
+
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ Environment 
+ 
+
+ 
+ 
+ 
+ 
+ Maps 
+ World Items 
+ Targets 
+ Monsters 
+ Hazards 
+ Noise Traps 
+
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ Equipment 
+ 
+
+ 
+ 
+ 
+ 
+ Weapons 
+ Ammo 
+ Tools 
+ Consumables 
+ Traits 
+
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ Cosmetics 
+ 
+
+ 
+ 
+ 
+ 
+ Weapon Charms 
+ Equipment Animations 
+ Player Profile 
+
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ Content Sources 
+ 
+
+ 
+ 
+ 
+ 
+ Updates 
+ Events 
+ Twitch Drops 
+ DLC 
+ Story Challenges 
+
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ Wiki 
+ 
+
+ 
+ 
+ 
+ 
+ Main page 
+ Recent changes 
+ Random page 
+ Help about MediaWiki 
+ Contribute to the wiki! 
+ Wiki Policies 
+
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ Tools 
+ 
+
+ 
+ 
+ 
+ 
+ What links here 
+ Related changes 
+ New page 
+ Special pages 
+ Printable version 
+ Page information 
+ Database data 
+
+ 
+ 
+ 
+
+
+
+
+ 
+
+
+
+ 
+
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ Weapons 
+
+ 
+ From Hunt: Showdown 1896 Wiki
+
+ 
+
+ 
+
+ 
+ 
+
+ Jump to navigation 
+ Jump to search 
+ Weapons are the main way to deal damage in Hunt: Showdown 1896. All base weapons are available to buy for Hunt Dollars and can be used from Bloodline Rank 0, but their variants (such as attached scopes, bayonets and silencers) have to be unlocked through gaining Weapon XP with that specific weapon family before they can be bought. 
+
+ A lot of weapons also have legendary skins, which can be obtained in various ways. All available skins and their respective source are listed on the weapons pages. 
+
+ In Bounty Hunt and Bounty Clash , players can equip a Hunter with their desired loadout of Weapons, Tools and Consumables before the match, then spawn in with them. 
+In Soul Survivor , players have to search the map for Weapons to equip and fight with.
+
+
+ Contents
+ 
+
+ 
+ 1 Weapon Types 
+ 
+ 1.1 Weapon Slots 
+
+ 1.2 Ammo Size 
+
+ 1.3 Action Type 
+
+ 
+
+
+ 2 List of Weapons 
+ 
+ 2.1 Regular Weapons 
+ 
+ 2.1.1 Compact Ammo 
+
+ 2.1.2 Medium Ammo 
+
+ 2.1.3 Long Ammo 
+
+ 2.1.4 Special Long Ammo 
+
+ 2.1.5 Shotgun Shells 
+
+ 2.1.6 Special Ammo 
+
+ 2.1.7 Melee Weapons 
+
+ 
+
+
+ 
+
+
+ 3 Weapon Statistics 
+ 
+ 3.1 Outdated Stats 
+
+ 
+
+
+ 4 Removed Features 
+ 
+ 4.1 Weapon Cleaning 
+
+ 4.2 Broken Scopes 
+
+ 
+
+
+ 5 Update History 
+
+ 
+
+
+
+ Weapon Types 
+
+ Weapons in the game are categorized in three different ways: Weapon Slot Size, Ammo Type and Action Type.
+
+
+ Weapon Slots 
+
+ Each Hunter is able to equip two weapons in their loadout, which can be any combination of weapons within a player's Weapon Capacity. Weapons range from 1-5 'slots':
+
+
+ 5 Slot : Large, powerful weapons such as the Nitro Express , Auto-5 , and Mosin-Nagant Avtomat , or weapons with excessive attachments like the Maynard Sniper Silencer .
+
+ 4 Slot : Full-length Rifles and Shotguns, as well as Special weapons such as the Crossbow .
+
+ 3 Slot : Carbines and Large Sawn-off Shotguns, Large Pistols equipped with stocks, and Special weapons such as the Hunting Bow or Bomb Lance .
+
+ 2 Slot : Sawn-off Rifles and Shotguns, Pistols equipped with stocks, most Dual-Wielded pistol pairs, large pistols such as the Uppercut and Dolch 96 , and large melee weapons such as the Combat Axe and Katana .
+
+ 1 Slot : Pistols, small Melee Weapons and Special weapons such as Hand Crossbow .
+ 
+ Hunters are able to carry up to 5 slots worth of weapon capacity.
+
+ With the Trait Quartermaster a Hunter can carry 6 slots, allowing them to combine two 3 slots, a 4 & 2 slot, or a 5 & 1 slot.
+
+
+ Ammo Size 
+
+ There are six main types of ammunition:
+
+
+ Compact Ammo: Small caliber weapons with lower damage, muzzle velocity and penetration, but a smoother bullet drop over distance and the largest ammo pool (20-28 extra for rifles and 12-21 for pistols)
+
+ Medium Ammo: Medium caliber weapons with higher damage, muzzle velocity and penetration, with slightly steeper bullet drop and less ammo than Compact (12-24 extra for rifles and 12 for pistols)
+
+ Long Ammo: Large caliber blackpowder weapons with high damage and penetration, but with steep bullet drop and the least ammo (10-18 extra for rifles and 6-14 for pistols)
+
+ Special Long Ammo: Large caliber smokeless powder weapons with the highest damage and muzzle velocity, which cannot share ammunition with other black powder Long Ammo weapons.
+
+ Shotgun Shells: 12 & 20 gauge shotgun shells that fire a spread of 14 pellets over short distance
+
+ Special Ammo: Non-traditional ammunition that follows its own rules, such as Crossbows, Hunting Bows, Bomb Launchers, the Nitro Express and the Dolch 96 
+ 
+ The general behavior of each ammo type can be tweaked with Custom Ammo to increase penetration or muzzle velocity or create status effects such as bleeding, burning or poisoning. More information on the various ammo types can be found on the Ammo page .
+
+
+ Action Type 
+
+ To further differentiate weapons aside from size and ammo, subcategories exist which reflect the kinds of stats each weapon has and how they technically work. These categories aren't represented by official designations and it's not possible to filter for them, however their used gets tracked and players are able to unlock matching elements for their Player Profile .
+
+
+ Bolt Action : Rifles that pull a bolt back to cycle a new cartridge into the chamber.
+ Benefits from the Iron Eye trait to keep sights on target while working the bolt.
+
+ Some can benefit from the Bulletgrubber trait to save ejected live rounds when reloading.
+ 
+ 
+ Lever Action : Rifles and shotguns that cock a lever to cycle a new cartridge.
+ Benefits from the Iron Eye trait to keep sights on target while working the lever.
+
+ Especially benefits from the Levering trait to hipfire the weapon very quickly
+ 
+ 
+ Pump Action : Shotguns and rifles that pump a sliding handguard to cycle a new cartridge.
+ Can benefit from the Iron Eye trait, though it does little for shotguns which are equally accurate in hipfire and ADS
+
+ Some can benefit from the Bulletgrubber trait to save ejected rounds when reloading
+ 
+ 
+ Single-Shot : Rifles, shotguns, pistols, crossbows and bomb launchers that manually load a single cartridge or bolt into the chamber.
+ Rifles benefit from the Fast Fingers trait to reload the weapon faster from a handful of bullets kept in the supporting hand
+
+ Single-Shot weapons can split their ammo pool between two ammo types, such as regular and custom, or two types of custom ammo.
+ 
+ 
+ Double-Barrel : Rifles and shotguns that can be fired twice before needing to be manually reloaded
+ 
+ Semi-Automatic and Automatic : Rifles, shotguns and pistols that load a new round automatically after each trigger pull, or when the trigger is held down
+ Far more expensive than any other kind of weapon
+ 
+ 
+ Single-Action : Revolvers that require the hammer to be manually cocked back before firing
+ Benefits from the Fanning trait to hipfire the weapon very quickly
+ 
+ 
+ Double-Action : Revolvers that automatically cock the hammer back when pulling the trigger
+ Cannot benefit from the Fanning trait
+ 
+ 
+ List of Weapons 
+
+ All of the base weapons in the game are listed here. Variants of each weapon can be found on their respective pages.
+
+ Some weapons are only available as Scarce Weapons and/or during specific Events . They cannot be bought with Hunt Dollars , but they need to be obtained in-game in exchange for Pledge Marks .
+
+ You can alphabetically see all weapons by visiting the Weapons Category . 
+
+
+ Regular Weapons 
+
+ Compact Ammo 
+
+ 
+ 
+ 
+
+
+ Infantry 73L 
+
+ 
+
+
+ 
+ 
+
+
+ Marathon 
+
+ 
+
+
+ 
+ 
+
+
+ Ranger 73 
+
+ 
+
+
+ 
+ 
+
+
+ Frontier 73C 
+
+ 
+
+
+ 
+ 
+
+
+ Lemat Carbine 
+
+ 
+
+
+ 
+ 
+
+
+ Officer Carbine 
+
+ 
+
+
+ 
+ 
+
+
+ Bornheim No.3 Match 
+
+ 
+
+
+ 
+ 
+
+
+ Nagant M1895 Precision 
+
+ 
+
+
+ 
+ 
+
+
+ Vandal 73C 
+
+ 
+
+
+ 
+ 
+
+
+ Bornheim No. 3 
+
+ 
+
+
+ 
+ 
+
+
+ Conversion 
+
+ 
+
+
+ 
+ 
+
+
+ LeMat 
+
+ 
+
+
+ 
+ 
+
+
+ Nagant M1895 
+
+ 
+
+
+ 
+ 
+
+
+ New Army 
+
+ 
+
+
+ 
+ 
+
+
+ Officer 
+
+ 
+
+
+ 
+ Medium Ammo 
+
+ 
+ 
+ 
+
+
+ Maynard Sniper Silencer 
+
+ 
+
+
+ 
+ 
+
+
+ Centennial 
+
+ 
+
+
+ 
+ 
+
+
+ Drilling 
+
+ 
+
+
+ 
+ 
+
+
+ Maynard Sniper 
+
+ 
+
+
+ 
+ 
+
+
+ Springfield 1866 
+
+ 
+
+
+ 
+ 
+
+
+ Vetterli 71 Cyclone 
+
+ 
+
+
+ 
+ 
+
+
+ Wildland 
+
+ 
+
+
+ 
+ 
+
+
+ 1865 Carbine 
+
+ 
+
+
+ 
+ 
+
+
+ Vetterli 71 
+
+ 
+
+
+ 
+ 
+
+
+ Centennial Shorty 
+
+ 
+
+
+ 
+ 
+
+
+ Drilling Shorty 
+
+ 
+
+
+ 
+ 
+
+
+ Scottfield Precision 
+
+ 
+
+
+ 
+ 
+
+
+ Springfield 1866 Shorty 
+
+ 
+
+
+ 
+ 
+
+
+ Pax 
+
+ 
+
+
+ 
+ 
+
+
+ Scottfield 
+
+ 
+
+
+ 
+ Long Ammo 
+
+ 
+ 
+ 
+
+
+ Mako 1895 
+
+ 
+
+
+ 
+ 
+
+
+ Martini-Henry 
+
+ 
+
+
+ 
+ 
+
+
+ Sparks 
+
+ 
+
+
+ 
+ 
+
+
+ 1890 Cavalry 
+
+ 
+
+
+ 
+ 
+
+
+ Uppercut Precision 
+
+ 
+
+
+ 
+ 
+
+
+ Haymaker 
+
+ 
+
+
+ 
+ 
+
+
+ Uppercut 
+
+ 
+
+
+ 
+ 
+
+
+ Sparks Pistol 
+
+ 
+
+
+ 
+ Special Long Ammo 
+
+ 
+ 
+ 
+
+
+ Krag 
+
+ 
+
+
+ 
+ 
+
+
+ Lebel 1886 
+
+ 
+
+
+ 
+ 
+
+
+ Mosin-Nagant 
+
+ 
+
+
+ 
+ 
+
+
+ Berthier 1892 
+
+ 
+
+
+ 
+ 
+
+
+ Mosin Obrez Match 
+
+ 
+
+
+ 
+ 
+
+
+ Mosin Obrez 
+
+ 
+
+
+ 
+ Shotgun Shells 
+
+ Note: LeMat and Drilling also have an additional shotgun barrel which players can switch back and forth.
+
+
+ 
+ 
+ 
+
+
+ Auto-5 
+
+ 
+
+
+ 
+ 
+
+
+ Homestead 78 
+
+ 
+
+
+ 
+ 
+
+
+ Rival 78 
+
+ 
+
+
+ 
+ 
+
+
+ Romero 77 
+
+ 
+
+
+ 
+ 
+
+
+ Slate 
+
+ 
+
+
+ 
+ 
+
+
+ Specter 1882 
+
+ 
+
+
+ 
+ 
+
+
+ Terminus 
+
+ 
+
+
+ 
+ 
+
+
+ Auto-4 Shorty 
+
+ 
+
+
+ 
+ 
+
+
+ Burgess 
+
+ 
+
+
+ 
+ 
+
+
+ Rival 78 Shorty 
+
+ 
+
+
+ 
+ 
+
+
+ Romero 77 Shorty 
+
+ 
+
+
+ 
+ 
+
+
+ Specter 1882 Shorty 
+
+ 
+
+
+ 
+ 
+
+
+ Terminus Shorty 
+
+ 
+
+
+ 
+ Special Ammo 
+
+ Note: The Bomb Lance is also a very strong melee weapon, capable of killing enemies with one hit.
+
+
+ 
+ 
+ 
+
+
+ Nitro Express 
+
+ 
+
+
+ 
+ 
+
+
+ Crossbow 
+
+ 
+
+
+ 
+ 
+
+
+ Shredder 
+
+ 
+
+
+ 
+ 
+
+
+ Bomb Lance 
+
+ 
+
+
+ 
+ 
+
+
+ Dolch 96 Precision 
+
+ 
+
+
+ 
+ 
+
+
+ Hunting Bow 
+
+ 
+
+
+ 
+ 
+
+
+ Bomb Launcher 
+
+ 
+
+
+ 
+ 
+
+
+ Chu Ko Nu 
+
+ 
+
+
+ 
+ 
+
+
+ Dolch 96 
+
+ 
+
+
+ 
+ 
+
+
+ Flame Rifle 
+
+ 
+
+
+ 
+ 
+
+
+ Hand Crossbow 
+
+ 
+
+
+ 
+ Melee Weapons 
+
+ 
+ 
+ 
+
+
+ Combat Axe 
+
+ 
+
+
+ 
+ 
+
+
+ Katana 
+
+ 
+
+
+ 
+ 
+
+
+ Railroad Hammer 
+
+ 
+
+
+ 
+ 
+
+
+ Baseball Bat 
+
+ 
+
+
+ 
+ 
+
+
+ Cavalry Saber 
+
+ 
+
+
+ 
+ 
+
+
+ Machete 
+
+ 
+
+
+ 
+ Weapon Statistics 
+
+ Weapon Stats of the Conversion Chain Pistol 
+
+
+
+ Weapon Stats determine the strength and weaknesses of each respective weapon, and can be modified by Weapon Variants and Custom Ammo.
+
+ Damage 
+
+
+ Damage value of a shot that hits a Hunter in the upper torso at 10 meters
+
+ For shotguns, this is the average damage at 10 meters at center mass
+ 
+ Drop Range 
+
+
+ Distance (in meters) at which a projectile drops roughly a head's height (20cm) below the aim point
+
+ Displayed in the HUD when Aiming Down Sights
+
+ Rate of drop varies by ammo type and is modified by velocity, barrel length and weapon action types
+ 
+ Rate of Fire 
+
+
+ Shots fired per minute, including time to reload
+ 
+ Cycle Time 
+
+
+ The time (in seconds) a weapon needs to be ready for the next shot, including time to reload for single-shot weapons
+
+ For Dual Wield: the time it takes for the weapon that shot first to be ready again
+ 
+ Spread 
+
+
+ The relative crosshair spread of a weapon while aiming from the hip
+
+ Shotguns have a comparatively wider spread
+ 
+ Sway 
+
+
+ The relative amount of weapon sway while ADS
+ 
+ Vertical Recoil 
+
+
+ The strength of the vertical recoil (in degrees) after a shot
+ 
+ Reload Speed 
+
+
+ The time (in seconds) it takes to fully reload the weapon when empty
+
+ Includes any special behavior such as clip reloading or cycling the weapon before the last round can be inserted
+ 
+ Muzzle Velocity 
+
+
+ The velocity (meters per second) at which a weapon's projectile travels
+
+ Projectiles travel in a ballistic arc
+ 
+ Melee Damage 
+
+
+ Damage value of a light or heavy melee attack that hits a Hunter in the upper torso
+ 
+ Stamina Consumption 
+
+
+ The stamina consumed (out of 100) with a light or heavy melee attack
+ 
+ Outdated Stats 
+
+ These stats are no longer present to view, as they were replaced by other statistics.
+
+ Effective Range 
+
+
+ The range (in meters) that weapons will kill a Hunter in one hit – usually a headshot
+
+ Replaced in Update 2.0 with Drop Range, as headshots became lethal at any range
+ 
+ Handling 
+
+
+ An abstract percentage rating of effectiveness taking into account; weapon sway, recoil and bullet spread
+
+ Replaced in Update 1.12 with Spread, Sway and Vertical Recoil statistics to give more granular information
+ 
+ Removed Features 
+
+ Over time, the following features regarding general weapon behavior have been removed from the game.
+
+
+ Weapon Cleaning 
+
+ Weapons get more dirty every time they lay on the ground (which happens when the Hunter gets downed). The layers of dirt are purely cosmetic and have no negative effect on the weapon's functionality.
+
+ Up until Update 1.13 , this dirt was permanent to a weapon and could be cleaned off either in exchange for some Blood Bonds in the game menu or in-game with the use of Gun Oil . Even newly bought standard weapons had the lightest layer of dirt on them by default; only legendary skins were completely clean.
+
+ Weapons still get dirty during a mission, but they get cleaned automatically upon successful extraction.
+
+
+ Broken Scopes 
+
+ As a penalty for not paying the price, scopes of contraband weapons from Tier I/Free Hunter Recruits and from weapons found in-game (e.g. from dead Hunters) had a massive crack in them. There was no way to remove this crack and it had a substantial impact on the weapon's usability. This crack was later made less severe, then the feature was eventually removed altogether.
+
+
+ Update History 
+
+ Note: These are updates about general Weapon behavior, changes to each individual Weapon are listed on their respectives pages. 
+
+
+ 
+
+ 
+ Update 
+ Patch Notes
+ 
+
+ 
+ Update Early Access 0.1 
+ 
+ Weapons are grouped by their physical size into small (1), medium (2) and large (3) slot weapons. Players can equip max. 4 slots worth of weapons, which for example allows to combine a full size rifle and a pistol or a sawn-off rifle and a sawn-off shotgun. The Trait Quartermaster allows to carry 6 slots (= 2 large size) worth of weapons.
+ 
+
+ 
+ Update Early Access 1.0 
+ 
+ The Trait Quartermaster now only allows to carry 5 slots (= 1 large and 1 medium size) worth of weapons.
+ 
+
+ 
+ Update 1.0 
+ 
+ Weapons can be cleaned in exchange for Blood Bonds .
+ 
+
+ 
+ Update 1.4.1 
+ 
+ Introduction of dual-wielded pistol pairs.
+ 
+
+ 
+ Update 1.4.8 
+ 
+ Introduction of Gun Oil which allows players to clean their current weapon in-game.
+ 
+
+ 
+ Update 1.13 
+ 
+ Weapons now get cleaned automatically after a sucessfull extraction.
+ 
+
+ 
+ Harvest of Ghosts Event 
+ 
+ Gunrunner added as an Event Trait - Allows the player to equip two large slot weapons (like Quartermaster in its original state)
+ 
+
+ 
+ Post Malone's Murder Circus Event 
+ 
+ Introduction of Scarce Weapons . ( Shredder was the first of this kind.)
+ 
+
+ 
+ Garden of the Witch Event 
+ 
+ Gunrunner added as an Event Trait - Allows the player to equip two large slot weapons (like Quartermaster in its original state)
+ 
+
+ 
+ Judgement of The Fool Event 
+ 
+ Gunrunner added as an Event Trait - Allows the player to equip two large slot weapons (like Quartermaster in its original state)
+ 
+
+ 
+ Update 2.0 
+ 
+ Bullet drop added to the game. Headshot are now always lethal.
+ 
+
+ 
+ Update 2.1 
+ 
+ Added a drop helper for scoped rifles.
+ 
+
+ 
+ Update 2.2 
+ 
+ Removed the crack in the scopes of contraband/found weapons.
+ 
+
+ 
+ Update 2.8 
+ 
+ Weapons are now no longer grouped by their physical size but by their actual strength into 1-5 slots. Players can equip max. 5 slots worth of weapons, which means by default it's no longer possible to carry a sidearm next to the most powerful weapons. Consequently the Trait Quartermaster now allows to carry 6 slots worth of weapons.
+ 
+ 
+ 
+ 
+
+ 
+
+
+ Retrieved from " https://huntshowdown.wiki.gg/wiki/Weapons?oldid=16773 "
+
+
+ Category : Equipment 
+ 
+
+
+ 
+
+ 
+ 
+ 
+
+
+ 
+
+
+ 
+
+ 
+
+
+ 
+ Report bad advertisement 
+ 
+
+ 
+
+ 
+
+ 
+ 
+
+ 
+
+ 
+
+
+
+ 
+ Cookies help us deliver our services. By using our services, you agree to our use of cookies. 
+ More information OK 
+ 
+
+
+
+
+
+ 
+ 
+ This page was last edited on 10 September 2026, at 23:33.
+
+ Page content is under Creative Commons Attribution-ShareAlike 4.0 License unless otherwise noted.
+
+
+ 
+
+ 
+ Terms of Service 
+
+ Privacy policy 
+
+ Support Wiki 
+
+ Send a ticket to wiki.gg 
+
+ Status page 
+
+ Manage cookie settings 
+
+ 
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+
+ 
+ 
+
