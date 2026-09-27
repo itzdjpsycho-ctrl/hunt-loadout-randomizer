@@ -70,13 +70,13 @@ A Docker-capable host can deploy directly from this repository using `Dockerfile
 
 ### Render deployment
 
-The repository includes `render.yaml` for one Docker web service in Singapore, with a 1 GB persistent disk for SQLite rooms. Node builds the frontend; Uvicorn serves both the webpage and room API at the same HTTPS address. Updates deploy after GitHub checks pass.
+The repository includes `render.yaml` for one **Free** Docker web service in Singapore, with temporary SQLite storage and no paid disk or database. Node builds the frontend; Uvicorn serves both the webpage and room API at the same HTTPS address. Updates deploy after GitHub checks pass.
 
 [Deploy to Render](https://dashboard.render.com/select-repo?type=blueprint&repo=https%3A%2F%2Fgithub.com%2Fitzdjpsycho-ctrl%2Fhunt-loadout-randomizer)
 
-Connect your Render account and review the paid service estimate before confirming deployment. The configured compute and disk have a base price of approximately US$7.25/month as of September 2026, excluding taxes and usage overages; check [current pricing](https://render.com/pricing). A free service cannot attach this persistent disk.
+Sign in to Render and deploy the Blueprint using the Free instance. To avoid usage charges, use a free workspace without a payment method: exceeding the included bandwidth suspends the service and exceeding build minutes pauses builds instead of billing overages. See [Render's free hosting limits](https://render.com/docs/free).
 
-After deployment, use the service's assigned `onrender.com` URL for multiplayer. Verify `/api/health` and `/api/capabilities`, create a room, and join from another browser. Restart the service and confirm the room reconnects to check disk persistence. Keep one instance because SQLite is stored on that instance's disk. Rooms still expire after 24 hours without activity.
+After deployment, use the service's assigned `onrender.com` URL for multiplayer. Verify `/api/health` and `/api/capabilities`, create a room, and join from another browser. Free services sleep after 15 minutes without inbound traffic and take about a minute to wake. **Rooms are lost whenever the server sleeps, restarts, or redeploys**; create a new room afterward. Active players can share loadouts and mulligans while the service is running. Browser saves and the standalone app are unaffected. The workspace includes 750 free instance hours per month, shared by its free web services.
 
 ### GitHub Pages compatibility
 
