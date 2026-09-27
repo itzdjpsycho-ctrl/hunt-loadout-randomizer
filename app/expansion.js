@@ -21,14 +21,11 @@
   }
   function random(seed){let n=2166136261;for(const c of String(seed))n=Math.imul(n^c.charCodeAt(0),16777619);return ()=>{n^=n<<13;n^=n>>>17;n^=n<<5;return (n>>>0)/4294967296;};}
   function selectAmmo(slots,p,seed,preserved=[null,null],keep=[false,false]){
-    const rng=random(seed+':ammo'),ammo=preserved.slice();
-    for(let i=0;i<2;i++)if(!keep[i])ammo[i]=null;
-    for(let i=0;i<2;i++){
-      if(keep[i]||!p.customAmmo)continue;
-      const candidates=[standard,...options(slots[i])].filter(a=>{const next=ammo.slice();next[i]=a.id;return validateKit(slots,p,next).valid;});
-      ammo[i]=candidates[Math.floor(rng()*candidates.length)]?.id||null;
-    }
-    return ammo;
+    // Draw uniformly from legal combinations; no gear/trait weights and no
+    // first-weapon priority when both weapons share a spending limit.
+    const pools=[0,1].map(i=>keep[i]?[preserved[i]]:p.customAmmo?[null,...options(slots[i]).map(a=>a.id)]:[null]);
+    const candidates=pools[0].flatMap(a=>pools[1].map(b=>[a,b])).filter(ammo=>validateKit(slots,p,ammo).valid);
+    return candidates[Math.floor(random(seed+':ammo')()*candidates.length)]||preserved.map((id,i)=>keep[i]?id:null);
   }
   function generateKit(p,seed,build){
     p={...p,mulligan:false};
@@ -96,5 +93,5 @@
     return {ok:false,errors:unique?['No squad with distinct teammate weapons was found. Adjust roles, bans or holds.',...errors]:errors};
   }
   function rouletteOrder(seed){return ['no-scopes','bows','budget300'].map(id=>({id,key:random(seed+':'+id)()})).sort((a,b)=>a.key-b.key).map(x=>x.id);}
-  Object.assign(E,{ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,mulliganKit,rerollAmmo,uniqueWeapons,generateSquad,rouletteOrder});
+  Object.assign(E,{selectAmmo,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,mulliganKit,rerollAmmo,uniqueWeapons,generateSquad,rouletteOrder});
 })();

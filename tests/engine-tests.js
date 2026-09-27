@@ -119,6 +119,21 @@
     const r=E.rerollKit(p,'equipment-only',held,3);if(r.ok)assert(JSON.stringify(r.ammo)===JSON.stringify(held.ammo));
     p.budget=300;p.challenge='budget300';for(let n=0;n<10;n++){const result=E.generateKit(p,'ammo-budget'+n,build);assert(result.ok);assert(result.cost<=300);}
   });
+  test('Ammo combinations have equal odds without first-weapon budget priority',()=>{
+    const p={...profile(),acquisition:'purchase',customAmmo:true,mode:'chaos',mulligan:true};
+    const slots=partial(['conversion','conversion']);
+    p.budget=E.validate(slots,p,false).cost+50;
+    const counts=new Map();
+    for(let n=0;n<1500;n++){
+      const ammo=E.selectAmmo(slots,p,'fair-ammo-'+n),key=JSON.stringify(ammo);
+      assert(E.validateKit(slots,p,ammo).valid);
+      counts.set(key,(counts.get(key)||0)+1);
+    }
+    assert(counts.size===3,'Expected standard/standard and custom on either weapon');
+    for(const count of counts.values())assert(count>380&&count<620,'Ammo combination is biased');
+    p.budget=null;
+    assert(JSON.stringify(E.selectAmmo(slots,p,'held',['fmj-ammo',null],[true,true]))===JSON.stringify(['fmj-ammo',null]));
+  });
   test('Unique squad generation respects teammate weapons and held conflicts',()=>{
     const p=profile();const empty=()=>({slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]});
     for(let n=0;n<8;n++){const r=E.generateSquad([p,p,p],[empty(),empty(),empty()],'unique-'+n,true);assert(r.ok,JSON.stringify(r.errors));assert(E.uniqueWeapons(r.results));}
