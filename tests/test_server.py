@@ -12,7 +12,7 @@ class ServerTests(unittest.TestCase):
         with TestClient(app) as client:
             page = client.get("/")
             self.assertEqual(page.status_code, 200)
-            self.assertIn('src="./assets/app.js"', page.text)
+            self.assertRegex(page.text, r'src="\./assets/app\.js\?v=[0-9a-f]{16}"')
             self.assertEqual(page.headers["cache-control"], "no-cache")
             self.assertEqual(client.get("/index.html").text, page.text)
             for name in ("catalog.js", "engine.js", "expansion.js", "app.js", "styles.css"):
@@ -36,3 +36,4 @@ class ServerTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
