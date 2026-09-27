@@ -59,6 +59,8 @@ class SessionTests(unittest.TestCase):
         host = self.create()
         guest = self.join(host)
         third = self.join(host, "Third")
+        self.assertEqual([b["name"] for b in third["state"]["builds"]], ["Host", "Partner", "Third"])
+        self.assertEqual(self.read(host)["state"], third["state"])
         self.assertEqual([p["hunter"] for p in third["members"]], [0, 1, 2])
         self.assertEqual(self.client.post(f'/api/sessions/{host["code"]}/join', json={"name": "Fourth"}).status_code, 409)
         self.assertEqual(self.client.get('/api/sessions/' + host["code"]).status_code, 401)
@@ -69,7 +71,8 @@ class SessionTests(unittest.TestCase):
         self.assertNotIn(host["token"], json.dumps(visible))
         self.assertEqual(self.client.delete(f'/api/sessions/{host["code"]}/members/{guest["you"]}', headers=self.auth(host)).status_code, 200)
         self.assertEqual(self.client.get('/api/sessions/' + host["code"], headers=self.auth(guest)).status_code, 401)
-        replacement = self.join(host)
+        replacement = self.join(host, " Replacement ")
+        self.assertEqual(replacement["state"]["builds"][1]["name"], "Replacement")
         self.assertEqual(next(p["hunter"] for p in replacement["members"] if p["id"] == replacement["you"]), 1)
 
     def test_guests_can_change_only_their_hunter(self):

@@ -2,7 +2,7 @@
   'use strict';
   const E = window.ChaosEngine, $ = id => document.getElementById(id);
   const STORAGE = 'dead-mans-hand.v1';
-  function buyingProfile(source = E.defaults()) {
+  function buyingProfile(source = {...E.defaults(), ...(!document.documentElement.hasAttribute('data-standalone')?{rank:100}:{})}) {
     return {...source, acquisition: 'purchase', owned: {}, excluded: Array.isArray(source.excluded)?source.excluded.filter(id=>E.byId.has(id)):[],
       unlocked: E.data.items.filter(i => i.kind === 'weapon' && i.availability === 'standard-candidate').map(i => i.id)};
   }

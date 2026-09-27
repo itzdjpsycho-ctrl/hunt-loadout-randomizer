@@ -170,6 +170,7 @@ def session_router(rooms: Rooms):
                     break
             token, member = rooms.new_member(body.name, 0, True)
             room = {"code": code, "state": body.state.model_dump(), "members": [member], "control": body.control, "revision": 0}
+            room["state"]["builds"][0]["name"] = member["name"]
             db.execute("INSERT INTO rooms VALUES (?,?,?,?,?,?)", (code, json.dumps(room["state"]), json.dumps(room["members"]), room["control"], 0, time.time()))
             response.headers["Cache-Control"] = "no-store"
             return {**rooms.view(room, member), "token": token}
@@ -184,6 +185,7 @@ def session_router(rooms: Rooms):
                 raise HTTPException(409, "This room is full. Ask the host to free a seat.")
             token, member = rooms.new_member(body.name, seat)
             room["members"].append(member)
+            room["state"]["builds"][seat]["name"] = member["name"]
             room["revision"] += 1
             rooms.write(db, room)
             response.headers["Cache-Control"] = "no-store"

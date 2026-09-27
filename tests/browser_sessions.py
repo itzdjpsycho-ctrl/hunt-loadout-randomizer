@@ -67,6 +67,7 @@ with tempfile.TemporaryDirectory(dir=ARTIFACTS) as directory:
                 for page in (host, guest, third, extra):
                     page.on("pageerror", lambda error: errors.append(str(error)))
                 host.goto(url)
+                check("New website hunters default to Bloodline 100", all(b["rank"] == 100 for b in shared(host)["builds"]))
                 host.locator("#squad-options-open").click()
                 host.locator("#reveal-animation").uncheck()
                 host.locator('[data-close="squad-options-dialog"]').first.click()
@@ -80,6 +81,10 @@ with tempfile.TemporaryDirectory(dir=ARTIFACTS) as directory:
                 guest.locator("#session-join").click()
                 connected(guest)
                 expect(host.locator("#session-members li")).to_have_count(2)
+                expect(host.locator('[data-hunter-name="0"]')).to_have_value("Host")
+                expect(host.locator('[data-hunter-name="1"]')).to_have_value("Partner")
+                expect(guest.locator('[data-hunter-name="1"]')).to_have_value("Partner")
+                check("Room names become hunter names and room ranks default to 100", all(b["rank"] == 100 for b in shared(guest)["builds"]))
                 check("Two browsers join the same room and get separate hunters", guest.evaluate("ChaosApp.getState().activeBuild") == 1)
                 expect(guest.locator("#roll")).to_be_disabled()
                 expect(guest.locator('[data-hunter-name="0"]')).to_be_disabled()
@@ -162,4 +167,3 @@ with tempfile.TemporaryDirectory(dir=ARTIFACTS) as directory:
 
 (ARTIFACTS / "shared-session-browser-results.json").write_text(json.dumps({"passed": len(checks), "checks": checks}, indent=2))
 print(f"{len(checks)} shared session browser checks passed.")
-
