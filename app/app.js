@@ -45,6 +45,17 @@
       }
     }
   } catch { storageWorks = false; }
+  // Upgrade the old rank-1 defaults once, including hidden squad seats.
+  if(!document.documentElement.hasAttribute('data-standalone')) {
+    try {
+      if(!localStorage.getItem('dead-mans-hand.rank100.v1')) {
+        if(profile.rank===1)profile.rank=100;
+        builds.forEach(b=>{if(b.rank===1)b.rank=100;});
+        save();
+        localStorage.setItem('dead-mans-hand.rank100.v1','1');
+      }
+    } catch {}
+  }
   function save() {
     captureBuild();
     try { localStorage.setItem(STORAGE, JSON.stringify({version:E.data.version, profile, slots, locks, lastSeed, rollNumber, dirty,builds,buildCount,activeBuild})); }

@@ -67,6 +67,18 @@ with tempfile.TemporaryDirectory(dir=ARTIFACTS) as directory:
                 for page in (host, guest, third, extra):
                     page.on("pageerror", lambda error: errors.append(str(error)))
                 host.goto(url)
+                host.evaluate("""() => {
+                  const state=ChaosApp.getSharedState();state.profile.rank=1;state.builds.forEach(b=>b.rank=1);
+                  state.buildCount=3;state.profile.team='trio';
+                  localStorage.setItem('dead-mans-hand.v1',JSON.stringify(state));
+                  localStorage.removeItem('dead-mans-hand.rank100.v1');
+                }""")
+                host.reload()
+                for seat in range(3):
+                    expect(host.locator(f'[data-hunter-rank="{seat}"]')).to_have_value('100')
+                expect(host.locator('#room-activity')).to_be_visible()
+                host.reload()
+                check("Old saved squad defaults migrate to 100 for every hunter and survive reload", all(b['rank']==100 for b in shared(host)['builds']))
                 check("New website hunters default to Bloodline 100", all(b["rank"] == 100 for b in shared(host)["builds"]))
                 host.locator("#squad-options-open").click()
                 host.locator("#reveal-animation").uncheck()
@@ -160,7 +172,7 @@ with tempfile.TemporaryDirectory(dir=ARTIFACTS) as directory:
                 expect(host.locator("#session-lobby")).to_be_visible()
                 expect(guest.locator("#session-status")).to_contain_text("Host")
                 expect(guest.locator("#roll")).to_be_enabled()
-                check("Host departure transfers control and restores personal squad", host.evaluate("ChaosApp.getState().buildCount") == 1)
+                check("Host departure transfers control and restores personal squad", host.evaluate("ChaosApp.getState().buildCount") == 3)
                 guest.locator("#session-members [data-session-remove]").click()
                 expect(third.locator("#session-lobby")).to_be_visible(timeout=15000)
                 check("Host can remove a player and the removed browser leaves", True)

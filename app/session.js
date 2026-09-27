@@ -164,6 +164,7 @@
     try{
       const state=structuredClone(original);
       if(create){
+        state.profile.rank=100;state.builds.forEach(b=>{b.rank=100;});
         state.buildCount=Number($('session-size').value);state.profile.team=state.buildCount===2?'duo':'trio';
         if(state.buildCount!==original.buildCount)state.builds.forEach(b=>{if(b.slots.some(Boolean))b.dirty=true;});
       }
