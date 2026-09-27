@@ -26,9 +26,10 @@ jobs:
       - name: Smoke-test Uvicorn container
         run: |
           docker run -d --name hunt-smoke -p 127.0.0.1:8000:8000 hunt-loadout-randomizer
-          trap 'docker rm -f hunt-smoke' EXIT
-          curl --fail --retry 20 --retry-delay 1 --retry-connrefused http://127.0.0.1:8000/api/health
+          trap 'docker logs hunt-smoke; docker rm -f hunt-smoke' EXIT
+          curl --fail --retry 20 --retry-delay 1 --retry-all-errors --max-time 3 http://127.0.0.1:8000/api/health
           curl --fail http://127.0.0.1:8000/ -o /tmp/hunt-index.html
           grep -q './assets/app.js' /tmp/hunt-index.html
           curl --fail http://127.0.0.1:8000/assets/expansion.js -o /tmp/hunt-expansion.js
           grep -q 'mulliganKit' /tmp/hunt-expansion.js
+
