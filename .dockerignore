@@ -1,0 +1,11 @@
+.git
+.tools
+.venv
+node_modules
+artifacts
+backups
+dist
+site
+desktop
+Chaos Hunt Randomizer
+__pycache__

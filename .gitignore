@@ -8,3 +8,8 @@
 /desktop/app.ico
 Thumbs.db
 .DS_Store
+/.tools/
+/.venv/
+/node_modules/
+__pycache__/
+*.pyc

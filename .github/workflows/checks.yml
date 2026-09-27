@@ -1,0 +1,34 @@
+name: Check web application
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: npm ci && npm run build && npm test
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Verify deployable container
+        run: docker build -t hunt-loadout-randomizer .
+      - name: Smoke-test Uvicorn container
+        run: |
+          docker run -d --name hunt-smoke -p 127.0.0.1:8000:8000 hunt-loadout-randomizer
+          trap 'docker rm -f hunt-smoke' EXIT
+          curl --fail --retry 20 --retry-delay 1 --retry-connrefused http://127.0.0.1:8000/api/health
+          curl --fail http://127.0.0.1:8000/ -o /tmp/hunt-index.html
+          grep -q './assets/app.js' /tmp/hunt-index.html
+          curl --fail http://127.0.0.1:8000/assets/expansion.js -o /tmp/hunt-expansion.js
+          grep -q 'mulliganKit' /tmp/hunt-expansion.js

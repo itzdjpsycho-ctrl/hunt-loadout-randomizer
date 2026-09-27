@@ -6,24 +6,64 @@ The desktop build targets Windows 10/11 x64 and uses .NET Framework 4.6.2 or lat
 
 You can also open **[Chaos-Loadout.html](Chaos-Loadout.html)** in a modern browser. Both versions work offline without a server or account connection.
 
-## Website hosting (GitHub Pages)
+## Node.js frontend + Uvicorn web server
 
-The website and Windows app use the same `app/` sources. Mulligans, squad rolls, saves and exports work in both. Each browser/device stores its own settings and saved loadouts; these do not sync with the desktop app.
+The frontend is built with **Node.js 24+** using `npm run build`. **FastAPI + Uvicorn** serves the built webpage and its JavaScript/CSS assets. Node runs at build time; Uvicorn is the production server. The randomizer, mulligans and local saves still run in the browser, using the same app sources as the standalone Windows version.
 
-1. Push this project to your GitHub repository. Include `app/`, `assets/`, `data/`, `sources/`, `scripts/` and `.github/`; the site build uses the cached equipment research and images. The supplied `.gitignore` excludes local test profiles, backups, SDK downloads and packaged binaries.
-2. In the repository, open **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
-3. Open **Actions → Publish website → Run workflow** on the default branch. Future pushes to the default branch publish automatically.
-4. The deployment exposes the website URL in the `github-pages` environment and repository Pages settings. A project site normally lives at `https://OWNER.github.io/REPOSITORY/`.
+Requirements: Node.js 24+ and Python 3.13+. From the project root:
 
-Build the website locally:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-site.ps1
+```sh
+npm ci
+npm run build
+python -m venv .venv
 ```
 
-Publish the generated `site/` directory on any static host. Its `index.html` embeds all scripts, styles, data and equipment images, so it also works under a repository subpath. The Pages workflow publishes only that directory. No backend or API keys are required. Follow [GitHub's custom Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) for hosting configuration.
+Install Python packages and start on Windows:
 
-Continue building the standalone executable with `scripts/build-exe.ps1`. Desktop binaries can be distributed separately, for example as GitHub Release downloads.
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m uvicorn server.main:app --host 127.0.0.1 --port 8000
+```
+
+On macOS/Linux:
+
+```sh
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m uvicorn server.main:app --host 127.0.0.1 --port 8000
+```
+
+Open **http://127.0.0.1:8000**. `/api/health` returns `{"status":"ok"}`. Re-run `npm run build` after frontend changes; add `--reload` to the Uvicorn command when developing Python code. The server fails with a clear build instruction if the frontend is missing, and serves only `site/` assets rather than repository files.
+
+For production, `python -m server` runs Uvicorn on `0.0.0.0`, using the host-provided `PORT` (default 8000). `HOST` can override the bind address. Host the app behind HTTPS for browser clipboard support. Settings and saved squads remain local to each browser/device; they do not sync to the Windows app.
+
+### Docker hosting
+
+The multi-stage Dockerfile builds with Node and runs with Python/Uvicorn:
+
+```sh
+docker build -t hunt-loadout-randomizer .
+docker run --rm -p 8000:8000 hunt-loadout-randomizer
+```
+
+A Docker-capable host can deploy directly from this repository using `Dockerfile`, port 8000 (or its supplied `PORT`), and health-check path `/api/health`. The runtime container does not need Node, build tools, or the research snapshots.
+
+### GitHub Pages compatibility
+
+The existing [GitHub Pages website](https://itzdjpsycho-ctrl.github.io/hunt-loadout-randomizer/) remains a static frontend mirror. Its workflow now builds with Node and runs the engine and Python server tests before publishing. **GitHub Pages cannot run Python/Uvicorn**; deploying the full server requires a Python or Docker-capable host. The website/server build is prepared in the repository, but a Uvicorn hosting service must be configured separately.
+
+`npm run build` also generates `Chaos-Loadout.html` for offline use and the Windows host. `scripts/build-site.ps1` and `scripts/build-app.ps1` are Windows wrappers around that same Node build, so the two versions stay aligned.
+
+### Checks
+
+```sh
+npm ci
+npm run build
+npm test
+python -m pip install -r requirements-dev.txt
+python -m unittest discover -s tests -p "test_*.py"
+```
+
+Pull requests run these checks and build the Docker image. Default-branch pushes run the checks before updating the static mirror.
 
 ## Windows executable
 
@@ -33,7 +73,7 @@ Rebuild the executable from this project folder:
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-exe.ps1
 ```
 
-The build script rebuilds the HTML app, downloads the pinned official WebView2 SDK if needed, and compiles the desktop host using the Windows .NET Framework compiler. Output and dependency notices are in `dist/`; desktop source and cached SDK files are in `desktop/`.
+With Node.js 24+ installed, the build script rebuilds the HTML app, downloads the pinned official WebView2 SDK if needed, and compiles the desktop host using the Windows .NET Framework compiler. Output and dependency notices are in `dist/`; desktop source and cached SDK files are in `desktop/`.
 
 The roulette build passed **39 engine tests** (including the 500-seed sweep) and **89 desktop/UI checks**. See `artifacts/slot-machine-results.json`. Run its isolated self-test with an absolute report path:
 

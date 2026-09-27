@@ -1,0 +1,11 @@
+{
+  "name": "hunt-loadout-randomizer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hunt loadout randomizer frontend and standalone HTML build",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "build": "node scripts/build-web.mjs",
+    "test": "node scripts/test-engine.mjs"
+  }
+}
