@@ -92,6 +92,8 @@ class Rooms:
         with closing(sqlite3.connect(self.database)) as db, db:
             db.execute("PRAGMA journal_mode=WAL")
             db.execute("CREATE TABLE IF NOT EXISTS rooms (code TEXT PRIMARY KEY, state TEXT NOT NULL, members TEXT NOT NULL, control TEXT NOT NULL, revision INTEGER NOT NULL, touched REAL NOT NULL)")
+            if "activity" not in {row[1] for row in db.execute("PRAGMA table_info(rooms)")}:
+                db.execute("ALTER TABLE rooms ADD COLUMN activity TEXT NOT NULL DEFAULT '[]'")
 
     @contextmanager
     def transaction(self):
@@ -123,12 +125,36 @@ class Rooms:
         row = db.execute("SELECT * FROM rooms WHERE code = ?", (code.upper(),)).fetchone()
         if row is None or row["touched"] < time.time() - TTL:
             raise HTTPException(404, "Room not found or expired. Ask the host for a new code.")
-        return {**dict(row), "state": json.loads(row["state"]), "members": json.loads(row["members"])}
+        return {**dict(row), "state": json.loads(row["state"]), "members": json.loads(row["members"]), "activity": json.loads(row["activity"])}
 
     def write(self, db, room):
-        db.execute("UPDATE rooms SET state=?, members=?, revision=?, touched=? WHERE code=?", (
-            json.dumps(room["state"]), json.dumps(room["members"]), room["revision"], time.time(), room["code"],
+        db.execute("UPDATE rooms SET state=?, members=?, revision=?, touched=?, activity=? WHERE code=?", (
+            json.dumps(room["state"]), json.dumps(room["members"]), room["revision"], time.time(), json.dumps(room.get("activity", [])), room["code"],
         ))
+
+    @staticmethod
+    def record_changes(room, member, state):
+        old = room["state"]
+        changes = []
+        for index, (before, after) in enumerate(zip(old["builds"], state["builds"])):
+            details = []
+            for slot, (a, b) in enumerate(zip(before["slots"], after["slots"])):
+                if a != b:
+                    details.append({"kind": "item", "slot": slot + 1, "before": a, "after": b})
+            for key in ("locks", "ammo", "traits", "rank", "name", "role"):
+                if before[key] != after[key]:
+                    details.append({"kind": key, "before": before[key], "after": after[key]})
+            rolled = before["lastSeed"] != after["lastSeed"]
+            if details or rolled:
+                lost = sum(bool(x) for x in after["slots"]) < sum(bool(x) for x in before["slots"])
+                action = "used a mulligan" if after["mulligan"] and lost else "rerolled" if rolled else "updated"
+                changes.append({"hunter": index + 1, "name": after["name"], "action": action, "details": details})
+        settings = [key for key in state["profile"] if state["profile"][key] != old["profile"][key]]
+        if state["seedInput"] != old["seedInput"]:
+            settings.append("seed")
+        if changes or settings:
+            entry = {"id": room["revision"] + 1, "time": time.time(), "actor": member["name"], "changes": changes, "settings": settings}
+            room["activity"] = (room.get("activity", []) + [entry])[-100:]
 
     @staticmethod
     def member(room, authorization):
@@ -150,6 +176,7 @@ class Rooms:
         return {
             "code": room["code"], "revision": room["revision"], "state": room["state"],
             "control": room["control"], "you": person["id"],
+            "activity": room.get("activity", []),
             "members": [{k: p[k] for k in ("id", "name", "hunter", "host")} | {"online": p["seen"] > time.time() - 15} for p in room["members"]],
         }
 
@@ -171,7 +198,7 @@ def session_router(rooms: Rooms):
             token, member = rooms.new_member(body.name, 0, True)
             room = {"code": code, "state": body.state.model_dump(), "members": [member], "control": body.control, "revision": 0}
             room["state"]["builds"][0]["name"] = member["name"]
-            db.execute("INSERT INTO rooms VALUES (?,?,?,?,?,?)", (code, json.dumps(room["state"]), json.dumps(room["members"]), room["control"], 0, time.time()))
+            db.execute("INSERT INTO rooms (code,state,members,control,revision,touched) VALUES (?,?,?,?,?,?)", (code, json.dumps(room["state"]), json.dumps(room["members"]), room["control"], 0, time.time()))
             response.headers["Cache-Control"] = "no-store"
             return {**rooms.view(room, member), "token": token}
 
@@ -219,6 +246,7 @@ def session_router(rooms: Rooms):
                 if not old["rollNumber"] <= state["rollNumber"] <= old["rollNumber"] + 1:
                     raise HTTPException(403, "Invalid roll sequence.")
             member["seen"] = time.time()
+            rooms.record_changes(room, member, state)
             room["state"] = state
             room["revision"] += 1
             rooms.write(db, room)

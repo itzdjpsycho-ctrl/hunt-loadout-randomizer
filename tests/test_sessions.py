@@ -89,6 +89,13 @@ class SessionTests(unittest.TestCase):
         response = self.put(guest, state, guest["revision"])
         self.assertEqual(response.status_code, 200, response.text)
         self.assertEqual(self.read(host)["state"]["builds"][1]["name"], "My hunter")
+        activity = self.read(host)["activity"]
+        self.assertEqual(len(activity), 1)
+        self.assertEqual(activity[0]["actor"], "Partner")
+        self.assertEqual(activity[0]["changes"][0]["hunter"], 2)
+        self.assertEqual(activity[0]["changes"][0]["details"], [{"kind": "name", "before": "Partner", "after": "My hunter"}])
+        with TestClient(create_app(database=self.database)) as restarted:
+            self.assertEqual(restarted.get('/api/sessions/' + host["code"], headers=self.auth(host)).json()["activity"], activity)
         self.assertEqual(self.client.delete(f'/api/sessions/{host["code"]}/members/{host["you"]}', headers=self.auth(guest)).status_code, 403)
 
     def test_conflicting_writes_cannot_overwrite_a_newer_revision(self):

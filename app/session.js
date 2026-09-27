@@ -50,7 +50,41 @@
     if(!response.ok){const error=new Error(typeof body.detail==='string'?body.detail:'The room could not accept this change.');error.status=response.status;throw error;}
     return body;
   }
+  function renderActivity(){
+    const panel=$('room-activity'),list=$('activity-list'),entries=room?.activity||[];
+    panel.hidden=false;
+    $('activity-empty').hidden=entries.length>0;
+    $('activity-empty').textContent=room?'No loadout changes yet.':'Join a shared room to see player activity.';
+    const signature=stable(entries);
+    if(list.dataset.signature===signature)return;
+    list.dataset.signature=signature;
+    const E=window.ChaosEngine;
+    const item=id=>id?(E.byId.get(id)?.name||id):'Empty';
+    const trait=id=>E.traitById.get(id)?.name||id;
+    const rows=entries.slice().reverse().map(entry=>{
+      const li=document.createElement('li'),heading=document.createElement('strong'),time=document.createElement('time');
+      heading.textContent=entry.actor;
+      time.dateTime=new Date(entry.time*1000).toISOString();time.textContent=new Date(entry.time*1000).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+      li.append(heading,time);
+      for(const change of entry.changes){
+        const p=document.createElement('p');p.textContent=`${change.action} ${change.name||'Hunter '+change.hunter} (H${change.hunter})`;li.append(p);
+        for(const detail of change.details){
+          const line=document.createElement('small');
+          if(detail.kind==='item')line.textContent=`Slot ${detail.slot}: ${item(detail.before)} → ${item(detail.after)}`;
+          else if(detail.kind==='locks')line.textContent=detail.after.map((held,i)=>held!==detail.before[i]?`${held?'Held':'Released'} slot ${i+1}`:'').filter(Boolean).join('; ');
+          else if(detail.kind==='traits')line.textContent='Traits: '+(detail.after.map(trait).join(', ')||'None');
+          else if(detail.kind==='ammo')line.textContent='Changed ammunition';
+          else line.textContent=`${detail.kind==='rank'?'Bloodline':detail.kind}: ${detail.before} → ${detail.after}`;
+          li.append(line);
+        }
+      }
+      if(entry.settings.length){const p=document.createElement('p');p.textContent='Changed squad settings: '+entry.settings.join(', ');li.append(p);}
+      return li;
+    });
+    list.replaceChildren(...rows);
+  }
   function render(){
+    renderActivity();
     const connected=!!credentials;
     $('session-lobby').hidden=connected;$('session-connected').hidden=!connected;
     if(connected){
@@ -158,6 +192,7 @@
     catch(error){A.toast(error.message);}
     finally{busy=false;await refresh();render();}
   });
+  renderActivity();
   const invitation=location.hash.match(/^#room=([A-Z2-9]{8})$/i);if(invitation)$('session-code').value=invitation[1].toUpperCase();
   if(!/^https?:$/.test(location.protocol)){status('Shared rooms are available on the Uvicorn website.');return;}
   try{
@@ -168,4 +203,3 @@
   try{const saved=JSON.parse(sessionStorage.getItem(key)||'null');if(saved&&/^[A-Z2-9]{8}$/.test(saved.code)&&typeof saved.token==='string'){credentials={code:saved.code,token:saved.token};backup=saved.backup;render();await refresh();}}catch{sessionStorage.removeItem(key);}
   setInterval(refresh,1000);
 })();
-
