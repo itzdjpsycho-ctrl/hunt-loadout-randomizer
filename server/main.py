@@ -2,24 +2,33 @@
 
 from contextlib import asynccontextmanager
 from pathlib import Path
+import os
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from .sessions import Rooms, session_router
 
 SITE = Path(__file__).resolve().parent.parent / "site"
 
 
-def create_app(site: Path = SITE) -> FastAPI:
+def create_app(site: Path = SITE, database: Path | None = None) -> FastAPI:
     site = site.resolve()
+    rooms = Rooms(database or Path(os.environ.get("SESSION_DB", SITE.parent / "runtime/sessions.sqlite3")), site / "session-catalog.json")
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         if not (site / "index.html").is_file() or not (site / "assets").is_dir():
             raise RuntimeError("Frontend is missing. Run npm ci and npm run build first.")
+        rooms.initialize()
         yield
 
     app = FastAPI(title="Hunt Loadout Randomizer", lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
+    app.include_router(session_router(rooms))
+
+    @app.get("/api/capabilities")
+    async def capabilities():
+        return {"sharedSessions": True}
 
     @app.get("/api/health")
     async def health():

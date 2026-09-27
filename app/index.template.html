@@ -18,6 +18,19 @@
         <div><div class="eyebrow"><span></span> A LITTLE LUCK. A LOT OF BAD IDEAS.</div><h1>LOCK. ROLL. <em>HUNT.</em></h1><p>Draw a loadout. Make it work. Get out alive.</p></div>
         <div class="intro-seal" aria-hidden="true"><span>NO TWO HUNTS</span><b>♠</b><span>THE SAME</span></div>
       </section>
+      <section class="session-bar" aria-label="Shared session">
+        <div class="session-heading"><strong>HUNT TOGETHER</strong><span id="session-status" role="status" aria-live="polite">Checking shared sessions…</span></div>
+        <div id="session-lobby" class="session-controls">
+          <label>Your name<input id="session-name" maxlength="32" placeholder="Hunter name" autocomplete="nickname"></label>
+          <label>Room size<select id="session-size"><option value="3">Trio · 3 players</option><option value="2">Duo · 2 players</option></select></label>
+          <label>Controls<select id="session-control"><option value="own">Each player’s hunter</option><option value="everyone">Everyone edits squad</option></select></label>
+          <button id="session-create" disabled>Create room</button>
+          <label>Room code<input id="session-code" maxlength="8" placeholder="8-letter code" autocomplete="off" spellcheck="false"></label>
+          <button id="session-join" disabled>Join room</button>
+        </div>
+        <div id="session-connected" hidden><div class="session-controls"><strong id="session-room-code"></strong><button id="session-copy">Copy invite link</button><button id="session-leave">Leave room</button></div><ul id="session-members" class="session-members"></ul></div>
+        <p id="session-help" class="small muted">Share a room code or link to sync your squad’s rolls, holds and mulligans.</p>
+      </section>
       <div class="squad-bar"><div class="build-picker" role="group" aria-label="Builds per deal"><span>SQUAD SIZE</span><button data-build-count="1" aria-pressed="true">1 · Solo</button><button data-build-count="2" aria-pressed="false">2 · Duo</button><button data-build-count="3" aria-pressed="false">3 · Trio</button></div><button id="skip-reveal" hidden>Skip reveal</button><div id="build-tabs" role="group" aria-label="Select hunter for lock controls"></div></div>
       <div class="workspace">
         <section class="contract" aria-labelledby="contract-title">
@@ -67,6 +80,7 @@
   <script>__ENGINE__</script>
   <script>__EXPANSION__</script>
   <script>__APP__</script>
+  <script>__SESSION__</script>
 </body>
 </html>
 

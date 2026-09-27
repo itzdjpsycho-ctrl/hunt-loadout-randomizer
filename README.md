@@ -36,16 +36,37 @@ Open **http://127.0.0.1:8000**. `/api/health` returns `{"status":"ok"}`. Re-run 
 
 For production, `python -m server` runs Uvicorn on `0.0.0.0`, using the host-provided `PORT` (default 8000). `HOST` can override the bind address. Host the app behind HTTPS for browser clipboard support. Settings and saved squads remain local to each browser/device; they do not sync to the Windows app.
 
+### Shared multiplayer sessions
+
+On the Uvicorn website, enter your name in **Hunt together**, choose Duo or Trio, and select **Create room**. Send **Copy invite link** (or the eight-character room code) to your friends. They enter their own names and join; each gets a hunter seat.
+
+- By default each player edits their own hunter, including traits, holds, rerolls and mulligans. The host can edit the whole squad and change squad settings. **Everyone edits squad** is also available when creating a room.
+- Loadouts, settings, ammo and mulligan losses synchronize about once a second. Changes carry a revision number: simultaneous conflicting writes are rejected and the latest room state is restored, with a message to retry.
+- Reloading the same tab reconnects to your seat. Network loss pauses editing until the latest state is fetched. Room credentials stay in that tab's session storage, never in invite links.
+- The host can remove a player to free a seat. If the host leaves, the next player becomes host. Leaving restores the personal squad you had before joining. The last player leaving deletes the room; rooms also expire after 24 hours without activity.
+- Room size stays fixed until a new room is created. Browser favorites/history remain personal. Rooms are cooperative state sharing, not a server-enforced competitive rules or anti-cheat system.
+
+Room state and membership are stored in SQLite at `runtime/sessions.sqlite3`. Set `SESSION_DB` to change its location. Use persistent storage for this file to retain rooms across deployments; a normal server restart preserves them. Run one service instance (multiple Uvicorn workers on that same machine can share the file). Separate host replicas need a shared database implementation before scaling across machines.
+
+Shared rooms require the Uvicorn backend. The static GitHub Pages mirror cannot provide rooms, and the offline HTML/Windows version keeps its personal loadout workflow.
+
+Run the real multi-browser checks after building and installing the development requirements:
+
+```sh
+python -m playwright install chromium
+python tests/browser_sessions.py
+```
+
 ### Docker hosting
 
 The multi-stage Dockerfile builds with Node and runs with Python/Uvicorn:
 
 ```sh
 docker build -t hunt-loadout-randomizer .
-docker run --rm -p 8000:8000 hunt-loadout-randomizer
+docker run --rm -p 8000:8000 -v hunt-sessions:/app/runtime hunt-loadout-randomizer
 ```
 
-A Docker-capable host can deploy directly from this repository using `Dockerfile`, port 8000 (or its supplied `PORT`), and health-check path `/api/health`. The runtime container does not need Node, build tools, or the research snapshots.
+A Docker-capable host can deploy directly from this repository using `Dockerfile`, port 8000 (or its supplied `PORT`), and health-check path `/api/health`. Mount a writable persistent volume at `/app/runtime` for shared sessions. The runtime container does not need Node, build tools, or the research snapshots.
 
 ### GitHub Pages compatibility
 

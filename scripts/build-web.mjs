@@ -46,11 +46,11 @@ const data = {
 const code = {
   DATA: `window.HUNT_DATA = ${JSON.stringify(data)};`,
   ENGINE: await read('app/engine.js'), EXPANSION: await read('app/expansion.js'),
-  APP: await read('app/app.js'), STYLES: await read('app/styles.css'),
+  APP: await read('app/app.js'), SESSION: await read('app/session.js'), STYLES: await read('app/styles.css'),
 };
 const template = await read('app/index.template.html');
 // Keep a self-contained HTML file for the Windows host and offline browser use.
-const standalone = template.replace(/__(DATA|ENGINE|EXPANSION|APP|STYLES)__/g, (_, key) => code[key]);
+const standalone = template.replace('<html lang="en">', '<html lang="en" data-standalone>').replace(/__(DATA|ENGINE|EXPANSION|APP|SESSION|STYLES)__/g, (_, key) => code[key]);
 await writeFile(join(root, 'app/catalog.js'), code.DATA);
 await writeFile(join(root, 'Chaos-Loadout.html'), standalone);
 
@@ -58,11 +58,12 @@ await writeFile(join(root, 'Chaos-Loadout.html'), standalone);
 const site = join(root, 'site');
 await mkdir(join(site, 'assets'), { recursive: true });
 let page = template.replace('<style>__STYLES__</style>', '<link rel="stylesheet" href="./assets/styles.css">');
-for (const [key, file] of Object.entries({ DATA: 'catalog.js', ENGINE: 'engine.js', EXPANSION: 'expansion.js', APP: 'app.js' })) {
+for (const [key, file] of Object.entries({ DATA: 'catalog.js', ENGINE: 'engine.js', EXPANSION: 'expansion.js', APP: 'app.js', SESSION: 'session.js' })) {
   page = page.replace(`<script>__${key}__</script>`, `<script src="./assets/${file}"></script>`);
   await writeFile(join(site, 'assets', file), code[key]);
 }
-if (/__(DATA|ENGINE|EXPANSION|APP|STYLES)__/.test(page)) throw new Error('Unresolved frontend template placeholder');
+if (/__(DATA|ENGINE|EXPANSION|APP|SESSION|STYLES)__/.test(page)) throw new Error('Unresolved frontend template placeholder');
+await writeFile(join(site, 'session-catalog.json'), JSON.stringify({ version: data.version, items: items.map(i => i.id), traits: traits.map(t => t.id), ammo: Object.fromEntries(Object.entries(ammo.weapons).map(([id, options]) => [id, options.map(a => a.id)])) }));
 await writeFile(join(site, 'assets/styles.css'), code.STYLES);
 await writeFile(join(site, 'index.html'), page);
 await writeFile(join(site, '.nojekyll'), '');

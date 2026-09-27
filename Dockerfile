@@ -16,7 +16,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY server ./server
 COPY --from=frontend /app/site ./site
-RUN useradd --create-home appuser
+RUN useradd --create-home appuser && mkdir /app/runtime && chown appuser:appuser /app/runtime
 USER appuser
 EXPOSE 8000
 CMD ["python", "-m", "server"]

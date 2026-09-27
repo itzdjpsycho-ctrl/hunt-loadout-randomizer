@@ -8,7 +8,7 @@
   }
   const esc = text => String(text ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let profile = buyingProfile(), slots = Array(10).fill(null), locks = Array(10).fill(false);
-  let lastSeed = '', rollNumber = 0, dirty = false, notice = [], toastTimer, storageWorks = true;
+  let lastSeed = '', rollNumber = 0, rolling = false, dirty = false, notice = [], toastTimer, storageWorks = true;
   const emptyBuild = () => ({slots:Array(10).fill(null), locks:Array(10).fill(false), lastSeed:'', dirty:false,name:'',rank:profile.rank,traits:profile.traits.slice(),role:'any',ammo:[null,null]});
   let builds = Array.from({length:3},emptyBuild), buildCount = 1, activeBuild = 0;
   function captureBuild() { builds[activeBuild] = {...builds[activeBuild],slots:slots.slice(),locks:locks.slice(),lastSeed,dirty}; }
@@ -49,6 +49,7 @@
     captureBuild();
     try { localStorage.setItem(STORAGE, JSON.stringify({version:E.data.version, profile, slots, locks, lastSeed, rollNumber, dirty,builds,buildCount,activeBuild})); }
     catch { if (storageWorks) toast('Browser storage is unavailable. This session still works, but settings will not be saved.'); storageWorks = false; }
+    window.dispatchEvent(new Event('chaos-state-changed'));
   }
   function toast(message) { clearTimeout(toastTimer); $('toast').textContent = message; $('toast').hidden = false; toastTimer = setTimeout(() => $('toast').hidden = true, 4300); }
   const paths = {
@@ -219,7 +220,7 @@
     $('ban-total').textContent=`${profile.excluded.length} items banned for the squad`;
   }
   function rollHunter(index){
-    if($('roll').disabled)return;
+    if(rolling)return;
     captureBuild();const build=builds[index];if(!build)return;
     const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${index+1}:roll-${rollNumber+1}`;
     const result=E.generateKit(teammateProfile(index),seed,build);
@@ -228,11 +229,11 @@
     loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(index);toast(`${hunterName(build,index)} rerolled. Teammates kept.`);
   }
   async function roll(roulette=false) {
-    if($('roll').disabled)return;
+    if(rolling)return;
     roulette=roulette===true;
     finishReveal();
     const seed=$('seed').value.trim()||freshSeed();
-    $('roll').disabled=true;
+    rolling=true;$('roll').disabled=true;
     await new Promise(resolve=>setTimeout(resolve,35));
     try {
       captureBuild();
@@ -252,9 +253,9 @@
       if(roulette){$('squad-options-dialog').close();toast('Challenge drawn: '+{'no-scopes':'No scopes',bows:'Everyone brings a Hunting Bow',budget300:'$300 per hunter'}[chosen]);}
       $('roll').setAttribute('aria-label',`Deal another loadout. Last roll ${lastSeed}`);
     } catch(error){notice=['The squad could not be dealt. Check the settings and try again.'];renderCards();console.error(error);}
-    finally{$('roll').disabled=false;}
+    finally{rolling=false;$('roll').disabled=false;}
   }  function rerollOne(hunter,index) {
-    if($('roll').disabled)return;
+    if(rolling)return;
     captureBuild();
     const build=builds[hunter];
     if(!build||build.locks[index]){toast('Release this item before rerolling it.');return;}
@@ -269,7 +270,7 @@
     toast(`${hunterName(build,hunter)}: slot rerolled. Other slots kept.`);
   }
   function mulliganOne(hunter,index){
-    if($('roll').disabled)return;
+    if(rolling)return;
     captureBuild();const build=builds[hunter];
     if(!build||build.dirty||!build.lastSeed)return;
     const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:mulligan-${index+1}:${rollNumber+1}`;
@@ -285,7 +286,7 @@
   function exportText(){const v=E.validateKit(slots,buildProfile(builds[activeBuild]),builds[activeBuild].ammo);return [`DEAD MAN'S HAND · Hunt: Showdown 1896`,`Rules ${E.data.version} · seed ${lastSeed}`,`Capacity ${v.usedCapacity}/${E.capacity(buildProfile(builds[activeBuild]))} · New purchases $${v.cost}`,`Mode: ${profile.mode} · Bloodline ${builds[activeBuild].rank}`,`Traits: ${builds[activeBuild].traits.map(id=>E.traitById.get(id).name).join(', ')||'None'}`,'',...slots.map((id,n)=>`${n<2?'Weapon '+(n+1):'Equipment '+(n-1)}: ${id?E.byId.get(id).name+(n<2&&builds[activeBuild].ammo[n]?' + '+E.ammoOption(id,builds[activeBuild].ammo[n]).name:''):'Empty'}${v.routes?.[n]?.route==='owned'?' (owned)':''}`),'','Role: '+builds[activeBuild].role+' · Challenge: '+profile.challenge+' · Intensity: '+profile.intensity].join('\n');}
   document.addEventListener('click',event=>{
     const ammoRoll=event.target.closest('[data-ammo-reroll]');if(ammoRoll){
-      if(ammoRoll.disabled||$('roll').disabled)return;
+      if(ammoRoll.disabled||rolling)return;
       captureBuild();const hunter=Number(ammoRoll.dataset.hunter),index=Number(ammoRoll.dataset.ammoReroll),build=builds[hunter];
       if(build.dirty)return;
       const seed=`${$('seed').value.trim()||freshSeed()}:ammo:${hunter}:${index}:${rollNumber+1}`;
@@ -300,9 +301,9 @@
     const remove=event.target.closest('[data-delete-save]');if(remove){const list=remove.dataset.list;if(library[list]){library[list]=library[list].filter(e=>e.id!==remove.dataset.deleteSave);saveLibrary();renderLibrary();}return;}
     const mulligan=event.target.closest('[data-mulligan]');if(mulligan){if(!mulligan.disabled)mulliganOne(Number(mulligan.dataset.hunter),Number(mulligan.dataset.mulligan));return;}
     const reroll=event.target.closest('[data-reroll]');if(reroll){if(!reroll.disabled)rerollOne(Number(reroll.dataset.hunter),Number(reroll.dataset.reroll));return;}
-    const count=event.target.closest('[data-build-count]');if(count){if($('roll').disabled||Number(count.dataset.buildCount)===buildCount)return;captureBuild();buildCount=Number(count.dataset.buildCount);loadBuild(Math.min(activeBuild,buildCount-1));profile.team=['solo','duo','trio'][buildCount-1];changed();return;}
-    const tab=event.target.closest('[data-build]');if(tab){if($('roll').disabled)return;captureBuild();loadBuild(Number(tab.dataset.build));save();renderProfile();renderCards();$('build-tabs').querySelector(`[data-build="${activeBuild}"]`).focus();return;}
-    const lock=event.target.closest('[data-lock]');if(lock){if($('roll').disabled)return;captureBuild();loadBuild(Number(lock.dataset.hunter));const n=Number(lock.dataset.lock);locks[n]=!locks[n];save();renderProfile();renderCards();document.querySelector(`[data-hunter="${activeBuild}"][data-lock="${n}"]`)?.focus({preventScroll:true});}
+    const count=event.target.closest('[data-build-count]');if(count){if(rolling||Number(count.dataset.buildCount)===buildCount)return;captureBuild();buildCount=Number(count.dataset.buildCount);loadBuild(Math.min(activeBuild,buildCount-1));profile.team=['solo','duo','trio'][buildCount-1];changed();return;}
+    const tab=event.target.closest('[data-build]');if(tab){if(rolling)return;captureBuild();loadBuild(Number(tab.dataset.build));save();renderProfile();renderCards();$('build-tabs').querySelector(`[data-build="${activeBuild}"]`).focus();return;}
+    const lock=event.target.closest('[data-lock]');if(lock){if(rolling)return;captureBuild();loadBuild(Number(lock.dataset.hunter));const n=Number(lock.dataset.lock);locks[n]=!locks[n];save();renderProfile();renderCards();document.querySelector(`[data-hunter="${activeBuild}"][data-lock="${n}"]`)?.focus({preventScroll:true});}
     const close=event.target.closest('[data-close]');if(close)$(close.dataset.close).close();
     const mode=event.target.closest('[data-mode]');if(mode){profile.mode=mode.dataset.mode;changed();}
   });
@@ -361,7 +362,18 @@
   });
   $('export').addEventListener('click',()=>{if(!canExport())return;const url=URL.createObjectURL(new Blob([JSON.stringify(exportObject(),null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download=`hunt-chaos-${lastSeed.replace(/[^a-z0-9-]/gi,'-').slice(0,60)}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Loadout saved as JSON.');});
   $('reset').addEventListener('click',()=>{if(!confirm('Reset your hunter settings and held cards?'))return;profile=buyingProfile();builds=Array.from({length:3},emptyBuild);buildCount=1;loadBuild(0);lastSeed='';rollNumber=0;dirty=false;notice=[];$('seed').value='';save();renderProfile();renderCards();});
+  function getSharedState(){
+    captureBuild();
+    return {version:E.data.version,profile:structuredClone(profile),builds:structuredClone(builds).map(b=>({...b,mulligan:!!b.mulligan})),buildCount,rollNumber,seedInput:$('seed').value};
+  }
+  function applySharedState(state,hunter=null){
+    if(!validSnapshot({...state,id:'shared',label:'Shared squad',created:'session'}))throw new Error('This room uses an incompatible squad or catalog. Reload the page.');
+    finishReveal();
+    profile=buyingProfile(structuredClone(state.profile));builds=structuredClone(state.builds);buildCount=state.buildCount;
+    loadBuild(Math.min(hunter??activeBuild,buildCount-1));rollNumber=state.rollNumber;$('seed').value=state.seedInput;
+    notice=[];save();renderProfile();renderCards();
+  }
   renderProfile();renderCards();
-  window.ChaosApp={getState:()=>({profile:structuredClone(buildProfile(builds[activeBuild])),slots:slots.slice(),locks:locks.slice(),lastSeed,dirty,buildCount,activeBuild,builds:structuredClone(selectedBuilds())}),roll,exportObject,exportTeamText};
+  window.ChaosApp={getState:()=>({profile:structuredClone(buildProfile(builds[activeBuild])),slots:slots.slice(),locks:locks.slice(),lastSeed,dirty,buildCount,activeBuild,builds:structuredClone(selectedBuilds())}),roll,exportObject,exportTeamText,getSharedState,applySharedState,toast};
 })();
 
