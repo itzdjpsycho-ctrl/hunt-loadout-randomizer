@@ -76,7 +76,7 @@
     const chosen=candidates[Math.floor(random(seed)()*candidates.length)];
     return {ok:true,ammo:chosen.ammo,...chosen.validation};
   }
-  function uniqueWeapons(builds){const owners=new Map();return builds.every((b,i)=>b.slots.slice(0,2).filter(Boolean).every(id=>{if(owners.has(id)&&owners.get(id)!==i)return false;owners.set(id,i);return true;}));}
+  function uniqueWeapons(builds){const owners=new Map();return builds.every((b,i)=>b.slots.slice(0,2).filter(Boolean).every(id=>{id=E.byId.get(id)?.baseId||id;if(owners.has(id)&&owners.get(id)!==i)return false;owners.set(id,i);return true;}));}
   function generateSquad(profiles,builds,seed,unique=false){
     const held=builds.map(b=>({slots:b.slots.map((id,n)=>n<2&&b.locks[n]?id:null)}));
     if(unique&&!uniqueWeapons(held))return {ok:false,errors:['Two hunters hold the same weapon. Release one hold or disable unique weapons.']};

@@ -222,3 +222,8 @@ Slot-machine reveals cycle item images and names, decelerate and settle in seque
 ## Mulligans
 
 Each occupied card has an **M** button, separate from the normal reroll. It rerolls that item and removes one random item from the same hunter. Each tool or consumable has 10 times a weapon's removal weight. Held items and the replacement itself can be lost. There is no usage cap while items remain. Lost slots stay empty through individual rerolls and saved builds; a fresh hunter or squad roll restores a full hand. Failed replacements cost nothing.
+
+## Dual-wield pistol rolls
+
+Rolls can select 24 matched pistol pairs, displayed as Dual followed by the pistol name. A pair occupies one weapon position, uses the single pistol's capacity plus one, and costs two copies including supported custom ammunition. Stocked and scoped pistols and the Haymaker cannot roll as pairs. Holds, rerolls, mulligans, exports and shared-room activity use the pair as one card; a mulligan losing that card removes the pair. Banning a pistol excludes its pair, and squad weapon uniqueness treats single and dual versions as the same weapon.
+

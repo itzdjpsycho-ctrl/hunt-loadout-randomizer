@@ -12,7 +12,30 @@
     assert(!E.generate(p,'too-many-held-melee',held).ok);
     assert(E.generate(p,'two-held-melee',partial([null,null,'knife','throwing-axes'])).ok);
   });
-  test('Catalog has 227 entries and 23 traits',()=>{assert(E.byId.size===227);assert(E.data.traits.length===23);});
+  test('Catalog includes 227 base entries, 24 matched pistol pairs and 23 traits',()=>{assert(E.data.items.filter(i=>!i.dual).length===227);assert(E.data.items.filter(i=>i.dual).length===24);assert(E.data.traits.length===23);});
+  test('Dual pistols charge twice, use pair capacity and respect base bans',()=>{
+    const p=profile(), pair=E.byId.get('dual-conversion');
+    assert(pair.capacity===2);assert(E.acquisition(pair,p).cost===2*E.byId.get('conversion').price);
+    assert(E.byId.get('dual-uppercut').capacity===3);
+    assert(!E.validate(partial(['mosin-nagant','dual-conversion']),p,false).valid);
+    p.traits=['quartermaster'];assert(E.validate(partial(['mosin-nagant','dual-conversion']),p,false).valid);
+    p.excluded=['conversion'];assert(!E.acquisition(pair,p));
+    assert(!E.byId.has('dual-haymaker'));assert(!E.byId.has('dual-scottfield-precision'));
+  });
+  test('Dual ownership consumes two copies and cannot evade squad uniqueness',()=>{
+    const p=profile();p.acquisition='owned';p.owned.conversion=2;
+    assert(E.validate(partial(['dual-conversion']),p,false).valid);
+    assert(!E.validate(partial(['dual-conversion','conversion']),p,false).valid);
+    assert(!E.uniqueWeapons([{slots:['dual-conversion']},{slots:['conversion']}]));
+  });
+  test('Dual pairs can roll, retain holds, and use compatible ammo',()=>{
+    const p=profile();p.mode='chaos';p.customAmmo=true;p.excluded=E.data.items.filter(i=>i.kind==='weapon'&&!['dual-conversion','conversion'].includes(i.id)).map(i=>i.id);
+    let found=false;
+    for(let n=0;n<30;n++){const r=E.generate(p,'dual-'+n);assert(r.ok);if(r.slots.includes('dual-conversion'))found=true;}
+    assert(found,'Pair never rolled');
+    const build={slots:partial(['dual-conversion']),locks:[true,...Array(9).fill(false)],ammo:[null,null]};
+    const r=E.generateKit(p,'held-dual',build);assert(r.ok);assert(r.slots[0]==='dual-conversion');assert(E.validateKit(r.slots,p,r.ammo).valid);
+  });
   test('No unknown weapon is assumed unlocked',()=>{assert(!E.generate(E.defaults(),'new').ok);});
   test('Rank gates purchases but not confirmed owned instances',()=>{const p=profile();p.rank=1;const spear=E.byId.get('throwing-spear');assert(!E.acquisition(spear,p));p.owned[spear.id]=1;assert(E.acquisition(spear,p).route==='owned');assert(!E.acquisition(spear,p,2));p.rank=33;assert(E.acquisition(spear,p,2).route==='purchase');});
   test('Quartermaster changes 5 to 6 only while equipped',()=>{const p=profile();const s=partial(['mosin-nagant','dolch-96']);assert(!E.validate(s,p,false).valid);p.traits=['quartermaster'];assert(E.validate(s,p,false).valid);p.traits=[];assert(!E.validate(s,p,false).valid);});
@@ -81,7 +104,7 @@
   test('Roles guarantee suitable primary weapons',()=>{const p=profile();for(const role of ['sniper','close','support']){p.role=role;const result=E.generate(p,'role-'+role);assert(result.ok);const primary=E.byId.get(result.slots[0]);if(role==='sniper')assert(/sniper|marksman|deadeye|bullseye|sharpeye/.test(primary.id));if(role==='close')assert(primary.ammo==='Shells'||primary.ammo===null);}});
   test('Mild chaos keeps essentials and Cursed remains legal',()=>{const p=profile();p.mode='crazy';for(const intensity of ['mild','unhinged','cursed']){p.intensity=intensity;for(let n=0;n<20;n++){const r=E.generate(p,intensity+n);assert(r.ok);assert(E.validate(r.slots,p).valid);if(intensity==='mild')assert(r.slots.includes('first-aid-kit')&&r.slots.some(id=>E.byId.get(id)?.melee));}}});
   test('Item bans apply to rolls, held items and slot rerolls',()=>{const p=profile();const r=E.generate(p,'ban-start');p.excluded=[r.slots[0]];const next=E.generate(p,'ban-next');assert(next.ok&&!next.slots.includes(p.excluded[0]));assert(!E.generate(p,'ban-held',r.slots).ok);assert(!E.rerollSlot(p,'ban-slot',r.slots,2).ok);});
-  test('Ammo catalog excludes scarce and split-pool types',()=>{assert(Object.keys(E.data.ammo.weapons).length===91);for(const [id,options] of Object.entries(E.data.ammo.weapons)){assert(E.byId.has(id));for(const a of options){assert(Number.isInteger(a.cost)&&a.cost>=0&&a.source.startsWith('https://'));assert(!/dumdum|explosive|spitzer|frag/i.test(a.name));}}assert(!E.data.ammo.weapons['romero-77']&&!E.data.ammo.weapons['lemat']);assert(E.ammoOption('conversion','fmj-ammo').cost===50);});
+  test('Ammo catalog excludes scarce and split-pool types',()=>{assert(Object.keys(E.data.ammo.weapons).filter(id=>!E.byId.get(id).dual).length===91);for(const [id,options] of Object.entries(E.data.ammo.weapons)){assert(E.byId.has(id));for(const a of options){assert(Number.isInteger(a.cost)&&a.cost>=0&&a.source.startsWith('https://'));assert(!/dumdum|explosive|spitzer|frag/i.test(a.name));}}assert(!E.data.ammo.weapons['romero-77']&&!E.data.ammo.weapons['lemat']);assert(E.ammoOption('conversion','fmj-ammo').cost===50);});
   test('Custom ammo respects compatibility budget and held weapon ammo',()=>{
     const p=profile();p.acquisition='purchase';p.customAmmo=true;p.unlocked=['conversion'];
     const build={slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]};

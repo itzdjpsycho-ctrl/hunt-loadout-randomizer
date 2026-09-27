@@ -33,6 +33,13 @@
     return false;
   }
   function acquisition(item, p, copyNumber = 1) {
+    const identity = item.baseId || item.id;
+    if (p.excluded.some(id => (byId.get(id)?.baseId || id) === identity)) return null;
+    if (item.dual) {
+      const base = byId.get(item.baseId);
+      const first = acquisition(base,p,copyNumber), second = acquisition(base,p,copyNumber+1);
+      return first && second ? {route:first.route===second.route?first.route:'purchase',cost:first.cost+second.cost} : null;
+    }
     if (restricted(item) || p.excluded.includes(item.id)) return null;
     if (p.challenge==='no-scopes' && /sniper|marksman|deadeye|bullseye|sharpeye/.test(item.id)) return null;
     if (p.acquisition !== 'purchase' && (p.owned[item.id] || 0) >= copyNumber) return {route: 'owned', cost: 0};
@@ -48,7 +55,8 @@
       const item = byId.get(id);
       if (!item) { errors.push('This build contains an unknown item.'); return; }
       if ((index < 2) !== (item.kind === 'weapon')) errors.push(`${item.name} is in the wrong kind of slot.`);
-      const copies = count[id] = (count[id] || 0) + 1;
+      const identity = item.baseId || id, copies = (count[identity] || 0) + 1;
+      count[identity] = copies + (item.dual ? 1 : 0);
       const route = acquisition(item, p, copies);
       if (!route) errors.push(`${item.name}: confirm an unlock or an available owned copy, or remove its exclusion.`);
       routes[index] = route;
@@ -164,7 +172,7 @@
         if (item.kind === 'tool' && state.count[item.id]) return false;
         if (item.kind === 'tool' && item.melee && state.meleeTools >= 2) return false;
         if (item.kind === 'consumable' && (!(item.category in data.rules.consumableCategoryLimits) || (state.categories[item.category] || 0) >= 4)) return false;
-        const route = acquisition(item, p, (state.count[item.id] || 0) + 1);
+        const route = acquisition(item, p, (state.count[item.baseId || item.id] || 0) + 1);
         return route && (p.budget === null || state.cost + route.cost <= p.budget);
       });
       if (!pool.length) {

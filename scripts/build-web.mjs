@@ -38,6 +38,16 @@ const items = await Promise.all(catalog.items.map(async item => {
     image: 'data:image/png;base64,' + (await readFile(join(root, 'assets/equipment', item.id + '.png'))).toString('base64'),
   };
 }));
+// Matched pairs occupy one weapon position. Stocked/scoped variants and
+// Haymaker are deliberately excluded: they cannot be paired.
+const pairable = new Set(['bornheim-no-3','bornheim-no-3-extended','bornheim-no-3-silencer','conversion','conversion-chain-pistol','lemat','nagant-m1895','nagant-m1895-silencer','new-army','new-army-swift','officer','officer-brawler','pax','pax-claw','pax-trueshot','scottfield','scottfield-brawler','scottfield-spitfire','scottfield-swift','sparks-pistol','sparks-pistol-silencer','dolch-96','dolch-96-claw','uppercut']);
+for (const base of items.slice()) if (pairable.has(base.id)) {
+  const id = 'dual-' + base.id;
+  items.push({...base, id, baseId:base.id, dual:true, name:'Dual '+base.name,
+    capacity:base.capacity+1, price:base.price===null?null:base.price*2,
+    synergies:base.synergies.filter(id=>!['fanning','crack-shot'].includes(id))});
+  if (ammo.weapons[base.id]) ammo.weapons[id] = ammo.weapons[base.id].map(option=>({...option,cost:option.cost*2}));
+}
 const data = {
   version: `${catalog.targetPatch}-${catalog.researchedOn}`, items, rules,
   traits: traits.map(({ id, name, effect, kind }) => ({ id, name, effect, kind, source: `https://huntshowdown.wiki.gg/wiki/Traits/${name.replaceAll(' ', '_')}` })),
