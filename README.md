@@ -68,6 +68,16 @@ docker run --rm -p 8000:8000 -v hunt-sessions:/app/runtime hunt-loadout-randomiz
 
 A Docker-capable host can deploy directly from this repository using `Dockerfile`, port 8000 (or its supplied `PORT`), and health-check path `/api/health`. Mount a writable persistent volume at `/app/runtime` for shared sessions. The runtime container does not need Node, build tools, or the research snapshots.
 
+### Render deployment
+
+The repository includes `render.yaml` for one Docker web service in Singapore, with a 1 GB persistent disk for SQLite rooms. Node builds the frontend; Uvicorn serves both the webpage and room API at the same HTTPS address. Updates deploy after GitHub checks pass.
+
+[Deploy to Render](https://dashboard.render.com/select-repo?type=blueprint&repo=https%3A%2F%2Fgithub.com%2Fitzdjpsycho-ctrl%2Fhunt-loadout-randomizer)
+
+Connect your Render account and review the paid service estimate before confirming deployment. The configured compute and disk have a base price of approximately US$7.25/month as of September 2026, excluding taxes and usage overages; check [current pricing](https://render.com/pricing). A free service cannot attach this persistent disk.
+
+After deployment, use the service's assigned `onrender.com` URL for multiplayer. Verify `/api/health` and `/api/capabilities`, create a room, and join from another browser. Restart the service and confirm the room reconnects to check disk persistence. Keep one instance because SQLite is stored on that instance's disk. Rooms still expire after 24 hours without activity.
+
 ### GitHub Pages compatibility
 
 The existing [GitHub Pages website](https://itzdjpsycho-ctrl.github.io/hunt-loadout-randomizer/) remains a static frontend mirror. Its workflow now builds with Node and runs the engine and Python server tests before publishing. **GitHub Pages cannot run Python/Uvicorn**; deploying the full server requires a Python or Docker-capable host. The website/server build is prepared in the repository, but a Uvicorn hosting service must be configured separately.

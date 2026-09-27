@@ -1,0 +1,23 @@
+# Paid deployment: review Render's current estimate before creating the service.
+services:
+  - type: web
+    name: hunt-loadout-randomizer
+    runtime: docker
+    repo: https://github.com/itzdjpsycho-ctrl/hunt-loadout-randomizer
+    branch: main
+    region: singapore
+    plan: 0.5c-512mb
+    numInstances: 1
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: SESSION_DB
+        value: /app/runtime/sessions.sqlite3
+    disk:
+      name: shared-sessions
+      mountPath: /app/runtime
+      sizeGB: 1
