@@ -1,6 +1,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, join } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const read = path => readFile(resolve(root, path), 'utf8');
@@ -66,10 +67,11 @@ await writeFile(join(root, 'Chaos-Loadout.html'), standalone);
 
 // The hosted page loads normal browser assets; all paths work under a project subpath.
 const site = join(root, 'site');
+const assetVersion = createHash('sha256').update(Object.values(code).join('\n')).digest('hex').slice(0,16);
 await mkdir(join(site, 'assets'), { recursive: true });
-let page = template.replace('<style>__STYLES__</style>', '<link rel="stylesheet" href="./assets/styles.css">');
+let page = template.replace('<style>__STYLES__</style>', `<link rel="stylesheet" href="./assets/styles.css?v=${assetVersion}">`);
 for (const [key, file] of Object.entries({ DATA: 'catalog.js', ENGINE: 'engine.js', EXPANSION: 'expansion.js', APP: 'app.js', SESSION: 'session.js' })) {
-  page = page.replace(`<script>__${key}__</script>`, `<script src="./assets/${file}"></script>`);
+  page = page.replace(`<script>__${key}__</script>`, `<script src="./assets/${file}?v=${assetVersion}"></script>`);
   await writeFile(join(site, 'assets', file), code[key]);
 }
 if (/__(DATA|ENGINE|EXPANSION|APP|SESSION|STYLES)__/.test(page)) throw new Error('Unresolved frontend template placeholder');
@@ -78,3 +80,4 @@ await writeFile(join(site, 'assets/styles.css'), code.STYLES);
 await writeFile(join(site, 'index.html'), page);
 await writeFile(join(site, '.nojekyll'), '');
 console.log(`Built website and standalone HTML: ${items.length} items, ${traits.length} traits.`);
+
