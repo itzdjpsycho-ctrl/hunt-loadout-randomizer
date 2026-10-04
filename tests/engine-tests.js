@@ -43,6 +43,21 @@
   test('Four throwable consumables legal; five distinct throwables illegal',()=>{const p=profile();const ids=[null,null,'frag-bomb','fire-bomb','dynamite-stick','hive-bomb'];assert(E.validate(partial(ids),p,false).valid);assert(!E.validate(partial([...ids,'poison-bomb']),p,false).valid);});
   test('Repeated consumables legal within category limit',()=>{assert(E.validate(partial([null,null,'vitality-shot','vitality-shot','vitality-shot','vitality-shot']),profile(),false).valid);});
   test('Scarce and event items require separate access',()=>{const p=profile();const scarce=E.byId.get('wildland'),event=E.byId.get('burgess');assert(!E.acquisition(scarce,p));p.unlocked.push('wildland');assert(!E.acquisition(scarce,p));p.owned.wildland=1;assert(E.acquisition(scarce,p));assert(!E.acquisition(event,p));p.unlocked.push('burgess');assert(E.acquisition(event,p).route==='purchase');});
+  test('Every Burgess variant can roll with compatible ammo, holds and exclusions',()=>{
+    const p={...profile(),mode:'chaos',customAmmo:true,acquisition:'purchase',unlocked:E.data.items.filter(E.eligibleWeapon).map(i=>i.id)};
+    for(const [id,cost] of [['burgess',300],['burgess-bayonet',320],['burgess-trauma',340]]){
+      p.excluded=[];
+      assert(p.unlocked.includes(id)&&E.acquisition(E.byId.get(id),p).cost===cost);
+      p.excluded=E.data.items.filter(i=>i.kind==='weapon'&&i.id!==id).map(i=>i.id);
+      const build={slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]};
+      const result=E.generateKit(p,id+'-only',build);assert(result.ok,JSON.stringify(result.errors));assert(result.slots[0]===id);
+      assert(E.ammoOptions(id).length===4&&E.ammoOption(id,'slug').cost===130);
+      assert(E.validateKit(result.slots,p,result.ammo).valid);
+      const held={...build,...result,locks:[true,...Array(9).fill(false)]};const next=E.generateKit(p,id+'-held',held);assert(next.ok&&next.slots[0]===id&&JSON.stringify(next.ammo[0])===JSON.stringify(result.ammo[0]));
+      assert(!E.acquisition(E.byId.get(id),{...p,excluded:[id]}));
+    }
+    assert(!E.eligibleWeapon(E.byId.get('wildland')));
+  });
   test('Historical and removed gear cannot be enabled by ownership',()=>{const p=profile();for(const id of ['electric-lamp','multitool','wormseed-shot','iron-reliquary']){p.owned[id]=99;p.unlocked.push(id);assert(!E.acquisition(E.byId.get(id),p),id);}});
   test('Owned-only counts cannot be exceeded',()=>{const p=profile();p.acquisition='owned';p.owned['vitality-shot']=1;assert(!E.validate(partial([null,null,'vitality-shot','vitality-shot']),p,false).valid);p.owned['vitality-shot']=2;assert(E.validate(partial([null,null,'vitality-shot','vitality-shot']),p,false).valid);});
   test('Buying-only does not consume owned inventory',()=>{const p=profile();p.acquisition='purchase';p.owned['knife']=3;assert(E.acquisition(E.byId.get('knife'),p).route==='purchase');p.owned.wildland=1;assert(!E.acquisition(E.byId.get('wildland'),p));});

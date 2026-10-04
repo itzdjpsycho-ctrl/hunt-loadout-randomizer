@@ -3,7 +3,7 @@ $root = Split-Path $PSScriptRoot -Parent
 $catalog = Get-Content (Join-Path $root 'data/equipment.json') -Raw -Encoding utf8 | ConvertFrom-Json
 $weapons = [ordered]@{}
 $slots = [ordered]@{}
-foreach ($item in $catalog.items | Where-Object { $_.kind -eq 'weapon' -and $_.availability -eq 'standard-candidate' }) {
+foreach ($item in $catalog.items | Where-Object { $_.kind -eq 'weapon' -and $_.availability -in @('standard-candidate','event-unlock-required') }) {
     $html = Get-Content (Join-Path $root $item.sourceSnapshot) -Raw -Encoding utf8
     $section = [regex]::Match($html, '(?s)id="Ammo_Types".*?</h2>(.*?)(?=<h2)').Groups[1].Value
     $options = @()

@@ -124,7 +124,7 @@ Choose **Solo**, **Duo**, or **Trio**. All selected hunters appear together. Eac
 - Choose a role beneath each hunter's name, or use **Assign squad roles** for sniper / close range / support. Sniper requires a scoped primary; close range requires a shotgun or melee primary. Support favors healing, resupply and choke equipment. Roles do not override challenges or game limits.
 - **Item bans** provides a searchable squad-wide exclusion list. Checked items cannot roll, including held gear. Clear a conflicting hold to proceed.
 - **History & favorites** stores the last 30 successful squad builds and up to 50 named favorites locally. Restore recovers the whole squad and its settings; delete removes only the selected saved entry. Resetting the current squad leaves this library intact.
-- **Randomize custom ammo** is opt-in: enable only if you have unlocked the supported custom ammo. It uses purchasable, priced options from cached pages for 132 weapon variants and supported dual pairs. Every split-reserve and combination-barrel ammo slot rolls separately, with an 85% custom / 15% standard chance before budget filtering. Custom choices share that 85% equally. All slot prices count toward the budget, and holds preserve every ammo slot. Scarce/retired ammo is excluded. See `data/custom-ammo.json` and `research/custom-ammo-audit.md`.
+- **Randomize custom ammo** is opt-in: enable only if you have unlocked the supported custom ammo. It uses purchasable, priced options from cached pages for 135 weapon variants and supported dual pairs. Every split-reserve and combination-barrel ammo slot rolls separately, with an 85% custom / 15% standard chance before budget filtering. Custom choices share that 85% equally. All slot prices count toward the budget, and holds preserve every ammo slot. Scarce/retired ammo is excluded. See `data/custom-ammo.json` and `research/custom-ammo-audit.md`.
 
 Rank, traits and role changes invalidate only that hunter. Squad settings invalidate all affected builds until dealt again. Copy and JSON export contain every selected hunter, including ammo, traits and role. Failed team rolls preserve every hand. Full-team seeds reproduce results with the same settings, holds and ammo; individual mulligans additionally use the hunter/slot and roll sequence.
 
@@ -136,11 +136,11 @@ The desktop layout stretches on large screens and shows trio columns together. L
 
 ## Rules and traits
 
-The engine enforces the audited two weapon positions, capacity 5/6, eight shared equipment slots, unique tools, four-per-consumable-category limits, purchase ranks, and full-purchase budget. The app assumes standard weapon unlocks; scarce, event-only, removed and unresolved equipment is excluded. A Size 5 weapon may leave a secondary position empty. All chaos modes obey the same game rules. An additional app preference caps melee tools at two, including throwing knives, axes and spears; melee weapons do not count. Held tools also obey this cap.
+The engine enforces the audited two weapon positions, capacity 5/6, eight shared equipment slots, unique tools, four-per-consumable-category limits, purchase ranks, and full-purchase budget. The app assumes standard weapon unlocks and all three Burgess unlocks are available. Burgess, Burgess Bayonet and Burgess Trauma can roll, be held or banned, and use their supported custom ammo. Their event-unlock metadata is retained; other scarce, removed and unresolved equipment is excluded. A Size 5 weapon may leave a secondary position empty. All chaos modes obey the same game rules. An additional app preference caps melee tools at two, including throwing knives, axes and spears; melee weapons do not count. Held tools also obey this cap.
 
 There are **23 loadout-related trait switches**. Trait selection represents already-equipped traits, so the app does not charge Upgrade Points or apply purchase rank restrictions to them. The maximum is 15 selected traits. Synergy weighting is a preference, not a guarantee that every trait will be used on every roll. Frontiersman's two-extra-use condition requires **solo + Catalyst**; it never adds equipment slots. Doctor shows the improved medkit healing.
 
-The app generates **single weapons and supported dual-wield pairs with optional custom ammunition**. Split-reserve and combination-barrel weapons randomize every ammo slot. Exact per-variant weapon XP thresholds are not inferred: the app assumes all standard weapons are available instead. Catalog `family` labels are used for variety weighting, not unlock eligibility.
+The app generates **single weapons and supported dual-wield pairs with optional custom ammunition**. Split-reserve and combination-barrel weapons randomize every ammo slot. Exact per-variant weapon XP thresholds are not inferred: the app assumes standard weapons and Burgess variants are available instead. Catalog `family` labels are used for variety weighting, not unlock eligibility.
 
 Research checked on **23 September 2026**, targeting **Update 2.9**. Recheck the data after game patches and verify availability in-game after Prestige.
 
@@ -148,7 +148,7 @@ Research checked on **23 September 2026**, targeting **Update 2.9**. Recheck the
 
 - `app/engine.js`: deterministic selection, challenge/role constraints, bans, rule validation and trait benefits.
 - `app/expansion.js`: custom-ammo selection, held-ammo preservation and full kit budget accounting.
-- `scripts/compile-ammo.ps1`: reproduces the 132-variant ammo catalog and ammo-slot compatibility from cached item pages.
+- `scripts/compile-ammo.ps1`: reproduces the 135-variant ammo catalog and ammo-slot compatibility from cached item pages.
 - `app/app.js`, `app/styles.css`, `app/index.template.html`: interface and local persistence.
 - `app/catalog.js`: generated compact data; `Chaos-Loadout.html` embeds it and all app code/styles.
 - `data/traits.json`: trait descriptions; `sources/traits/`: individual reference snapshots.
@@ -182,7 +182,7 @@ The 227 entries include restricted and historical equipment: 21 current tools pl
 
 ## How to interpret the data
 
-`standard-candidate` means listed as ordinary equipment by the reference pages, not proof that the player has unlocked it. `scarce-owned-only` requires ownership; `event-unlock-required` needs the current event unlock. `event-review-required` keeps event-specific/historical entries out of normal rolls until checked. `removed` is reference-only. Any other review flag must be resolved before enabling the item.
+`standard-candidate` means listed as ordinary equipment by the reference pages, not proof that the player has unlocked it. `scarce-owned-only` requires ownership; `event-unlock-required` records an in-game event unlock requirement; the app assumes the three Burgess unlocks are available. `event-review-required` keeps event-specific/historical entries out of normal rolls until checked. `removed` is reference-only. Any other review flag must be resolved before enabling the item.
 
 Each item has a source URL, saved snapshot and wiki revision. Schema version 2 adds a `requirements` object and readable `unlockSummary`: all 51 ordinary tools/consumables have Bloodline purchase ranks; weapons require exact arsenal unlock confirmation; scarce items require an owned equippable copy. Tool copies are limited to one per type. Purchase requirements are distinct from using already-owned gear. Prices explicitly changed in Update 2.9 use the official patch value and record that override. Unknown prices remain null. Base ammo labels are source labels and should not be used as a complete ammo-sharing model.
 
@@ -217,7 +217,7 @@ All 227 catalog entries have matching local equipment icons in `assets/equipment
 
 Challenge roulette & roll (in Squad options) tries the three challenges in seeded random order and deals the first feasible squad. Unique weapons prevents identical weapon variants across teammates, including item and loadout mulligans. Conflicting held weapons require releasing a hold. Ammo is randomized with weapon deals and mulligans; held weapons retain every ammo choice unless lost. Card reveals can be skipped with the button or Escape, disabled in Squad options, and respect reduced-motion preferences.
 
-Slot-machine reveals cycle item images and names, decelerate and settle in sequence. Held cards stay still; individual item mulligans update that card and reveal the loss. Cosmetic reels do not change generated results. Validated with 48 engine tests, 102 packaged desktop checks, 11 server tests, desktop/mobile UI tests and shared-session browser checks.
+Slot-machine reveals cycle item images and names, decelerate and settle in sequence. Held cards stay still; individual item mulligans update that card and reveal the loss. Cosmetic reels do not change generated results. Validated with 49 engine tests, 102 packaged desktop checks, 11 server tests, desktop/mobile UI tests and shared-session browser checks.
 
 ## Mulligans
 

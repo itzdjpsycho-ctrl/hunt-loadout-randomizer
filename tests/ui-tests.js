@@ -14,8 +14,11 @@
       check('Free reroll controls removed',!d.querySelector('[data-reroll],[data-ammo-reroll],[data-reroll-hunter]'));
       check('Undealt loadout cannot mulligan',d.querySelector('[data-loadout-mulligan="0"]').disabled);
       check('No arsenal setup required',!$('setup-notice')&&!$('arsenal-dialog')&&!$('acquisition'));
-      check('Purchase mode with all standard weapons',w.ChaosApp.getState().profile.acquisition==='purchase'&&w.ChaosApp.getState().profile.unlocked.length===167);
+      check('Purchase mode includes standard weapons and Burgess variants',w.ChaosApp.getState().profile.acquisition==='purchase'&&w.ChaosApp.getState().profile.unlocked.length===170&&['burgess','burgess-bayonet','burgess-trauma'].every(id=>w.ChaosApp.getState().profile.unlocked.includes(id)));
       check('No owned inventory used',Object.keys(w.ChaosApp.getState().profile.owned).length===0);
+      $('bans-open').click();
+      check('Every Burgess variant appears in item bans',['burgess','burgess-bayonet','burgess-trauma'].every(id=>d.querySelector(`[data-ban="${id}"]`)));
+      $('bans-dialog').close();
       change('rank','100');change('budget','1200');
       $('quartermaster').click();check('Quartermaster capacity immediately updates',$('capacity-value').textContent.endsWith('/ 6'));
       $('quick-traits').querySelector('[data-trait="fanning"]').click();

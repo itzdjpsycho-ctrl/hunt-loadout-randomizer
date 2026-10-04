@@ -4,6 +4,7 @@
   const byId = new Map(data.items.map(item => [item.id, item]));
   const traitById = new Map(data.traits.map(trait => [trait.id, trait]));
   const restricted = item => item.requirements.excludedUntilReviewed || !['standard-candidate', 'event-unlock-required', 'scarce-owned-only'].includes(item.availability);
+  const eligibleWeapon = item => item.kind==='weapon' && !restricted(item) && ['standard-candidate','event-unlock-required'].includes(item.availability);
   function defaults() {
     return {rank: 1, budget: null, acquisition: 'mixed', mode: 'playable', team: 'solo',
       traits: [], unlocked: [], owned: {}, excluded: [], preferTraits: true, theme: 'anything', intensity:'unhinged', challenge:'none', role:'any', customAmmo:false,uniqueWeapons:false,revealAnimation:true};
@@ -235,5 +236,5 @@
     if (item.id === 'first-aid-kit' && p.traits.includes('doctor')) notes[notes.indexOf('Doctor')] = 'Doctor: 100 HP per use';
     return notes;
   }
-  global.ChaosEngine = {data, byId, traitById, defaults, restricted, capacity, canBuy, acquisition, validate, generate, rerollSlot, activeSynergies, benefits, profileErrors};
+  global.ChaosEngine = {data, byId, traitById, defaults, restricted, eligibleWeapon, capacity, canBuy, acquisition, validate, generate, rerollSlot, activeSynergies, benefits, profileErrors};
 })(window);

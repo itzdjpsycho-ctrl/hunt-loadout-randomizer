@@ -11,7 +11,7 @@
     check('Arsenal and acquisition controls removed',!document.getElementById('arsenal-dialog')&&!document.getElementById('arsenal-open')&&!document.getElementById('acquisition')&&!document.getElementById('setup-notice'));
     const initial=ChaosApp.getState().profile;
     check('Purchase mode automatic with no inventory',initial.acquisition==='purchase'&&Object.keys(initial.owned).length===0);
-    check('Standard weapons automatically available',initial.unlocked.length===167&&!initial.unlocked.includes('burgess'));
+    check('Standard weapons and Burgess variants automatically available',initial.unlocked.length===170&&['burgess','burgess-bayonet','burgess-trauma'].every(id=>initial.unlocked.includes(id)));
     const rank=document.getElementById('rank');rank.value='100';rank.dispatchEvent(new Event('change',{bubbles:true}));
     const qm=document.getElementById('quartermaster');if(!qm.checked)qm.click();
     check('Quartermaster works inside EXE',ChaosApp.getState().profile.traits.includes('quartermaster'));

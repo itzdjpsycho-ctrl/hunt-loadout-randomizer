@@ -1191,6 +1191,84 @@
                                            "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Bomb_Lance"
                                        }
                                    ],
+                    "burgess":  [
+                                    {
+                                        "id":  "dragon-breath",
+                                        "name":  "Dragon Breath",
+                                        "cost":  20,
+                                        "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess"
+                                    },
+                                    {
+                                        "id":  "flechette",
+                                        "name":  "Flechette",
+                                        "cost":  40,
+                                        "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess"
+                                    },
+                                    {
+                                        "id":  "penny-shot-ammo",
+                                        "name":  "Penny Shot Ammo",
+                                        "cost":  10,
+                                        "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess"
+                                    },
+                                    {
+                                        "id":  "slug",
+                                        "name":  "Slug",
+                                        "cost":  130,
+                                        "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess"
+                                    }
+                                ],
+                    "burgess-bayonet":  [
+                                            {
+                                                "id":  "dragon-breath",
+                                                "name":  "Dragon Breath",
+                                                "cost":  20,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess/Bayonet"
+                                            },
+                                            {
+                                                "id":  "flechette",
+                                                "name":  "Flechette",
+                                                "cost":  40,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess/Bayonet"
+                                            },
+                                            {
+                                                "id":  "penny-shot-ammo",
+                                                "name":  "Penny Shot Ammo",
+                                                "cost":  10,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess/Bayonet"
+                                            },
+                                            {
+                                                "id":  "slug",
+                                                "name":  "Slug",
+                                                "cost":  130,
+                                                "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess/Bayonet"
+                                            }
+                                        ],
+                    "burgess-trauma":  [
+                                           {
+                                               "id":  "dragon-breath",
+                                               "name":  "Dragon Breath",
+                                               "cost":  20,
+                                               "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess/Trauma"
+                                           },
+                                           {
+                                               "id":  "flechette",
+                                               "name":  "Flechette",
+                                               "cost":  40,
+                                               "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess/Trauma"
+                                           },
+                                           {
+                                               "id":  "penny-shot-ammo",
+                                               "name":  "Penny Shot Ammo",
+                                               "cost":  10,
+                                               "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess/Trauma"
+                                           },
+                                           {
+                                               "id":  "slug",
+                                               "name":  "Slug",
+                                               "cost":  130,
+                                               "source":  "https://huntshowdown.wiki.gg/wiki/Weapons/Burgess/Trauma"
+                                           }
+                                       ],
                     "frontier-73c":  [
                                          {
                                              "id":  "fmj-ammo",
@@ -3436,6 +3514,39 @@
                                                      ]
                                      }
                                  ],
+                  "burgess":  [
+                                  {
+                                      "name":  "Ammo",
+                                      "options":  [
+                                                      "dragon-breath",
+                                                      "flechette",
+                                                      "penny-shot-ammo",
+                                                      "slug"
+                                                  ]
+                                  }
+                              ],
+                  "burgess-bayonet":  [
+                                          {
+                                              "name":  "Ammo",
+                                              "options":  [
+                                                              "dragon-breath",
+                                                              "flechette",
+                                                              "penny-shot-ammo",
+                                                              "slug"
+                                                          ]
+                                          }
+                                      ],
+                  "burgess-trauma":  [
+                                         {
+                                             "name":  "Ammo",
+                                             "options":  [
+                                                             "dragon-breath",
+                                                             "flechette",
+                                                             "penny-shot-ammo",
+                                                             "slug"
+                                                         ]
+                                         }
+                                     ],
                   "frontier-73c":  [
                                        {
                                            "name":  "Ammo",

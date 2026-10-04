@@ -4,7 +4,7 @@
   const STORAGE = 'dead-mans-hand.v1';
   function buyingProfile(source = {...E.defaults(), ...(!document.documentElement.hasAttribute('data-standalone')?{rank:100}:{})}) {
     return {...source, acquisition: 'purchase', owned: {}, excluded: Array.isArray(source.excluded)?source.excluded.filter(id=>E.byId.has(id)):[],
-      unlocked: E.data.items.filter(i => i.kind === 'weapon' && i.availability === 'standard-candidate').map(i => i.id)};
+      unlocked: E.data.items.filter(E.eligibleWeapon).map(i => i.id)};
   }
   const esc = text => String(text ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let profile = buyingProfile(), slots = Array(10).fill(null), locks = Array(10).fill(false);
@@ -226,7 +226,7 @@
   }
   function renderBans(){
     const query=$('ban-search').value.trim().toLowerCase(),kind=$('ban-kind').value;
-    const items=E.data.items.filter(i=>i.availability==='standard-candidate'&&(!kind||i.kind===kind)&&i.name.toLowerCase().includes(query));
+    const items=E.data.items.filter(i=>(i.availability==='standard-candidate'||E.eligibleWeapon(i))&&(!kind||i.kind===kind)&&i.name.toLowerCase().includes(query));
     $('ban-list').innerHTML=items.map(i=>`<label class="ban-option"><input type="checkbox" data-ban="${i.id}" ${profile.excluded.includes(i.id)?'checked':''}><span>${esc(i.name)}<small>${esc(i.kind)} · $${i.price}</small></span></label>`).join('')||'<p>No matching items.</p>';
     $('ban-total').textContent=`${profile.excluded.length} items banned for the squad`;
   }
