@@ -51,8 +51,9 @@ class Build(Model):
     rank: int = Field(ge=1, le=100)
     traits: Traits
     role: Literal["any", "sniper", "close", "support"]
-    ammo: list[Identifier | None] = Field(min_length=2, max_length=2)
+    ammo: list[Identifier | None | Annotated[list[Identifier | None], Field(min_length=1, max_length=2)]] = Field(min_length=2, max_length=2)
     mulligan: bool = False
+    loadoutMulligans: int = Field(default=0, ge=0, le=10)
 
 
 class Squad(Model):
@@ -118,14 +119,24 @@ class Rooms:
             if any(held and not item for held, item in zip(build.locks, build.slots)):
                 raise HTTPException(422, "An empty slot cannot be held.")
             for index, ammo in enumerate(build.ammo):
-                if ammo is not None and ammo not in self.catalog["ammo"].get(build.slots[index], []):
+                if isinstance(ammo, list):
+                    pools = self.catalog.get("ammoSlots", {}).get(build.slots[index], [])
+                    if len(ammo) != len(pools) or any(value is not None and value not in pool["options"] for value, pool in zip(ammo, pools)):
+                        raise HTTPException(422, "Incompatible weapon ammunition slots.")
+                    continue
+                pools = self.catalog.get("ammoSlots", {}).get(build.slots[index], [])
+                allowed = pools[0]["options"] if pools else self.catalog["ammo"].get(build.slots[index], [])
+                if ammo is not None and ammo not in allowed:
                     raise HTTPException(422, "Incompatible weapon ammunition.")
 
     def load(self, db, code):
         row = db.execute("SELECT * FROM rooms WHERE code = ?", (code.upper(),)).fetchone()
         if row is None or row["touched"] < time.time() - TTL:
             raise HTTPException(404, "Room not found or expired. Ask the host for a new code.")
-        return {**dict(row), "state": json.loads(row["state"]), "members": json.loads(row["members"]), "activity": json.loads(row["activity"])}
+        state = json.loads(row["state"])
+        for build in state["builds"]:
+            build.setdefault("loadoutMulligans", 0)
+        return {**dict(row), "state": state, "members": json.loads(row["members"]), "activity": json.loads(row["activity"])}
 
     def write(self, db, room):
         db.execute("UPDATE rooms SET state=?, members=?, revision=?, touched=?, activity=? WHERE code=?", (
@@ -141,13 +152,14 @@ class Rooms:
             for slot, (a, b) in enumerate(zip(before["slots"], after["slots"])):
                 if a != b:
                     details.append({"kind": "item", "slot": slot + 1, "before": a, "after": b})
-            for key in ("locks", "ammo", "traits", "rank", "name", "role"):
-                if before[key] != after[key]:
-                    details.append({"kind": key, "before": before[key], "after": after[key]})
+            for key in ("locks", "ammo", "traits", "rank", "name", "role", "loadoutMulligans"):
+                previous = before.get(key, 0) if key == "loadoutMulligans" else before[key]
+                if previous != after[key]:
+                    details.append({"kind": key, "before": previous, "after": after[key]})
             rolled = before["lastSeed"] != after["lastSeed"]
             if details or rolled:
                 lost = sum(bool(x) for x in after["slots"]) < sum(bool(x) for x in before["slots"])
-                action = "used a mulligan" if after["mulligan"] and lost else "rerolled" if rolled else "updated"
+                action = "used a loadout mulligan" if after["loadoutMulligans"] > before.get("loadoutMulligans", 0) and lost else "used a mulligan" if after["mulligan"] and lost else "dealt a loadout" if rolled else "updated"
                 changes.append({"hunter": index + 1, "name": after["name"], "action": action, "details": details})
         settings = [key for key in state["profile"] if state["profile"][key] != old["profile"][key]]
         if state["seedInput"] != old["seedInput"]:

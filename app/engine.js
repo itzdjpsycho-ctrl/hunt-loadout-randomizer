@@ -134,11 +134,12 @@
     if (slots.includes(item.id)) w *= 0.25;
     return w*support;
   }
-  function generate(p, seed, locks = Array(10).fill(null)) {
+  function generate(p, seed, locks = Array(10).fill(null), blocked = Array(10).fill(false)) {
     p={...p,budget:spendLimit(p)};
     const errors = profileErrors(p);
     if (errors.length) return {ok: false, errors};
     if (!Array.isArray(locks) || locks.length !== 10) return {ok: false, errors: ['The locked slots are invalid. Clear locks and try again.']};
+    if (!Array.isArray(blocked) || blocked.length !== 10 || blocked.some((value,n)=>typeof value!=='boolean'||value&&locks[n])) return {ok:false,errors:['The unavailable slots are invalid.']};
     const base = locks.map(id => id || null);
     const lockedCheck = validate(base, p, false);
     if (!lockedCheck.valid) return {ok: false, errors: ['A locked item no longer fits these settings.', ...lockedCheck.errors]};
@@ -158,12 +159,12 @@
       if (++nodes > maxNodes) { exhausted = true; return null; }
       const state = measure(slots, p);
       if (state.errors.length) return null;
-      let index = slots.findIndex((id, n) => n < 2 && !id && !(allowEmptySecondary && n === 1));
-      if (index === -1) index = slots.findIndex((id, n) => n >= 2 && !id);
+      let index = slots.findIndex((id, n) => n < 2 && !id && !blocked[n] && !(allowEmptySecondary && n === 1));
+      if (index === -1) index = slots.findIndex((id, n) => n >= 2 && !id && !blocked[n]);
       if (index === -1) return validate(slots, p).valid ? slots.slice() : null;
       let pool = index < 2 ? weaponPool : equipmentPool;
       if(index===0)pool=pool.filter(item=>primaryFits(item,p));
-      if (index >= 2 && needsBasics(p)) {
+      if (index >= 2 && needsBasics(p) && !p.mulligan) {
         if (!slots.includes('first-aid-kit')) pool = pool.filter(i => i.id === 'first-aid-kit');
         else if (!slots.some(id => byId.get(id)?.melee)) pool = pool.filter(i => i.melee);
       }
@@ -176,12 +177,12 @@
         return route && (p.budget === null || state.cost + route.cost <= p.budget);
       });
       if (!pool.length) {
-        if (index === 1 && !base[1] && slots[0]) return search(slots, true);
+        if (index === 1 && !base[1] && slots[0] && !p.mulligan) return search(slots, true);
         return null;
       }
       // An optimistic lower bound prunes unaffordable branches without excluding a valid build.
       if (p.budget !== null) {
-        const remainingEquipment = slots.slice(2).filter(id => !id).length;
+        const remainingEquipment = slots.filter((id,n) => n>=2 && !id && !blocked[n]).length;
         const possibleCosts = equipmentPool.flatMap(item => {
           const used=state.count[item.id]||0;
           const copies=item.kind==='tool'?(used?0:1):Math.max(0,4-(state.categories[item.category]||0));
@@ -200,7 +201,7 @@
     }
     let result = search(base.slice(), false);
     // Size-five guns and tight budgets can legally leave one weapon position empty.
-    if (!result && !exhausted && !base[1]) result = search(base.slice(), true);
+    if (!result && !exhausted && !base[1] && !p.mulligan) result = search(base.slice(), true);
     if (!result) return {ok: false, errors: [exhausted ? 'The search reached its limit without finding a build. Try another seed, raise your budget, or release a lock.' : 'No complete build fits these settings. Check your budget, owned quantities, locked items, and playable-mode requirements.'], nodes};
     const validation = validate(result, p);
     if (!validation.valid) return {ok: false, errors: validation.errors};
@@ -208,7 +209,7 @@
   }
   function rerollSlot(p, seed, slots, index) {
     if (!Number.isInteger(index) || index < 0 || index >= 10) return {ok:false,errors:['Choose a valid slot.']};
-    if (p.mulligan && !slots[index]) return {ok:false,errors:['Lost slots stay empty until a fresh hunter or squad roll.']};
+    if (p.mulligan && !slots[index]) return {ok:false,errors:['Lost slots stay empty until a fresh squad deal.']};
     const current = validate(slots,p);
     if (!current.valid) return {ok:false,errors:['Deal a valid loadout before rerolling a slot.',...current.errors]};
     const rng = randomFromSeed(seed);

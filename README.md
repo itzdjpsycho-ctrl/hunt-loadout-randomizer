@@ -40,7 +40,7 @@ For production, `python -m server` runs Uvicorn on `0.0.0.0`, using the host-pro
 
 On the Uvicorn website, enter your name in **Hunt together**, choose Duo or Trio, and select **Create room**. Send **Copy invite link** (or the eight-character room code) to your friends. They enter their own names and join; each gets a hunter seat.
 
-- By default each player edits their own hunter, including traits, holds, rerolls and mulligans. The host can edit the whole squad and change squad settings. **Everyone edits squad** is also available when creating a room.
+- By default each player edits their own hunter, including traits, holds, item mulligans and loadout mulligans. The host can edit the whole squad and change squad settings. **Everyone edits squad** is also available when creating a room.
 - Loadouts, settings, ammo and mulligan losses synchronize about once a second. Changes carry a revision number: simultaneous conflicting writes are rejected and the latest room state is restored, with a message to retry.
 - Reloading the same tab reconnects to your seat. Network loss pauses editing until the latest state is fetched. Room credentials stay in that tab's session storage, never in invite links.
 - The host can remove a player to free a seat. If the host leaves, the next player becomes host. Leaving restores the personal squad you had before joining. The last player leaving deletes the room; rooms also expire after 24 hours without activity.
@@ -118,15 +118,15 @@ The test writes its browser profile beside the report and does not change your n
 
 Choose **Solo**, **Duo**, or **Trio**. All selected hunters appear together. Each hunter has their own name, Bloodline rank, traits, role, equipment, ammunition and holds. The top hunter buttons select whose traits appear in the sidebar; **Traits** beneath a hunter's name opens their full trait editor.
 
-- **Deal me in** rolls the squad. **↻ Hunter** rerolls only that hunter, retaining held items. Each card's **↻** rerolls only that slot and preserves all other slots, including empty weapon positions. An impossible replacement leaves the build unchanged and explains why.
+- **Deal me in** deals a fresh squad and resets penalties. Each card's **M** replaces that item and loses one random item. Each hunter's **Loadout Mulligan** redraws their occupied positions and loses 1 item on the first use, 2 on the second, 3 on the third, and so on. Previous empty slots stay empty, holds cannot prevent losses, and the button disables when there are too few items to pay the next loss. Counters are separate per hunter and survive reloads, favorites and shared-room synchronization. Free item, ammunition and hunter reroll controls have been removed.
 - **Playable chaos** includes a medkit and melee option. **Full chaos** removes those preferences. **Go Crazy** favors eccentric equipment. In **Squad options**, choose Mild (keeps essentials), Unhinged, or Cursed (stronger unusual-gear and repeated-consumable weighting).
-- **Squad options** also contains challenges: no scopes, a Hunting Bow for every hunter, or a $300 limit per hunter including ammunition. Challenges are enforced across rolls and rerolls. Incompatible held items, roles or bans cause a clear failure rather than silently changing other settings.
+- **Squad options** also contains challenges: no scopes, a Hunting Bow for every hunter, or a $300 limit per hunter including ammunition. Challenges are enforced across deals and mulligans. Incompatible held items, roles or bans cause a clear failure rather than silently changing other settings.
 - Choose a role beneath each hunter's name, or use **Assign squad roles** for sniper / close range / support. Sniper requires a scoped primary; close range requires a shotgun or melee primary. Support favors healing, resupply and choke equipment. Roles do not override challenges or game limits.
 - **Item bans** provides a searchable squad-wide exclusion list. Checked items cannot roll, including held gear. Clear a conflicting hold to proceed.
 - **History & favorites** stores the last 30 successful squad builds and up to 50 named favorites locally. Restore recovers the whole squad and its settings; delete removes only the selected saved entry. Resetting the current squad leaves this library intact.
-- **Randomize custom ammo** is opt-in: enable only if you have unlocked the supported custom ammo. It uses purchasable, priced options verified for 91 single-pool weapon variants, includes their price in totals/budgets, and preserves ammo with held weapons. Scarce/retired ammo is excluded. Split-reserve and combination-barrel weapons keep standard ammo until their separate accounting is audited. See `data/custom-ammo.json` and `research/custom-ammo-audit.md`.
+- **Randomize custom ammo** is opt-in: enable only if you have unlocked the supported custom ammo. It uses purchasable, priced options from cached pages for 132 weapon variants and supported dual pairs. Every split-reserve and combination-barrel ammo slot rolls separately, with an 85% custom / 15% standard chance before budget filtering. Custom choices share that 85% equally. All slot prices count toward the budget, and holds preserve every ammo slot. Scarce/retired ammo is excluded. See `data/custom-ammo.json` and `research/custom-ammo-audit.md`.
 
-Rank, traits and role changes invalidate only that hunter. Squad settings invalidate all affected builds until rerolled. Copy and JSON export contain every selected hunter, including ammo, traits and role. Failed team rolls preserve every hand. Full-team seeds reproduce results with the same settings, holds and ammo; individual rerolls additionally use the hunter/slot and roll sequence.
+Rank, traits and role changes invalidate only that hunter. Squad settings invalidate all affected builds until dealt again. Copy and JSON export contain every selected hunter, including ammo, traits and role. Failed team rolls preserve every hand. Full-team seeds reproduce results with the same settings, holds and ammo; individual mulligans additionally use the hunter/slot and roll sequence.
 
 The desktop layout stretches on large screens and shows trio columns together. Laptop (1366 × 768), 1080p, 1440p and 390px mobile layouts are covered by the packaged checks. Long trait notes and error messages can require vertical scrolling.
 
@@ -140,7 +140,7 @@ The engine enforces the audited two weapon positions, capacity 5/6, eight shared
 
 There are **23 loadout-related trait switches**. Trait selection represents already-equipped traits, so the app does not charge Upgrade Points or apply purchase rank restrictions to them. The maximum is 15 selected traits. Synergy weighting is a preference, not a guarantee that every trait will be used on every roll. Frontiersman's two-extra-use condition requires **solo + Catalyst**; it never adds equipment slots. Doctor shows the improved medkit healing.
 
-The app generates **single weapons with optional verified custom ammunition**. Dual wield remains excluded; split-reserve and combination-barrel weapons use standard ammunition. Exact per-variant weapon XP thresholds are not inferred: the app assumes all standard weapons are available instead. Catalog `family` labels are used for variety weighting, not unlock eligibility.
+The app generates **single weapons and supported dual-wield pairs with optional custom ammunition**. Split-reserve and combination-barrel weapons randomize every ammo slot. Exact per-variant weapon XP thresholds are not inferred: the app assumes all standard weapons are available instead. Catalog `family` labels are used for variety weighting, not unlock eligibility.
 
 Research checked on **23 September 2026**, targeting **Update 2.9**. Recheck the data after game patches and verify availability in-game after Prestige.
 
@@ -148,7 +148,7 @@ Research checked on **23 September 2026**, targeting **Update 2.9**. Recheck the
 
 - `app/engine.js`: deterministic selection, challenge/role constraints, bans, rule validation and trait benefits.
 - `app/expansion.js`: custom-ammo selection, held-ammo preservation and full kit budget accounting.
-- `scripts/compile-ammo.ps1`: reproduces the 91-variant ammo catalog from cached item pages.
+- `scripts/compile-ammo.ps1`: reproduces the 132-variant ammo catalog and ammo-slot compatibility from cached item pages.
 - `app/app.js`, `app/styles.css`, `app/index.template.html`: interface and local persistence.
 - `app/catalog.js`: generated compact data; `Chaos-Loadout.html` embeds it and all app code/styles.
 - `data/traits.json`: trait descriptions; `sources/traits/`: individual reference snapshots.
@@ -188,7 +188,7 @@ Each item has a source URL, saved snapshot and wiki revision. Schema version 2 a
 
 `group` is the wiki's browsing grouping, not a legality category. `consumableLimitCategory` maps current consumables to the new four-category inventory limits using page categories, shot names, and the Tarot overview. Six historical event consumables remain unclassified and excluded. These mappings should be checked in the game before release.
 
-Coverage is broad but is not a claim of a fully audited live game database. Custom ammo matrices and dual-wield details remain prerequisites for enabling those optional generation modes. The app assumes all standard weapon unlocks and always buys gear; rank requirements still apply to tools and consumables.
+Coverage is broad but is not a claim of a fully audited live game database. Custom ammo and supported dual-wield pairs use the cached catalog; availability should be checked after patches. The app assumes all standard weapon unlocks and always buys gear; rank requirements still apply to tools and consumables.
 
 ## Rebuild
 
@@ -215,15 +215,15 @@ All 227 catalog entries have matching local equipment icons in `assets/equipment
 
 
 
-Challenge roulette & roll (in Squad options) tries the three challenges in seeded random order and deals the first feasible squad. Unique weapons prevents identical weapon variants across teammates, including hunter and slot rerolls. Conflicting held weapons require releasing a hold. Ammo buttons reroll only ammunition within budget when custom ammo is enabled; held weapons retain their ammo. Card reveals can be skipped with the button or Escape, disabled in Squad options, and respect reduced-motion preferences.
+Challenge roulette & roll (in Squad options) tries the three challenges in seeded random order and deals the first feasible squad. Unique weapons prevents identical weapon variants across teammates, including item and loadout mulligans. Conflicting held weapons require releasing a hold. Ammo is randomized with weapon deals and mulligans; held weapons retain every ammo choice unless lost. Card reveals can be skipped with the button or Escape, disabled in Squad options, and respect reduced-motion preferences.
 
-Slot-machine reveals cycle item images and names, decelerate and settle in sequence. Held cards stay still; individual slot rerolls animate only that card. Cosmetic reels do not change generated results. Validated with 39 engine tests and 89 desktop checks.
+Slot-machine reveals cycle item images and names, decelerate and settle in sequence. Held cards stay still; individual item mulligans update that card and reveal the loss. Cosmetic reels do not change generated results. Validated with 48 engine tests, 102 packaged desktop checks, 11 server tests, desktop/mobile UI tests and shared-session browser checks.
 
 ## Mulligans
 
-Each occupied card has an **M** button, separate from the normal reroll. It rerolls that item and removes one random item from the same hunter. Each tool or consumable has 10 times a weapon's removal weight. Held items and the replacement itself can be lost. There is no usage cap while items remain. Lost slots stay empty through individual rerolls and saved builds; a fresh hunter or squad roll restores a full hand. Failed replacements cost nothing.
+Each occupied card has an **M** button. It replaces that item and removes one random item from the same hunter. Each tool or consumable has 10 times a weapon's removal weight. Held items and the replacement itself can be lost. There is no usage cap while items remain. Each hunter also has a **Loadout Mulligan (Lose N)** button that redraws only occupied positions while retaining held gear, then removes N random items without replacement. N starts at 1 and increases after every successful loadout mulligan for that hunter. Previous losses stay empty, and insufficient remaining items disable the button. Item mulligans do not reset this counter. Holds cannot protect against either penalty. Failed mulligans leave all items and counters unchanged. A fresh squad deal restores a full hand and resets all counters. Saved squads, reloads and shared sessions preserve the counters.
 
 ## Dual-wield pistol rolls
 
-Rolls can select 24 matched pistol pairs, displayed as Dual followed by the pistol name. A pair occupies one weapon position, uses the single pistol's capacity plus one, and costs two copies including supported custom ammunition. Stocked and scoped pistols and the Haymaker cannot roll as pairs. Holds, rerolls, mulligans, exports and shared-room activity use the pair as one card; a mulligan losing that card removes the pair. Banning a pistol excludes its pair, and squad weapon uniqueness treats single and dual versions as the same weapon.
+Rolls can select 24 matched pistol pairs, displayed as Dual followed by the pistol name. A pair occupies one weapon position, uses the single pistol's capacity plus one, and costs two copies including supported custom ammunition. Stocked and scoped pistols and the Haymaker cannot roll as pairs. Holds, mulligans, exports and shared-room activity use the pair as one card; a mulligan losing that card removes the pair. Banning a pistol excludes its pair, and squad weapon uniqueness treats single and dual versions as the same weapon.
 

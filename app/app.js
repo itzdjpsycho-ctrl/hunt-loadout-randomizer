@@ -9,7 +9,7 @@
   const esc = text => String(text ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let profile = buyingProfile(), slots = Array(10).fill(null), locks = Array(10).fill(false);
   let lastSeed = '', rollNumber = 0, rolling = false, dirty = false, notice = [], toastTimer, storageWorks = true;
-  const emptyBuild = () => ({slots:Array(10).fill(null), locks:Array(10).fill(false), lastSeed:'', dirty:false,name:'',rank:profile.rank,traits:profile.traits.slice(),role:'any',ammo:[null,null]});
+  const emptyBuild = () => ({slots:Array(10).fill(null), locks:Array(10).fill(false), lastSeed:'', dirty:false,name:'',rank:profile.rank,traits:profile.traits.slice(),role:'any',ammo:[null,null],loadoutMulligans:0});
   let builds = Array.from({length:3},emptyBuild), buildCount = 1, activeBuild = 0;
   function captureBuild() { builds[activeBuild] = {...builds[activeBuild],slots:slots.slice(),locks:locks.slice(),lastSeed,dirty}; }
   function loadBuild(index) { activeBuild=index; ({slots,locks,lastSeed,dirty}=structuredClone(builds[index])); }
@@ -38,7 +38,7 @@
             b.traits=Array.isArray(b.traits)?[...new Set(b.traits.filter(t=>E.traitById.has(t)))].slice(0,15):profile.traits.slice();
             b.role=['any','sniper','close','support'].includes(b.role)?b.role:'any';
             b.ammo=Array.isArray(b.ammo)&&b.ammo.length===2?b.ammo.map((id,n)=>E.ammoOption(b.slots[n],id)?id:null):[null,null];
-            return {mulligan:!!b.mulligan,name:b.name,rank:b.rank,traits:b.traits,role:b.role,ammo:b.ammo,slots:b.slots,locks:Array.from({length:10},(_,i)=>!!b.locks?.[i]&&!!b.slots[i]),lastSeed:typeof b.lastSeed==='string'?b.lastSeed:'',dirty:!!b.dirty||(b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid)};
+            return {mulligan:!!b.mulligan,loadoutMulligans:Number.isInteger(b.loadoutMulligans)&&b.loadoutMulligans>=0&&b.loadoutMulligans<=10?b.loadoutMulligans:0,name:b.name,rank:b.rank,traits:b.traits,role:b.role,ammo:b.ammo,slots:b.slots,locks:Array.from({length:10},(_,i)=>!!b.locks?.[i]&&!!b.slots[i]),lastSeed:typeof b.lastSeed==='string'?b.lastSeed:'',dirty:!!b.dirty||(b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid)};
           });
           loadBuild(Number.isInteger(saved.activeBuild)&&saved.activeBuild>=0&&saved.activeBuild<buildCount?saved.activeBuild:0);
         }
@@ -88,13 +88,12 @@
     const {slots, locks, lastSeed} = build;
     const item = E.byId.get(slots[index]), weapon = index < 2;
     const type = weapon ? 'weapon-card' : 'equipment-card';
-    const rerollButton = `<button class="slot-reroll" data-reroll="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed||(build.mulligan&&!item)?'disabled':''} aria-label="Reroll ${esc(item?.name||'empty weapon slot')} for ${esc(hunterName(build,hunter))}" title="${locks[index]?'Release hold to reroll':'Reroll only this slot'}">↻</button>`;
-    if (!item) return `<article class="${type} empty-card"><div class="card-top"><span>${weapon ? (index ? 'SECONDARY' : 'PRIMARY') : `SLOT ${String(index-1).padStart(2,'0')}`}</span>${rerollButton}</div><div class="${weapon?'weapon':'equipment'}-art">${icon(null,weapon)}</div><h3>${weapon ? (build.mulligan ? 'Lost to mulligan' : lastSeed ? 'Travelling light' : 'Undealt') : (build.mulligan ? 'Lost to mulligan' : 'Awaiting fate')}</h3>${weapon?`<p class="empty-caption">${lastSeed ? 'An empty position can be a legal part of the hand.' : 'Your next weapon is a roll away.'}</p>`:''}</article>`;
+    if (!item) return `<article class="${type} empty-card"><div class="card-top"><span>${weapon ? (index ? 'SECONDARY' : 'PRIMARY') : `SLOT ${String(index-1).padStart(2,'0')}`}</span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(null,weapon)}</div><h3>${weapon ? (build.mulligan ? 'Lost to mulligan' : lastSeed ? 'Travelling light' : 'Undealt') : (build.mulligan ? 'Lost to mulligan' : 'Awaiting fate')}</h3>${weapon?`<p class="empty-caption">${lastSeed ? 'An empty position can be a legal part of the hand.' : 'Your next weapon is a roll away.'}</p>`:''}</article>`;
     const route = validation.routes?.[index];
     const benefit = E.benefits(item,buildProfile(build));
     const ammo=weapon?E.ammoOption(item.id,build.ammo[index]):null;
-    const meta = weapon ? `SIZE ${item.capacity} <span class="dot"></span> ${esc(ammo?.id?ammo.name:item.ammo || 'MELEE')}` : esc(item.kind === 'tool' ? 'TOOL' : (item.category || 'CONSUMABLE').replace('-',' ').toUpperCase());
-    return `<article class="${type}${locks[index]?' held':''}"><div class="card-top"><span>${weapon?(index?'SECONDARY':'PRIMARY'):`SLOT ${String(index-1).padStart(2,'0')}`}</span><span class="slot-actions">${weapon&&profile.customAmmo&&E.ammoOptions(item.id).length?`<button class="ammo-reroll" data-ammo-reroll="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty?'disabled':''} title="Reroll ammunition only" aria-label="Reroll ammo for ${esc(item.name)}">Ammo ↻</button>`:''}${rerollButton}<button class="slot-mulligan" data-mulligan="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Reroll this item and lose one random item. Holds do not protect against loss. Weapons have 1/10 the removal weight of other items." aria-label="Mulligan ${esc(item.name)} for ${esc(hunterName(build,hunter))}">M</button><button class="hold-button${locks[index]?' held':''}" data-lock="${index}" data-hunter="${hunter}" aria-pressed="${locks[index]}" aria-label="${locks[index]?'Release':'Hold'} ${esc(item.name)}"><span aria-hidden="true">${locks[index]?'◆':'◇'}</span>${locks[index]?'HELD':'HOLD'}</button></span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(item,weapon)}</div><h3><a class="source-link" href="${esc(item.source)}" target="_blank" rel="noreferrer" title="View ${esc(item.name)} reference">${esc(item.name)}</a></h3><div class="card-meta">${meta}<span class="card-price">${route?.route === 'owned' ? 'OWNED' : route ? '$'+(route.cost+(ammo?.cost||0)) : 'CHECK ACCESS'}</span></div>${benefit.length?`<p class="benefit">${benefit.map(esc).join(' · ')}</p>`:''}</article>`;
+    const meta = weapon ? `SIZE ${item.capacity} <span class="dot"></span> ${esc(ammo?.id||ammo?.slots?ammo.name:item.ammo || 'MELEE')}` : esc(item.kind === 'tool' ? 'TOOL' : (item.category || 'CONSUMABLE').replace('-',' ').toUpperCase());
+    return `<article class="${type}${locks[index]?' held':''}"><div class="card-top"><span>${weapon?(index?'SECONDARY':'PRIMARY'):`SLOT ${String(index-1).padStart(2,'0')}`}</span><span class="slot-actions"><button class="slot-mulligan" data-mulligan="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Reroll this item and lose one random item. Holds do not protect against loss. Weapons have 1/10 the removal weight of other items." aria-label="Mulligan ${esc(item.name)} for ${esc(hunterName(build,hunter))}">M</button><button class="hold-button${locks[index]?' held':''}" data-lock="${index}" data-hunter="${hunter}" aria-pressed="${locks[index]}" aria-label="${locks[index]?'Release':'Hold'} ${esc(item.name)}"><span aria-hidden="true">${locks[index]?'◆':'◇'}</span>${locks[index]?'HELD':'HOLD'}</button></span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(item,weapon)}</div><h3><a class="source-link" href="${esc(item.source)}" target="_blank" rel="noreferrer" title="View ${esc(item.name)} reference">${esc(item.name)}</a></h3><div class="card-meta">${meta}<span class="card-price">${route?.route === 'owned' ? 'OWNED' : route ? '$'+(route.cost+(ammo?.cost||0)) : 'CHECK ACCESS'}</span></div>${benefit.length?`<p class="benefit">${benefit.map(esc).join(' · ')}</p>`:''}</article>`;
   }
   let revealTimers=[],revealAnimations=[];
   function finishReveal(){revealTimers.forEach(clearTimeout);revealTimers=[];revealAnimations.forEach(a=>a.cancel());revealAnimations=[];document.querySelectorAll('.slot-reel').forEach(r=>r.remove());document.querySelectorAll('.reveal-pending,.card-revealed').forEach(c=>c.classList.remove('reveal-pending','card-revealed'));$('skip-reveal').hidden=true;$('squad-loadouts').setAttribute('aria-busy','false');}
@@ -135,8 +134,8 @@
       const helped=new Set(build.slots.filter(Boolean).flatMap(id=>E.activeSynergies(E.byId.get(id),buildProfile(build))));
       const id=name=>i===activeBuild?`id="${name}"`:'';
       return `<section class="hunter-loadout${build.dirty?' stale':''}" aria-label="${esc(hunterName(build,i))} loadout">
-        <div class="hunter-heading"><span class="hunter-number">0${i+1}</span><div class="hunter-identity"><label>HUNTER NAME<input data-hunter-name="${i}" value="${esc(build.name)}" placeholder="Hunter ${i+1}" maxlength="32" aria-label="Hunter ${i+1} name" autocomplete="off"></label><span>${build.dirty?'REROLL TO UPDATE':build.mulligan?'MULLIGAN HAND':filled?'READY TO HUNT':'AWAITING DEPLOYMENT'}</span></div><label class="hunter-rank">BLOODLINE<input ${id('rank')} data-hunter-rank="${i}" type="number" min="1" max="100" step="1" value="${build.rank}" aria-label="Hunter ${i+1} Bloodline rank" inputmode="numeric"></label><span class="ready-dot${filled&&!build.dirty?' ready':''}"></span></div>
-        <div class="hunter-actions"><select data-role="${i}" aria-label="Role for ${esc(hunterName(build,i))}">${Object.entries({any:'Any role',sniper:'Sniper',close:'Close range',support:'Support'}).map(([value,label])=>`<option value="${value}" ${build.role===value?'selected':''}>${label}</option>`).join('')}</select><button data-hunter-traits="${i}">Traits · ${build.traits.length}</button><button data-reroll-hunter="${i}" title="Reroll this hunter, keeping held items">↻ Hunter</button></div>
+        <div class="hunter-heading"><span class="hunter-number">0${i+1}</span><div class="hunter-identity"><label>HUNTER NAME<input data-hunter-name="${i}" value="${esc(build.name)}" placeholder="Hunter ${i+1}" maxlength="32" aria-label="Hunter ${i+1} name" autocomplete="off"></label><span>${build.dirty?'DEAL TO UPDATE':build.mulligan?'MULLIGAN HAND':filled?'READY TO HUNT':'AWAITING DEPLOYMENT'}</span></div><label class="hunter-rank">BLOODLINE<input ${id('rank')} data-hunter-rank="${i}" type="number" min="1" max="100" step="1" value="${build.rank}" aria-label="Hunter ${i+1} Bloodline rank" inputmode="numeric"></label><span class="ready-dot${filled&&!build.dirty?' ready':''}"></span></div>
+        <div class="hunter-actions"><select data-role="${i}" aria-label="Role for ${esc(hunterName(build,i))}">${Object.entries({any:'Any role',sniper:'Sniper',close:'Close range',support:'Support'}).map(([value,label])=>`<option value="${value}" ${build.role===value?'selected':''}>${label}</option>`).join('')}</select><button data-hunter-traits="${i}">Traits · ${build.traits.length}</button><button data-loadout-mulligan="${i}" data-hunter="${i}" ${build.dirty||!build.lastSeed||build.slots.filter(Boolean).length<(build.loadoutMulligans??0)+1?'disabled':''} title="Redraw remaining slots and lose ${(build.loadoutMulligans??0)+1} random item(s). Previous losses stay empty; holds do not protect against loss.">Loadout Mulligan (Lose ${(build.loadoutMulligans??0)+1})</button></div>
         <div class="ledger"><div><span>CAPACITY</span><b ${id('capacity-value')}>${filled?validation.usedCapacity:'—'} / ${E.capacity(buildProfile(build))}</b></div><div><span>PURCHASES</span><b ${id('spend-value')}>$ ${filled?(validation.cost||0).toLocaleString():'—'}</b></div><div><span>GEAR</span><b ${id('equipment-value')}>${filled?validation.equipmentCount:'—'} / 8</b></div></div>
         <div class="section-label"><span>01 / WEAPONS</span><span>${profile.customAmmo?'MIXED AMMO':'STANDARD AMMO'}</span></div>
         <div ${id('weapons')} class="weapon-grid">${[0,1].map(n=>card(n,validation,build,i)).join('')}</div>
@@ -205,6 +204,7 @@
   function validSnapshot(entry){
     return entry&&typeof entry.id==='string'&&typeof entry.label==='string'&&typeof entry.created==='string'&&entry.version===E.data.version&&
       [1,2,3].includes(entry.buildCount)&&entry.profile&&typeof entry.profile==='object'&&!E.profileErrors(entry.profile).length&&Array.isArray(entry.builds)&&entry.builds.length===3&&entry.builds.every(b=>
+        (b.loadoutMulligans===undefined||Number.isInteger(b.loadoutMulligans)&&b.loadoutMulligans>=0&&b.loadoutMulligans<=10)&&
         b&&typeof b.name==='string'&&Number.isInteger(b.rank)&&b.rank>=1&&b.rank<=100&&Array.isArray(b.slots)&&b.slots.length===10&&b.slots.every(id=>id===null||E.byId.has(id))&&Array.isArray(b.locks)&&b.locks.length===10&&typeof b.lastSeed==='string'&&Array.isArray(b.ammo)&&b.ammo.length===2&&
         !E.profileErrors({...entry.profile,rank:b.rank,traits:b.traits,role:b.role}).length);
   }
@@ -216,7 +216,7 @@
     if(!validSnapshot(entry)){toast('This saved squad is not compatible with the current catalog.');return;}
     recordHistory();
     profile=buyingProfile({...E.defaults(),...structuredClone(entry.profile)});
-    builds=structuredClone(entry.builds);buildCount=entry.buildCount;
+    builds=structuredClone(entry.builds).map(b=>({...b,loadoutMulligans:b.loadoutMulligans??0}));buildCount=entry.buildCount;
     builds.forEach(b=>{b.dirty=b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid;});
     loadBuild(Number.isInteger(entry.activeBuild)&&entry.activeBuild>=0&&entry.activeBuild<buildCount?entry.activeBuild:0);
     rollNumber=entry.rollNumber||0;$('seed').value=entry.seedInput||'';notice=[];save();renderProfile();renderCards();$('library-dialog').close();toast('Saved squad and its settings restored.');
@@ -229,15 +229,6 @@
     const items=E.data.items.filter(i=>i.availability==='standard-candidate'&&(!kind||i.kind===kind)&&i.name.toLowerCase().includes(query));
     $('ban-list').innerHTML=items.map(i=>`<label class="ban-option"><input type="checkbox" data-ban="${i.id}" ${profile.excluded.includes(i.id)?'checked':''}><span>${esc(i.name)}<small>${esc(i.kind)} · $${i.price}</small></span></label>`).join('')||'<p>No matching items.</p>';
     $('ban-total').textContent=`${profile.excluded.length} items banned for the squad`;
-  }
-  function rollHunter(index){
-    if(rolling)return;
-    captureBuild();const build=builds[index];if(!build)return;
-    const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${index+1}:roll-${rollNumber+1}`;
-    const result=E.generateKit(teammateProfile(index),seed,build);
-    if(!result.ok){notice=result.errors.map(e=>`${hunterName(build,index)}: ${e}`);renderCards();return;}
-    builds[index]={...build,slots:result.slots,ammo:result.ammo,lastSeed:seed,dirty:false,mulligan:false};
-    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(index);toast(`${hunterName(build,index)} rerolled. Teammates kept.`);
   }
   async function roll(roulette=false) {
     if(rolling)return;
@@ -258,27 +249,13 @@
       if(!dealt.ok){notice=[...(roulette?['No roulette challenge fits the current roles, bans, budget and holds.']:[]),...dealt.errors];if(!roulette)builds.slice(0,buildCount).forEach(b=>b.dirty=true);loadBuild(activeBuild);save();renderCards();return;}
       if(chosen!==profile.challenge)builds.slice(buildCount).forEach(b=>{if(b.slots.some(Boolean))b.dirty=true;});
       profile.challenge=chosen;
-      dealt.results.forEach((r,i)=>{builds[i]={...builds[i],slots:r.slots,ammo:r.ammo,locks:builds[i].locks,lastSeed:r.seed,dirty:false,mulligan:false};});
+      dealt.results.forEach((r,i)=>{builds[i]={...builds[i],slots:r.slots,ammo:r.ammo,locks:builds[i].locks,lastSeed:r.seed,dirty:false,mulligan:false,loadoutMulligans:0};});
       loadBuild(activeBuild);rollNumber++;notice=[];
       save();recordHistory();renderProfile();renderCards();revealCards();
       if(roulette){$('squad-options-dialog').close();toast('Challenge drawn: '+{'no-scopes':'No scopes',bows:'Everyone brings a Hunting Bow',budget300:'$300 per hunter'}[chosen]);}
       $('roll').setAttribute('aria-label',`Deal another loadout. Last roll ${lastSeed}`);
     } catch(error){notice=['The squad could not be dealt. Check the settings and try again.'];renderCards();console.error(error);}
     finally{rolling=false;$('roll').disabled=false;}
-  }  function rerollOne(hunter,index) {
-    if(rolling)return;
-    captureBuild();
-    const build=builds[hunter];
-    if(!build||build.locks[index]){toast('Release this item before rerolling it.');return;}
-    if(build.dirty||!build.lastSeed){toast('Deal a fresh loadout before rerolling a slot.');return;}
-    const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:slot-${index+1}:${rollNumber+1}`;
-    const result=E.rerollKit(teammateProfile(hunter),seed,build,index);
-    if(!result.ok){toast(result.errors.join(' '));return;}
-    build.slots=result.slots;build.ammo=result.ammo;build.lastSeed=seed;
-    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();
-    document.querySelector(`[data-reroll="${index}"][data-hunter="${hunter}"]`)?.focus({preventScroll:true});
-    revealCards(hunter,index);
-    toast(`${hunterName(build,hunter)}: slot rerolled. Other slots kept.`);
   }
   function mulliganOne(hunter,index){
     if(rolling)return;
@@ -289,29 +266,30 @@
     if(!result.ok){toast(result.errors.join(' '));return;}
     Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,mulligan:true,lastSeed:seed});
     loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();
-    (document.querySelector(`[data-mulligan="${index}"][data-hunter="${hunter}"]`)||document.querySelector(`[data-reroll-hunter="${hunter}"]`))?.focus({preventScroll:true});
+    (document.querySelector(`[data-mulligan="${index}"][data-hunter="${hunter}"]`)||document.querySelector(`[data-loadout-mulligan="${hunter}"]`))?.focus({preventScroll:true});
     toast(hunterName(build,hunter)+': mulligan used. Lost '+E.byId.get(result.removed.id).name+'.');
   }
-  function exportObject(){const hands=selectedBuilds().map((b,i)=>({hunter:i+1,name:hunterName(b,i),rank:b.rank,ammo:b.ammo.map((id,n)=>({...E.ammoOption(b.slots[n],id)})),role:b.role,traits:b.traits,profile:structuredClone(buildProfile(b)),seed:b.lastSeed,slots:b.slots.map((id,n)=>id?{position:n<2?`weapon-${n+1}`:`equipment-${n-1}`,id,name:E.byId.get(id).name,source:E.byId.get(id).source}:null),validation:E.validateKit(b.slots,buildProfile(b),b.ammo)}));return {app:"Dead Man's Hand",rulesVersion:E.data.version,profile:structuredClone(profile),...hands[activeBuild],buildCount,builds:hands};}
+  function mulliganLoadout(hunter){
+    if(rolling)return;
+    captureBuild();const build=builds[hunter];
+    if(!build||build.dirty||!build.lastSeed)return;
+    const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:loadout-mulligan:${rollNumber+1}`;
+    const result=E.loadoutMulligan(teammateProfile(hunter),seed,build);
+    if(!result.ok){toast(result.errors.join(' '));return;}
+    Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,mulligan:true,loadoutMulligans:result.loadoutMulligans,lastSeed:seed});
+    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter);
+    document.querySelector(`[data-loadout-mulligan="${hunter}"]`)?.focus({preventScroll:true});
+    toast(hunterName(build,hunter)+': loadout mulligan. Lost '+result.removed.map(item=>E.byId.get(item.id).name).join(', ')+'.');
+  }
+  function exportObject(){const hands=selectedBuilds().map((b,i)=>({hunter:i+1,name:hunterName(b,i),rank:b.rank,loadoutMulligans:b.loadoutMulligans??0,ammo:b.ammo.map((id,n)=>({...E.ammoOption(b.slots[n],id)})),role:b.role,traits:b.traits,profile:structuredClone(buildProfile(b)),seed:b.lastSeed,slots:b.slots.map((id,n)=>id?{position:n<2?`weapon-${n+1}`:`equipment-${n-1}`,id,name:E.byId.get(id).name,source:E.byId.get(id).source}:null),validation:E.validateKit(b.slots,buildProfile(b),b.ammo)}));return {app:"Dead Man's Hand",rulesVersion:E.data.version,profile:structuredClone(profile),...hands[activeBuild],buildCount,builds:hands};}
   function exportTeamText(){captureBuild();const current=activeBuild;const text=builds.slice(0,buildCount).map((b,i)=>{loadBuild(i);return `${hunterName(b,i)}\n${exportText()}`;}).join('\n\n────────────\n\n');loadBuild(current);return text;}
   function exportText(){const v=E.validateKit(slots,buildProfile(builds[activeBuild]),builds[activeBuild].ammo);return [`DEAD MAN'S HAND · Hunt: Showdown 1896`,`Rules ${E.data.version} · seed ${lastSeed}`,`Capacity ${v.usedCapacity}/${E.capacity(buildProfile(builds[activeBuild]))} · New purchases $${v.cost}`,`Mode: ${profile.mode} · Bloodline ${builds[activeBuild].rank}`,`Traits: ${builds[activeBuild].traits.map(id=>E.traitById.get(id).name).join(', ')||'None'}`,'',...slots.map((id,n)=>`${n<2?'Weapon '+(n+1):'Equipment '+(n-1)}: ${id?E.byId.get(id).name+(n<2&&builds[activeBuild].ammo[n]?' + '+E.ammoOption(id,builds[activeBuild].ammo[n]).name:''):'Empty'}${v.routes?.[n]?.route==='owned'?' (owned)':''}`),'','Role: '+builds[activeBuild].role+' · Challenge: '+profile.challenge+' · Intensity: '+profile.intensity].join('\n');}
   document.addEventListener('click',event=>{
-    const ammoRoll=event.target.closest('[data-ammo-reroll]');if(ammoRoll){
-      if(ammoRoll.disabled||rolling)return;
-      captureBuild();const hunter=Number(ammoRoll.dataset.hunter),index=Number(ammoRoll.dataset.ammoReroll),build=builds[hunter];
-      if(build.dirty)return;
-      const seed=`${$('seed').value.trim()||freshSeed()}:ammo:${hunter}:${index}:${rollNumber+1}`;
-      const result=E.rerollAmmo(buildProfile(build),seed,build,index);
-      if(!result.ok){toast(result.errors.join(' '));return;}
-      build.ammo=result.ammo;build.lastSeed=seed;loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();
-      document.querySelector(`[data-ammo-reroll="${index}"][data-hunter="${hunter}"]`)?.focus({preventScroll:true});toast('Ammo rerolled. All equipment kept.');return;
-    }
-    const hunterRoll=event.target.closest('[data-reroll-hunter]');if(hunterRoll){rollHunter(Number(hunterRoll.dataset.rerollHunter));return;}
+    const loadout=event.target.closest('[data-loadout-mulligan]');if(loadout){if(!loadout.disabled)mulliganLoadout(Number(loadout.dataset.hunter));return;}
     const hunterTraits=event.target.closest('[data-hunter-traits]');if(hunterTraits){captureBuild();loadBuild(Number(hunterTraits.dataset.hunterTraits));save();renderProfile();renderCards();$('traits-dialog').showModal();return;}
     const restore=event.target.closest('[data-restore]');if(restore){const entry=library[restore.dataset.list]?.find(e=>e.id===restore.dataset.restore);if(entry)restoreSnapshot(entry);return;}
     const remove=event.target.closest('[data-delete-save]');if(remove){const list=remove.dataset.list;if(library[list]){library[list]=library[list].filter(e=>e.id!==remove.dataset.deleteSave);saveLibrary();renderLibrary();}return;}
     const mulligan=event.target.closest('[data-mulligan]');if(mulligan){if(!mulligan.disabled)mulliganOne(Number(mulligan.dataset.hunter),Number(mulligan.dataset.mulligan));return;}
-    const reroll=event.target.closest('[data-reroll]');if(reroll){if(!reroll.disabled)rerollOne(Number(reroll.dataset.hunter),Number(reroll.dataset.reroll));return;}
     const count=event.target.closest('[data-build-count]');if(count){if(rolling||Number(count.dataset.buildCount)===buildCount)return;captureBuild();buildCount=Number(count.dataset.buildCount);loadBuild(Math.min(activeBuild,buildCount-1));profile.team=['solo','duo','trio'][buildCount-1];changed();return;}
     const tab=event.target.closest('[data-build]');if(tab){if(rolling)return;captureBuild();loadBuild(Number(tab.dataset.build));save();renderProfile();renderCards();$('build-tabs').querySelector(`[data-build="${activeBuild}"]`).focus();return;}
     const lock=event.target.closest('[data-lock]');if(lock){if(rolling)return;captureBuild();loadBuild(Number(lock.dataset.hunter));const n=Number(lock.dataset.lock);locks[n]=!locks[n];save();renderProfile();renderCards();document.querySelector(`[data-hunter="${activeBuild}"][data-lock="${n}"]`)?.focus({preventScroll:true});}
@@ -380,7 +358,7 @@
   function applySharedState(state,hunter=null){
     if(!validSnapshot({...state,id:'shared',label:'Shared squad',created:'session'}))throw new Error('This room uses an incompatible squad or catalog. Reload the page.');
     finishReveal();
-    profile=buyingProfile(structuredClone(state.profile));builds=structuredClone(state.builds);buildCount=state.buildCount;
+    profile=buyingProfile(structuredClone(state.profile));builds=structuredClone(state.builds).map(b=>({...b,loadoutMulligans:b.loadoutMulligans??0}));buildCount=state.buildCount;
     loadBuild(Math.min(hunter??activeBuild,buildCount-1));rollNumber=state.rollNumber;$('seed').value=state.seedInput;
     notice=[];save();renderProfile();renderCards();
   }

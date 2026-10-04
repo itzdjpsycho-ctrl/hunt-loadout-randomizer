@@ -6,7 +6,7 @@
   let room=null, credentials=null, backup=null, baseline='', online=false, busy=false, reading=false, applying=false, dirty=false, epoch=0, timer=null;
   const hostControls='[data-mode],[data-ban],#budget,#theme,#intensity,#challenge,#prefer-traits,#custom-ammo,#unique-weapons,#reveal-animation,#roulette-roll,#assign-roles,#clear-bans,#roll,#seed';
   const fixedControls='[data-build-count],#team,#reset,[data-restore]';
-  const hunterControls='[data-reroll],[data-mulligan],[data-ammo-reroll],[data-lock],[data-reroll-hunter],[data-role],[data-hunter-name],[data-hunter-rank]';
+  const hunterControls='[data-mulligan],[data-loadout-mulligan],[data-lock],[data-role],[data-hunter-name],[data-hunter-rank]';
   const activeControls='[data-trait],#quartermaster,#clear-locks';
   const controls=[hostControls,fixedControls,hunterControls,activeControls].join(',');
   const me=()=>room?.members.find(member=>member.id===room.you);
@@ -19,7 +19,7 @@
     if(element.matches(hostControls))return !all();
     if(element.matches(activeControls))return !all()&&A.getState().activeBuild!==me()?.hunter;
     if(element.matches(hunterControls)){
-      const seat=Number(element.dataset.hunter??element.dataset.rerollHunter??element.dataset.role??element.dataset.hunterName??element.dataset.hunterRank);
+      const seat=Number(element.dataset.hunter??element.dataset.loadoutMulligan??element.dataset.role??element.dataset.hunterName??element.dataset.hunterRank);
       return !all()&&seat!==me()?.hunter;
     }
     return false;
@@ -73,6 +73,7 @@
           if(detail.kind==='item')line.textContent=`Slot ${detail.slot}: ${item(detail.before)} → ${item(detail.after)}`;
           else if(detail.kind==='locks')line.textContent=detail.after.map((held,i)=>held!==detail.before[i]?`${held?'Held':'Released'} slot ${i+1}`:'').filter(Boolean).join('; ');
           else if(detail.kind==='traits')line.textContent='Traits: '+(detail.after.map(trait).join(', ')||'None');
+          else if(detail.kind==='loadoutMulligans')line.textContent='Loadout mulligans used: '+detail.after;
           else if(detail.kind==='ammo')line.textContent='Changed ammunition';
           else line.textContent=`${detail.kind==='rank'?'Bloodline':detail.kind}: ${detail.before} → ${detail.after}`;
           li.append(line);

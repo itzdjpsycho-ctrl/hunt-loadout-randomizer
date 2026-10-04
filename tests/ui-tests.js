@@ -1,4 +1,4 @@
-﻿(function(){
+(function(){
   const frame=document.getElementById('app');
   const mobile=location.search.includes('mobile');
   if(mobile)frame.style.width='390px';
@@ -11,8 +11,10 @@
       if(mobile)check('Mobile viewport is exactly 390 CSS pixels',w.innerWidth===390);
       w.confirm=()=>true;$('reset').click();
       check('Initial cards rendered',d.querySelectorAll('.weapon-card').length===2&&d.querySelectorAll('.equipment-card').length===8);
+      check('Free reroll controls removed',!d.querySelector('[data-reroll],[data-ammo-reroll],[data-reroll-hunter]'));
+      check('Undealt loadout cannot mulligan',d.querySelector('[data-loadout-mulligan="0"]').disabled);
       check('No arsenal setup required',!$('setup-notice')&&!$('arsenal-dialog')&&!$('acquisition'));
-      check('Purchase mode with all standard weapons',w.ChaosApp.getState().profile.acquisition==='purchase'&&w.ChaosApp.getState().profile.unlocked.length===143);
+      check('Purchase mode with all standard weapons',w.ChaosApp.getState().profile.acquisition==='purchase'&&w.ChaosApp.getState().profile.unlocked.length===167);
       check('No owned inventory used',Object.keys(w.ChaosApp.getState().profile.owned).length===0);
       change('rank','100');change('budget','1200');
       $('quartermaster').click();check('Quartermaster capacity immediately updates',$('capacity-value').textContent.endsWith('/ 6'));
@@ -35,7 +37,21 @@
       d.querySelector('[data-mode="playable"]').click();await w.ChaosApp.roll();
       $('rules-open').click();check('Rules explain current limits',$('rules-dialog').textContent.includes('Eight shared equipment slots'));$('rules-dialog').close();
       check('Page fits viewport without horizontal overflow',d.documentElement.scrollWidth<=w.innerWidth);
-      check('Settings saved in browser',JSON.parse(w.localStorage.getItem('dead-mans-hand.v1')).profile.traits.includes('quartermaster'));
+      check('Settings saved in browser',JSON.parse(w.localStorage.getItem('dead-mans-hand.v1')).builds[0].traits.includes('quartermaster'));
+      const start=w.ChaosApp.getState().builds[0].slots.filter(Boolean).length;
+      let totalLoss=0,uses=0;
+      while(!d.querySelector('[data-loadout-mulligan="0"]').disabled&&uses<5){
+        const before=w.ChaosApp.getState().builds[0];uses++;totalLoss+=uses;
+        d.querySelector('[data-loadout-mulligan="0"]').click();
+        const after=w.ChaosApp.getState().builds[0];
+        check('Loadout mulligan loses '+uses+' items',after.loadoutMulligans===uses&&after.slots.filter(Boolean).length===start-totalLoss);
+        check('Lost slots stay empty after mulligan '+uses,after.slots.every((id,n)=>before.slots[n]||!id));
+      }
+      check('Loadout mulligan stops when unaffordable',d.querySelector('[data-loadout-mulligan="0"]').disabled&&w.ChaosApp.getState().builds[0].slots.filter(Boolean).length<uses+1);
+      check('Counter saved per hunter',JSON.parse(w.localStorage.getItem('dead-mans-hand.v1')).builds[0].loadoutMulligans===uses);
+      check('Loadout mulligan controls fit viewport',d.documentElement.scrollWidth<=w.innerWidth);
+      await w.ChaosApp.roll();
+      check('Fresh deal resets penalties',w.ChaosApp.getState().builds[0].loadoutMulligans===0&&!w.ChaosApp.getState().builds[0].mulligan);
     }catch(error){results.push({name:'UI sequence',pass:false,error:error.message});}
     const failed=results.filter(r=>!r.pass).length;
     document.body.dataset.status=failed?'FAIL':'PASS';document.title=`${failed?'FAIL':'PASS'} Chaos UI tests`;

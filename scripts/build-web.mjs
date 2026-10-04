@@ -48,6 +48,7 @@ for (const base of items.slice()) if (pairable.has(base.id)) {
     capacity:base.capacity+1, price:base.price===null?null:base.price*2,
     synergies:base.synergies.filter(id=>!['fanning','crack-shot'].includes(id))});
   if (ammo.weapons[base.id]) ammo.weapons[id] = ammo.weapons[base.id].map(option=>({...option,cost:option.cost*2}));
+  if (ammo.slots[base.id]) ammo.slots[id] = ammo.slots[base.id];
 }
 const data = {
   version: `${catalog.targetPatch}-${catalog.researchedOn}`, items, rules,
@@ -75,9 +76,8 @@ for (const [key, file] of Object.entries({ DATA: 'catalog.js', ENGINE: 'engine.j
   await writeFile(join(site, 'assets', file), code[key]);
 }
 if (/__(DATA|ENGINE|EXPANSION|APP|SESSION|STYLES)__/.test(page)) throw new Error('Unresolved frontend template placeholder');
-await writeFile(join(site, 'session-catalog.json'), JSON.stringify({ version: data.version, items: items.map(i => i.id), traits: traits.map(t => t.id), ammo: Object.fromEntries(Object.entries(ammo.weapons).map(([id, options]) => [id, options.map(a => a.id)])) }));
+await writeFile(join(site, 'session-catalog.json'), JSON.stringify({ version: data.version, items: items.map(i => i.id), traits: traits.map(t => t.id), ammo: Object.fromEntries(Object.entries(ammo.weapons).map(([id, options]) => [id, options.map(a => a.id)])), ammoSlots:ammo.slots }));
 await writeFile(join(site, 'assets/styles.css'), code.STYLES);
 await writeFile(join(site, 'index.html'), page);
 await writeFile(join(site, '.nojekyll'), '');
 console.log(`Built website and standalone HTML: ${items.length} items, ${traits.length} traits.`);
-

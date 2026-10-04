@@ -30,7 +30,7 @@ Theme membership is an app editorial decision; it must not silently change game 
 
 ## Controls worth building
 
-- Lock any item and reroll the rest.
+- Hold items during squad deals and loadout mulligans; mulligan losses can remove held gear. Item mulligans lose one random item. Loadout mulligans cost 1, then 2, then 3 items per hunter, and cannot restore previously empty slots.
 - Exclude disliked weapons, scopes, traps, or entire families.
 - Quartermaster toggle that updates the capacity budget.
 - Enable event unlocks and owned scarce gear explicitly.

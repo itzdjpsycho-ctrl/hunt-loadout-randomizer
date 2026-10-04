@@ -104,14 +104,14 @@
   test('Roles guarantee suitable primary weapons',()=>{const p=profile();for(const role of ['sniper','close','support']){p.role=role;const result=E.generate(p,'role-'+role);assert(result.ok);const primary=E.byId.get(result.slots[0]);if(role==='sniper')assert(/sniper|marksman|deadeye|bullseye|sharpeye/.test(primary.id));if(role==='close')assert(primary.ammo==='Shells'||primary.ammo===null);}});
   test('Mild chaos keeps essentials and Cursed remains legal',()=>{const p=profile();p.mode='crazy';for(const intensity of ['mild','unhinged','cursed']){p.intensity=intensity;for(let n=0;n<20;n++){const r=E.generate(p,intensity+n);assert(r.ok);assert(E.validate(r.slots,p).valid);if(intensity==='mild')assert(r.slots.includes('first-aid-kit')&&r.slots.some(id=>E.byId.get(id)?.melee));}}});
   test('Item bans apply to rolls, held items and slot rerolls',()=>{const p=profile();const r=E.generate(p,'ban-start');p.excluded=[r.slots[0]];const next=E.generate(p,'ban-next');assert(next.ok&&!next.slots.includes(p.excluded[0]));assert(!E.generate(p,'ban-held',r.slots).ok);assert(!E.rerollSlot(p,'ban-slot',r.slots,2).ok);});
-  test('Ammo catalog excludes scarce and split-pool types',()=>{assert(Object.keys(E.data.ammo.weapons).filter(id=>!E.byId.get(id).dual).length===91);for(const [id,options] of Object.entries(E.data.ammo.weapons)){assert(E.byId.has(id));for(const a of options){assert(Number.isInteger(a.cost)&&a.cost>=0&&a.source.startsWith('https://'));assert(!/dumdum|explosive|spitzer|frag/i.test(a.name));}}assert(!E.data.ammo.weapons['romero-77']&&!E.data.ammo.weapons['lemat']);assert(E.ammoOption('conversion','fmj-ammo').cost===50);});
+  test('Ammo catalog includes split pools and excludes scarce ammo',()=>{assert(Object.keys(E.data.ammo.weapons).filter(id=>!E.byId.get(id).dual).length>91);for(const [id,options] of Object.entries(E.data.ammo.weapons)){assert(E.byId.has(id));for(const a of options){assert(Number.isInteger(a.cost)&&a.cost>=0&&a.source.startsWith('https://'));assert(!/dumdum|explosive|spitzer|frag/i.test(a.name));}}assert(E.ammoSlots('romero-77').length===2&&E.ammoSlots('lemat').length===2);assert(E.ammoSlots('romero-77-alamo').length===1&&E.ammoSlots('martini-henry-ironside').length===1);assert(E.ammoOption('conversion','fmj-ammo').cost===50);});
   test('Custom ammo respects compatibility budget and held weapon ammo',()=>{
     const p=profile();p.acquisition='purchase';p.customAmmo=true;p.unlocked=['conversion'];
     const build={slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]};
     let selected;
     for(let n=0;n<30;n++){const r=E.generateKit(p,'ammo-'+n,build);assert(r.ok);assert(E.validateKit(r.slots,p,r.ammo).valid);if(r.ammo.some(Boolean)){selected=r;break;}}
     assert(selected,'Custom ammo never rolled');
-    const v=E.validateKit(selected.slots,p,selected.ammo),base=E.validate(selected.slots,p);assert(v.cost===base.cost+selected.ammo.filter(Boolean).length*50);
+    const v=E.validateKit(selected.slots,p,selected.ammo),base=E.validate(selected.slots,p);assert(v.cost===base.cost+selected.ammo.reduce((sum,id,n)=>sum+E.ammoOption(selected.slots[n],id).cost,0));
     const held={slots:selected.slots,locks:[true,true,...Array(8).fill(false)],ammo:selected.ammo};
     const next=E.generateKit(p,'ammo-held',held);assert(next.ok&&JSON.stringify(next.ammo)===JSON.stringify(selected.ammo));
     p.budget=base.cost;assert(!E.validateKit(selected.slots,p,selected.ammo).valid);
@@ -119,7 +119,7 @@
     const r=E.rerollKit(p,'equipment-only',held,3);if(r.ok)assert(JSON.stringify(r.ammo)===JSON.stringify(held.ammo));
     p.budget=300;p.challenge='budget300';for(let n=0;n<10;n++){const result=E.generateKit(p,'ammo-budget'+n,build);assert(result.ok);assert(result.cost<=300);}
   });
-  test('Ammo combinations have equal odds without first-weapon budget priority',()=>{
+  test('Custom ammo is favored without first-weapon budget priority',()=>{
     const p={...profile(),acquisition:'purchase',customAmmo:true,mode:'chaos',mulligan:true};
     const slots=partial(['conversion','conversion']);
     p.budget=E.validate(slots,p,false).cost+50;
@@ -130,9 +130,29 @@
       counts.set(key,(counts.get(key)||0)+1);
     }
     assert(counts.size===3,'Expected standard/standard and custom on either weapon');
-    for(const count of counts.values())assert(count>380&&count<620,'Ammo combination is biased');
+    const regular=counts.get('[null,null]');assert(regular>60&&regular<180,'Regular ammo rate is incorrect');
+    const left=counts.get('["fmj-ammo",null]'),right=counts.get('[null,"fmj-ammo"]');assert(Math.abs(left-right)<150,'Ammo favors one weapon');
     p.budget=null;
     assert(JSON.stringify(E.selectAmmo(slots,p,'held',['fmj-ammo',null],[true,true]))===JSON.stringify(['fmj-ammo',null]));
+  });
+  test('Every ammo slot rolls independently with compatible options and per-slot costs',()=>{
+    const p={...profile(),customAmmo:true,mode:'chaos',mulligan:true};
+    const slots=partial(['sparks','lemat']);let first=0,second=0,mixed=0;
+    for(let n=0;n<1000;n++){
+      const ammo=E.selectAmmo(slots,p,'split-'+n);assert(ammo.every(a=>Array.isArray(a)&&a.length===2));
+      assert(E.validateKit(slots,p,ammo).valid);
+      if(ammo[0][0])first++;if(ammo[0][1])second++;if(ammo[0][0]!==ammo[0][1])mixed++;
+      assert(!ammo[1][0]||E.ammoSlots('lemat')[0].options.includes(ammo[1][0]));
+      assert(!ammo[1][1]||E.ammoSlots('lemat')[1].options.includes(ammo[1][1]));
+    }
+    assert(first>800&&first<900&&second>800&&second<900&&mixed>400);
+    assert(E.ammoOption('sparks',['fmj-ammo','poison-ammo']).cost===60);
+    assert(!E.ammoOption('lemat',['slug','fmj-ammo']));
+    assert(!E.ammoOption('sparks',['fmj-ammo']));
+    const ammo=[['fmj-ammo','poison-ammo'],['fmj-ammo','slug']];
+    const held={slots,ammo,locks:[true,true,...Array(8).fill(false)]};
+    assert(JSON.stringify(E.selectAmmo(slots,p,'split-held',ammo,[true,true]))===JSON.stringify(ammo));
+    p.budget=E.validate(slots,p).cost;assert(E.selectAmmo(slots,p,'split-budget').flat().every(a=>a===null));
   });
   test('Unique squad generation respects teammate weapons and held conflicts',()=>{
     const p=profile();const empty=()=>({slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]});
@@ -140,12 +160,6 @@
     const r=E.generateKit(p,'held-unique',empty());assert(r.ok);const held={...r,locks:Array(10).fill(true)};
     assert(!E.generateSquad([p,p],[held,held],'duplicate-holds',true).ok);
     assert(!E.generateSquad([{...p,challenge:'bows'},{...p,challenge:'bows'}],[empty(),empty()],'bows-unique',true).ok);
-  });
-  test('Ammo-only reroll changes ammunition and respects holds and budget',()=>{
-    const p=profile();p.acquisition='purchase';p.customAmmo=true;p.unlocked=['conversion'];
-    const b=E.generateKit(p,'ammo-only',{slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]});assert(b.ok);b.locks=Array(10).fill(false);
-    const before=JSON.stringify(b);const r=E.rerollAmmo(p,'ammo-only-next',b,0);assert(r.ok,JSON.stringify(r.errors));assert(r.ammo[0]!==b.ammo[0]&&r.ammo[1]===b.ammo[1]);assert(JSON.stringify(b)===before);assert(E.validateKit(b.slots,p,r.ammo).valid);
-    b.locks[0]=true;assert(!E.rerollAmmo(p,'held',b,0).ok);b.locks[0]=false;b.ammo=[null,null];p.budget=E.validate(b.slots,p).cost;assert(!E.rerollAmmo(p,'budget',b,0).ok);
   });
   test('Roulette ordering is seeded and includes each challenge once',()=>{const a=E.rouletteOrder('roulette');assert(JSON.stringify(a)===JSON.stringify(E.rouletteOrder('roulette')));assert(a.slice().sort().join(',')==='bows,budget300,no-scopes');});
   test('Mulligans remove exactly one item, preserve other slots and use weighted seeded losses',()=>{
@@ -175,6 +189,41 @@
     }
     assert(!E.mulliganKit(p,'empty',b,0).ok);
     const fresh=E.generateKit(p,'fresh-after-loss',b);assert(fresh.ok&&E.validateKit(fresh.slots,{...p,mulligan:false},fresh.ammo).valid);
+  });
+  test('Loadout mulligans escalate losses, never refill slots and stop when unaffordable',()=>{
+    const p={...profile(),customAmmo:true,mode:'chaos',acquisition:'purchase'};
+    let b={...E.generateKit(p,'loadout-base',{slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]}),locks:Array(10).fill(false),loadoutMulligans:0};
+    assert(b.ok);const start=b.slots.filter(Boolean).length;
+    for(let loss=1;loss<=3;loss++){
+      const before=JSON.stringify(b),seed='loadout-loss-'+loss;
+      const r=E.loadoutMulligan({...p,mulligan:!!b.mulligan},seed,b);assert(r.ok,JSON.stringify(r.errors));
+      assert(JSON.stringify(b)===before,'Input changed');
+      assert(JSON.stringify(r)===JSON.stringify(E.loadoutMulligan({...p,mulligan:!!b.mulligan},seed,b)),'Seed is not reproducible');
+      assert(r.loadoutMulligans===loss&&r.removed.length===loss);
+      assert(r.slots.filter(Boolean).length===start-loss*(loss+1)/2);
+      assert(r.slots.every((id,n)=>b.slots[n]||!id),'An empty slot was refilled');
+      assert(new Set(r.removed.map(item=>item.index)).size===loss);
+      assert(r.removed.every(item=>!r.slots[item.index]&&!r.locks[item.index]));
+      assert(E.validateKit(r.slots,{...p,mulligan:true},r.ammo).valid);
+      b=r;
+    }
+    if(b.slots.filter(Boolean).length>=4){const r=E.loadoutMulligan({...p,mulligan:true},'last-payment',b);assert(r.ok&&r.removed.length===4);b=r;}
+    const before=JSON.stringify(b);assert(!E.loadoutMulligan({...p,mulligan:true},'cannot-pay',b).ok);assert(JSON.stringify(b)===before);
+  });
+  test('Loadout mulligans preserve held ammo, can remove held items and fail atomically',()=>{
+    const p={...profile(),customAmmo:true,mode:'chaos',acquisition:'purchase'};
+    const b={...E.generateKit(p,'held-loadout',{slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]}),locks:Array(10).fill(true)};
+    const r=E.loadoutMulligan(p,'held-loadout-loss',b);assert(r.ok);
+    assert(r.slots.every((id,n)=>n===r.removed[0].index||id===b.slots[n]));
+    assert(r.ammo.every((id,n)=>n===r.removed[0].index||JSON.stringify(id)===JSON.stringify(b.ammo[n])));
+    const before=JSON.stringify(b);assert(!E.loadoutMulligan({...p,budget:0},'failed-payment',b).ok);assert(JSON.stringify(b)===before);
+    const lost={...b,loadoutMulligans:3};assert(!E.loadoutMulligan(p,'short-hand',{...lost,slots:partial(['conversion']),locks:Array(10).fill(false),ammo:[null,null],mulligan:true}).ok);
+  });
+  test('Item mulligans do not reset the escalating loadout counter',()=>{
+    const p={...profile(),mode:'chaos',mulligan:true};
+    const b={...E.generateKit(p,'mixed-mulligans',{slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]}),locks:Array(10).fill(false),loadoutMulligans:2};
+    const item=E.mulliganKit(p,'mixed-item',b,3);assert(item.ok);
+    const next=E.loadoutMulligan(p,'mixed-loadout',{...b,...item});assert(next.ok&&next.removed.length===3&&next.loadoutMulligans===3);
   });
   const failed=results.filter(r=>!r.pass);
   document.getElementById('results').textContent=JSON.stringify({passed:results.length-failed.length,failed:failed.length,results},null,2);
