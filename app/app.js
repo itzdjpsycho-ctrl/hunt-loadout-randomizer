@@ -97,10 +97,10 @@
   }
   let revealTimers=[],revealAnimations=[];
   function finishReveal(){revealTimers.forEach(clearTimeout);revealTimers=[];revealAnimations.forEach(a=>a.cancel());revealAnimations=[];document.querySelectorAll('.slot-reel').forEach(r=>r.remove());document.querySelectorAll('.reveal-pending,.card-revealed').forEach(c=>c.classList.remove('reveal-pending','card-revealed'));$('skip-reveal').hidden=true;$('squad-loadouts').setAttribute('aria-busy','false');}
-  function revealCards(hunter=null,slot=null){
+  function revealCards(hunter=null,slot=null,changes=null){
     finishReveal();if(!profile.revealAnimation||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     const panels=[...document.querySelectorAll('.hunter-loadout')];
-    const cards=(hunter===null?panels:[panels[hunter]]).filter(Boolean).flatMap(p=>[...p.querySelectorAll('.weapon-card,.equipment-card')].filter((c,n)=>(slot===null||n===slot)&&!c.classList.contains('held')));
+    const cards=panels.flatMap((p,h)=>[...p.querySelectorAll('.weapon-card,.equipment-card')].filter((c,n)=>(hunter===null||h===hunter)&&(slot===null||n===slot)&&(!changes||changes.some(change=>change.hunter===h&&(change.slots===null||change.slots.includes(n))))&&!c.classList.contains('held')));
     if(!cards.length)return;
     $('skip-reveal').hidden=false;$('squad-loadouts').setAttribute('aria-busy','true');
     cards.forEach((card,i)=>{
@@ -271,7 +271,7 @@
     const result=E.mulliganKit(teammateProfile(hunter),seed,build,index);
     if(!result.ok){toast(result.errors.join(' '));return;}
     Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,mulligan:true,lastSeed:seed});
-    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();
+    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter,null,[{hunter,slots:[index,result.removed.index]}]);
     (document.querySelector(`[data-mulligan="${index}"][data-hunter="${hunter}"]`)||document.querySelector(`[data-loadout-mulligan="${hunter}"]`))?.focus({preventScroll:true});
     toast(hunterName(build,hunter)+': mulligan used. Lost '+E.byId.get(result.removed.id).name+'.');
   }
@@ -361,12 +361,18 @@
     captureBuild();
     return {version:E.data.version,profile:structuredClone(profile),builds:structuredClone(builds).map(b=>({...b,mulligan:!!b.mulligan})),buildCount,rollNumber,seedInput:$('seed').value};
   }
-  function applySharedState(state,hunter=null){
+  function applySharedState(state,hunter=null,animate=false){
     if(!validSnapshot({...state,id:'shared',label:'Shared squad',created:'session'}))throw new Error('This room uses an incompatible squad or catalog. Reload the page.');
+    const changes=animate?state.builds.slice(0,state.buildCount).flatMap((build,i)=>{
+      const previous=builds[i];
+      if(!previous||previous.lastSeed===build.lastSeed)return [];
+      const itemMulligan=build.mulligan&&(build.loadoutMulligans??0)===(previous.loadoutMulligans??0);
+      return [{hunter:i,slots:itemMulligan?build.slots.flatMap((id,n)=>id!==previous.slots[n]||JSON.stringify(build.ammo[n])!==JSON.stringify(previous.ammo[n])?[n]:[]):null}];
+    }):[];
     finishReveal();
     profile=buyingProfile(structuredClone(state.profile));builds=structuredClone(state.builds).map(b=>({...b,loadoutMulligans:b.loadoutMulligans??0}));buildCount=state.buildCount;
     loadBuild(Math.min(hunter??activeBuild,buildCount-1));rollNumber=state.rollNumber;$('seed').value=state.seedInput;
-    notice=[];save();renderProfile();renderCards();
+    notice=[];save();renderProfile();renderCards();if(changes.length)revealCards(null,null,changes);
   }
   renderProfile();renderCards();
   window.ChaosApp={getState:()=>({profile:structuredClone(buildProfile(builds[activeBuild])),slots:slots.slice(),locks:locks.slice(),lastSeed,dirty,buildCount,activeBuild,builds:structuredClone(selectedBuilds())}),roll,exportObject,exportTeamText,getSharedState,applySharedState,toast};

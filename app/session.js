@@ -125,11 +125,11 @@
   function receive(view,force=false,selectSeat=false){
     room=view;online=true;
     const signature=stable(view.state);
-    if(force||selectSeat||signature!==stable(A.getSharedState())){
+    if(selectSeat||signature!==stable(A.getSharedState())){
       const focused=document.activeElement;
       const edit=focused?.matches('[data-hunter-name],[data-hunter-rank]')?{attribute:focused.hasAttribute('data-hunter-name')?'data-hunter-name':'data-hunter-rank',seat:focused.dataset.hunterName??focused.dataset.hunterRank,value:focused.value}:null;
       applying=true;
-      try{A.applySharedState(view.state,selectSeat?me()?.hunter:null);}finally{applying=false;}
+      try{A.applySharedState(view.state,selectSeat?me()?.hunter:null,!force&&!selectSeat);}finally{applying=false;}
       if(edit&&!force){const field=document.querySelector(`[${edit.attribute}="${edit.seat}"]`);if(field){field.value=edit.value;field.focus({preventScroll:true});}}
     }
     baseline=signature;render();
