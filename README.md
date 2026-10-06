@@ -221,6 +221,8 @@ Slot-machine reveals scroll item images and names from top to bottom, slow down 
 
 ## Mulligans
 
+Enable **Allow single weapon rerolls (Don't Own)** in **Squad options** to show **Don't Own** on occupied weapon cards. It replaces that weapon with another variant in its catalog family first; if none fits, it tries any different legal weapon. Other slots stay unchanged and no item is lost. Capacity, spending limits (including ammo), roles, challenges, bans and teammate uniqueness still apply. Release a held weapon first. The setting is off by default and, in parties, follows the host's squad settings and each player's hunter permissions.
+
 Each occupied card has an **M** button. It replaces that item and removes one random item from the same hunter. Each tool or consumable has 10 times a weapon's removal weight. Held items and the replacement itself can be lost. There is no usage cap while items remain. Each hunter also has a **Loadout Mulligan (Lose N)** button that redraws only occupied positions while retaining held gear, then removes N random items without replacement. N starts at 1 and increases after every successful loadout mulligan for that hunter. Previous losses stay empty, and insufficient remaining items disable the button. Item mulligans do not reset this counter. Holds cannot protect against either penalty. Failed mulligans leave all items and counters unchanged. A fresh squad deal restores a full hand and resets all counters. Saved squads, reloads and shared sessions preserve the counters.
 
 ## Dual-wield pistol rolls

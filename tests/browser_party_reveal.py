@@ -41,6 +41,7 @@ with tempfile.TemporaryDirectory(dir=ARTIFACTS) as directory:
                 host.goto(url)
                 host.locator("#squad-options-open").click()
                 host.locator("#reveal-animation").check()
+                host.locator("#single-rerolls").check()
                 host.locator('[data-close="squad-options-dialog"]').first.click()
                 host.locator("#session-name").fill("Host")
                 host.locator("#session-create").click()
@@ -56,6 +57,18 @@ with tempfile.TemporaryDirectory(dir=ARTIFACTS) as directory:
                 host.wait_for_timeout(350)
                 expect(host.locator(".slot-reel").first).to_be_visible()
                 expect(guest.locator(".slot-reel").first).to_be_visible()
+                expect(host.locator("#skip-reveal")).to_be_hidden(timeout=7000)
+                expect(guest.locator("#skip-reveal")).to_be_hidden(timeout=7000)
+                before=guest.evaluate("ChaosApp.getSharedState()")
+                expect(guest.locator('[data-dont-own="0"][data-hunter="0"]')).to_be_disabled()
+                guest.locator('[data-dont-own="0"][data-hunter="1"]').click()
+                expect(guest.locator("#session-status")).to_contain_text("Connected")
+                expect(host.locator(".slot-reel").first).to_be_visible()
+                after=guest.evaluate("ChaosApp.getSharedState()")
+                assert after['builds'][1]['slots'][0]!=before['builds'][1]['slots'][0]
+                assert after['builds'][1]['slots'][1:]==before['builds'][1]['slots'][1:]
+                assert after['builds'][0]==before['builds'][0]
+                assert after['builds'][1]['loadoutMulligans']==before['builds'][1]['loadoutMulligans']
                 expect(host.locator("#skip-reveal")).to_be_hidden(timeout=7000)
                 expect(guest.locator("#skip-reveal")).to_be_hidden(timeout=7000)
                 guest.locator('[data-mulligan="3"][data-hunter="1"]').click()

@@ -93,7 +93,7 @@
     const benefit = E.benefits(item,buildProfile(build));
     const ammo=weapon?E.ammoOption(item.id,build.ammo[index]):null;
     const meta = weapon ? `SIZE ${item.capacity} <span class="dot"></span> ${esc(ammo?.id||ammo?.slots?ammo.name:item.ammo || 'MELEE')}` : esc(item.kind === 'tool' ? 'TOOL' : (item.category || 'CONSUMABLE').replace('-',' ').toUpperCase());
-    return `<article class="${type}${locks[index]?' held':''}"><div class="card-top"><span>${weapon?(index?'SECONDARY':'PRIMARY'):`SLOT ${String(index-1).padStart(2,'0')}`}</span><span class="slot-actions"><button class="slot-mulligan" data-mulligan="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Reroll this item and lose one random item. Holds do not protect against loss. Weapons have 1/10 the removal weight of other items." aria-label="Mulligan ${esc(item.name)} for ${esc(hunterName(build,hunter))}">M</button><button class="hold-button${locks[index]?' held':''}" data-lock="${index}" data-hunter="${hunter}" aria-pressed="${locks[index]}" aria-label="${locks[index]?'Release':'Hold'} ${esc(item.name)}"><span aria-hidden="true">${locks[index]?'◆':'◇'}</span>${locks[index]?'HELD':'HOLD'}</button></span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(item,weapon)}</div><h3><a class="source-link" href="${esc(item.source)}" target="_blank" rel="noreferrer" title="View ${esc(item.name)} reference">${esc(item.name)}</a></h3><div class="card-meta">${meta}<span class="card-price">${route?.route === 'owned' ? 'OWNED' : route ? '$'+(route.cost+(ammo?.cost||0)) : 'CHECK ACCESS'}</span></div>${benefit.length?`<p class="benefit">${benefit.map(esc).join(' · ')}</p>`:''}</article>`;
+    return `<article class="${type}${locks[index]?' held':''}"><div class="card-top"><span>${weapon?(index?'SECONDARY':'PRIMARY'):`SLOT ${String(index-1).padStart(2,'0')}`}</span><span class="slot-actions">${weapon&&profile.singleRerolls?`<button class="dont-own-button" data-dont-own="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Replace with another weapon in the same family, or any weapon that fits. No item is lost.">Don't Own</button>`:''}<button class="slot-mulligan" data-mulligan="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Reroll this item and lose one random item. Holds do not protect against loss. Weapons have 1/10 the removal weight of other items." aria-label="Mulligan ${esc(item.name)} for ${esc(hunterName(build,hunter))}">M</button><button class="hold-button${locks[index]?' held':''}" data-lock="${index}" data-hunter="${hunter}" aria-pressed="${locks[index]}" aria-label="${locks[index]?'Release':'Hold'} ${esc(item.name)}"><span aria-hidden="true">${locks[index]?'◆':'◇'}</span>${locks[index]?'HELD':'HOLD'}</button></span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(item,weapon)}</div><h3><a class="source-link" href="${esc(item.source)}" target="_blank" rel="noreferrer" title="View ${esc(item.name)} reference">${esc(item.name)}</a></h3><div class="card-meta">${meta}<span class="card-price">${route?.route === 'owned' ? 'OWNED' : route ? '$'+(route.cost+(ammo?.cost||0)) : 'CHECK ACCESS'}</span></div>${benefit.length?`<p class="benefit">${benefit.map(esc).join(' · ')}</p>`:''}</article>`;
   }
   let revealTimers=[],revealAnimations=[];
   function finishReveal(){revealTimers.forEach(clearTimeout);revealTimers=[];revealAnimations.forEach(a=>a.cancel());revealAnimations=[];document.querySelectorAll('.slot-reel').forEach(r=>r.remove());document.querySelectorAll('.reveal-pending,.card-revealed').forEach(c=>c.classList.remove('reveal-pending','card-revealed'));$('skip-reveal').hidden=true;$('squad-loadouts').setAttribute('aria-busy','false');}
@@ -193,6 +193,7 @@
     $('custom-ammo').checked=!!profile.customAmmo;
     $('unique-weapons').checked=!!profile.uniqueWeapons;
     $('reveal-animation').checked=!!profile.revealAnimation;
+    $('single-rerolls').checked=!!profile.singleRerolls;
     renderTraits();
   }
   function changed() { captureBuild(); builds.forEach(b=>{if(b.slots.some(Boolean))b.dirty=true;});loadBuild(activeBuild); notice=[]; save(); renderProfile(); renderCards(); }
@@ -263,6 +264,17 @@
     } catch(error){notice=['The squad could not be dealt. Check the settings and try again.'];renderCards();console.error(error);}
     finally{rolling=false;$('roll').disabled=false;}
   }
+  function replaceUnownedWeapon(hunter,index){
+    if(rolling||!profile.singleRerolls)return;
+    captureBuild();const build=builds[hunter];
+    if(!build||build.dirty||!build.lastSeed)return;
+    const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:dont-own-${index+1}:${rollNumber+1}`;
+    const result=E.dontOwnWeapon(teammateProfile(hunter),seed,build,index);
+    if(!result.ok){toast(result.errors.join(' '));return;}
+    Object.assign(build,{slots:result.slots,ammo:result.ammo,lastSeed:seed});
+    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter,index);
+    document.querySelector(`[data-dont-own="${index}"][data-hunter="${hunter}"]`)?.focus({preventScroll:true});
+  }
   function mulliganOne(hunter,index){
     if(rolling)return;
     captureBuild();const build=builds[hunter];
@@ -295,6 +307,7 @@
     const hunterTraits=event.target.closest('[data-hunter-traits]');if(hunterTraits){captureBuild();loadBuild(Number(hunterTraits.dataset.hunterTraits));save();renderProfile();renderCards();$('traits-dialog').showModal();return;}
     const restore=event.target.closest('[data-restore]');if(restore){const entry=library[restore.dataset.list]?.find(e=>e.id===restore.dataset.restore);if(entry)restoreSnapshot(entry);return;}
     const remove=event.target.closest('[data-delete-save]');if(remove){const list=remove.dataset.list;if(library[list]){library[list]=library[list].filter(e=>e.id!==remove.dataset.deleteSave);saveLibrary();renderLibrary();}return;}
+    const replacement=event.target.closest('[data-dont-own]');if(replacement){if(!replacement.disabled)replaceUnownedWeapon(Number(replacement.dataset.hunter),Number(replacement.dataset.dontOwn));return;}
     const mulligan=event.target.closest('[data-mulligan]');if(mulligan){if(!mulligan.disabled)mulliganOne(Number(mulligan.dataset.hunter),Number(mulligan.dataset.mulligan));return;}
     const count=event.target.closest('[data-build-count]');if(count){if(rolling||Number(count.dataset.buildCount)===buildCount)return;captureBuild();buildCount=Number(count.dataset.buildCount);loadBuild(Math.min(activeBuild,buildCount-1));profile.team=['solo','duo','trio'][buildCount-1];changed();return;}
     const tab=event.target.closest('[data-build]');if(tab){if(rolling)return;captureBuild();loadBuild(Number(tab.dataset.build));save();renderProfile();renderCards();$('build-tabs').querySelector(`[data-build="${activeBuild}"]`).focus();return;}
@@ -334,6 +347,7 @@
   $('custom-ammo').addEventListener('change',()=>{profile.customAmmo=$('custom-ammo').checked;changed();});
   $('unique-weapons').addEventListener('change',()=>{profile.uniqueWeapons=$('unique-weapons').checked;changed();});
   $('reveal-animation').addEventListener('change',()=>{profile.revealAnimation=$('reveal-animation').checked;finishReveal();save();});
+  $('single-rerolls').addEventListener('change',()=>{profile.singleRerolls=$('single-rerolls').checked;save();renderCards();});
   $('roulette-roll').addEventListener('click',()=>roll(true));
   $('skip-reveal').addEventListener('click',finishReveal);
   document.addEventListener('keydown',event=>{if(event.key==='Escape')finishReveal();});
@@ -366,8 +380,8 @@
     const changes=animate?state.builds.slice(0,state.buildCount).flatMap((build,i)=>{
       const previous=builds[i];
       if(!previous||previous.lastSeed===build.lastSeed)return [];
-      const itemMulligan=build.mulligan&&(build.loadoutMulligans??0)===(previous.loadoutMulligans??0);
-      return [{hunter:i,slots:itemMulligan?build.slots.flatMap((id,n)=>id!==previous.slots[n]||JSON.stringify(build.ammo[n])!==JSON.stringify(previous.ammo[n])?[n]:[]):null}];
+      const singleReplacement=build.lastSeed.includes(':dont-own-')||build.mulligan&&(build.loadoutMulligans??0)===(previous.loadoutMulligans??0);
+      return [{hunter:i,slots:singleReplacement?build.slots.flatMap((id,n)=>id!==previous.slots[n]||JSON.stringify(build.ammo[n])!==JSON.stringify(previous.ammo[n])?[n]:[]):null}];
     }):[];
     finishReveal();
     profile=buyingProfile(structuredClone(state.profile));builds=structuredClone(state.builds).map(b=>({...b,loadoutMulligans:b.loadoutMulligans??0}));buildCount=state.buildCount;

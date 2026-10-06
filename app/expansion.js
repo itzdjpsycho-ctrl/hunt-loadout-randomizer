@@ -56,16 +56,23 @@
     const validation=validateKit(result.slots,p,nextAmmo);
     return {...result,...validation,ammo:nextAmmo,ok:validation.valid};
   }
-  function rerollKit(p,seed,build,index){
+  function rerollKit(p,seed,build,index,candidateFilter){
     const oldAmmo=build.ammo||[null,null],preserved=oldAmmo.map((id,n)=>n===index?null:id);
     const ammoCost=preserved.reduce((sum,id,n)=>sum+(ammoOption(build.slots[n],id)?.cost||0),0);
     const limit=p.challenge==='budget300'?Math.min(p.budget??300,300):p.budget;
     // Original ammo at the selected weapon can be released to buy its replacement.
-    const result=E.rerollSlot({...p,budget:limit===null?null:limit-ammoCost},seed,build.slots,index);
+    const result=E.rerollSlot({...p,budget:limit===null?null:limit-ammoCost},seed,build.slots,index,candidateFilter);
     if(!result.ok)return result;
     const ammo=selectAmmo(result.slots,p,seed,preserved,[index!==0,index!==1]);
     const validation=validateKit(result.slots,p,ammo);
     return {...result,...validation,ammo,ok:validation.valid};
+  }
+  function dontOwnWeapon(p,seed,build,index){
+    if(!p.singleRerolls)return {ok:false,errors:['Enable single weapon rerolls in Squad options first.']};
+    if(![0,1].includes(index)||!build.slots[index]||build.locks[index])return {ok:false,errors:['Choose an occupied, unheld weapon.']};
+    const family=E.byId.get(build.slots[index])?.family;
+    const similar=family?rerollKit(p,seed,build,index,item=>item.family===family):null;
+    return similar?.ok?similar:rerollKit(p,seed,build,index);
   }
   function mulliganKit(p,seed,build,index){
     if(!Number.isInteger(index)||index<0||index>=10||!build.slots[index]||build.locks[index])return {ok:false,errors:['Choose an occupied, unheld item for a mulligan.']};
@@ -121,5 +128,5 @@
     return {ok:false,errors:unique?['No squad with distinct teammate weapons was found. Adjust roles, bans or holds.',...errors]:errors};
   }
   function rouletteOrder(seed){return ['no-scopes','bows','budget300'].map(id=>({id,key:random(seed+':'+id)()})).sort((a,b)=>a.key-b.key).map(x=>x.id);}
-  Object.assign(E,{selectAmmo,ammoSlots,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,mulliganKit,loadoutMulligan,uniqueWeapons,generateSquad,rouletteOrder});
+  Object.assign(E,{selectAmmo,ammoSlots,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,dontOwnWeapon,mulliganKit,loadoutMulligan,uniqueWeapons,generateSquad,rouletteOrder});
 })();

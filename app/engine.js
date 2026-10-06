@@ -7,7 +7,7 @@
   const eligibleWeapon = item => item.kind==='weapon' && !restricted(item) && ['standard-candidate','event-unlock-required'].includes(item.availability);
   function defaults() {
     return {rank: 1, budget: null, acquisition: 'mixed', mode: 'playable', team: 'solo',
-      traits: [], unlocked: [], owned: {}, excluded: [], preferTraits: true, theme: 'anything', intensity:'unhinged', challenge:'none', role:'any', customAmmo:false,uniqueWeapons:false,revealAnimation:true};
+      traits: [], unlocked: [], owned: {}, excluded: [], preferTraits: true, theme: 'anything', intensity:'unhinged', challenge:'none', role:'any', customAmmo:false,uniqueWeapons:false,revealAnimation:true,singleRerolls:false};
   }
   function profileErrors(p) {
     const errors = [];
@@ -208,13 +208,13 @@
     if (!validation.valid) return {ok: false, errors: validation.errors};
     return {ok: true, slots: result, seed: String(seed), ...validation, nodes};
   }
-  function rerollSlot(p, seed, slots, index) {
+  function rerollSlot(p, seed, slots, index, candidateFilter=()=>true) {
     if (!Number.isInteger(index) || index < 0 || index >= 10) return {ok:false,errors:['Choose a valid slot.']};
     if (p.mulligan && !slots[index]) return {ok:false,errors:['Lost slots stay empty until a fresh squad deal.']};
     const current = validate(slots,p);
     if (!current.valid) return {ok:false,errors:['Deal a valid loadout before rerolling a slot.',...current.errors]};
     const rng = randomFromSeed(seed);
-    const candidates = data.items.filter(item => (index < 2) === (item.kind === 'weapon') && item.id !== slots[index])
+    const candidates = data.items.filter(item => (index < 2) === (item.kind === 'weapon') && item.id !== slots[index] && candidateFilter(item))
       .map(item => {
         const next=slots.slice();next[index]=item.id;
         return {item,slots:next,validation:validate(next,p)};

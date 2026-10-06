@@ -4,6 +4,22 @@
   function assert(ok,msg='Assertion failed'){if(!ok)throw new Error(msg);}
   const profile=()=>({...E.defaults(),rank:100,unlocked:E.data.items.filter(i=>i.kind==='weapon'&&i.availability==='standard-candidate').map(i=>i.id)});
   const partial=ids=>[...ids,...Array(10-ids.length).fill(null)];
+  test("Don't Own prefers family, falls back legally and preserves other slots",()=>{
+    const p={...profile(),mode:'chaos',mulligan:true,singleRerolls:true,customAmmo:true};
+    const build={slots:partial(['conversion',null,'first-aid-kit','knife']),locks:Array(10).fill(false),ammo:[null,null]};
+    const same=E.dontOwnWeapon(p,'same-family',build,0);
+    assert(same.ok&&same.slots[0]!=='conversion'&&E.byId.get(same.slots[0]).family===E.byId.get('conversion').family);
+    assert(JSON.stringify(same.slots.slice(1))===JSON.stringify(build.slots.slice(1)));
+    const excluded=E.data.items.filter(i=>i.kind==='weapon'&&i.family===E.byId.get('conversion').family&&(i.baseId||i.id)!=='conversion').map(i=>i.id);
+    const fallback=E.dontOwnWeapon({...p,excluded,budget:150},'fallback',build,0);
+    assert(fallback.ok&&E.byId.get(fallback.slots[0]).family!==E.byId.get('conversion').family&&fallback.cost<=150,'Fallback must fit the budget: '+JSON.stringify(fallback.errors));
+    assert(JSON.stringify(fallback.slots.slice(1))===JSON.stringify(build.slots.slice(1)));
+    assert(JSON.stringify(build.slots)===JSON.stringify(partial(['conversion',null,'first-aid-kit','knife'])));
+    assert(!E.dontOwnWeapon({...p,singleRerolls:false},'off',build,0).ok);
+    assert(!E.dontOwnWeapon(p,'held',{...build,locks:[true,...Array(9).fill(false)]},0).ok);
+    assert(!E.dontOwnWeapon(p,'equipment',build,2).ok);
+    assert(!E.dontOwnWeapon({...p,budget:150,excluded:E.data.items.filter(i=>i.kind==='weapon'&&(i.baseId||i.id)!=='conversion').map(i=>i.id)},'impossible',build,0).ok);
+  });
   test('Two melee tools allowed; third including throwing tools rejected',()=>{
     const p=profile();
     assert(E.validate(partial(['baseball-bat',null,'knife','throwing-axes']),p,false).valid);

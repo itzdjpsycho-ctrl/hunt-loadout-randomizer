@@ -41,6 +41,7 @@ class Profile(Model):
     customAmmo: bool
     uniqueWeapons: bool
     revealAnimation: bool
+    singleRerolls: bool = False
 
 
 class Build(Model):
@@ -135,6 +136,7 @@ class Rooms:
         if row is None or row["touched"] < time.time() - TTL:
             raise HTTPException(404, "Room not found or expired. Ask the host for a new code.")
         state = json.loads(row["state"])
+        state["profile"].setdefault("singleRerolls", False)
         for build in state["builds"]:
             build.setdefault("loadoutMulligans", 0)
         return {**dict(row), "state": state, "members": json.loads(row["members"]), "activity": json.loads(row["activity"])}

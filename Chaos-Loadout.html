@@ -113,6 +113,9 @@ h1,h2,.brand,.weapon-card h3,.ledger b,.panel-title h2{font-family:'Segoe UI',Ar
 @media(prefers-reduced-motion:reduce){.card-revealed{animation:none}}
 
 .slot-mulligan{width:23px;min-height:21px;padding:0;border-radius:4px;font-size:10px;color:#efad8a}.equipment-card .card-meta{padding-right:74px}
+.dont-own-button{font-size:9px;min-height:25px;padding:4px 6px;color:var(--gold);white-space:nowrap}.weapon-card .card-top{flex-wrap:wrap}.weapon-card .slot-actions{flex-wrap:wrap}
+.weapon-card .card-top>.slot-actions{display:flex}
+@media(min-width:881px) and (max-height:800px){.weapon-card:has(.dont-own-button){min-height:85px}.weapon-card:has(.dont-own-button) .card-top{position:static;grid-column:1/-1}.weapon-card:has(.dont-own-button) .weapon-art{grid-row:auto}.weapon-card:has(.dont-own-button) h3{padding-right:0}}
 .session-bar{margin:0 0 12px;padding:12px 16px;border:1px solid var(--line,#45483e);border-radius:8px;background:var(--panel,#171c22)}
 #party-invite{width:min(460px,calc(100vw - 32px));box-sizing:border-box}#party-invite-title{font-size:32px;overflow-wrap:anywhere}#party-invite-seats{color:var(--gold);margin:20px 0}#party-invite-form{display:grid;gap:10px}#party-invite-form label{font-size:12px;color:var(--muted)}#party-invite-name{width:100%;box-sizing:border-box}#party-invite-status{font-size:12px;margin:0;min-height:18px}#party-invite-join{width:100%;min-height:48px}
 .session-heading{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.session-heading strong{font-size:11px;letter-spacing:1px;color:var(--gold)}#session-status{font-size:12px;color:#a9c9bb}
@@ -198,7 +201,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     <p>Mild keeps a medkit and melee option. Unhinged favors unusual gear. Cursed strongly favors eccentric weapons and repeated consumables. Intensity applies to Go Crazy mode.</p>
     <div class="option-actions"><button id="roulette-roll">Challenge roulette & roll</button><button id="assign-roles">Assign squad roles</button><button id="bans-open">Item bans · <span id="ban-count">0</span></button></div>
     <p>Assign sniper, close range and support in hunter order, or pick a role below each name. Sniper and close range constrain the primary weapon; support favors healing, resupply and choke gear. Challenges are hard rules: conflicting roles or held items need to be changed.</p>
-    <label class="simple-check ammo-toggle"><input id="unique-weapons" type="checkbox"><span>Unique weapons across teammates (exact weapon variants)</span></label><label class="simple-check ammo-toggle"><input id="reveal-animation" type="checkbox" checked><span>Reveal rolled gear one card at a time</span></label><p>Roulette deals a randomly ordered challenge that fits the squad. Incompatible challenges are skipped; if none fit, your current squad stays unchanged. Unique weapons applies to squad, hunter and slot rolls.</p><label class="simple-check ammo-toggle"><input type="checkbox" id="custom-ammo"><span>Randomize custom ammo — I have unlocked the supported ammo</span></label>
+    <label class="simple-check ammo-toggle"><input id="unique-weapons" type="checkbox"><span>Unique weapons across teammates (exact weapon variants)</span></label><label class="simple-check ammo-toggle"><input id="single-rerolls" type="checkbox"><span>Allow single weapon rerolls (Don't Own)</span></label><p class="small muted">Try another variant in the same weapon family first, then any weapon that fits. No item is lost. Release held weapons before replacing them.</p><label class="simple-check ammo-toggle"><input id="reveal-animation" type="checkbox" checked><span>Reveal rolled gear one card at a time</span></label><p>Roulette deals a randomly ordered challenge that fits the squad. Incompatible challenges are skipped; if none fit, your current squad stays unchanged. Unique weapons applies to squad, hunter and slot rolls.</p><label class="simple-check ammo-toggle"><input type="checkbox" id="custom-ammo"><span>Randomize custom ammo — I have unlocked the supported ammo</span></label>
     <p>Rolls every ammo slot separately across 135 weapon variants and supported dual pairs, including split reserves and combination barrels. Custom ammo has an 85% chance per eligible slot when unrestricted by budget. Ammo cost for every slot is included. Scarce and retired ammo never rolls. Held weapons keep their ammo. <a href="https://www.huntshowdown.com/releasenotes/en_US/update-281781019648" target="_blank" rel="noreferrer">Ammo scarcity rules ↗</a></p>
     <button class="solid-button" data-close="squad-options-dialog">Done</button>
   </dialog>
@@ -216,7 +219,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
   const eligibleWeapon = item => item.kind==='weapon' && !restricted(item) && ['standard-candidate','event-unlock-required'].includes(item.availability);
   function defaults() {
     return {rank: 1, budget: null, acquisition: 'mixed', mode: 'playable', team: 'solo',
-      traits: [], unlocked: [], owned: {}, excluded: [], preferTraits: true, theme: 'anything', intensity:'unhinged', challenge:'none', role:'any', customAmmo:false,uniqueWeapons:false,revealAnimation:true};
+      traits: [], unlocked: [], owned: {}, excluded: [], preferTraits: true, theme: 'anything', intensity:'unhinged', challenge:'none', role:'any', customAmmo:false,uniqueWeapons:false,revealAnimation:true,singleRerolls:false};
   }
   function profileErrors(p) {
     const errors = [];
@@ -417,13 +420,13 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     if (!validation.valid) return {ok: false, errors: validation.errors};
     return {ok: true, slots: result, seed: String(seed), ...validation, nodes};
   }
-  function rerollSlot(p, seed, slots, index) {
+  function rerollSlot(p, seed, slots, index, candidateFilter=()=>true) {
     if (!Number.isInteger(index) || index < 0 || index >= 10) return {ok:false,errors:['Choose a valid slot.']};
     if (p.mulligan && !slots[index]) return {ok:false,errors:['Lost slots stay empty until a fresh squad deal.']};
     const current = validate(slots,p);
     if (!current.valid) return {ok:false,errors:['Deal a valid loadout before rerolling a slot.',...current.errors]};
     const rng = randomFromSeed(seed);
-    const candidates = data.items.filter(item => (index < 2) === (item.kind === 'weapon') && item.id !== slots[index])
+    const candidates = data.items.filter(item => (index < 2) === (item.kind === 'weapon') && item.id !== slots[index] && candidateFilter(item))
       .map(item => {
         const next=slots.slice();next[index]=item.id;
         return {item,slots:next,validation:validate(next,p)};
@@ -506,16 +509,23 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const validation=validateKit(result.slots,p,nextAmmo);
     return {...result,...validation,ammo:nextAmmo,ok:validation.valid};
   }
-  function rerollKit(p,seed,build,index){
+  function rerollKit(p,seed,build,index,candidateFilter){
     const oldAmmo=build.ammo||[null,null],preserved=oldAmmo.map((id,n)=>n===index?null:id);
     const ammoCost=preserved.reduce((sum,id,n)=>sum+(ammoOption(build.slots[n],id)?.cost||0),0);
     const limit=p.challenge==='budget300'?Math.min(p.budget??300,300):p.budget;
     // Original ammo at the selected weapon can be released to buy its replacement.
-    const result=E.rerollSlot({...p,budget:limit===null?null:limit-ammoCost},seed,build.slots,index);
+    const result=E.rerollSlot({...p,budget:limit===null?null:limit-ammoCost},seed,build.slots,index,candidateFilter);
     if(!result.ok)return result;
     const ammo=selectAmmo(result.slots,p,seed,preserved,[index!==0,index!==1]);
     const validation=validateKit(result.slots,p,ammo);
     return {...result,...validation,ammo,ok:validation.valid};
+  }
+  function dontOwnWeapon(p,seed,build,index){
+    if(!p.singleRerolls)return {ok:false,errors:['Enable single weapon rerolls in Squad options first.']};
+    if(![0,1].includes(index)||!build.slots[index]||build.locks[index])return {ok:false,errors:['Choose an occupied, unheld weapon.']};
+    const family=E.byId.get(build.slots[index])?.family;
+    const similar=family?rerollKit(p,seed,build,index,item=>item.family===family):null;
+    return similar?.ok?similar:rerollKit(p,seed,build,index);
   }
   function mulliganKit(p,seed,build,index){
     if(!Number.isInteger(index)||index<0||index>=10||!build.slots[index]||build.locks[index])return {ok:false,errors:['Choose an occupied, unheld item for a mulligan.']};
@@ -571,7 +581,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     return {ok:false,errors:unique?['No squad with distinct teammate weapons was found. Adjust roles, bans or holds.',...errors]:errors};
   }
   function rouletteOrder(seed){return ['no-scopes','bows','budget300'].map(id=>({id,key:random(seed+':'+id)()})).sort((a,b)=>a.key-b.key).map(x=>x.id);}
-  Object.assign(E,{selectAmmo,ammoSlots,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,mulliganKit,loadoutMulligan,uniqueWeapons,generateSquad,rouletteOrder});
+  Object.assign(E,{selectAmmo,ammoSlots,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,dontOwnWeapon,mulliganKit,loadoutMulligan,uniqueWeapons,generateSquad,rouletteOrder});
 })();
 </script>
   <script>(function () {
@@ -669,7 +679,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const benefit = E.benefits(item,buildProfile(build));
     const ammo=weapon?E.ammoOption(item.id,build.ammo[index]):null;
     const meta = weapon ? `SIZE ${item.capacity} <span class="dot"></span> ${esc(ammo?.id||ammo?.slots?ammo.name:item.ammo || 'MELEE')}` : esc(item.kind === 'tool' ? 'TOOL' : (item.category || 'CONSUMABLE').replace('-',' ').toUpperCase());
-    return `<article class="${type}${locks[index]?' held':''}"><div class="card-top"><span>${weapon?(index?'SECONDARY':'PRIMARY'):`SLOT ${String(index-1).padStart(2,'0')}`}</span><span class="slot-actions"><button class="slot-mulligan" data-mulligan="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Reroll this item and lose one random item. Holds do not protect against loss. Weapons have 1/10 the removal weight of other items." aria-label="Mulligan ${esc(item.name)} for ${esc(hunterName(build,hunter))}">M</button><button class="hold-button${locks[index]?' held':''}" data-lock="${index}" data-hunter="${hunter}" aria-pressed="${locks[index]}" aria-label="${locks[index]?'Release':'Hold'} ${esc(item.name)}"><span aria-hidden="true">${locks[index]?'◆':'◇'}</span>${locks[index]?'HELD':'HOLD'}</button></span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(item,weapon)}</div><h3><a class="source-link" href="${esc(item.source)}" target="_blank" rel="noreferrer" title="View ${esc(item.name)} reference">${esc(item.name)}</a></h3><div class="card-meta">${meta}<span class="card-price">${route?.route === 'owned' ? 'OWNED' : route ? '$'+(route.cost+(ammo?.cost||0)) : 'CHECK ACCESS'}</span></div>${benefit.length?`<p class="benefit">${benefit.map(esc).join(' · ')}</p>`:''}</article>`;
+    return `<article class="${type}${locks[index]?' held':''}"><div class="card-top"><span>${weapon?(index?'SECONDARY':'PRIMARY'):`SLOT ${String(index-1).padStart(2,'0')}`}</span><span class="slot-actions">${weapon&&profile.singleRerolls?`<button class="dont-own-button" data-dont-own="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Replace with another weapon in the same family, or any weapon that fits. No item is lost.">Don't Own</button>`:''}<button class="slot-mulligan" data-mulligan="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Reroll this item and lose one random item. Holds do not protect against loss. Weapons have 1/10 the removal weight of other items." aria-label="Mulligan ${esc(item.name)} for ${esc(hunterName(build,hunter))}">M</button><button class="hold-button${locks[index]?' held':''}" data-lock="${index}" data-hunter="${hunter}" aria-pressed="${locks[index]}" aria-label="${locks[index]?'Release':'Hold'} ${esc(item.name)}"><span aria-hidden="true">${locks[index]?'◆':'◇'}</span>${locks[index]?'HELD':'HOLD'}</button></span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(item,weapon)}</div><h3><a class="source-link" href="${esc(item.source)}" target="_blank" rel="noreferrer" title="View ${esc(item.name)} reference">${esc(item.name)}</a></h3><div class="card-meta">${meta}<span class="card-price">${route?.route === 'owned' ? 'OWNED' : route ? '$'+(route.cost+(ammo?.cost||0)) : 'CHECK ACCESS'}</span></div>${benefit.length?`<p class="benefit">${benefit.map(esc).join(' · ')}</p>`:''}</article>`;
   }
   let revealTimers=[],revealAnimations=[];
   function finishReveal(){revealTimers.forEach(clearTimeout);revealTimers=[];revealAnimations.forEach(a=>a.cancel());revealAnimations=[];document.querySelectorAll('.slot-reel').forEach(r=>r.remove());document.querySelectorAll('.reveal-pending,.card-revealed').forEach(c=>c.classList.remove('reveal-pending','card-revealed'));$('skip-reveal').hidden=true;$('squad-loadouts').setAttribute('aria-busy','false');}
@@ -769,6 +779,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     $('custom-ammo').checked=!!profile.customAmmo;
     $('unique-weapons').checked=!!profile.uniqueWeapons;
     $('reveal-animation').checked=!!profile.revealAnimation;
+    $('single-rerolls').checked=!!profile.singleRerolls;
     renderTraits();
   }
   function changed() { captureBuild(); builds.forEach(b=>{if(b.slots.some(Boolean))b.dirty=true;});loadBuild(activeBuild); notice=[]; save(); renderProfile(); renderCards(); }
@@ -839,6 +850,17 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     } catch(error){notice=['The squad could not be dealt. Check the settings and try again.'];renderCards();console.error(error);}
     finally{rolling=false;$('roll').disabled=false;}
   }
+  function replaceUnownedWeapon(hunter,index){
+    if(rolling||!profile.singleRerolls)return;
+    captureBuild();const build=builds[hunter];
+    if(!build||build.dirty||!build.lastSeed)return;
+    const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:dont-own-${index+1}:${rollNumber+1}`;
+    const result=E.dontOwnWeapon(teammateProfile(hunter),seed,build,index);
+    if(!result.ok){toast(result.errors.join(' '));return;}
+    Object.assign(build,{slots:result.slots,ammo:result.ammo,lastSeed:seed});
+    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter,index);
+    document.querySelector(`[data-dont-own="${index}"][data-hunter="${hunter}"]`)?.focus({preventScroll:true});
+  }
   function mulliganOne(hunter,index){
     if(rolling)return;
     captureBuild();const build=builds[hunter];
@@ -871,6 +893,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const hunterTraits=event.target.closest('[data-hunter-traits]');if(hunterTraits){captureBuild();loadBuild(Number(hunterTraits.dataset.hunterTraits));save();renderProfile();renderCards();$('traits-dialog').showModal();return;}
     const restore=event.target.closest('[data-restore]');if(restore){const entry=library[restore.dataset.list]?.find(e=>e.id===restore.dataset.restore);if(entry)restoreSnapshot(entry);return;}
     const remove=event.target.closest('[data-delete-save]');if(remove){const list=remove.dataset.list;if(library[list]){library[list]=library[list].filter(e=>e.id!==remove.dataset.deleteSave);saveLibrary();renderLibrary();}return;}
+    const replacement=event.target.closest('[data-dont-own]');if(replacement){if(!replacement.disabled)replaceUnownedWeapon(Number(replacement.dataset.hunter),Number(replacement.dataset.dontOwn));return;}
     const mulligan=event.target.closest('[data-mulligan]');if(mulligan){if(!mulligan.disabled)mulliganOne(Number(mulligan.dataset.hunter),Number(mulligan.dataset.mulligan));return;}
     const count=event.target.closest('[data-build-count]');if(count){if(rolling||Number(count.dataset.buildCount)===buildCount)return;captureBuild();buildCount=Number(count.dataset.buildCount);loadBuild(Math.min(activeBuild,buildCount-1));profile.team=['solo','duo','trio'][buildCount-1];changed();return;}
     const tab=event.target.closest('[data-build]');if(tab){if(rolling)return;captureBuild();loadBuild(Number(tab.dataset.build));save();renderProfile();renderCards();$('build-tabs').querySelector(`[data-build="${activeBuild}"]`).focus();return;}
@@ -910,6 +933,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
   $('custom-ammo').addEventListener('change',()=>{profile.customAmmo=$('custom-ammo').checked;changed();});
   $('unique-weapons').addEventListener('change',()=>{profile.uniqueWeapons=$('unique-weapons').checked;changed();});
   $('reveal-animation').addEventListener('change',()=>{profile.revealAnimation=$('reveal-animation').checked;finishReveal();save();});
+  $('single-rerolls').addEventListener('change',()=>{profile.singleRerolls=$('single-rerolls').checked;save();renderCards();});
   $('roulette-roll').addEventListener('click',()=>roll(true));
   $('skip-reveal').addEventListener('click',finishReveal);
   document.addEventListener('keydown',event=>{if(event.key==='Escape')finishReveal();});
@@ -942,8 +966,8 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const changes=animate?state.builds.slice(0,state.buildCount).flatMap((build,i)=>{
       const previous=builds[i];
       if(!previous||previous.lastSeed===build.lastSeed)return [];
-      const itemMulligan=build.mulligan&&(build.loadoutMulligans??0)===(previous.loadoutMulligans??0);
-      return [{hunter:i,slots:itemMulligan?build.slots.flatMap((id,n)=>id!==previous.slots[n]||JSON.stringify(build.ammo[n])!==JSON.stringify(previous.ammo[n])?[n]:[]):null}];
+      const singleReplacement=build.lastSeed.includes(':dont-own-')||build.mulligan&&(build.loadoutMulligans??0)===(previous.loadoutMulligans??0);
+      return [{hunter:i,slots:singleReplacement?build.slots.flatMap((id,n)=>id!==previous.slots[n]||JSON.stringify(build.ammo[n])!==JSON.stringify(previous.ammo[n])?[n]:[]):null}];
     }):[];
     finishReveal();
     profile=buyingProfile(structuredClone(state.profile));builds=structuredClone(state.builds).map(b=>({...b,loadoutMulligans:b.loadoutMulligans??0}));buildCount=state.buildCount;
@@ -969,9 +993,9 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
   $('party-invite-form').addEventListener('submit',event=>{
     event.preventDefault();$('session-name').value=$('party-invite-name').value;enter(false);
   });
-  const hostControls='[data-mode],[data-ban],#budget,#theme,#intensity,#challenge,#prefer-traits,#custom-ammo,#unique-weapons,#reveal-animation,#roulette-roll,#assign-roles,#clear-bans,#roll,#seed';
+  const hostControls='[data-mode],[data-ban],#budget,#theme,#intensity,#challenge,#prefer-traits,#custom-ammo,#unique-weapons,#reveal-animation,#single-rerolls,#roulette-roll,#assign-roles,#clear-bans,#roll,#seed';
   const fixedControls='[data-build-count],#team,#reset,[data-restore]';
-  const hunterControls='[data-mulligan],[data-loadout-mulligan],[data-lock],[data-role],[data-hunter-name],[data-hunter-rank]';
+  const hunterControls='[data-dont-own],[data-mulligan],[data-loadout-mulligan],[data-lock],[data-role],[data-hunter-name],[data-hunter-rank]';
   const activeControls='[data-trait],#quartermaster,#clear-locks';
   const controls=[hostControls,fixedControls,hunterControls,activeControls].join(',');
   const me=()=>room?.members.find(member=>member.id===room.you);

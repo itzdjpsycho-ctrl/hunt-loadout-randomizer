@@ -12,8 +12,10 @@ with sync_playwright() as playwright:
     errors = []
     page.on("pageerror", lambda error: errors.append(str(error)))
     page.goto((ROOT / "Chaos-Loadout.html").as_uri())
+    expect(page.locator("[data-dont-own]")).to_have_count(0)
     page.locator("#squad-options-open").click()
     page.locator("#reveal-animation").check()
+    page.locator("#single-rerolls").check()
     page.locator('[data-close="squad-options-dialog"]').first.click()
     page.locator("#roll").click()
     expect(page.locator(".slot-reel").first).to_be_visible()
@@ -35,7 +37,14 @@ with sync_playwright() as playwright:
     page.locator("#skip-reveal").click()
     expect(page.locator(".slot-reel")).to_have_count(0)
     assert page.evaluate("ChaosApp.getSharedState()") == state
+    page.locator('[data-dont-own="0"]').first.click()
+    page.wait_for_timeout(100)
+    next_state=page.evaluate("ChaosApp.getSharedState()")
+    assert next_state['builds'][0]['slots'][0]!=state['builds'][0]['slots'][0]
+    assert next_state['builds'][0]['slots'][1:]==state['builds'][0]['slots'][1:]
+    page.locator("#skip-reveal").click()
     page.locator('[data-lock="0"]').first.click()
+    expect(page.locator('[data-dont-own="0"]').first).to_be_disabled()
     page.locator("#roll").click()
     expect(page.locator("article.held .slot-reel")).to_have_count(0)
     expect(page.locator("#skip-reveal")).to_be_hidden(timeout=6000)
@@ -43,6 +52,12 @@ with sync_playwright() as playwright:
     page.emulate_media(reduced_motion="reduce")
     page.locator("#roll").click()
     expect(page.locator(".slot-reel")).to_have_count(0)
+    page.reload()
+    expect(page.locator("[data-dont-own]").first).to_be_visible()
+    page.locator("#squad-options-open").click()
+    expect(page.locator("#single-rerolls")).to_be_checked()
+    page.locator("#single-rerolls").uncheck()
+    expect(page.locator("[data-dont-own]")).to_have_count(0)
     assert not errors, errors
     browser.close()
     print("PASS Downward reels, correct final items, Skip, held items, completion and reduced motion")
