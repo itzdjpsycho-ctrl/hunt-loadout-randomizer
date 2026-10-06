@@ -106,22 +106,28 @@
     cards.forEach((card,i)=>{
       const weapon=card.classList.contains('weapon-card');
       const pool=E.data.items.filter(item=>weapon?item.kind==='weapon':item.kind!=='weapon');
-      const height=card.clientHeight;
+      const height=card.clientHeight-42;
       const reel=document.createElement('div');reel.className='slot-reel';reel.setAttribute('aria-hidden','true');
       const strip=document.createElement('div');strip.className='slot-reel-strip';
-      const count=12+i%4;
+      const count=18+i%4;
       for(let n=0;n<count;n++){
         const item=pool[(i*17+n*31+rollNumber*7)%pool.length];
         const row=document.createElement('div');row.className='slot-reel-item';row.style.height=height+'px';
-        row.innerHTML=n===count-1?`${card.querySelector('.weapon-art,.equipment-art').innerHTML}<span>${esc(card.querySelector('h3').textContent)}</span>`:`${icon(item,weapon)}<span>${esc(item.name)}</span>`;
+        row.innerHTML=n===0?`${card.querySelector('.weapon-art,.equipment-art').innerHTML}<span>${esc(card.querySelector('h3').textContent)}</span>`:`${icon(item,weapon)}<span>${esc(item.name)}</span>`;
         strip.append(row);
       }
       reel.append(strip);card.append(reel);card.classList.add('reveal-pending');
-      const duration=1050+i*30;
-      revealAnimations.push(strip.animate([{transform:'translateY(0)'},{transform:`translateY(-${(count-1)*height}px)`}],{duration,easing:'cubic-bezier(.12,.55,.18,1)',fill:'forwards'}));
+      const duration=1800+i*65;
+      // The winning row is at the top: increasing Y brings each symbol down
+      // through the window, slowing to a stop without changing the dealt hand.
+      revealAnimations.push(strip.animate([
+        {transform:`translateY(-${(count-1)*height}px)`,offset:0},
+        {transform:`translateY(-${(count-6)*height}px)`,offset:.2},
+        {transform:'translateY(0)',offset:1},
+      ],{duration,easing:'cubic-bezier(.16,.65,.2,1)',fill:'forwards'}));
       revealTimers.push(setTimeout(()=>{reel.remove();card.classList.remove('reveal-pending');card.classList.add('card-revealed');},duration));
     });
-    revealTimers.push(setTimeout(finishReveal,1050+(cards.length-1)*30+250));
+    revealTimers.push(setTimeout(finishReveal,1800+(cards.length-1)*65+250));
   }
   function teammateProfile(index){const p=buildProfile(builds[index]);return profile.uniqueWeapons?{...p,excluded:[...new Set([...p.excluded,...builds.slice(0,buildCount).flatMap((b,i)=>i===index?[]:b.slots.slice(0,2).filter(Boolean))])]}:p;}
   function renderCards() {

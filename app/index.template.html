@@ -8,6 +8,15 @@
   <style>__STYLES__</style>
 </head>
 <body>
+  <dialog id="party-invite" aria-labelledby="party-invite-title">
+    <div class="dialog-heading"><div><span class="eyebrow">YOU'RE INVITED TO HUNT</span><h2 id="party-invite-title">Join your party</h2></div><button id="party-invite-close" class="close-button" aria-label="Dismiss invitation">×</button></div>
+    <p id="party-invite-seats">Checking available hunter seats…</p>
+    <form id="party-invite-form">
+      <label for="party-invite-name">Your name</label><input id="party-invite-name" maxlength="32" placeholder="Hunter name" autocomplete="nickname" required>
+      <p id="party-invite-status" role="status" aria-live="polite"></p>
+      <button id="party-invite-join" class="solid-button" disabled>Join party</button>
+    </form>
+  </dialog>
   <div class="site-shell">
     <header class="masthead">
       <a href="#main" class="brand"><span class="brand-mark" aria-hidden="true">✣</span><span>DEAD MAN'S HAND<small>HUNT: SHOWDOWN 1896 · LOADOUT RANDOMIZER</small></span></a>

@@ -89,23 +89,25 @@ h1,h2,.brand,.weapon-card h3,.ledger b,.panel-title h2{font-family:'Segoe UI',Ar
 @media(min-width:881px) and (max-height:800px){.hunter-actions{margin:0 0 4px}.hunter-actions select{min-height:22px}.hunter-actions button{padding:3px}.options-button{font-size:9px;padding:5px}.hunter-loadout{padding:6px}.weapon-card{min-height:45px}.ledger{padding:4px 0}.equipment-card{min-height:43px}.equipment-grid,.weapon-grid{gap:4px}.weapon-card h3{font-size:11px}.equipment-heading{margin-top:5px}}
 @media(max-width:640px){.options-grid,.ban-list{grid-template-columns:1fr}.favorite-form{flex-direction:column}.saved-squad{flex-direction:column}.saved-actions{align-self:flex-start}.hunter-actions button{padding:7px}.hunter-actions select{min-height:30px}.options-button{margin-left:0}.contract-toolbar>span{width:100%}}
 
-.reveal-pending{visibility:hidden}.card-revealed{animation:card-reveal .24s ease-out both}@keyframes card-reveal{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}#skip-reveal{color:var(--gold);border-color:var(--gold)}#skip-reveal[hidden]{display:none}.option-actions{flex-wrap:wrap}
+#skip-reveal{color:var(--gold);border-color:var(--gold)}#skip-reveal[hidden]{display:none}.option-actions{flex-wrap:wrap}
 
 /* Slot-machine reveal: final cards retain their layout beneath cosmetic reels. */
 .reveal-pending{visibility:visible;position:relative;overflow:hidden}
-.reveal-pending>:not(.slot-reel){opacity:0;pointer-events:none}
-.slot-reel{position:absolute;inset:0;z-index:3;overflow:hidden;pointer-events:none;background:linear-gradient(135deg,#182432,#101721);border-radius:inherit;box-shadow:inset 0 0 16px #0008}
+.reveal-pending>:not(.slot-reel):not(.card-top){opacity:0;pointer-events:none}
+.reveal-pending .card-top button{pointer-events:none;visibility:hidden}
+.slot-reel{position:absolute;inset:42px 0 0;z-index:3;overflow:hidden;pointer-events:none;background:linear-gradient(135deg,#182432,#101721);border-radius:inherit;box-shadow:inset 0 0 16px #0008}
 .slot-reel::after{content:'';position:absolute;inset:0;background:linear-gradient(#101721b3,transparent 30%,transparent 70%,#101721b3);border:1px solid #e8b96d55;border-radius:inherit}
 .slot-reel-strip{will-change:transform}
-.slot-reel-item{display:flex;align-items:center;justify-content:center;gap:10px;padding:5px 10px;box-sizing:border-box;overflow:hidden;color:#efd4a6}
-.slot-reel-item img,.slot-reel-item svg{width:32%;height:80%;object-fit:contain;flex-shrink:0}
-.slot-reel-item span{font-size:11px;font-weight:700;line-height:1.25;max-width:60%;overflow-wrap:anywhere}
+.slot-reel-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px 14px;box-sizing:border-box;overflow:hidden;color:#efd4a6}
+.slot-reel-item img,.slot-reel-item svg{width:80%;height:55%;object-fit:contain;flex-shrink:0}
+.slot-reel-item span{font-size:12px;font-weight:700;line-height:1.25;max-width:100%;text-align:center;overflow-wrap:anywhere}
 .card-revealed{animation:slot-land .25s ease-out both}
 @keyframes slot-land{from{box-shadow:inset 0 0 0 1px #edbd73,0 0 12px #edbd7355}to{box-shadow:inset 0 0 0 1px transparent,0 0 0 transparent}}
 @media(prefers-reduced-motion:reduce){.card-revealed{animation:none}}
 
 .slot-mulligan{width:23px;min-height:21px;padding:0;border-radius:4px;font-size:10px;color:#efad8a}.equipment-card .card-meta{padding-right:74px}
 .session-bar{margin:0 0 12px;padding:12px 16px;border:1px solid var(--line,#45483e);border-radius:8px;background:var(--panel,#171c22)}
+#party-invite{width:min(460px,calc(100vw - 32px));box-sizing:border-box}#party-invite-title{font-size:32px;overflow-wrap:anywhere}#party-invite-seats{color:var(--gold);margin:20px 0}#party-invite-form{display:grid;gap:10px}#party-invite-form label{font-size:12px;color:var(--muted)}#party-invite-name{width:100%;box-sizing:border-box}#party-invite-status{font-size:12px;margin:0;min-height:18px}#party-invite-join{width:100%;min-height:48px}
 .session-heading{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.session-heading strong{font-size:11px;letter-spacing:1px;color:var(--gold)}#session-status{font-size:12px;color:#a9c9bb}
 .session-controls{display:flex;align-items:flex-end;flex-wrap:wrap;gap:8px}.session-controls label{display:grid;gap:4px;font-size:10px;color:var(--muted)}.session-controls input,.session-controls select{max-width:180px;min-height:32px}.session-controls button{min-height:32px}.session-controls #session-code{text-transform:uppercase;max-width:120px}
 .session-members{display:flex;flex-wrap:wrap;list-style:none;gap:12px;padding:0;margin:10px 0 0}.session-members li{display:flex;gap:8px;align-items:center;font-size:12px}.session-members button{font-size:10px;padding:2px 6px}#session-help{margin:8px 0 0}.session-bar [hidden]{display:none!important}

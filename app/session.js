@@ -4,6 +4,14 @@
   if(document.documentElement.hasAttribute('data-standalone')){$('session-lobby').closest('.session-bar').hidden=true;return;}
   const stable=value=>JSON.stringify(value,(_,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.keys(item).sort().map(k=>[k,item[k]])):item);
   let room=null, credentials=null, backup=null, baseline='', online=false, busy=false, reading=false, applying=false, dirty=false, epoch=0, timer=null;
+  const nameKey='dead-mans-hand.player-name.v1';
+  try{$('session-name').value=$('party-invite-name').value=localStorage.getItem(nameKey)||'';}catch{}
+  function rememberName(name){try{localStorage.setItem(nameKey,name);}catch{}}
+  const inviteDialog=$('party-invite');
+  $('party-invite-close').addEventListener('click',()=>inviteDialog.close());
+  $('party-invite-form').addEventListener('submit',event=>{
+    event.preventDefault();$('session-name').value=$('party-invite-name').value;enter(false);
+  });
   const hostControls='[data-mode],[data-ban],#budget,#theme,#intensity,#challenge,#prefer-traits,#custom-ammo,#unique-weapons,#reveal-animation,#roulette-roll,#assign-roles,#clear-bans,#roll,#seed';
   const fixedControls='[data-build-count],#team,#reset,[data-restore]';
   const hunterControls='[data-mulligan],[data-loadout-mulligan],[data-lock],[data-role],[data-hunter-name],[data-hunter-rank]';
@@ -38,7 +46,15 @@
   for(const id of ['squad-loadouts','quick-traits','all-traits','build-tabs','library-history','library-favorites'])if($(id))observer.observe($(id),{childList:true,subtree:true});
   function status(text){$('session-status').textContent=text;}
   function persist(){
-    try{if(credentials)sessionStorage.setItem(key,JSON.stringify({...credentials,backup}));else sessionStorage.removeItem(key);}
+    try{
+      if(credentials){const saved=JSON.stringify({...credentials,backup});sessionStorage.setItem(key,saved);localStorage.setItem(key,saved);}
+      else{
+        const previous=JSON.parse(sessionStorage.getItem(key)||'null');
+        const saved=JSON.parse(localStorage.getItem(key)||'null');
+        if(previous?.token===saved?.token)localStorage.removeItem(key);
+        sessionStorage.removeItem(key);
+      }
+    }
     catch{A.toast('This browser cannot remember your room seat after a reload.');}
   }
   async function request(path,options={}){
@@ -160,7 +176,8 @@
     const name=$('session-name').value.trim();if(!name){status('Enter your name first.');$('session-name').focus();return;}
     const code=$('session-code').value.trim().toUpperCase();
     if(!create&&!/^[A-Z2-9]{8}$/.test(code)){status('Enter the eight-character room code.');return;}
-    busy=true;$('session-create').disabled=$('session-join').disabled=true;
+    busy=true;$('session-create').disabled=$('session-join').disabled=$('party-invite-join').disabled=true;
+    $('party-invite-status').textContent='Joining party…';
     const original=A.getSharedState();
     try{
       const state=structuredClone(original);
@@ -171,9 +188,10 @@
       }
       const view=await request(create?'':'/'+code+'/join',{method:'POST',body:JSON.stringify(create?{name,control:$('session-control').value,state}:{name})});
       epoch++;backup=original;credentials={code:view.code,token:view.token};persist();baseline='';receive(view,true,true);
+      rememberName(name);if(inviteDialog.open)inviteDialog.close();
       history.replaceState(null,'',location.pathname+location.search+'#room='+view.code);
-    }catch(error){status(error.message);}
-    finally{busy=false;$('session-create').disabled=$('session-join').disabled=false;if(credentials)render();}
+    }catch(error){status(error.message);$('party-invite-status').textContent=error.message;}
+    finally{busy=false;$('session-create').disabled=$('session-join').disabled=$('party-invite-join').disabled=false;if(credentials)render();}
   }
   $('session-create').addEventListener('click',()=>enter(true));
   $('session-join').addEventListener('click',()=>enter(false));
@@ -202,6 +220,23 @@
     if(!response.ok||!(await response.json()).sharedSessions)throw new Error();
   }catch{status('Shared rooms require the Uvicorn server; this copy works locally.');return;}
   $('session-create').disabled=$('session-join').disabled=false;status('Create a room or enter a friend’s code.');
-  try{const saved=JSON.parse(sessionStorage.getItem(key)||'null');if(saved&&/^[A-Z2-9]{8}$/.test(saved.code)&&typeof saved.token==='string'){credentials={code:saved.code,token:saved.token};backup=saved.backup;render();await refresh();}}catch{sessionStorage.removeItem(key);}
+  try{
+    const saved=JSON.parse(sessionStorage.getItem(key)||localStorage.getItem(key)||'null');
+    if(saved&&/^[A-Z2-9]{8}$/.test(saved.code)&&typeof saved.token==='string'&&(!invitation||saved.code===invitation[1].toUpperCase())){
+      credentials={code:saved.code,token:saved.token};backup=saved.backup;persist();render();await refresh();
+    }
+  }catch{sessionStorage.removeItem(key);}
+  if(invitation&&!credentials){
+    inviteDialog.showModal();
+    try{
+      const preview=await request('/'+invitation[1].toUpperCase()+'/invite');
+      $('party-invite-title').textContent=`Join ${preview.host}’s party`;
+      $('party-invite-seats').textContent=`${preview.members}/${preview.capacity} hunters · ${preview.capacity===2?'Duo':'Trio'}`;
+      const full=preview.members>=preview.capacity;
+      $('party-invite-status').textContent=full?'This party is full. Ask the host to free a seat.':'Your hunter seat will be assigned when you join.';
+      $('party-invite-join').disabled=full;
+      $('party-invite-name').focus();
+    }catch(error){$('party-invite-seats').textContent='Invitation unavailable';$('party-invite-status').textContent=error.message;}
+  }
   setInterval(refresh,1000);
 })();

@@ -96,23 +96,25 @@ h1,h2,.brand,.weapon-card h3,.ledger b,.panel-title h2{font-family:'Segoe UI',Ar
 @media(min-width:881px) and (max-height:800px){.hunter-actions{margin:0 0 4px}.hunter-actions select{min-height:22px}.hunter-actions button{padding:3px}.options-button{font-size:9px;padding:5px}.hunter-loadout{padding:6px}.weapon-card{min-height:45px}.ledger{padding:4px 0}.equipment-card{min-height:43px}.equipment-grid,.weapon-grid{gap:4px}.weapon-card h3{font-size:11px}.equipment-heading{margin-top:5px}}
 @media(max-width:640px){.options-grid,.ban-list{grid-template-columns:1fr}.favorite-form{flex-direction:column}.saved-squad{flex-direction:column}.saved-actions{align-self:flex-start}.hunter-actions button{padding:7px}.hunter-actions select{min-height:30px}.options-button{margin-left:0}.contract-toolbar>span{width:100%}}
 
-.reveal-pending{visibility:hidden}.card-revealed{animation:card-reveal .24s ease-out both}@keyframes card-reveal{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}#skip-reveal{color:var(--gold);border-color:var(--gold)}#skip-reveal[hidden]{display:none}.option-actions{flex-wrap:wrap}
+#skip-reveal{color:var(--gold);border-color:var(--gold)}#skip-reveal[hidden]{display:none}.option-actions{flex-wrap:wrap}
 
 /* Slot-machine reveal: final cards retain their layout beneath cosmetic reels. */
 .reveal-pending{visibility:visible;position:relative;overflow:hidden}
-.reveal-pending>:not(.slot-reel){opacity:0;pointer-events:none}
-.slot-reel{position:absolute;inset:0;z-index:3;overflow:hidden;pointer-events:none;background:linear-gradient(135deg,#182432,#101721);border-radius:inherit;box-shadow:inset 0 0 16px #0008}
+.reveal-pending>:not(.slot-reel):not(.card-top){opacity:0;pointer-events:none}
+.reveal-pending .card-top button{pointer-events:none;visibility:hidden}
+.slot-reel{position:absolute;inset:42px 0 0;z-index:3;overflow:hidden;pointer-events:none;background:linear-gradient(135deg,#182432,#101721);border-radius:inherit;box-shadow:inset 0 0 16px #0008}
 .slot-reel::after{content:'';position:absolute;inset:0;background:linear-gradient(#101721b3,transparent 30%,transparent 70%,#101721b3);border:1px solid #e8b96d55;border-radius:inherit}
 .slot-reel-strip{will-change:transform}
-.slot-reel-item{display:flex;align-items:center;justify-content:center;gap:10px;padding:5px 10px;box-sizing:border-box;overflow:hidden;color:#efd4a6}
-.slot-reel-item img,.slot-reel-item svg{width:32%;height:80%;object-fit:contain;flex-shrink:0}
-.slot-reel-item span{font-size:11px;font-weight:700;line-height:1.25;max-width:60%;overflow-wrap:anywhere}
+.slot-reel-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px 14px;box-sizing:border-box;overflow:hidden;color:#efd4a6}
+.slot-reel-item img,.slot-reel-item svg{width:80%;height:55%;object-fit:contain;flex-shrink:0}
+.slot-reel-item span{font-size:12px;font-weight:700;line-height:1.25;max-width:100%;text-align:center;overflow-wrap:anywhere}
 .card-revealed{animation:slot-land .25s ease-out both}
 @keyframes slot-land{from{box-shadow:inset 0 0 0 1px #edbd73,0 0 12px #edbd7355}to{box-shadow:inset 0 0 0 1px transparent,0 0 0 transparent}}
 @media(prefers-reduced-motion:reduce){.card-revealed{animation:none}}
 
 .slot-mulligan{width:23px;min-height:21px;padding:0;border-radius:4px;font-size:10px;color:#efad8a}.equipment-card .card-meta{padding-right:74px}
 .session-bar{margin:0 0 12px;padding:12px 16px;border:1px solid var(--line,#45483e);border-radius:8px;background:var(--panel,#171c22)}
+#party-invite{width:min(460px,calc(100vw - 32px));box-sizing:border-box}#party-invite-title{font-size:32px;overflow-wrap:anywhere}#party-invite-seats{color:var(--gold);margin:20px 0}#party-invite-form{display:grid;gap:10px}#party-invite-form label{font-size:12px;color:var(--muted)}#party-invite-name{width:100%;box-sizing:border-box}#party-invite-status{font-size:12px;margin:0;min-height:18px}#party-invite-join{width:100%;min-height:48px}
 .session-heading{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.session-heading strong{font-size:11px;letter-spacing:1px;color:var(--gold)}#session-status{font-size:12px;color:#a9c9bb}
 .session-controls{display:flex;align-items:flex-end;flex-wrap:wrap;gap:8px}.session-controls label{display:grid;gap:4px;font-size:10px;color:var(--muted)}.session-controls input,.session-controls select{max-width:180px;min-height:32px}.session-controls button{min-height:32px}.session-controls #session-code{text-transform:uppercase;max-width:120px}
 .session-members{display:flex;flex-wrap:wrap;list-style:none;gap:12px;padding:0;margin:10px 0 0}.session-members li{display:flex;gap:8px;align-items:center;font-size:12px}.session-members button{font-size:10px;padding:2px 6px}#session-help{margin:8px 0 0}.session-bar [hidden]{display:none!important}
@@ -126,6 +128,15 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
 </style>
 </head>
 <body>
+  <dialog id="party-invite" aria-labelledby="party-invite-title">
+    <div class="dialog-heading"><div><span class="eyebrow">YOU'RE INVITED TO HUNT</span><h2 id="party-invite-title">Join your party</h2></div><button id="party-invite-close" class="close-button" aria-label="Dismiss invitation">×</button></div>
+    <p id="party-invite-seats">Checking available hunter seats…</p>
+    <form id="party-invite-form">
+      <label for="party-invite-name">Your name</label><input id="party-invite-name" maxlength="32" placeholder="Hunter name" autocomplete="nickname" required>
+      <p id="party-invite-status" role="status" aria-live="polite"></p>
+      <button id="party-invite-join" class="solid-button" disabled>Join party</button>
+    </form>
+  </dialog>
   <div class="site-shell">
     <header class="masthead">
       <a href="#main" class="brand"><span class="brand-mark" aria-hidden="true">✣</span><span>DEAD MAN'S HAND<small>HUNT: SHOWDOWN 1896 · LOADOUT RANDOMIZER</small></span></a>
@@ -671,22 +682,28 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     cards.forEach((card,i)=>{
       const weapon=card.classList.contains('weapon-card');
       const pool=E.data.items.filter(item=>weapon?item.kind==='weapon':item.kind!=='weapon');
-      const height=card.clientHeight;
+      const height=card.clientHeight-42;
       const reel=document.createElement('div');reel.className='slot-reel';reel.setAttribute('aria-hidden','true');
       const strip=document.createElement('div');strip.className='slot-reel-strip';
-      const count=12+i%4;
+      const count=18+i%4;
       for(let n=0;n<count;n++){
         const item=pool[(i*17+n*31+rollNumber*7)%pool.length];
         const row=document.createElement('div');row.className='slot-reel-item';row.style.height=height+'px';
-        row.innerHTML=n===count-1?`${card.querySelector('.weapon-art,.equipment-art').innerHTML}<span>${esc(card.querySelector('h3').textContent)}</span>`:`${icon(item,weapon)}<span>${esc(item.name)}</span>`;
+        row.innerHTML=n===0?`${card.querySelector('.weapon-art,.equipment-art').innerHTML}<span>${esc(card.querySelector('h3').textContent)}</span>`:`${icon(item,weapon)}<span>${esc(item.name)}</span>`;
         strip.append(row);
       }
       reel.append(strip);card.append(reel);card.classList.add('reveal-pending');
-      const duration=1050+i*30;
-      revealAnimations.push(strip.animate([{transform:'translateY(0)'},{transform:`translateY(-${(count-1)*height}px)`}],{duration,easing:'cubic-bezier(.12,.55,.18,1)',fill:'forwards'}));
+      const duration=1800+i*65;
+      // The winning row is at the top: increasing Y brings each symbol down
+      // through the window, slowing to a stop without changing the dealt hand.
+      revealAnimations.push(strip.animate([
+        {transform:`translateY(-${(count-1)*height}px)`,offset:0},
+        {transform:`translateY(-${(count-6)*height}px)`,offset:.2},
+        {transform:'translateY(0)',offset:1},
+      ],{duration,easing:'cubic-bezier(.16,.65,.2,1)',fill:'forwards'}));
       revealTimers.push(setTimeout(()=>{reel.remove();card.classList.remove('reveal-pending');card.classList.add('card-revealed');},duration));
     });
-    revealTimers.push(setTimeout(finishReveal,1050+(cards.length-1)*30+250));
+    revealTimers.push(setTimeout(finishReveal,1800+(cards.length-1)*65+250));
   }
   function teammateProfile(index){const p=buildProfile(builds[index]);return profile.uniqueWeapons?{...p,excluded:[...new Set([...p.excluded,...builds.slice(0,buildCount).flatMap((b,i)=>i===index?[]:b.slots.slice(0,2).filter(Boolean))])]}:p;}
   function renderCards() {
@@ -938,6 +955,14 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
   if(document.documentElement.hasAttribute('data-standalone')){$('session-lobby').closest('.session-bar').hidden=true;return;}
   const stable=value=>JSON.stringify(value,(_,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.keys(item).sort().map(k=>[k,item[k]])):item);
   let room=null, credentials=null, backup=null, baseline='', online=false, busy=false, reading=false, applying=false, dirty=false, epoch=0, timer=null;
+  const nameKey='dead-mans-hand.player-name.v1';
+  try{$('session-name').value=$('party-invite-name').value=localStorage.getItem(nameKey)||'';}catch{}
+  function rememberName(name){try{localStorage.setItem(nameKey,name);}catch{}}
+  const inviteDialog=$('party-invite');
+  $('party-invite-close').addEventListener('click',()=>inviteDialog.close());
+  $('party-invite-form').addEventListener('submit',event=>{
+    event.preventDefault();$('session-name').value=$('party-invite-name').value;enter(false);
+  });
   const hostControls='[data-mode],[data-ban],#budget,#theme,#intensity,#challenge,#prefer-traits,#custom-ammo,#unique-weapons,#reveal-animation,#roulette-roll,#assign-roles,#clear-bans,#roll,#seed';
   const fixedControls='[data-build-count],#team,#reset,[data-restore]';
   const hunterControls='[data-mulligan],[data-loadout-mulligan],[data-lock],[data-role],[data-hunter-name],[data-hunter-rank]';
@@ -972,7 +997,15 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
   for(const id of ['squad-loadouts','quick-traits','all-traits','build-tabs','library-history','library-favorites'])if($(id))observer.observe($(id),{childList:true,subtree:true});
   function status(text){$('session-status').textContent=text;}
   function persist(){
-    try{if(credentials)sessionStorage.setItem(key,JSON.stringify({...credentials,backup}));else sessionStorage.removeItem(key);}
+    try{
+      if(credentials){const saved=JSON.stringify({...credentials,backup});sessionStorage.setItem(key,saved);localStorage.setItem(key,saved);}
+      else{
+        const previous=JSON.parse(sessionStorage.getItem(key)||'null');
+        const saved=JSON.parse(localStorage.getItem(key)||'null');
+        if(previous?.token===saved?.token)localStorage.removeItem(key);
+        sessionStorage.removeItem(key);
+      }
+    }
     catch{A.toast('This browser cannot remember your room seat after a reload.');}
   }
   async function request(path,options={}){
@@ -1094,7 +1127,8 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const name=$('session-name').value.trim();if(!name){status('Enter your name first.');$('session-name').focus();return;}
     const code=$('session-code').value.trim().toUpperCase();
     if(!create&&!/^[A-Z2-9]{8}$/.test(code)){status('Enter the eight-character room code.');return;}
-    busy=true;$('session-create').disabled=$('session-join').disabled=true;
+    busy=true;$('session-create').disabled=$('session-join').disabled=$('party-invite-join').disabled=true;
+    $('party-invite-status').textContent='Joining party…';
     const original=A.getSharedState();
     try{
       const state=structuredClone(original);
@@ -1105,9 +1139,10 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
       }
       const view=await request(create?'':'/'+code+'/join',{method:'POST',body:JSON.stringify(create?{name,control:$('session-control').value,state}:{name})});
       epoch++;backup=original;credentials={code:view.code,token:view.token};persist();baseline='';receive(view,true,true);
+      rememberName(name);if(inviteDialog.open)inviteDialog.close();
       history.replaceState(null,'',location.pathname+location.search+'#room='+view.code);
-    }catch(error){status(error.message);}
-    finally{busy=false;$('session-create').disabled=$('session-join').disabled=false;if(credentials)render();}
+    }catch(error){status(error.message);$('party-invite-status').textContent=error.message;}
+    finally{busy=false;$('session-create').disabled=$('session-join').disabled=$('party-invite-join').disabled=false;if(credentials)render();}
   }
   $('session-create').addEventListener('click',()=>enter(true));
   $('session-join').addEventListener('click',()=>enter(false));
@@ -1136,7 +1171,24 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     if(!response.ok||!(await response.json()).sharedSessions)throw new Error();
   }catch{status('Shared rooms require the Uvicorn server; this copy works locally.');return;}
   $('session-create').disabled=$('session-join').disabled=false;status('Create a room or enter a friend’s code.');
-  try{const saved=JSON.parse(sessionStorage.getItem(key)||'null');if(saved&&/^[A-Z2-9]{8}$/.test(saved.code)&&typeof saved.token==='string'){credentials={code:saved.code,token:saved.token};backup=saved.backup;render();await refresh();}}catch{sessionStorage.removeItem(key);}
+  try{
+    const saved=JSON.parse(sessionStorage.getItem(key)||localStorage.getItem(key)||'null');
+    if(saved&&/^[A-Z2-9]{8}$/.test(saved.code)&&typeof saved.token==='string'&&(!invitation||saved.code===invitation[1].toUpperCase())){
+      credentials={code:saved.code,token:saved.token};backup=saved.backup;persist();render();await refresh();
+    }
+  }catch{sessionStorage.removeItem(key);}
+  if(invitation&&!credentials){
+    inviteDialog.showModal();
+    try{
+      const preview=await request('/'+invitation[1].toUpperCase()+'/invite');
+      $('party-invite-title').textContent=`Join ${preview.host}’s party`;
+      $('party-invite-seats').textContent=`${preview.members}/${preview.capacity} hunters · ${preview.capacity===2?'Duo':'Trio'}`;
+      const full=preview.members>=preview.capacity;
+      $('party-invite-status').textContent=full?'This party is full. Ask the host to free a seat.':'Your hunter seat will be assigned when you join.';
+      $('party-invite-join').disabled=full;
+      $('party-invite-name').focus();
+    }catch(error){$('party-invite-seats').textContent='Invitation unavailable';$('party-invite-status').textContent=error.message;}
+  }
   setInterval(refresh,1000);
 })();
 </script>

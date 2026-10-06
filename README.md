@@ -38,11 +38,11 @@ For production, `python -m server` runs Uvicorn on `0.0.0.0`, using the host-pro
 
 ### Shared multiplayer sessions
 
-On the Uvicorn website, enter your name in **Hunt together**, choose Duo or Trio, and select **Create room**. Send **Copy invite link** (or the eight-character room code) to your friends. They enter their own names and join; each gets a hunter seat.
+On the Uvicorn website, enter your name in **Hunt together**, choose Duo or Trio, and select **Create room**. Send **Copy invite link** (or the eight-character room code) to your friends. Invite links open a welcome screen showing the host and occupied hunter seats. Friends confirm their name and select **Join party**; each gets a hunter seat. Names are remembered in that browser for future visits. Full or expired invitations show an explanation before joining. Room codes remain available in the original form.
 
 - By default each player edits their own hunter, including traits, holds, item mulligans and loadout mulligans. The host can edit the whole squad and change squad settings. **Everyone edits squad** is also available when creating a room.
 - Loadouts, settings, ammo and mulligan losses synchronize about once a second. Changes carry a revision number: simultaneous conflicting writes are rejected and the latest room state is restored, with a message to retry.
-- Reloading the same tab reconnects to your seat. Network loss pauses editing until the latest state is fetched. Room credentials stay in that tab's session storage, never in invite links.
+- Reloading or reopening the page in the same browser reconnects to your seat. Network loss pauses editing until the latest state is fetched. Room credentials are stored in browser session/local storage, never in invite links. Disconnected players have a 60-second reconnect window; afterward their seats are released when the room is accessed, and an absent host's control transfers to a remaining player. Hunter loadouts are preserved. An empty disconnected party can be joined again until the room expires; the first new player becomes host.
 - The host can remove a player to free a seat. If the host leaves, the next player becomes host. Leaving restores the personal squad you had before joining. The last player leaving deletes the room; rooms also expire after 24 hours without activity.
 - Room size stays fixed until a new room is created. Browser favorites/history remain personal. Rooms are cooperative state sharing, not a server-enforced competitive rules or anti-cheat system.
 
@@ -217,7 +217,7 @@ All 227 catalog entries have matching local equipment icons in `assets/equipment
 
 Challenge roulette & roll (in Squad options) tries the three challenges in seeded random order and deals the first feasible squad. Unique weapons prevents identical weapon variants across teammates, including item and loadout mulligans. Conflicting held weapons require releasing a hold. Ammo is randomized with weapon deals and mulligans; held weapons retain every ammo choice unless lost. Card reveals can be skipped with the button or Escape, disabled in Squad options, and respect reduced-motion preferences.
 
-Slot-machine reveals cycle item images and names, decelerate and settle in sequence. Held cards stay still; individual item mulligans update that card and reveal the loss. Cosmetic reels do not change generated results. Validated with 49 engine tests, 102 packaged desktop checks, 11 server tests, desktop/mobile UI tests and shared-session browser checks.
+Slot-machine reveals scroll item images and names from top to bottom, slow down and settle in order from weapons through equipment. Slot labels remain visible during the roll. Held cards stay still; individual item mulligans update that card and reveal the loss. Cosmetic reels do not change generated results. Run `python tests/browser_reveal.py` after building to check direction, landing items, Skip, held cards and reduced motion; set `BROWSER_EXECUTABLE` when using an installed browser instead of Playwright Chromium.
 
 ## Mulligans
 

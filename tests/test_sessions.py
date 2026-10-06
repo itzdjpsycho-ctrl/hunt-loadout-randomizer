@@ -55,6 +55,52 @@ class SessionTests(unittest.TestCase):
     def put(self, member, state, revision):
         return self.client.put('/api/sessions/' + member["code"], headers=self.auth(member), json={"state": state, "revision": revision})
 
+    def test_invite_preview_exposes_only_host_and_capacity(self):
+        host = self.create()
+        path = f'/api/sessions/{host["code"]}/invite'
+        response = self.client.get(path)
+        self.assertEqual(response.json(), {"host": "Host", "members": 1, "capacity": 3})
+        self.assertEqual(response.headers["cache-control"], "no-store")
+        self.join(host)
+        self.join(host, "Third")
+        self.assertEqual(self.client.get(path).json()["members"], 3)
+        self.assertEqual(self.client.get('/api/sessions/XXXXXXXX/invite').status_code, 404)
+        self.assertEqual(self.client.get('/api/sessions/' + host["code"]).status_code, 401)
+
+    def age_member(self, room, member, seconds):
+        import time
+        with closing(sqlite3.connect(self.database)) as db, db:
+            members = json.loads(db.execute("SELECT members FROM rooms WHERE code=?", (room["code"],)).fetchone()[0])
+            for person in members:
+                if person["id"] == member["you"]:
+                    person["seen"] = time.time() - seconds
+            db.execute("UPDATE rooms SET members=? WHERE code=?", (json.dumps(members), room["code"]))
+
+    def test_disconnected_host_transfers_control_and_frees_seat(self):
+        host = self.create()
+        guest = self.join(host)
+        self.age_member(host, host, 61)
+        view = self.read(guest)
+        self.assertEqual(len(view["members"]), 1)
+        self.assertTrue(view["members"][0]["host"])
+        self.assertEqual(view["state"], guest["state"])
+        self.assertEqual(self.client.get('/api/sessions/' + host["code"], headers=self.auth(host)).status_code, 401)
+        replacement = self.join(host, "Replacement")
+        self.assertEqual(next(p["hunter"] for p in replacement["members"] if p["id"] == replacement["you"]), 0)
+
+    def test_reconnect_grace_and_empty_party_recovery(self):
+        host = self.create()
+        guest = self.join(host)
+        self.age_member(host, guest, 30)
+        self.assertEqual(len(self.read(host)["members"]), 2)
+        self.assertEqual(self.read(guest)["you"], guest["you"])
+        self.age_member(host, guest, 61)
+        self.age_member(host, host, 61)
+        preview = self.client.get(f'/api/sessions/{host["code"]}/invite').json()
+        self.assertEqual(preview["members"], 0)
+        replacement = self.join(host)
+        self.assertTrue(replacement["members"][0]["host"])
+
     def test_join_authentication_capacity_and_seat_reuse(self):
         host = self.create()
         guest = self.join(host)
