@@ -17,7 +17,8 @@
     if(!enabled||!options(weapon).length)return [{id:null,weight:1}];
     let choices=[{ids:[],weight:1}];
     for(const pool of ammoSlots(weapon)){
-      const values=[{id:null,weight:pool.options.length?0.15:1},...pool.options.map(id=>({id,weight:0.85/pool.options.length}))];
+      const weight=1/(pool.options.length+1);
+      const values=[{id:null,weight},...pool.options.map(id=>({id,weight}))];
       choices=choices.flatMap(c=>values.map(a=>({ids:[...c.ids,a.id],weight:c.weight*a.weight})));
     }
     return choices.map(c=>({id:c.ids.length===1?c.ids[0]:c.ids,weight:c.weight}));

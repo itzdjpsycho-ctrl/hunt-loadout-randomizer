@@ -6,7 +6,7 @@ Every weapon with listed purchasable custom ammo has a slot definition. Cached d
 
 Scarce/retired types (Dumdum, Explosive, Spitzer and Frag, plus Dolch FMJ) remain excluded. Weapons without purchasable custom options use their standard ammunition; melee weapons have no ammo to randomize. Players must confirm custom ammo unlocks.
 
-Each eligible ammo slot has 85% custom and 15% standard weight, with custom weight divided equally among compatible options. Legal combinations are filtered by the complete kit budget and selected by their product weights, without prioritizing either weapon. Tight budgets can therefore increase standard ammo frequency. Free ammo reroll controls are removed; item mulligans can redraw weapon ammunition.
+Each eligible ammo slot gives standard ammo and every compatible custom ammo type equal weight: 1 / (number of custom options + 1). Legal combinations are filtered by the complete kit budget and selected by their product weights, without prioritizing either weapon. Tight budgets can therefore increase standard ammo frequency. Free ammo reroll controls are removed; item mulligans can redraw weapon ammunition.
 
 Ammo stays attached to each weapon. Holds preserve all its choices and reserve their total cost. Equipment mulligans preserve both weapons' ammo unless a weapon is lost; weapon mulligans preserve the other weapon's ammo unless it is lost. Loadout mulligans redraw ammunition for unheld weapons and preserve ammunition on surviving held weapons. Validation rejects incompatible slot lengths, wrong-barrel ammo, disabled custom ammo and over-budget kits. Cards, copy/JSON export, favorites, history and shared rooms retain every ammo slot. Existing scalar ammo saves remain supported.
 

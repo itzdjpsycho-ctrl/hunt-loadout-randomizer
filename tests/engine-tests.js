@@ -4,6 +4,18 @@
   function assert(ok,msg='Assertion failed'){if(!ok)throw new Error(msg);}
   const profile=()=>({...E.defaults(),rank:100,unlocked:E.data.items.filter(i=>i.kind==='weapon'&&i.availability==='standard-candidate').map(i=>i.id)});
   const partial=ids=>[...ids,...Array(10-ids.length).fill(null)];
+  test('Standard and compatible custom ammo have equal chances per slot',()=>{
+    const p={...profile(),mode:'chaos',mulligan:true,customAmmo:true};
+    const slots=partial(['conversion']);
+    const ids=[null,...E.ammoSlots('conversion')[0].options];
+    const counts=new Map(ids.map(id=>[id,0]));
+    for(let n=0;n<1600;n++){
+      const ammo=E.selectAmmo(slots,p,'equal-ammo-'+n);
+      assert(counts.has(ammo[0]));counts.set(ammo[0],counts.get(ammo[0])+1);
+    }
+    for(const count of counts.values())assert(Math.abs(count/1600-1/ids.length)<.04,'Ammo frequency differs from equal odds');
+    assert(E.selectAmmo(slots,{...p,customAmmo:false},'disabled')[0]===null);
+  });
   test("Don't Own prefers family, falls back legally and preserves other slots",()=>{
     const p={...profile(),mode:'chaos',mulligan:true,singleRerolls:true,customAmmo:true};
     const build={slots:partial(['conversion',null,'first-aid-kit','knife']),locks:Array(10).fill(false),ammo:[null,null]};
@@ -150,7 +162,7 @@
     const r=E.rerollKit(p,'equipment-only',held,3);if(r.ok)assert(JSON.stringify(r.ammo)===JSON.stringify(held.ammo));
     p.budget=300;p.challenge='budget300';for(let n=0;n<10;n++){const result=E.generateKit(p,'ammo-budget'+n,build);assert(result.ok);assert(result.cost<=300);}
   });
-  test('Custom ammo is favored without first-weapon budget priority',()=>{
+  test('Legal ammo combinations have equal chances without first-weapon budget priority',()=>{
     const p={...profile(),acquisition:'purchase',customAmmo:true,mode:'chaos',mulligan:true};
     const slots=partial(['conversion','conversion']);
     p.budget=E.validate(slots,p,false).cost+50;
@@ -161,7 +173,7 @@
       counts.set(key,(counts.get(key)||0)+1);
     }
     assert(counts.size===3,'Expected standard/standard and custom on either weapon');
-    const regular=counts.get('[null,null]');assert(regular>60&&regular<180,'Regular ammo rate is incorrect');
+    const regular=counts.get('[null,null]');assert(regular>400&&regular<600,'Regular ammo rate is incorrect');
     const left=counts.get('["fmj-ammo",null]'),right=counts.get('[null,"fmj-ammo"]');assert(Math.abs(left-right)<150,'Ammo favors one weapon');
     p.budget=null;
     assert(JSON.stringify(E.selectAmmo(slots,p,'held',['fmj-ammo',null],[true,true]))===JSON.stringify(['fmj-ammo',null]));
@@ -176,7 +188,9 @@
       assert(!ammo[1][0]||E.ammoSlots('lemat')[0].options.includes(ammo[1][0]));
       assert(!ammo[1][1]||E.ammoSlots('lemat')[1].options.includes(ammo[1][1]));
     }
-    assert(first>800&&first<900&&second>800&&second<900&&mixed>400);
+    const pools=E.ammoSlots('sparks');
+    const expected=pools.map(pool=>1000*pool.options.length/(pool.options.length+1));
+    assert(Math.abs(first-expected[0])<60&&Math.abs(second-expected[1])<60&&mixed>400);
     assert(E.ammoOption('sparks',['fmj-ammo','poison-ammo']).cost===60);
     assert(!E.ammoOption('lemat',['slug','fmj-ammo']));
     assert(!E.ammoOption('sparks',['fmj-ammo']));
