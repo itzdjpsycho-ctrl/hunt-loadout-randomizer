@@ -46,7 +46,8 @@
     return weighted(candidates,seed+':ammo')?.ammo||preserved.map((id,i)=>keep[i]?id:null);
   }
   function generateKit(p,seed,build,blocked=null){
-    p={...p,mulligan:!!blocked};
+    const basicSlots = blocked ? Object.fromEntries(build.slots.flatMap((id,index) => id === 'first-aid-kit' ? [[index,'healing']] : index >= 2 && E.byId.get(id)?.melee ? [[index,'melee']] : [])) : null;
+    p={...p,mulligan:!!blocked,basicSlots};
     const keep=build.locks.slice(0,2),ammo=build.ammo||[null,null];
     const heldCost=ammo.reduce((sum,id,n)=>sum+(keep[n]?(ammoOption(build.slots[n],id)?.cost||0):0),0);
     const limit=p.challenge==='budget300'?Math.min(p.budget??300,300):p.budget;
@@ -75,13 +76,14 @@
     const similar=family?rerollKit(p,seed,build,index,item=>item.family===family):null;
     return similar?.ok?similar:rerollKit(p,seed,build,index);
   }
+  const removalWeight=(id,index)=>index<2?1:id==='first-aid-kit'||E.byId.get(id)?.melee?8:10;
   function mulliganKit(p,seed,build,index){
     if(!Number.isInteger(index)||index<0||index>=10||!build.slots[index]||build.locks[index])return {ok:false,errors:['Choose an occupied, unheld item for a mulligan.']};
     const current=validateKit(build.slots,p,build.ammo);
     if(!current.valid)return {ok:false,errors:current.errors};
     const result=rerollKit({...p,mulligan:true},seed,build,index);
     if(!result.ok)return result;
-    const candidates=result.slots.map((id,n)=>({id,index:n,weight:n<2?1:10})).filter(c=>c.id);
+    const candidates=result.slots.map((id,n)=>({id,index:n,weight:removalWeight(id,n)})).filter(c=>c.id);
     let draw=random(seed+':mulligan-loss')()*candidates.reduce((sum,c)=>sum+c.weight,0);
     const removed=candidates.find(c=>(draw-=c.weight)<0)||candidates[candidates.length-1];
     result.slots[removed.index]=null;
@@ -99,7 +101,7 @@
     if(!result.ok)return result;
     const rng=random(seed+':loadout-mulligan-loss'),removed=[],locks=build.locks.slice();
     for(let n=0;n<loss;n++){
-      const candidates=result.slots.map((id,index)=>({id,index,weight:index<2?1:10})).filter(c=>c.id);
+      const candidates=result.slots.map((id,index)=>({id,index,weight:removalWeight(id,index)})).filter(c=>c.id);
       let draw=rng()*candidates.reduce((sum,c)=>sum+c.weight,0);
       const item=candidates.find(c=>(draw-=c.weight)<0)||candidates.at(-1);
       result.slots[item.index]=null;locks[item.index]=false;

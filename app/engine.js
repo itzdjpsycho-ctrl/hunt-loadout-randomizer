@@ -93,8 +93,8 @@
       if (!slots[0] && !slots[1]) result.errors.push('Choose at least one weapon.');
       if (result.equipmentCount !== 8) result.errors.push('Fill all eight equipment slots to complete this contract.');
       if (needsBasics(p)) {
-        if (!slots.includes('first-aid-kit')) result.errors.push('Playable mode requires a First Aid Kit.');
-        if (!slots.some(id => byId.get(id)?.melee)) result.errors.push('Playable mode requires a melee option.');
+        if (!slots.includes('first-aid-kit')) result.errors.push('Every loadout requires a First Aid Kit.');
+        if (!slots.some(id => byId.get(id)?.kind === 'tool' && byId.get(id)?.melee)) result.errors.push('Every loadout requires a melee tool.');
       }
       if (p.challenge==='bows' && !slots.includes('hunting-bow')) result.errors.push('The bow challenge requires a Hunting Bow on every hunter.');
     }
@@ -106,7 +106,7 @@
     return () => {state += 0x6D2B79F5; let t = Math.imul(state ^ state >>> 15, 1 | state); t ^= t + Math.imul(t ^ t >>> 7, 61 | t); return ((t ^ t >>> 14) >>> 0) / 4294967296;};
   }
   function activeSynergies(item, p) { return item.synergies.filter(id => p.traits.includes(id)); }
-  const needsBasics=p=>p.mode==='playable'||(p.mode==='crazy'&&p.intensity==='mild');
+  const needsBasics=()=>true;
   const spendLimit=p=>p.challenge==='budget300'?Math.min(p.budget??300,300):p.budget;
   function primaryFits(item,p){
     if(!item)return false;
@@ -161,13 +161,16 @@
       const state = measure(slots, p);
       if (state.errors.length) return null;
       let index = slots.findIndex((id, n) => n < 2 && !id && !blocked[n] && !(allowEmptySecondary && n === 1));
+      if (index === -1) index = slots.findIndex((id, n) => n >= 2 && !id && !blocked[n] && p.basicSlots?.[n]);
       if (index === -1) index = slots.findIndex((id, n) => n >= 2 && !id && !blocked[n]);
       if (index === -1) return validate(slots, p).valid ? slots.slice() : null;
       let pool = index < 2 ? weaponPool : equipmentPool;
       if(index===0)pool=pool.filter(item=>primaryFits(item,p));
+      if (p.basicSlots?.[index] === 'healing') pool = pool.filter(item => item.id === 'first-aid-kit');
+      if (p.basicSlots?.[index] === 'melee') pool = pool.filter(item => item.kind === 'tool' && item.melee);
       if (index >= 2 && needsBasics(p) && !p.mulligan) {
         if (!slots.includes('first-aid-kit')) pool = pool.filter(i => i.id === 'first-aid-kit');
-        else if (!slots.some(id => byId.get(id)?.melee)) pool = pool.filter(i => i.melee);
+        else if (!slots.some(id => byId.get(id)?.kind === 'tool' && byId.get(id)?.melee)) pool = pool.filter(i => i.kind === 'tool' && i.melee);
       }
       pool = pool.filter(item => {
         if (item.kind === 'weapon' && state.usedCapacity + item.capacity > capacity(p)) return false;

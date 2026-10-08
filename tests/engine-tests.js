@@ -4,6 +4,24 @@
   function assert(ok,msg='Assertion failed'){if(!ok)throw new Error(msg);}
   const profile=()=>({...E.defaults(),rank:100,unlocked:E.data.items.filter(i=>i.kind==='weapon'&&i.availability==='standard-candidate').map(i=>i.id)});
   const partial=ids=>[...ids,...Array(10-ids.length).fill(null)];
+  test('Every mode deals first aid and a random melee tool; loadout mulligans preserve their slots until lost',()=>{
+    const melee=new Set(),losses=new Set();
+    for(const mode of ['playable','chaos','crazy'])for(let n=0;n<80;n++){
+      const p={...profile(),mode,intensity:'cursed'};
+      const b={...E.generateKit(p,'basics-'+mode+n,{slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]}),locks:Array(10).fill(false)};
+      assert(b.ok,JSON.stringify(b.errors));
+      const healing=b.slots.indexOf('first-aid-kit'),tool=b.slots.findIndex(id=>E.byId.get(id)?.kind==='tool'&&E.byId.get(id)?.melee);
+      assert(healing>=2&&tool>=2,'Missing defaults');melee.add(b.slots[tool]);
+      const r=E.loadoutMulligan(p,'basics-redraw-'+mode+n,b);assert(r.ok,JSON.stringify(r.errors));
+      assert(r.slots[healing]===null||r.slots[healing]==='first-aid-kit');
+      assert(r.slots[tool]===null||E.byId.get(r.slots[tool])?.kind==='tool'&&E.byId.get(r.slots[tool])?.melee);
+      if(r.removed.some(x=>x.index===healing))losses.add('healing');
+      if(r.removed.some(x=>x.index===tool))losses.add('melee');
+      const next=E.loadoutMulligan({...p,mulligan:true},'basics-again-'+mode+n,r);assert(next.ok,JSON.stringify(next.errors));
+      assert(r.slots.every((id,i)=>id||!next.slots[i]));
+    }
+    assert(melee.size>1&&losses.size===2,'Diversity/losses: '+melee.size+'/'+[...losses]);
+  });
   test('Standard and compatible custom ammo have equal chances per slot',()=>{
     const p={...profile(),mode:'chaos',mulligan:true,customAmmo:true};
     const slots=partial(['conversion']);
@@ -126,7 +144,7 @@
       if(result.ok){assert(result.slots[n]!==hand[n]);assert(result.slots.every((id,i)=>i===n||id===hand[i]));assert(E.validate(result.slots,p).valid);}
       assert(JSON.stringify(hand)===original);
     }
-    const result=E.rerollSlot(p,'repeat',hand,2);assert(result.ok);assert(JSON.stringify(result.slots)===JSON.stringify(E.rerollSlot(p,'repeat',hand,2).slots));
+    const result=E.rerollSlot(p,'repeat',hand,3);assert(result.ok);assert(JSON.stringify(result.slots)===JSON.stringify(E.rerollSlot(p,'repeat',hand,3).slots));
   });
   test('Playable medkit cannot be replaced if no legal alternative exists',()=>{
     const p=profile(),hand=E.generate(p,'keep-kit').slots;const index=hand.indexOf('first-aid-kit');
