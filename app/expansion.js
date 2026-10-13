@@ -74,7 +74,13 @@
     if(![0,1].includes(index)||!build.slots[index]||build.locks[index])return {ok:false,errors:['Choose an occupied, unheld weapon.']};
     const family=E.byId.get(build.slots[index])?.family;
     const similar=family?rerollKit(p,seed,build,index,item=>item.family===family):null;
-    return similar?.ok?similar:rerollKit(p,seed,build,index);
+    const replacement=similar?.ok?similar:rerollKit(p,seed,build,index);
+    // Only a capacity-five hand with a Travelling Light secondary may gain a weapon.
+    if(replacement.ok&&index===0&&!build.slots[1]&&!build.mulligan&&!build.locks[1]&&E.capacity(p)===5&&E.byId.get(build.slots[0])?.capacity===5&&replacement.usedCapacity<=4){
+      const secondary=rerollKit(p,seed+':travelling-light',{...build,slots:replacement.slots,ammo:replacement.ammo},1);
+      if(secondary.ok)return secondary;
+    }
+    return replacement;
   }
   const removalWeight=(id,index)=>index<2?1:id==='first-aid-kit'||E.byId.get(id)?.melee?8:10;
   function mulliganKit(p,seed,build,index){

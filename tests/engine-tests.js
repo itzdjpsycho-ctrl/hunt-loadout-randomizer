@@ -50,6 +50,28 @@
     assert(!E.dontOwnWeapon(p,'equipment',build,2).ok);
     assert(!E.dontOwnWeapon({...p,budget:150,excluded:E.data.items.filter(i=>i.kind==='weapon'&&(i.baseId||i.id)!=='conversion').map(i=>i.id)},'impossible',build,0).ok);
   });
+  test("Don't Own fills only a capacity-five Travelling Light secondary",()=>{
+    const p={...profile(),mode:'chaos',singleRerolls:true};
+    const large=E.data.items.find(i=>i.kind==='weapon'&&i.capacity===5&&E.acquisition(i,p));
+    assert(large,'Missing size-five fixture');
+    const dealt=E.generateKit(p,'light-fixture',{slots:partial([large.id]),locks:[true,...Array(9).fill(false)],ammo:[null,null]});
+    assert(dealt.ok,JSON.stringify(dealt.errors));
+    const build={...dealt,locks:Array(10).fill(false)};
+    let filled=0;
+    for(let n=0;n<80;n++){
+      const r=E.dontOwnWeapon(p,'light-'+n,build,0);assert(r.ok,JSON.stringify(r.errors));
+      if(E.byId.get(r.slots[0]).capacity<=4){assert(r.slots[1],'Secondary should roll');filled++;}
+      else assert(!r.slots[1]);
+      assert(E.validateKit(r.slots,p,r.ammo).valid);
+      assert(JSON.stringify(r.slots.slice(2))===JSON.stringify(build.slots.slice(2)));
+      const lost=E.dontOwnWeapon({...p,mulligan:true},'light-'+n,{...build,mulligan:true},0);
+      assert(lost.ok&&!lost.slots[1],'Mulligan losses must stay empty');
+    }
+    assert(filled>0);
+    const small={...build,slots:['conversion',null,...build.slots.slice(2)]};
+    assert(!E.dontOwnWeapon(p,'small-light',small,0).slots[1]);
+    assert(!E.dontOwnWeapon({...p,traits:['quartermaster']},'six-light',build,0).slots[1]);
+  });
   test('Two melee tools allowed; third including throwing tools rejected',()=>{
     const p=profile();
     assert(E.validate(partial(['baseball-bat',null,'knife','throwing-axes']),p,false).valid);

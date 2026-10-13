@@ -271,8 +271,9 @@
     const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:dont-own-${index+1}:${rollNumber+1}`;
     const result=E.dontOwnWeapon(teammateProfile(hunter),seed,build,index);
     if(!result.ok){toast(result.errors.join(' '));return;}
+    const previousSecondary=build.slots[1];
     Object.assign(build,{slots:result.slots,ammo:result.ammo,lastSeed:seed});
-    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter,index);
+    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(null,null,[{hunter,slots:result.slots.flatMap((id,n)=>n===index||n===1&&result.slots[1]&&!previousSecondary?[n]:[])}]);
     document.querySelector(`[data-dont-own="${index}"][data-hunter="${hunter}"]`)?.focus({preventScroll:true});
   }
   function mulliganOne(hunter,index){
