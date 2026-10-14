@@ -145,7 +145,7 @@
     const lockedCheck = validate(base, p, false);
     if (!lockedCheck.valid) return {ok: false, errors: ['A locked item no longer fits these settings.', ...lockedCheck.errors]};
     const rng = randomFromSeed(seed);
-    const weaponPool = data.items.filter(i => i.kind === 'weapon' && acquisition(i, p));
+    const weaponPool = data.items.filter(i => i.kind === 'weapon' && !p.unownedWeapons?.includes(i.baseId || i.id) && acquisition(i, p));
     const equipmentPool = data.items.filter(i => i.kind !== 'weapon' && acquisition(i, p));
     if (!weaponPool.length) return {ok: false, errors: ['Confirm at least one weapon in My Arsenal, or enter an owned weapon quantity.']};
     if (!equipmentPool.length) return {ok: false, errors: ['No equipment is available. Check your Bloodline rank, exclusions, or owned quantities.']};
@@ -217,7 +217,7 @@
     const current = validate(slots,p);
     if (!current.valid) return {ok:false,errors:['Deal a valid loadout before rerolling a slot.',...current.errors]};
     const rng = randomFromSeed(seed);
-    const candidates = data.items.filter(item => (index < 2) === (item.kind === 'weapon') && item.id !== slots[index] && candidateFilter(item))
+    const candidates = data.items.filter(item => (index < 2) === (item.kind === 'weapon') && item.id !== slots[index] && !(item.kind === 'weapon' && p.unownedWeapons?.includes(item.baseId || item.id)) && candidateFilter(item))
       .map(item => {
         const next=slots.slice();next[index]=item.id;
         return {item,slots:next,validation:validate(next,p)};

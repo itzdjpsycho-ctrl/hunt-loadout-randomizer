@@ -72,6 +72,7 @@
   function dontOwnWeapon(p,seed,build,index){
     if(!p.singleRerolls)return {ok:false,errors:['Enable single weapon rerolls in Squad options first.']};
     if(![0,1].includes(index)||!build.slots[index]||build.locks[index])return {ok:false,errors:['Choose an occupied, unheld weapon.']};
+    p={...p,unownedWeapons:[...new Set([...(p.unownedWeapons||[]),...(build.unownedWeapons||[]),E.byId.get(build.slots[index])?.baseId||build.slots[index]])]};
     const family=E.byId.get(build.slots[index])?.family;
     const similar=family?rerollKit(p,seed,build,index,item=>item.family===family):null;
     const replacement=similar?.ok?similar:rerollKit(p,seed,build,index);

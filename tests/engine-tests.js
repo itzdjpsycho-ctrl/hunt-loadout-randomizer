@@ -50,6 +50,18 @@
     assert(!E.dontOwnWeapon(p,'equipment',build,2).ok);
     assert(!E.dontOwnWeapon({...p,budget:150,excluded:E.data.items.filter(i=>i.kind==='weapon'&&(i.baseId||i.id)!=='conversion').map(i=>i.id)},'impossible',build,0).ok);
   });
+  test("Don't Own remembers rejected weapons across rerolls and mulligans",()=>{
+    const p={...profile(),mode:'chaos',mulligan:true,singleRerolls:true};
+    const build={slots:partial(['conversion',null,'first-aid-kit','knife']),locks:Array(10).fill(false),ammo:[null,null],unownedWeapons:['conversion-chain-pistol']};
+    const result=E.dontOwnWeapon(p,'remember-unowned',build,0);
+    assert(result.ok);
+    assert(!['conversion','conversion-chain-pistol'].includes(E.byId.get(result.slots[0]).baseId||result.slots[0]));
+    assert(!E.rerollKit({...p,unownedWeapons:['conversion-chain-pistol']},'blocked',build,0,item=>(item.baseId||item.id)==='conversion-chain-pistol').ok);
+    const blocked=E.data.items.filter(i=>i.kind==='weapon').map(i=>i.baseId||i.id);
+    assert(!E.generateKit({...p,unownedWeapons:blocked},'no-pool',build).ok);
+    assert(E.generateKit(p,'fresh-pool',build).ok);
+    assert(build.unownedWeapons.length===1&&build.slots[0]==='conversion');
+  });
   test("Don't Own fills only a capacity-five Travelling Light secondary",()=>{
     const p={...profile(),mode:'chaos',singleRerolls:true};
     const large=E.data.items.find(i=>i.kind==='weapon'&&i.capacity===5&&E.acquisition(i,p));
