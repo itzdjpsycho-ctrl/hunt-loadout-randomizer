@@ -56,6 +56,7 @@ class Build(Model):
     ammo: list[Identifier | None | Annotated[list[Identifier | None], Field(min_length=1, max_length=2)]] = Field(min_length=2, max_length=2)
     mulligan: bool = False
     loadoutMulligans: int = Field(default=0, ge=0, le=10)
+    unownedWeapons: Ids = Field(default_factory=list)
 
 
 class Squad(Model):
@@ -116,6 +117,8 @@ class Rooms:
             if not set(traits) <= self.traits or len(set(traits)) != len(traits):
                 raise HTTPException(422, "Invalid hunter traits.")
         for build in state.builds:
+            if not set(build.unownedWeapons) <= self.items:
+                raise HTTPException(422, "Unknown equipment in unowned weapons.")
             if any(item is not None and item not in self.items for item in build.slots):
                 raise HTTPException(422, "Unknown equipment in loadout.")
             if any(held and not item for held, item in zip(build.locks, build.slots)):
@@ -139,6 +142,7 @@ class Rooms:
         state["profile"].setdefault("singleRerolls", False)
         for build in state["builds"]:
             build.setdefault("loadoutMulligans", 0)
+            build.setdefault("unownedWeapons", [])
         return {**dict(row), "state": state, "members": json.loads(row["members"]), "activity": json.loads(row["activity"])}
 
     def write(self, db, room):

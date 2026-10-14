@@ -202,6 +202,26 @@ class SessionTests(unittest.TestCase):
             invalid["builds"][1]["loadoutMulligans"] = count
             self.assertEqual(self.put(guest, invalid, response.json()["revision"]).status_code, 422)
 
+    def test_unowned_weapons_sync_and_legacy_defaults(self):
+        host = self.create()
+        self.assertTrue(all(b["unownedWeapons"] == [] for b in host["state"]["builds"]))
+        with closing(sqlite3.connect(self.database)) as db, db:
+            legacy = copy.deepcopy(host["state"])
+            for build in legacy["builds"]:
+                del build["unownedWeapons"]
+            db.execute("UPDATE rooms SET state=? WHERE code=?", (json.dumps(legacy), host["code"]))
+        guest = self.join(host)
+        state = copy.deepcopy(guest["state"])
+        state["builds"][1]["unownedWeapons"] = ["conversion", "conversion-chain-pistol"]
+        response = self.put(guest, state, guest["revision"])
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(self.read(host)["state"]["builds"][1]["unownedWeapons"], state["builds"][1]["unownedWeapons"])
+        invalid = copy.deepcopy(state)
+        invalid["builds"][1]["unownedWeapons"] = ["unknown"]
+        self.assertEqual(self.put(guest, invalid, response.json()["revision"]).status_code, 422)
+        state["builds"][1]["unownedWeapons"] = []
+        self.assertEqual(self.put(guest, state, response.json()["revision"]).status_code, 200)
+
     def test_schema_catalog_size_and_expiry(self):
         host = self.create()
         for field, value in (("slots", ["unknown"] * 10), ("slots", []), ("ammo", ["unknown", None]), ("traits", ["unknown"]), ("rank", 0)):
