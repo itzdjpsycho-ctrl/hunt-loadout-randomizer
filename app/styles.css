@@ -121,3 +121,11 @@ h1,h2,.brand,.weapon-card h3,.ledger b,.panel-title h2{font-family:'Segoe UI',Ar
 html[data-standalone] .room-activity{display:none}.room-activity{background:#111a26;border:1px solid #40516a;border-radius:6px;padding:12px;margin-top:10px;min-height:130px}.room-activity h3{font-size:15px}.room-activity ol{max-height:260px}@media(min-width:881px){html:not([data-standalone]) .hunter-panel .panel-title{margin-bottom:10px}html:not([data-standalone]) .hunter-panel .quick-trait{padding:5px;min-height:25px}html:not([data-standalone]) .hunter-panel .qm-toggle{padding:6px}html:not([data-standalone]) .hunter-panel .panel-divider{margin:7px 0}}
 
 .hunter-actions [data-loadout-mulligan]{white-space:normal;line-height:1.25;color:#efad8a;max-width:155px}.hunter-actions{flex-wrap:wrap}.hunter-actions select{min-width:65px}
+
+/* Keep rolled special ammunition readable in every squad and viewport size. */
+.weapon-card .special-ammo{grid-column:1/-1;min-width:0;margin-top:7px;padding:8px 10px;border:1px solid #b88b4e;border-left:3px solid #efba70;border-radius:4px;background:#372b1d;color:#ffe0ad;line-height:1.35}
+.special-ammo-label{display:block;margin-bottom:3px;color:#efba70;font-size:9px;font-weight:700;letter-spacing:1.3px}
+.special-ammo strong{display:block;font-size:14px;font-weight:700;overflow-wrap:anywhere}
+.special-ammo-choice{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}
+.special-ammo-choice+ .special-ammo-choice{margin-top:5px;padding-top:5px;border-top:1px solid #b88b4e55}
+.special-ammo-choice>span{color:#e0c69f;font-size:11px}
