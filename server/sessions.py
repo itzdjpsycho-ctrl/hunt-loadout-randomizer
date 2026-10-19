@@ -37,7 +37,7 @@ class Profile(Model):
     theme: Literal["anything", "cowboy", "quiet", "close", "traps"]
     intensity: Literal["mild", "unhinged", "cursed"]
     challenge: Literal["none", "no-scopes", "bows", "budget300"]
-    role: Literal["any", "sniper", "close", "support"]
+    role: Literal["any", "sniper", "close", "support", "shotgun-gamer"]
     customAmmo: bool
     uniqueWeapons: bool
     revealAnimation: bool
@@ -52,7 +52,7 @@ class Build(Model):
     name: str = Field(max_length=32)
     rank: int = Field(ge=1, le=100)
     traits: Traits
-    role: Literal["any", "sniper", "close", "support"]
+    role: Literal["any", "sniper", "close", "support", "shotgun-gamer"]
     ammo: list[Identifier | None | Annotated[list[Identifier | None], Field(min_length=1, max_length=2)]] = Field(min_length=2, max_length=2)
     mulligan: bool = False
     loadoutMulligans: int = Field(default=0, ge=0, le=10)

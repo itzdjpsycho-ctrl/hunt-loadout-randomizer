@@ -19,7 +19,7 @@
     if (!['anything', 'cowboy', 'quiet', 'close', 'traps'].includes(p.theme)) errors.push('Choose a supported flavor.');
     if (!['mild','unhinged','cursed'].includes(p.intensity||'unhinged')) errors.push('Choose a chaos intensity.');
     if (!['none','no-scopes','bows','budget300'].includes(p.challenge||'none')) errors.push('Choose a squad challenge.');
-    if (!['any','sniper','close','support'].includes(p.role||'any')) errors.push('Choose a hunter role.');
+    if (!['any','sniper','close','support','shotgun-gamer'].includes(p.role||'any')) errors.push('Choose a hunter role.');
     if (!Array.isArray(p.traits) || p.traits.some(t => !traitById.has(t)) || new Set(p.traits).size !== p.traits.length || p.traits.length > 15) errors.push('Select up to 15 distinct equipped traits.');
     if (!Array.isArray(p.unlocked) || !Array.isArray(p.excluded) || !p.owned || typeof p.owned !== 'object') errors.push('Your arsenal settings need to be reset.');
     else if (Object.values(p.owned).some(n => !Number.isInteger(n) || n < 0 || n > 99)) errors.push('Owned quantities must be whole numbers from 0 to 99.');
@@ -113,6 +113,7 @@
     if(p.challenge==='bows' && item.id!=='hunting-bow')return false;
     if(p.role==='sniper')return /sniper|marksman|deadeye|bullseye|sharpeye/.test(item.id);
     if(p.role==='close')return item.ammo==='Shells'||item.ammo===null;
+    if(p.role==='shotgun-gamer')return item.kind==='weapon'&&item.id!=='derringer-pennyshot'&&item.usesShells;
     return true;
   }
   function weight(item, p, slots) {

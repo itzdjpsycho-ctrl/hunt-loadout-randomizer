@@ -196,6 +196,24 @@
     for(const challenge of ['no-scopes','bows','budget300']){p.challenge=challenge;for(let n=0;n<12;n++){const result=E.generate(p,'challenge-'+challenge+n);assert(result.ok,JSON.stringify(result.errors));assert(E.validate(result.slots,p).valid);if(challenge==='bows')assert(result.slots[0]==='hunting-bow');if(challenge==='budget300')assert(result.cost<=300);if(challenge==='no-scopes')assert(result.slots.every(id=>!id||!/sniper|marksman|deadeye|bullseye|sharpeye/.test(id)));}}
     p.challenge='no-scopes';p.role='sniper';assert(!E.generate(p,'conflict').ok);
   });
+  test('Shotgun Gamer guarantees Shell weapons including hybrid pistols',()=>{
+    const p={...profile(),role:'shotgun-gamer'};
+    for(const id of ['lemat','dual-lemat','haymaker','lemat-carbine','lemat-carbine-marksman','drilling','drilling-shorty','drilling-hatchet','romero-77','rival-78']){
+      assert(E.validate(partial([id]),p,false).valid,'Should qualify: '+id);
+      const result=E.generate(p,'shell-only-'+id,partial([id]));
+      assert(result.ok,'Held Shell weapon should generate: '+id);
+    }
+    for(const id of ['conversion','baseball-bat','derringer-pennyshot'])assert(!E.validate(partial([id]),p,false).valid,'Should not qualify: '+id);
+    assert(!E.validate(partial(['conversion',null,'derringer-pennyshot']),p,false).valid,'Pennyshot tool cannot satisfy role');
+    for(const mode of ['playable','chaos','crazy'])for(let n=0;n<30;n++){
+      const result=E.generateKit({...p,mode,customAmmo:true},'shotgun-'+mode+n,{slots:partial([]),locks:Array(10).fill(false),ammo:[null,null]});
+      assert(result.ok,JSON.stringify(result.errors));
+      assert(E.byId.get(result.slots[0]).usesShells,'Missing Shell weapon');
+    }
+    assert(!E.generate({...p,challenge:'bows'},'shotgun-bow-conflict').ok);
+    const excluded=E.data.items.filter(i=>i.usesShells).map(i=>i.id);
+    assert(!E.generate({...p,excluded},'shotgun-banned').ok,'Must fail when all Shell weapons are banned');
+  });
   test('Roles guarantee suitable primary weapons',()=>{const p=profile();for(const role of ['sniper','close','support']){p.role=role;const result=E.generate(p,'role-'+role);assert(result.ok);const primary=E.byId.get(result.slots[0]);if(role==='sniper')assert(/sniper|marksman|deadeye|bullseye|sharpeye/.test(primary.id));if(role==='close')assert(primary.ammo==='Shells'||primary.ammo===null);}});
   test('Mild chaos keeps essentials and Cursed remains legal',()=>{const p=profile();p.mode='crazy';for(const intensity of ['mild','unhinged','cursed']){p.intensity=intensity;for(let n=0;n<20;n++){const r=E.generate(p,intensity+n);assert(r.ok);assert(E.validate(r.slots,p).valid);if(intensity==='mild')assert(r.slots.includes('first-aid-kit')&&r.slots.some(id=>E.byId.get(id)?.melee));}}});
   test('Item bans apply to rolls, held items and slot rerolls',()=>{const p=profile();const r=E.generate(p,'ban-start');p.excluded=[r.slots[0]];const next=E.generate(p,'ban-next');assert(next.ok&&!next.slots.includes(p.excluded[0]));assert(!E.generate(p,'ban-held',r.slots).ok);assert(!E.rerollSlot(p,'ban-slot',r.slots,2).ok);});

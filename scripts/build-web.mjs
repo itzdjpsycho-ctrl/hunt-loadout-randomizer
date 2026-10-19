@@ -31,7 +31,7 @@ const items = await Promise.all(catalog.items.map(async item => {
   if (item.id === 'throwing-spear') synergies = synergies.filter(id => id !== 'assailant');
   return {
     id: item.id, name: item.name, kind: item.kind, family: item.family,
-    capacity: item.capacity, ammo: item.ammoType, price: item.priceHuntDollars,
+    capacity: item.capacity, ammo: item.ammoType, usesShells: item.kind === 'weapon' && item.id !== 'derringer-pennyshot' && (item.ammoType === 'Shells' || item.wikiCategories.includes('Shells Ammo')), price: item.priceHuntDollars,
     availability: item.availability, category: item.consumableLimitCategory,
     group: item.group, melee, limitedTool,
     synergies: [...new Set(synergies.filter(id => traitIds.has(id) && id !== 'quartermaster'))].sort(),

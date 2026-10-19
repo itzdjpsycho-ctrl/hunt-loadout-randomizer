@@ -20,6 +20,14 @@ def squad():
 
 
 class SessionTests(unittest.TestCase):
+    def test_shotgun_gamer_role_round_trips(self):
+        state = squad()
+        state['profile']['role'] = 'shotgun-gamer'
+        state['builds'][0]['role'] = 'shotgun-gamer'
+        room = self.create(state=state)
+        self.assertEqual(room['state']['builds'][0]['role'], 'shotgun-gamer')
+        self.assertEqual(room['state']['profile']['role'], 'shotgun-gamer')
+
     def setUp(self):
         artifacts = SITE.parent / "artifacts"
         artifacts.mkdir(exist_ok=True)
