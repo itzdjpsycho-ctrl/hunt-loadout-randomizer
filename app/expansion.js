@@ -83,6 +83,14 @@
     }
     return replacement;
   }
+  function dontOwnTarot(p,seed,build,index){
+    if(!p.singleRerolls)return {ok:false,errors:["Enable Don't Own rerolls in Squad options first."]};
+    if(!Number.isInteger(index)||index<2||index>=10||E.byId.get(build.slots[index])?.category!=='tarot-cards'||build.locks[index])return {ok:false,errors:['Choose an occupied, unheld Tarot card.']};
+    const unownedTarot=[...new Set([...(p.unownedTarot||[]),...(build.unownedTarot||[]),build.slots[index]])];
+    const tarot=rerollKit({...p,unownedTarot},seed,build,index,item=>item.category==='tarot-cards');
+    const result=tarot.ok?tarot:rerollKit({...p,unownedTarot},seed,build,index);
+    return result.ok?{...result,unownedTarot}:result;
+  }
   const removalWeight=(id,index)=>index<2?1:id==='first-aid-kit'||E.byId.get(id)?.melee?8:10;
   function mulliganKit(p,seed,build,index){
     if(!Number.isInteger(index)||index<0||index>=10||!build.slots[index]||build.locks[index])return {ok:false,errors:['Choose an occupied, unheld item for a mulligan.']};
@@ -138,5 +146,5 @@
     return {ok:false,errors:unique?['No squad with distinct teammate weapons was found. Adjust roles, bans or holds.',...errors]:errors};
   }
   function rouletteOrder(seed){return ['no-scopes','bows','budget300'].map(id=>({id,key:random(seed+':'+id)()})).sort((a,b)=>a.key-b.key).map(x=>x.id);}
-  Object.assign(E,{selectAmmo,ammoSlots,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,dontOwnWeapon,mulliganKit,loadoutMulligan,uniqueWeapons,generateSquad,rouletteOrder});
+  Object.assign(E,{selectAmmo,ammoSlots,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,dontOwnWeapon,dontOwnTarot,mulliganKit,loadoutMulligan,uniqueWeapons,generateSquad,rouletteOrder});
 })();

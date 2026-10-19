@@ -7,7 +7,7 @@
   const eligibleWeapon = item => item.kind==='weapon' && !restricted(item) && ['standard-candidate','event-unlock-required'].includes(item.availability);
   function defaults() {
     return {rank: 1, budget: null, acquisition: 'mixed', mode: 'playable', team: 'solo',
-      traits: [], unlocked: [], owned: {}, excluded: [], preferTraits: true, theme: 'anything', intensity:'unhinged', challenge:'none', role:'any', customAmmo:false,uniqueWeapons:false,revealAnimation:true,singleRerolls:false};
+      traits: [], unlocked: [], owned: {}, excluded: [], preferTraits: true, theme: 'anything', intensity:'unhinged', challenge:'none', role:'any', customAmmo:true,uniqueWeapons:false,revealAnimation:true,singleRerolls:true};
   }
   function profileErrors(p) {
     const errors = [];
@@ -117,6 +117,8 @@
     return true;
   }
   function weight(item, p, slots) {
+    // Keep Wild Cards rare in every mode, independent of theme and intensity.
+    if (item.choice && item.choice !== 'tarot') return 0.1;
     const support=p.role==='support'&&/first-aid|medical|ammo-box|choke|vitality|regeneration/.test(item.id)?5:1;
     if (p.mode === 'crazy') {
       // Ignore comfort preferences and favour eccentric weapons and utility gear.
@@ -147,7 +149,7 @@
     if (!lockedCheck.valid) return {ok: false, errors: ['A locked item no longer fits these settings.', ...lockedCheck.errors]};
     const rng = randomFromSeed(seed);
     const weaponPool = data.items.filter(i => i.kind === 'weapon' && !p.unownedWeapons?.includes(i.baseId || i.id) && acquisition(i, p));
-    const equipmentPool = data.items.filter(i => i.kind !== 'weapon' && acquisition(i, p));
+    const equipmentPool = data.items.filter(i => i.kind !== 'weapon' && !p.unownedTarot?.includes(i.id) && acquisition(i, p));
     if (!weaponPool.length) return {ok: false, errors: ['Confirm at least one weapon in My Arsenal, or enter an owned weapon quantity.']};
     if (!equipmentPool.length) return {ok: false, errors: ['No equipment is available. Check your Bloodline rank, exclusions, or owned quantities.']};
     const familyCounts = {};
@@ -218,7 +220,7 @@
     const current = validate(slots,p);
     if (!current.valid) return {ok:false,errors:['Deal a valid loadout before rerolling a slot.',...current.errors]};
     const rng = randomFromSeed(seed);
-    const candidates = data.items.filter(item => (index < 2) === (item.kind === 'weapon') && item.id !== slots[index] && !(item.kind === 'weapon' && p.unownedWeapons?.includes(item.baseId || item.id)) && candidateFilter(item))
+    const candidates = data.items.filter(item => (index < 2) === (item.kind === 'weapon') && item.id !== slots[index] && !p.unownedTarot?.includes(item.id) && !(item.kind === 'weapon' && p.unownedWeapons?.includes(item.baseId || item.id)) && candidateFilter(item))
       .map(item => {
         const next=slots.slice();next[index]=item.id;
         return {item,slots:next,validation:validate(next,p)};
@@ -229,6 +231,9 @@
     return {ok:true,slots:chosen.slots,seed:String(seed),...chosen.validation};
   }
   function benefits(item, p) {
+    if (item.choice) return [item.choice === 'tarot'
+      ? 'Choose any Tarot card. Its price is not included in the total.'
+      : `Choose your own ${item.choice}. Keep within your loadout limits; its price is not included in the total.`];
     const notes = activeSynergies(item, p).map(id => traitById.get(id).name);
     if (p.traits.includes('frontiersman') && item.limitedTool) {
       const extra = p.team === 'solo' && p.traits.includes('catalyst') ? 2 : 1;

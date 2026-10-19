@@ -50,6 +50,20 @@ for (const base of items.slice()) if (pairable.has(base.id)) {
   if (ammo.weapons[base.id]) ammo.weapons[id] = ammo.weapons[base.id].map(option=>({...option,cost:option.cost*2}));
   if (ammo.slots[base.id]) ammo.slots[id] = ammo.slots[base.id];
 }
+// Choice cards are randomizer results, rather than purchasable game items.
+const choiceImage = symbol => 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><rect x="34" y="12" width="92" height="136" rx="9" fill="#20211d" stroke="#c2ad7a" stroke-width="5"/><text x="80" y="106" text-anchor="middle" fill="#c2ad7a" font-family="Georgia" font-size="80">${symbol}</text></svg>`);
+for (const [id, name, kind, choice, category] of [
+  // Keep the original IDs so existing saved Wild Cards still load.
+  ['wold-card-weapon', 'Wild Card', 'weapon', 'weapon', null],
+  ['wold-card-equipment', 'Wild Card', 'choice', 'equipment', null],
+  ['any-tarot', 'Any Tarot', 'consumable', 'tarot', 'tarot-cards'],
+]) items.push({
+  id, name, kind, choice, category, family: name, capacity: kind === 'weapon' ? 1 : 0,
+  ammo: 'Your choice', usesShells: false, price: 0, availability: 'standard-candidate',
+  group: null, melee: false, limitedTool: false, synergies: [], source: null,
+  image: choiceImage(choice === 'tarot' ? '✧' : '?'),
+  requirements: {purchaseRoute: kind === 'weapon' ? 'arsenal-unlock-confirmation' : 'bloodline-rank', bloodlineRank: 1, excludedUntilReviewed: false},
+});
 const data = {
   version: `${catalog.targetPatch}-${catalog.researchedOn}`, items, rules,
   traits: traits.map(({ id, name, effect, kind }) => ({ id, name, effect, kind, source: `https://huntshowdown.wiki.gg/wiki/Traits/${name.replaceAll(' ', '_')}` })),

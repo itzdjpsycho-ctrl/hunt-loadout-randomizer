@@ -50,6 +50,33 @@
     assert(!E.dontOwnWeapon(p,'equipment',build,2).ok);
     assert(!E.dontOwnWeapon({...p,budget:150,excluded:E.data.items.filter(i=>i.kind==='weapon'&&(i.baseId||i.id)!=='conversion').map(i=>i.id)},'impossible',build,0).ok);
   });
+  test("Don't Own replaces unavailable Tarot without item loss and remembers it",()=>{
+    const p={...profile(),mode:'chaos',mulligan:true,singleRerolls:true};
+    const build={slots:partial(['conversion',null,'first-aid-kit','knife','any-tarot']),locks:Array(10).fill(false),ammo:[null,null]};
+    const result=E.dontOwnTarot(p,'tarot-fallback',build,4);
+    assert(result.ok,JSON.stringify(result.errors));
+    assert(result.slots[4]&&result.slots[4]!=='any-tarot');
+    assert(result.slots.every((id,n)=>n===4||id===build.slots[n]));
+    assert(JSON.stringify(result.ammo)===JSON.stringify(build.ammo));
+    assert(result.unownedTarot.includes('any-tarot'));
+    assert(!build.unownedTarot&&build.slots[4]==='any-tarot');
+    assert(!E.dontOwnTarot({...p,singleRerolls:false},'off',build,4).ok);
+    assert(!E.dontOwnTarot(p,'held',{...build,locks:build.locks.map((_,n)=>n===4)},4).ok);
+    assert(!E.dontOwnTarot(p,'tool',build,2).ok);
+    assert(!E.dontOwnTarot(p,'weapon',build,0).ok);
+    const blocked={...p,unownedTarot:result.unownedTarot};
+    assert(!E.rerollKit(blocked,'blocked',{...build,slots:result.slots},4,item=>item.id==='any-tarot').ok);
+    for(let n=0;n<30;n++){
+      const r=E.generateKit(blocked,'tarot-blocked-'+n,{...build,locks:Array(10).fill(false)});
+      assert(r.ok&&!r.slots.includes('any-tarot'));
+    }
+    const owned={...p,acquisition:'mixed',owned:{'the-fool':1,'the-sun':1}};
+    const tarotBuild={...build,slots:partial(['conversion',null,'first-aid-kit','knife','the-fool'])};
+    const other=E.dontOwnTarot(owned,'tarot-prefer',tarotBuild,4);
+    assert(other.ok&&E.byId.get(other.slots[4]).category==='tarot-cards');
+    const banned={...p,excluded:E.data.items.filter(i=>i.kind!=='weapon'&&!build.slots.includes(i.id)).map(i=>i.id)};
+    assert(!E.dontOwnTarot(banned,'no-alternative',build,4).ok);
+  });
   test("Don't Own remembers rejected weapons across rerolls and mulligans",()=>{
     const p={...profile(),mode:'chaos',mulligan:true,singleRerolls:true};
     const build={slots:partial(['conversion',null,'first-aid-kit','knife']),locks:Array(10).fill(false),ammo:[null,null],unownedWeapons:['conversion-chain-pistol']};
@@ -92,7 +119,27 @@
     assert(!E.generate(p,'too-many-held-melee',held).ok);
     assert(E.generate(p,'two-held-melee',partial([null,null,'knife','throwing-axes'])).ok);
   });
-  test('Catalog includes 227 base entries, 24 matched pistol pairs and 23 traits',()=>{assert(E.data.items.filter(i=>!i.dual).length===227);assert(E.data.items.filter(i=>i.dual).length===24);assert(E.data.traits.length===23);});
+  test('Catalog includes 227 base entries, 24 matched pistol pairs, three choice cards and 23 traits',()=>{assert(E.data.items.filter(i=>!i.dual&&!i.choice).length===227);assert(E.data.items.filter(i=>i.dual).length===24);assert(E.data.items.filter(i=>i.choice).length===3);assert(E.data.traits.length===23);});
+  test('Choice cards fit their slots, preserve holds and respect role and Tarot limits',()=>{
+    const p={...profile(),customAmmo:true};
+    const slots=partial(['wold-card-weapon',null,'first-aid-kit','knife','wold-card-equipment','any-tarot']);
+    const build={slots,locks:slots.map(Boolean),ammo:[null,null]};
+    const r=E.generateKit(p,'choice-holds',build);
+    assert(r.ok,JSON.stringify(r.errors));
+    slots.forEach((id,n)=>{if(id)assert(r.slots[n]===id);});
+    assert(E.validateKit(r.slots,p,r.ammo).valid);
+    assert(!E.validate(partial(['wold-card-equipment']),p,false).valid);
+    assert(!E.validate(partial([null,null,'wold-card-weapon']),p,false).valid);
+    assert(!E.validate(partial(['wold-card-weapon']),{...p,role:'shotgun-gamer'},false).valid);
+    assert(!E.validate(partial(['wold-card-weapon']),{...p,role:'sniper'},false).valid);
+    assert(E.validate(partial([null,null,...Array(4).fill('any-tarot')]),p,false).valid);
+    assert(!E.validate(partial([null,null,...Array(5).fill('any-tarot')]),p,false).valid);
+    for(const id of ['wold-card-weapon','wold-card-equipment','any-tarot']){
+      assert(!E.acquisition(E.byId.get(id),{...p,excluded:[id]}));
+      assert(E.benefits(E.byId.get(id),p).some(s=>s.includes('Choose')));
+      assert(E.ammoOptions(id).length===0);
+    }
+  });
   test('Dual pistols charge twice, use pair capacity and respect base bans',()=>{
     const p=profile(), pair=E.byId.get('dual-conversion');
     assert(pair.capacity===2);assert(E.acquisition(pair,p).cost===2*E.byId.get('conversion').price);
@@ -115,6 +162,18 @@
     assert(found,'Pair never rolled');
     const build={slots:partial(['dual-conversion']),locks:[true,...Array(9).fill(false)],ammo:[null,null]};
     const r=E.generateKit(p,'held-dual',build);assert(r.ok);assert(r.slots[0]==='dual-conversion');assert(E.validateKit(r.slots,p,r.ammo).valid);
+  });
+  test('Rare Wild Cards and Any Tarot are obtainable through seeded rolls',()=>{
+    const counts={'wold-card-weapon':0,'wold-card-equipment':0,'any-tarot':0};
+    for(const mode of ['playable','chaos','crazy'])for(let n=0;n<1000;n++){
+      const r=E.generate({...profile(),mode},'choice-chance-'+mode+n);
+      assert(r.ok,JSON.stringify(r.errors));
+      for(const id of r.slots)if(id in counts)counts[id]++;
+      assert(r.slots.includes('first-aid-kit')&&r.slots.some(id=>E.byId.get(id)?.kind==='tool'&&E.byId.get(id)?.melee));
+    }
+    assert(counts['wold-card-weapon']>0&&counts['wold-card-weapon']<120,JSON.stringify(counts));
+    assert(counts['wold-card-equipment']>0&&counts['wold-card-equipment']<480,JSON.stringify(counts));
+    assert(counts['any-tarot']>0,JSON.stringify(counts));
   });
   test('No unknown weapon is assumed unlocked',()=>{assert(!E.generate(E.defaults(),'new').ok);});
   test('Rank gates purchases but not confirmed owned instances',()=>{const p=profile();p.rank=1;const spear=E.byId.get('throwing-spear');assert(!E.acquisition(spear,p));p.owned[spear.id]=1;assert(E.acquisition(spear,p).route==='owned');assert(!E.acquisition(spear,p,2));p.rank=33;assert(E.acquisition(spear,p,2).route==='purchase');});

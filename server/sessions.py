@@ -41,7 +41,7 @@ class Profile(Model):
     customAmmo: bool
     uniqueWeapons: bool
     revealAnimation: bool
-    singleRerolls: bool = False
+    singleRerolls: bool = True
 
 
 class Build(Model):
@@ -57,6 +57,7 @@ class Build(Model):
     mulligan: bool = False
     loadoutMulligans: int = Field(default=0, ge=0, le=10)
     unownedWeapons: Ids = Field(default_factory=list)
+    unownedTarot: Ids = Field(default_factory=list)
 
 
 class Squad(Model):
@@ -119,6 +120,8 @@ class Rooms:
         for build in state.builds:
             if not set(build.unownedWeapons) <= self.items:
                 raise HTTPException(422, "Unknown equipment in unowned weapons.")
+            if not set(build.unownedTarot) <= self.items:
+                raise HTTPException(422, "Unknown equipment in unowned Tarot cards.")
             if any(item is not None and item not in self.items for item in build.slots):
                 raise HTTPException(422, "Unknown equipment in loadout.")
             if any(held and not item for held, item in zip(build.locks, build.slots)):
@@ -139,10 +142,11 @@ class Rooms:
         if row is None or row["touched"] < time.time() - TTL:
             raise HTTPException(404, "Room not found or expired. Ask the host for a new code.")
         state = json.loads(row["state"])
-        state["profile"].setdefault("singleRerolls", False)
+        state["profile"].setdefault("singleRerolls", True)
         for build in state["builds"]:
             build.setdefault("loadoutMulligans", 0)
             build.setdefault("unownedWeapons", [])
+            build.setdefault("unownedTarot", [])
         return {**dict(row), "state": state, "members": json.loads(row["members"]), "activity": json.loads(row["activity"])}
 
     def write(self, db, room):

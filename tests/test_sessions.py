@@ -20,6 +20,15 @@ def squad():
 
 
 class SessionTests(unittest.TestCase):
+    def test_choice_cards_round_trip(self):
+        state = squad()
+        state['builds'][0]['slots'][:5] = ['wold-card-weapon', None, 'wold-card-equipment', 'any-tarot', 'first-aid-kit']
+        state['builds'][0]['locks'][0] = True
+        room = self.create(state=state)
+        restored = self.read(room)['state']['builds'][0]
+        self.assertEqual(restored['slots'], state['builds'][0]['slots'])
+        self.assertTrue(restored['locks'][0])
+
     def test_shotgun_gamer_role_round_trips(self):
         state = squad()
         state['profile']['role'] = 'shotgun-gamer'
@@ -209,6 +218,24 @@ class SessionTests(unittest.TestCase):
             invalid = copy.deepcopy(state)
             invalid["builds"][1]["loadoutMulligans"] = count
             self.assertEqual(self.put(guest, invalid, response.json()["revision"]).status_code, 422)
+
+    def test_unowned_tarot_sync_and_legacy_defaults(self):
+        host = self.create()
+        self.assertTrue(all(b['unownedTarot'] == [] for b in host['state']['builds']))
+        with closing(sqlite3.connect(self.database)) as db, db:
+            legacy = copy.deepcopy(host['state'])
+            for build in legacy['builds']:
+                del build['unownedTarot']
+            db.execute('UPDATE rooms SET state=? WHERE code=?', (json.dumps(legacy), host['code']))
+        guest = self.join(host)
+        state = copy.deepcopy(guest['state'])
+        self.assertEqual(state['builds'][1]['unownedTarot'], [])
+        state['builds'][1]['unownedTarot'] = ['any-tarot']
+        response = self.put(guest, state, guest['revision'])
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(self.read(host)['state']['builds'][1]['unownedTarot'], ['any-tarot'])
+        state['builds'][1]['unownedTarot'] = ['unknown']
+        self.assertEqual(self.put(guest, state, response.json()['revision']).status_code, 422)
 
     def test_unowned_weapons_sync_and_legacy_defaults(self):
         host = self.create()

@@ -9,12 +9,12 @@
   const esc = text => String(text ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let profile = buyingProfile(), slots = Array(10).fill(null), locks = Array(10).fill(false);
   let lastSeed = '', rollNumber = 0, rolling = false, dirty = false, notice = [], toastTimer, storageWorks = true;
-  const emptyBuild = () => ({slots:Array(10).fill(null), locks:Array(10).fill(false), lastSeed:'', dirty:false,name:'',rank:profile.rank,traits:profile.traits.slice(),role:'any',ammo:[null,null],unownedWeapons:[],loadoutMulligans:0});
+  const emptyBuild = () => ({slots:Array(10).fill(null), locks:Array(10).fill(false), lastSeed:'', dirty:false,name:'',rank:profile.rank,traits:profile.traits.slice(),role:'any',ammo:[null,null],unownedWeapons:[],unownedTarot:[],loadoutMulligans:0});
   let builds = Array.from({length:3},emptyBuild), buildCount = 1, activeBuild = 0;
   function captureBuild() { builds[activeBuild] = {...builds[activeBuild],slots:slots.slice(),locks:locks.slice(),lastSeed,dirty}; }
   function loadBuild(index) { activeBuild=index; ({slots,locks,lastSeed,dirty}=structuredClone(builds[index])); }
   function selectedBuilds() { captureBuild(); return builds.slice(0,buildCount); }
-  function buildProfile(build) { return {...profile,rank:build.rank,traits:build.traits,role:build.role,mulligan:!!build.mulligan,unownedWeapons:build.unownedWeapons||[]}; }
+  function buildProfile(build) { return {...profile,rank:build.rank,traits:build.traits,role:build.role,mulligan:!!build.mulligan,unownedWeapons:build.unownedWeapons||[],unownedTarot:build.unownedTarot||[]}; }
   function hunterName(build,index) { return build.name || `Hunter ${index+1}`; }
   function canExport() { return (!profile.uniqueWeapons||E.uniqueWeapons(selectedBuilds()))&&selectedBuilds().every(b=>!b.dirty&&b.slots.some(Boolean)&&E.validateKit(b.slots,buildProfile(b),b.ammo).valid); }
   try {
@@ -38,7 +38,7 @@
             b.traits=Array.isArray(b.traits)?[...new Set(b.traits.filter(t=>E.traitById.has(t)))].slice(0,15):profile.traits.slice();
             b.role=['any','sniper','close','support','shotgun-gamer'].includes(b.role)?b.role:'any';
             b.ammo=Array.isArray(b.ammo)&&b.ammo.length===2?b.ammo.map((id,n)=>E.ammoOption(b.slots[n],id)?id:null):[null,null];
-            return {unownedWeapons:Array.isArray(b.unownedWeapons)?[...new Set(b.unownedWeapons.filter(id=>E.byId.get(id)?.kind==='weapon').map(id=>E.byId.get(id).baseId||id))]:[],mulligan:!!b.mulligan,loadoutMulligans:Number.isInteger(b.loadoutMulligans)&&b.loadoutMulligans>=0&&b.loadoutMulligans<=10?b.loadoutMulligans:0,name:b.name,rank:b.rank,traits:b.traits,role:b.role,ammo:b.ammo,slots:b.slots,locks:Array.from({length:10},(_,i)=>!!b.locks?.[i]&&!!b.slots[i]),lastSeed:typeof b.lastSeed==='string'?b.lastSeed:'',dirty:!!b.dirty||(b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid)};
+            return {unownedTarot:Array.isArray(b.unownedTarot)?[...new Set(b.unownedTarot.filter(id=>E.byId.get(id)?.category==='tarot-cards'))]:[],unownedWeapons:Array.isArray(b.unownedWeapons)?[...new Set(b.unownedWeapons.filter(id=>E.byId.get(id)?.kind==='weapon').map(id=>E.byId.get(id).baseId||id))]:[],mulligan:!!b.mulligan,loadoutMulligans:Number.isInteger(b.loadoutMulligans)&&b.loadoutMulligans>=0&&b.loadoutMulligans<=10?b.loadoutMulligans:0,name:b.name,rank:b.rank,traits:b.traits,role:b.role,ammo:b.ammo,slots:b.slots,locks:Array.from({length:10},(_,i)=>!!b.locks?.[i]&&!!b.slots[i]),lastSeed:typeof b.lastSeed==='string'?b.lastSeed:'',dirty:!!b.dirty||(b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid)};
           });
           loadBuild(Number.isInteger(saved.activeBuild)&&saved.activeBuild>=0&&saved.activeBuild<buildCount?saved.activeBuild:0);
         }
@@ -92,9 +92,10 @@
     const route = validation.routes?.[index];
     const benefit = E.benefits(item,buildProfile(build));
     const ammo=weapon?E.ammoOption(item.id,build.ammo[index]):null;
-    const meta = weapon ? `SIZE ${item.capacity} <span class="dot"></span> ${esc(item.ammo || 'MELEE')}` : esc(item.kind === 'tool' ? 'TOOL' : (item.category || 'CONSUMABLE').replace('-',' ').toUpperCase());
+    const meta = item.choice ? (item.choice === 'tarot' ? 'TAROT · YOUR CHOICE' : `${weapon?'WEAPON':'EQUIPMENT'} · YOUR CHOICE`) : weapon ? `SIZE ${item.capacity} <span class="dot"></span> ${esc(item.ammo || 'MELEE')}` : esc(item.kind === 'tool' ? 'TOOL' : (item.category || 'CONSUMABLE').replace('-',' ').toUpperCase());
+    const title = item.choice ? esc(item.name) : `<a class="source-link" href="${esc(item.source)}" target="_blank" rel="noreferrer" title="View ${esc(item.name)} reference">${esc(item.name)}</a>`;
     const specialAmmo=ammo?.id ? `<div class="special-ammo"><span class="special-ammo-label">SPECIAL AMMO</span>${ammo.slots ? ammo.slots.map((choice,n)=>`<div class="special-ammo-choice"><span>${esc(E.ammoSlots(item.id)[n].name)}</span><strong>${esc(choice.name)}</strong></div>`).join('') : `<strong>${esc(ammo.name)}</strong>`}</div>` : '';
-    return `<article class="${type}${locks[index]?' held':''}"><div class="card-top"><span>${weapon?(index?'SECONDARY':'PRIMARY'):`SLOT ${String(index-1).padStart(2,'0')}`}</span><span class="slot-actions">${weapon&&profile.singleRerolls?`<button class="dont-own-button" data-dont-own="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Replace with another weapon in the same family, or any weapon that fits. No item is lost. This weapon stays out of your roll pool until Deal me in.">Don't Own</button>`:''}<button class="slot-mulligan" data-mulligan="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Reroll this item and lose one random item. Holds do not protect against loss. Removal weights: weapons 1, first aid kits and melee tools 8, other equipment 10." aria-label="Mulligan ${esc(item.name)} for ${esc(hunterName(build,hunter))}">M</button><button class="hold-button${locks[index]?' held':''}" data-lock="${index}" data-hunter="${hunter}" aria-pressed="${locks[index]}" aria-label="${locks[index]?'Release':'Hold'} ${esc(item.name)}"><span aria-hidden="true">${locks[index]?'◆':'◇'}</span>${locks[index]?'HELD':'HOLD'}</button></span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(item,weapon)}</div><h3><a class="source-link" href="${esc(item.source)}" target="_blank" rel="noreferrer" title="View ${esc(item.name)} reference">${esc(item.name)}</a></h3><div class="card-meta">${meta}<span class="card-price">${route?.route === 'owned' ? 'OWNED' : route ? '$'+(route.cost+(ammo?.cost||0)) : 'CHECK ACCESS'}</span></div>${specialAmmo}${benefit.length?`<p class="benefit">${benefit.map(esc).join(' · ')}</p>`:''}</article>`;
+    return `<article class="${type}${locks[index]?' held':''}"><div class="card-top"><span>${weapon?(index?'SECONDARY':'PRIMARY'):`SLOT ${String(index-1).padStart(2,'0')}`}</span><span class="slot-actions">${(weapon||item.category==='tarot-cards')&&profile.singleRerolls?`<button class="dont-own-button" data-dont-own="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="${weapon?'Replace with another weapon in the same family, or any weapon that fits.':'Try another available Tarot card, then any equipment that fits.'} No item is lost. This item stays out of your roll pool until Deal me in.">Don't Own</button>`:''}<button class="slot-mulligan" data-mulligan="${index}" data-hunter="${hunter}" ${locks[index]||build.dirty||!lastSeed?'disabled':''} title="Reroll this item and lose one random item. Holds do not protect against loss. Removal weights: weapons 1, first aid kits and melee tools 8, other equipment 10." aria-label="Mulligan ${esc(item.name)} for ${esc(hunterName(build,hunter))}">M</button><button class="hold-button${locks[index]?' held':''}" data-lock="${index}" data-hunter="${hunter}" aria-pressed="${locks[index]}" aria-label="${locks[index]?'Release':'Hold'} ${esc(item.name)}"><span aria-hidden="true">${locks[index]?'◆':'◇'}</span>${locks[index]?'HELD':'HOLD'}</button></span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(item,weapon)}</div><h3>${title}</h3><div class="card-meta">${meta}<span class="card-price">${item.choice ? 'YOUR PICK' : route?.route === 'owned' ? 'OWNED' : route ? '$'+(route.cost+(ammo?.cost||0)) : 'CHECK ACCESS'}</span></div>${specialAmmo}${benefit.length?`<p class="benefit">${benefit.map(esc).join(' · ')}</p>`:''}</article>`;
   }
   let revealTimers=[],revealAnimations=[];
   function finishReveal(){revealTimers.forEach(clearTimeout);revealTimers=[];revealAnimations.forEach(a=>a.cancel());revealAnimations=[];document.querySelectorAll('.slot-reel').forEach(r=>r.remove());document.querySelectorAll('.reveal-pending,.card-revealed').forEach(c=>c.classList.remove('reveal-pending','card-revealed'));$('skip-reveal').hidden=true;$('squad-loadouts').setAttribute('aria-busy','false');}
@@ -247,7 +248,7 @@
     await new Promise(resolve=>setTimeout(resolve,35));
     try {
       captureBuild();
-      builds.forEach(b=>{b.unownedWeapons=[];});
+      builds.forEach(b=>{b.unownedWeapons=[];b.unownedTarot=[];});
       const challenges=roulette?E.rouletteOrder(seed):[profile.challenge];
       let dealt,chosen;
       for(const challenge of challenges){
@@ -271,9 +272,11 @@
     captureBuild();const build=builds[hunter];
     if(!build||build.dirty||!build.lastSeed)return;
     const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:dont-own-${index+1}:${rollNumber+1}`;
-    if(![0,1].includes(index)||!build.slots[index]||build.locks[index])return;
-    build.unownedWeapons=[...new Set([...(build.unownedWeapons||[]),E.byId.get(build.slots[index]).baseId||build.slots[index]])];
-    const result=E.dontOwnWeapon(teammateProfile(hunter),seed,build,index);
+    const tarot=E.byId.get(build.slots[index])?.category==='tarot-cards';
+    if(!Number.isInteger(index)||index<0||index>=10||index>=2&&!tarot||!build.slots[index]||build.locks[index])return;
+    const rejected=tarot?'unownedTarot':'unownedWeapons';
+    build[rejected]=[...new Set([...(build[rejected]||[]),E.byId.get(build.slots[index]).baseId||build.slots[index]])];
+    const result=(tarot?E.dontOwnTarot:E.dontOwnWeapon)(teammateProfile(hunter),seed,build,index);
     if(!result.ok){save();toast(result.errors.join(' '));return;}
     const previousSecondary=build.slots[1];
     Object.assign(build,{slots:result.slots,ammo:result.ammo,lastSeed:seed});
