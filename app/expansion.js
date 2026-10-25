@@ -112,7 +112,10 @@
     if(build.slots.filter(Boolean).length<loss)return {ok:false,errors:[`You need ${loss} remaining items to afford this loadout mulligan.`]};
     const current=validateKit(build.slots,p,build.ammo);
     if(!current.valid)return {ok:false,errors:current.errors};
-    const result=generateKit(p,seed,build,build.slots.map(id=>!id));
+    const blocked=build.slots.map(id=>!id);
+    // A fresh size-five hand has an empty secondary because of capacity, not a loss.
+    if(!build.mulligan&&!build.locks[1]&&E.capacity(p)===5&&E.byId.get(build.slots[0])?.capacity===5)blocked[1]=false;
+    const result=generateKit(p,seed,build,blocked);
     if(!result.ok)return result;
     const rng=random(seed+':loadout-mulligan-loss'),removed=[],locks=build.locks.slice();
     for(let n=0;n<loss;n++){

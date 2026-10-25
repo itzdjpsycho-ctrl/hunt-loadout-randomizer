@@ -364,6 +364,26 @@
     assert(!E.mulliganKit(p,'empty',b,0).ok);
     const fresh=E.generateKit(p,'fresh-after-loss',b);assert(fresh.ok&&E.validateKit(fresh.slots,{...p,mulligan:false},fresh.ammo).valid);
   });
+  test('Loadout mulligans roll a Travelling Light secondary unless held or previously lost',()=>{
+    const p={...profile(),mode:'chaos',customAmmo:true};
+    const large=E.data.items.find(i=>i.kind==='weapon'&&i.capacity===5&&E.acquisition(i,p));
+    const dealt=E.generateKit(p,'loadout-light-fixture',{slots:partial([large.id]),locks:[true,...Array(9).fill(false)],ammo:[null,null]});
+    assert(dealt.ok,JSON.stringify(dealt.errors));
+    const build={...dealt,locks:Array(10).fill(false)};
+    let filled=0,lost=0;
+    for(let n=0;n<80;n++){
+      const seed='loadout-light-'+n,r=E.loadoutMulligan(p,seed,build);
+      assert(r.ok,JSON.stringify(r.errors));
+      assert(E.validateKit(r.slots,{...p,mulligan:true},r.ammo).valid);
+      if(r.slots[1])filled++;
+      if(r.removed.some(item=>item.index===1)){lost++;assert(!r.slots[1]&&r.ammo[1]===null);}
+      const held=E.loadoutMulligan(p,seed,{...build,locks:build.locks.map((_,i)=>i===1)});
+      assert(held.ok&&!held.slots[1],'Held secondary must stay empty');
+      const previousLoss=E.loadoutMulligan({...p,mulligan:true},seed,{...build,mulligan:true});
+      assert(previousLoss.ok&&!previousLoss.slots[1],'Previous losses must stay empty');
+    }
+    assert(filled>0,'No secondary was dealt');assert(lost>0,'New secondary cannot be lost');
+  });
   test('Loadout mulligans escalate losses, never refill slots and stop when unaffordable',()=>{
     const p={...profile(),customAmmo:true,mode:'chaos',acquisition:'purchase'};
     let b={...E.generateKit(p,'loadout-base',{slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]}),locks:Array(10).fill(false),loadoutMulligans:0};

@@ -506,7 +506,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     });
     const cost=(base.cost||0)+ammoCost;
     const limit=p.challenge==='budget300'?Math.min(p.budget??300,300):p.budget;
-    if(limit!==null&&cost>limit)errors.push(`Equipment and ammunition cost $${cost}; your limit is $${limit}.`);
+    if(limit!==null&&cost>limit)errors.push(`Equipment and ammunition cost ${cost}; your limit is ${limit}.`);
     return {...base,ammoCost,cost,errors:[...new Set(errors)],valid:!errors.length};
   }
   function random(seed){let n=2166136261;for(const c of String(seed))n=Math.imul(n^c.charCodeAt(0),16777619);n=Math.imul(n^(n>>>16),0x85ebca6b);n=Math.imul(n^(n>>>13),0xc2b2ae35);n^=n>>>16;return ()=>{n^=n<<13;n^=n>>>17;n^=n<<5;return (n>>>0)/4294967296;};}
@@ -582,7 +582,10 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     if(build.slots.filter(Boolean).length<loss)return {ok:false,errors:[`You need ${loss} remaining items to afford this loadout mulligan.`]};
     const current=validateKit(build.slots,p,build.ammo);
     if(!current.valid)return {ok:false,errors:current.errors};
-    const result=generateKit(p,seed,build,build.slots.map(id=>!id));
+    const blocked=build.slots.map(id=>!id);
+    // A fresh size-five hand has an empty secondary because of capacity, not a loss.
+    if(!build.mulligan&&!build.locks[1]&&E.capacity(p)===5&&E.byId.get(build.slots[0])?.capacity===5)blocked[1]=false;
+    const result=generateKit(p,seed,build,blocked);
     if(!result.ok)return result;
     const rng=random(seed+':loadout-mulligan-loss'),removed=[],locks=build.locks.slice();
     for(let n=0;n<loss;n++){
