@@ -4,6 +4,41 @@
   function assert(ok,msg='Assertion failed'){if(!ok)throw new Error(msg);}
   const profile=()=>({...E.defaults(),rank:100,unlocked:E.data.items.filter(i=>i.kind==='weapon'&&i.availability==='standard-candidate').map(i=>i.id)});
   const partial=ids=>[...ids,...Array(10-ids.length).fill(null)];
+  test('Quarter Master fills only secondary, preserves ammo and does not equip a trait',()=>{
+    const p={...profile(),mode:'chaos',customAmmo:true};
+    const primary=E.data.items.find(i=>i.kind==='weapon'&&i.capacity===5&&E.canBuy(i,p));
+    assert(primary,'No size-five weapon');
+    const b={...E.generateKit(p,'qm-base',{slots:partial([primary.id]),locks:[true,...Array(9).fill(false)],ammo:[null,null]}),locks:Array(10).fill(false)};
+    assert(b.ok,JSON.stringify(b.errors));assert(!b.slots[1]);
+    const before=JSON.stringify(b),r=E.quarterMaster(p,'qm',b);assert(r.ok,JSON.stringify(r.errors));
+    assert(r.slots[1]&&r.rollQuartermaster&&E.capacity(p)===5&&!p.traits.includes('quartermaster'));
+    assert(r.slots.every((id,n)=>n===1||id===b.slots[n])&&JSON.stringify(r.ammo[0])===JSON.stringify(b.ammo[0]));
+    assert(E.validateKit(r.slots,{...p,rollQuartermaster:true},r.ammo).valid);
+    assert(!E.validateKit(r.slots,p,r.ammo).valid);
+    assert(JSON.stringify(b)===before&&JSON.stringify(r)===JSON.stringify(E.quarterMaster(p,'qm',b)));
+    assert(!E.quarterMaster(p,'lost',{...b,mulligan:true,secondaryLost:true}).ok);
+    assert(E.quarterMaster({...p,mulligan:true},'tool-loss',{...b,mulligan:true,secondaryLost:false}).ok);
+    assert(!E.quarterMaster({...p,traits:['quartermaster']},'equipped',b).ok);
+  });
+  test('Buyback pays exactly two tools, strongly protects melee and fails atomically',()=>{
+    const p={...profile(),mode:'chaos',mulligan:true};
+    const tools=E.data.items.filter(i=>i.kind==='tool'&&!i.melee&&i.id!=='first-aid-kit'&&E.canBuy(i,p));
+    const melee=E.data.items.find(i=>i.kind==='tool'&&i.melee&&E.canBuy(i,p));
+    const b={slots:partial(['conversion',null,null,melee.id,tools[0].id,tools[1].id]),locks:Array(10).fill(true),ammo:[null,null],lostMedkit:2,mulligan:true};
+    let meleeLoss=0;
+    for(let n=0;n<1000;n++){
+      const before=JSON.stringify(b),r=E.buyback(p,'buyback-'+n,b);assert(r.ok,JSON.stringify(r.errors));
+      assert(r.slots[2]==='first-aid-kit'&&r.removed.length===2&&r.slots.filter(Boolean).length===b.slots.filter(Boolean).length-1);
+      assert(r.removed.every(c=>E.byId.get(c.id).kind==='tool'&&!r.slots[c.index]&&!r.locks[c.index]));
+      assert(r.slots[0]===b.slots[0]&&r.slots[1]===b.slots[1]&&r.lostMedkit===null);
+      assert(JSON.stringify(b)===before);if(!r.slots[3])meleeLoss++;
+      if(n===0)assert(JSON.stringify(r)===JSON.stringify(E.buyback(p,'buyback-0',b)));
+    }
+    assert(meleeLoss<10,'Melee lost too frequently: '+meleeLoss);
+    assert(!E.buyback({...p,excluded:['first-aid-kit']},'banned',b).ok);
+    assert(!E.buyback(p,'no-loss',{...b,lostMedkit:null}).ok);
+    assert(!E.buyback(p,'poor',{...b,slots:partial(['conversion',null,null,melee.id])}).ok);
+  });
   test('Every mode deals first aid and a random melee tool; loadout mulligans preserve their slots until lost',()=>{
     const melee=new Set(),losses=new Set();
     for(const mode of ['playable','chaos','crazy'])for(let n=0;n<80;n++){

@@ -54,6 +54,9 @@ class Build(Model):
     traits: Traits
     role: Literal["any", "sniper", "close", "support", "shotgun-gamer"]
     ammo: list[Identifier | None | Annotated[list[Identifier | None], Field(min_length=1, max_length=2)]] = Field(min_length=2, max_length=2)
+    secondaryLost: bool = False
+    rollQuartermaster: bool = False
+    lostMedkit: int | None = Field(default=None, ge=2, le=9)
     mulligan: bool = False
     loadoutMulligans: int = Field(default=0, ge=0, le=10)
     unownedWeapons: Ids = Field(default_factory=list)
@@ -145,6 +148,9 @@ class Rooms:
         state["profile"].setdefault("singleRerolls", True)
         for build in state["builds"]:
             build.setdefault("loadoutMulligans", 0)
+            build.setdefault("secondaryLost", bool(build.get("mulligan")))
+            build.setdefault("rollQuartermaster", False)
+            build.setdefault("lostMedkit", None)
             build.setdefault("unownedWeapons", [])
             build.setdefault("unownedTarot", [])
         return {**dict(row), "state": state, "members": json.loads(row["members"]), "activity": json.loads(row["activity"])}
@@ -180,7 +186,7 @@ class Rooms:
             rolled = before["lastSeed"] != after["lastSeed"]
             if details or rolled:
                 lost = sum(bool(x) for x in after["slots"]) < sum(bool(x) for x in before["slots"])
-                action = "used a loadout mulligan" if after["loadoutMulligans"] > before.get("loadoutMulligans", 0) and lost else "used a mulligan" if after["mulligan"] and lost else "dealt a loadout" if rolled else "updated"
+                action = "used Quarter Master" if after.get("rollQuartermaster") and not before.get("rollQuartermaster") else "used Buyback" if before.get("lostMedkit") is not None and after["slots"][before["lostMedkit"]] == "first-aid-kit" else "used a loadout mulligan" if after["loadoutMulligans"] > before.get("loadoutMulligans", 0) and lost else "used a mulligan" if after["mulligan"] and lost else "dealt a loadout" if rolled else "updated"
                 changes.append({"hunter": index + 1, "name": after["name"], "action": action, "details": details})
         settings = [key for key in state["profile"] if state["profile"][key] != old["profile"][key]]
         if state["seedInput"] != old["seedInput"]:

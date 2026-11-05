@@ -14,7 +14,7 @@
   function captureBuild() { builds[activeBuild] = {...builds[activeBuild],slots:slots.slice(),locks:locks.slice(),lastSeed,dirty}; }
   function loadBuild(index) { activeBuild=index; ({slots,locks,lastSeed,dirty}=structuredClone(builds[index])); }
   function selectedBuilds() { captureBuild(); return builds.slice(0,buildCount); }
-  function buildProfile(build) { return {...profile,rank:build.rank,traits:build.traits,role:build.role,mulligan:!!build.mulligan,unownedWeapons:build.unownedWeapons||[],unownedTarot:build.unownedTarot||[]}; }
+  function buildProfile(build) { return {...profile,rank:build.rank,traits:build.traits,rollQuartermaster:!!build.rollQuartermaster,role:build.role,mulligan:!!build.mulligan,unownedWeapons:build.unownedWeapons||[],unownedTarot:build.unownedTarot||[]}; }
   function hunterName(build,index) { return build.name || `Hunter ${index+1}`; }
   function canExport() { return (!profile.uniqueWeapons||E.uniqueWeapons(selectedBuilds()))&&selectedBuilds().every(b=>!b.dirty&&b.slots.some(Boolean)&&E.validateKit(b.slots,buildProfile(b),b.ammo).valid); }
   try {
@@ -38,7 +38,7 @@
             b.traits=Array.isArray(b.traits)?[...new Set(b.traits.filter(t=>E.traitById.has(t)))].slice(0,15):profile.traits.slice();
             b.role=['any','sniper','close','support','shotgun-gamer'].includes(b.role)?b.role:'any';
             b.ammo=Array.isArray(b.ammo)&&b.ammo.length===2?b.ammo.map((id,n)=>E.ammoOption(b.slots[n],id)?id:null):[null,null];
-            return {unownedTarot:Array.isArray(b.unownedTarot)?[...new Set(b.unownedTarot.filter(id=>E.byId.get(id)?.category==='tarot-cards'))]:[],unownedWeapons:Array.isArray(b.unownedWeapons)?[...new Set(b.unownedWeapons.filter(id=>E.byId.get(id)?.kind==='weapon').map(id=>E.byId.get(id).baseId||id))]:[],mulligan:!!b.mulligan,loadoutMulligans:Number.isInteger(b.loadoutMulligans)&&b.loadoutMulligans>=0&&b.loadoutMulligans<=10?b.loadoutMulligans:0,name:b.name,rank:b.rank,traits:b.traits,role:b.role,ammo:b.ammo,slots:b.slots,locks:Array.from({length:10},(_,i)=>!!b.locks?.[i]&&!!b.slots[i]),lastSeed:typeof b.lastSeed==='string'?b.lastSeed:'',dirty:!!b.dirty||(b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid)};
+            return {secondaryLost:b.secondaryLost===undefined?!!b.mulligan:!!b.secondaryLost,rollQuartermaster:!!b.rollQuartermaster,lostMedkit:Number.isInteger(b.lostMedkit)&&b.lostMedkit>=2&&b.lostMedkit<10?b.lostMedkit:null,unownedTarot:Array.isArray(b.unownedTarot)?[...new Set(b.unownedTarot.filter(id=>E.byId.get(id)?.category==='tarot-cards'))]:[],unownedWeapons:Array.isArray(b.unownedWeapons)?[...new Set(b.unownedWeapons.filter(id=>E.byId.get(id)?.kind==='weapon').map(id=>E.byId.get(id).baseId||id))]:[],mulligan:!!b.mulligan,loadoutMulligans:Number.isInteger(b.loadoutMulligans)&&b.loadoutMulligans>=0&&b.loadoutMulligans<=10?b.loadoutMulligans:0,name:b.name,rank:b.rank,traits:b.traits,role:b.role,ammo:b.ammo,slots:b.slots,locks:Array.from({length:10},(_,i)=>!!b.locks?.[i]&&!!b.slots[i]),lastSeed:typeof b.lastSeed==='string'?b.lastSeed:'',dirty:!!b.dirty||(b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid)};
           });
           loadBuild(Number.isInteger(saved.activeBuild)&&saved.activeBuild>=0&&saved.activeBuild<buildCount?saved.activeBuild:0);
         }
@@ -88,7 +88,8 @@
     const {slots, locks, lastSeed} = build;
     const item = E.byId.get(slots[index]), weapon = index < 2;
     const type = weapon ? 'weapon-card' : 'equipment-card';
-    if (!item) return `<article class="${type} empty-card"><div class="card-top"><span>${weapon ? (index ? 'SECONDARY' : 'PRIMARY') : `SLOT ${String(index-1).padStart(2,'0')}`}</span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(null,weapon)}</div><h3>${weapon ? (build.mulligan ? 'Lost to mulligan' : lastSeed ? 'Travelling light' : 'Undealt') : (build.mulligan ? 'Lost to mulligan' : 'Awaiting fate')}</h3>${weapon?`<p class="empty-caption">${lastSeed ? 'An empty position can be a legal part of the hand.' : 'Your next weapon is a roll away.'}</p>`:''}</article>`;
+    const recovery=index===1&&E.canQuarterMaster(buildProfile(build),build)?`<button data-quarter-master data-hunter="${hunter}" ${build.dirty||!lastSeed?'disabled':''} title="Roll only the secondary. Quartermaster applies to this hand until the next deal.">Quarter Master</button>`:index===build.lostMedkit?`<button data-buyback data-hunter="${hunter}" ${build.dirty||!lastSeed||build.slots.filter(id=>E.byId.get(id)?.kind==='tool').length<2?'disabled':''} title="Return your first aid kit by sacrificing two tools. Melee tool weight: 1; other tools: 1000. Holds do not protect tools.">Buyback (Lose 2 tools)</button>`:'';
+    if (!item) return `<article class="${type} empty-card"><div class="card-top"><span>${weapon ? (index ? 'SECONDARY' : 'PRIMARY') : `SLOT ${String(index-1).padStart(2,'0')}`}</span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(null,weapon)}</div><h3>${weapon ? (build.mulligan ? 'Lost to mulligan' : lastSeed ? 'Travelling light' : 'Undealt') : (build.mulligan ? 'Lost to mulligan' : 'Awaiting fate')}</h3>${recovery}${weapon?`<p class="empty-caption">${lastSeed ? 'An empty position can be a legal part of the hand.' : 'Your next weapon is a roll away.'}</p>`:''}</article>`;
     const route = validation.routes?.[index];
     const benefit = E.benefits(item,buildProfile(build));
     const ammo=weapon?E.ammoOption(item.id,build.ammo[index]):null;
@@ -252,14 +253,14 @@
       const challenges=roulette?E.rouletteOrder(seed):[profile.challenge];
       let dealt,chosen;
       for(const challenge of challenges){
-        const candidate=E.generateSquad(builds.slice(0,buildCount).map(b=>({...buildProfile(b),challenge})),builds.slice(0,buildCount),seed,profile.uniqueWeapons);
+        const candidate=E.generateSquad(builds.slice(0,buildCount).map(b=>({...buildProfile(b),rollQuartermaster:false,challenge})),builds.slice(0,buildCount),seed,profile.uniqueWeapons);
         if(candidate.ok){dealt=candidate;chosen=challenge;break;}
         dealt=candidate;
       }
       if(!dealt.ok){notice=[...(roulette?['No roulette challenge fits the current roles, bans, budget and holds.']:[]),...dealt.errors];if(!roulette)builds.slice(0,buildCount).forEach(b=>b.dirty=true);loadBuild(activeBuild);save();renderCards();return;}
       if(chosen!==profile.challenge)builds.slice(buildCount).forEach(b=>{if(b.slots.some(Boolean))b.dirty=true;});
       profile.challenge=chosen;
-      dealt.results.forEach((r,i)=>{builds[i]={...builds[i],slots:r.slots,ammo:r.ammo,locks:builds[i].locks,lastSeed:r.seed,dirty:false,mulligan:false,loadoutMulligans:0};});
+      dealt.results.forEach((r,i)=>{builds[i]={...builds[i],slots:r.slots,ammo:r.ammo,locks:builds[i].locks,lastSeed:r.seed,dirty:false,mulligan:false,rollQuartermaster:false,secondaryLost:false,lostMedkit:null,loadoutMulligans:0};});
       loadBuild(activeBuild);rollNumber++;notice=[];
       save();recordHistory();renderProfile();renderCards();revealCards();
       if(roulette){$('squad-options-dialog').close();toast('Challenge drawn: '+{'no-scopes':'No scopes',bows:'Everyone brings a Hunting Bow',budget300:'$300 per hunter'}[chosen]);}
@@ -290,7 +291,7 @@
     const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:mulligan-${index+1}:${rollNumber+1}`;
     const result=E.mulliganKit(teammateProfile(hunter),seed,build,index);
     if(!result.ok){toast(result.errors.join(' '));return;}
-    Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,mulligan:true,lastSeed:seed});
+    Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,secondaryLost:result.secondaryLost,lostMedkit:result.lostMedkit,mulligan:true,lastSeed:seed});
     loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter,null,[{hunter,slots:[index,result.removed.index]}]);
     (document.querySelector(`[data-mulligan="${index}"][data-hunter="${hunter}"]`)||document.querySelector(`[data-loadout-mulligan="${hunter}"]`))?.focus({preventScroll:true});
     toast(hunterName(build,hunter)+': mulligan used. Lost '+E.byId.get(result.removed.id).name+'.');
@@ -302,10 +303,21 @@
     const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:loadout-mulligan:${rollNumber+1}`;
     const result=E.loadoutMulligan(teammateProfile(hunter),seed,build);
     if(!result.ok){toast(result.errors.join(' '));return;}
-    Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,mulligan:true,loadoutMulligans:result.loadoutMulligans,lastSeed:seed});
+    Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,secondaryLost:result.secondaryLost,lostMedkit:result.lostMedkit,mulligan:true,loadoutMulligans:result.loadoutMulligans,lastSeed:seed});
     loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter);
     document.querySelector(`[data-loadout-mulligan="${hunter}"]`)?.focus({preventScroll:true});
     toast(hunterName(build,hunter)+': loadout mulligan. Lost '+result.removed.map(item=>E.byId.get(item.id).name).join(', ')+'.');
+  }
+  function recoverHand(hunter,kind){
+    if(rolling)return;
+    captureBuild();const build=builds[hunter];
+    if(!build||build.dirty||!build.lastSeed)return;
+    const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:${kind}:${rollNumber+1}`;
+    const result=E[kind](teammateProfile(hunter),seed,build);
+    if(!result.ok){toast(result.errors.join(' '));return;}
+    Object.assign(build,{slots:result.slots,ammo:result.ammo,lastSeed:seed},kind==='quarterMaster'?{rollQuartermaster:true}:{locks:result.locks,lostMedkit:null,mulligan:true});
+    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter,null,[{hunter,slots:kind==='quarterMaster'?[1]:[...result.removed.map(c=>c.index),build.slots.indexOf('first-aid-kit')]}]);
+    toast(kind==='quarterMaster'?'Quartermaster applies to this hand only.':`First aid kit returned. Lost ${result.removed.map(c=>E.byId.get(c.id).name).join(', ')}.`);
   }
   function exportObject(){const hands=selectedBuilds().map((b,i)=>({hunter:i+1,name:hunterName(b,i),rank:b.rank,loadoutMulligans:b.loadoutMulligans??0,ammo:b.ammo.map((id,n)=>({...E.ammoOption(b.slots[n],id)})),role:b.role,traits:b.traits,profile:structuredClone(buildProfile(b)),seed:b.lastSeed,slots:b.slots.map((id,n)=>id?{position:n<2?`weapon-${n+1}`:`equipment-${n-1}`,id,name:E.byId.get(id).name,source:E.byId.get(id).source}:null),validation:E.validateKit(b.slots,buildProfile(b),b.ammo)}));return {app:"Dead Man's Hand",rulesVersion:E.data.version,profile:structuredClone(profile),...hands[activeBuild],buildCount,builds:hands};}
   function exportTeamText(){captureBuild();const current=activeBuild;const text=builds.slice(0,buildCount).map((b,i)=>{loadBuild(i);return `${hunterName(b,i)}\n${exportText()}`;}).join('\n\n────────────\n\n');loadBuild(current);return text;}
@@ -316,6 +328,7 @@
     const restore=event.target.closest('[data-restore]');if(restore){const entry=library[restore.dataset.list]?.find(e=>e.id===restore.dataset.restore);if(entry)restoreSnapshot(entry);return;}
     const remove=event.target.closest('[data-delete-save]');if(remove){const list=remove.dataset.list;if(library[list]){library[list]=library[list].filter(e=>e.id!==remove.dataset.deleteSave);saveLibrary();renderLibrary();}return;}
     const replacement=event.target.closest('[data-dont-own]');if(replacement){if(!replacement.disabled)replaceUnownedWeapon(Number(replacement.dataset.hunter),Number(replacement.dataset.dontOwn));return;}
+    const recovery=event.target.closest('[data-quarter-master],[data-buyback]');if(recovery){if(!recovery.disabled)recoverHand(Number(recovery.dataset.hunter),recovery.hasAttribute('data-quarter-master')?'quarterMaster':'buyback');return;}
     const mulligan=event.target.closest('[data-mulligan]');if(mulligan){if(!mulligan.disabled)mulliganOne(Number(mulligan.dataset.hunter),Number(mulligan.dataset.mulligan));return;}
     const count=event.target.closest('[data-build-count]');if(count){if(rolling||Number(count.dataset.buildCount)===buildCount)return;captureBuild();buildCount=Number(count.dataset.buildCount);loadBuild(Math.min(activeBuild,buildCount-1));profile.team=['solo','duo','trio'][buildCount-1];changed();return;}
     const tab=event.target.closest('[data-build]');if(tab){if(rolling)return;captureBuild();loadBuild(Number(tab.dataset.build));save();renderProfile();renderCards();$('build-tabs').querySelector(`[data-build="${activeBuild}"]`).focus();return;}
@@ -388,7 +401,7 @@
     const changes=animate?state.builds.slice(0,state.buildCount).flatMap((build,i)=>{
       const previous=builds[i];
       if(!previous||previous.lastSeed===build.lastSeed)return [];
-      const singleReplacement=build.lastSeed.includes(':dont-own-')||build.mulligan&&(build.loadoutMulligans??0)===(previous.loadoutMulligans??0);
+      const singleReplacement=build.lastSeed.includes(':dont-own-')||build.lastSeed.includes(':quarterMaster:')||build.mulligan&&(build.loadoutMulligans??0)===(previous.loadoutMulligans??0);
       return [{hunter:i,slots:singleReplacement?build.slots.flatMap((id,n)=>id!==previous.slots[n]||JSON.stringify(build.ammo[n])!==JSON.stringify(previous.ammo[n])?[n]:[]):null}];
     }):[];
     finishReveal();

@@ -14,7 +14,7 @@
   });
   const hostControls='[data-mode],[data-ban],#budget,#theme,#intensity,#challenge,#prefer-traits,#custom-ammo,#unique-weapons,#reveal-animation,#single-rerolls,#roulette-roll,#assign-roles,#clear-bans,#roll,#seed';
   const fixedControls='[data-build-count],#team,#reset,[data-restore]';
-  const hunterControls='[data-dont-own],[data-mulligan],[data-loadout-mulligan],[data-lock],[data-role],[data-hunter-name],[data-hunter-rank]';
+  const hunterControls='[data-quarter-master],[data-buyback],[data-dont-own],[data-mulligan],[data-loadout-mulligan],[data-lock],[data-role],[data-hunter-name],[data-hunter-rank]';
   const activeControls='[data-trait],#quartermaster,#clear-locks';
   const controls=[hostControls,fixedControls,hunterControls,activeControls].join(',');
   const me=()=>room?.members.find(member=>member.id===room.you);

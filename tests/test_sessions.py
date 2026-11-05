@@ -20,6 +20,24 @@ def squad():
 
 
 class SessionTests(unittest.TestCase):
+    def test_hand_recovery_state_syncs_and_respects_seat_ownership(self):
+        host = self.create()
+        self.assertFalse(host['state']['builds'][0]['rollQuartermaster'])
+        self.assertIsNone(host['state']['builds'][0]['lostMedkit'])
+        guest = self.join(host)
+        state = copy.deepcopy(guest['state'])
+        state['builds'][1].update(rollQuartermaster=True, lostMedkit=3)
+        response = self.put(guest, state, guest['revision'])
+        self.assertEqual(response.status_code, 200, response.text)
+        restored = self.read(host)['state']['builds'][1]
+        self.assertTrue(restored['rollQuartermaster'])
+        self.assertEqual(restored['lostMedkit'], 3)
+        state['builds'][0]['rollQuartermaster'] = True
+        self.assertEqual(self.put(guest, state, response.json()['revision']).status_code, 403)
+        state['builds'][0]['rollQuartermaster'] = False
+        state['builds'][1]['lostMedkit'] = 1
+        self.assertEqual(self.put(guest, state, response.json()['revision']).status_code, 422)
+
     def test_choice_cards_round_trip(self):
         state = squad()
         state['builds'][0]['slots'][:5] = ['wold-card-weapon', None, 'wold-card-equipment', 'any-tarot', 'first-aid-kit']

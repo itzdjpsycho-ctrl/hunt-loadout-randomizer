@@ -245,7 +245,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     else if (Object.values(p.owned).some(n => !Number.isInteger(n) || n < 0 || n > 99)) errors.push('Owned quantities must be whole numbers from 0 to 99.');
     return errors;
   }
-  const capacity = p => p.traits.includes('quartermaster') ? data.rules.weaponCapacity.withQuartermaster : data.rules.weaponCapacity.default;
+  const capacity = p => (p.rollQuartermaster || p.traits.includes('quartermaster')) ? data.rules.weaponCapacity.withQuartermaster : data.rules.weaponCapacity.default;
   function canBuy(item, p) {
     if (restricted(item) || item.price === null || p.acquisition === 'owned') return false;
     const requirement = item.requirements;
@@ -434,9 +434,9 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     if (!validation.valid) return {ok: false, errors: validation.errors};
     return {ok: true, slots: result, seed: String(seed), ...validation, nodes};
   }
-  function rerollSlot(p, seed, slots, index, candidateFilter=()=>true) {
+  function rerollSlot(p, seed, slots, index, candidateFilter=()=>true, allowEmpty=false) {
     if (!Number.isInteger(index) || index < 0 || index >= 10) return {ok:false,errors:['Choose a valid slot.']};
-    if (p.mulligan && !slots[index]) return {ok:false,errors:['Lost slots stay empty until a fresh squad deal.']};
+    if (p.mulligan && !slots[index] && !allowEmpty) return {ok:false,errors:['Lost slots stay empty until a fresh squad deal.']};
     const current = validate(slots,p);
     if (!current.valid) return {ok:false,errors:['Deal a valid loadout before rerolling a slot.',...current.errors]};
     const rng = randomFromSeed(seed);
@@ -506,7 +506,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     });
     const cost=(base.cost||0)+ammoCost;
     const limit=p.challenge==='budget300'?Math.min(p.budget??300,300):p.budget;
-    if(limit!==null&&cost>limit)errors.push(`Equipment and ammunition cost ${cost}; your limit is ${limit}.`);
+    if(limit!==null&&cost>limit)errors.push(`Equipment and ammunition cost $${cost}; your limit is $${limit}.`);
     return {...base,ammoCost,cost,errors:[...new Set(errors)],valid:!errors.length};
   }
   function random(seed){let n=2166136261;for(const c of String(seed))n=Math.imul(n^c.charCodeAt(0),16777619);n=Math.imul(n^(n>>>16),0x85ebca6b);n=Math.imul(n^(n>>>13),0xc2b2ae35);n^=n>>>16;return ()=>{n^=n<<13;n^=n>>>17;n^=n<<5;return (n>>>0)/4294967296;};}
@@ -528,12 +528,12 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const validation=validateKit(result.slots,p,nextAmmo);
     return {...result,...validation,ammo:nextAmmo,ok:validation.valid};
   }
-  function rerollKit(p,seed,build,index,candidateFilter){
+  function rerollKit(p,seed,build,index,candidateFilter,allowEmpty=false){
     const oldAmmo=build.ammo||[null,null],preserved=oldAmmo.map((id,n)=>n===index?null:id);
     const ammoCost=preserved.reduce((sum,id,n)=>sum+(ammoOption(build.slots[n],id)?.cost||0),0);
     const limit=p.challenge==='budget300'?Math.min(p.budget??300,300):p.budget;
     // Original ammo at the selected weapon can be released to buy its replacement.
-    const result=E.rerollSlot({...p,budget:limit===null?null:limit-ammoCost},seed,build.slots,index,candidateFilter);
+    const result=E.rerollSlot({...p,budget:limit===null?null:limit-ammoCost},seed,build.slots,index,candidateFilter,allowEmpty);
     if(!result.ok)return result;
     const ammo=selectAmmo(result.slots,p,seed,preserved,[index!==0,index!==1]);
     const validation=validateKit(result.slots,p,ammo);
@@ -561,6 +561,29 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const result=tarot.ok?tarot:rerollKit({...p,unownedTarot},seed,build,index);
     return result.ok?{...result,unownedTarot}:result;
   }
+  function canQuarterMaster(p,build){
+    return !p.traits.includes('quartermaster')&&!build.rollQuartermaster&&!build.secondaryLost&&!build.slots[1]&&!build.locks[1]&&E.byId.get(build.slots[0])?.capacity===E.data.rules.weaponCapacity.default;
+  }
+  function quarterMaster(p,seed,build){
+    if(!canQuarterMaster(p,build))return {ok:false,errors:['Quarter Master requires a capacity-five primary and its original empty secondary.']};
+    const result=rerollKit({...p,rollQuartermaster:true},seed,build,1,undefined,true);
+    return result.ok?{...result,rollQuartermaster:true}:result;
+  }
+  function buyback(p,seed,build){
+    const index=build.lostMedkit;
+    if(!Number.isInteger(index)||index<2||index>=10||build.slots[index]||build.slots.includes('first-aid-kit'))return {ok:false,errors:['Buyback requires a lost first aid kit.']};
+    const candidates=build.slots.flatMap((id,index)=>E.byId.get(id)?.kind==='tool'?[{id,index,weight:E.byId.get(id).melee?1:1000}]:[]);
+    if(candidates.length<2)return {ok:false,errors:['Buyback costs two remaining tools.']};
+    const slots=build.slots.slice(),locks=build.locks.slice(),removed=[],rng=random(seed+':buyback');
+    for(let n=0;n<2;n++){
+      let draw=rng()*candidates.reduce((sum,c)=>sum+c.weight,0);
+      const selected=candidates.findIndex(c=>(draw-=c.weight)<0),item=candidates.splice(selected<0?candidates.length-1:selected,1)[0];
+      slots[item.index]=null;locks[item.index]=false;removed.push(item);
+    }
+    slots[index]='first-aid-kit';locks[index]=false;
+    const validation=validateKit(slots,{...p,mulligan:true},build.ammo);
+    return {...validation,ok:validation.valid,slots,locks,ammo:build.ammo.map(id=>Array.isArray(id)?id.slice():id),removed,lostMedkit:null,mulligan:true};
+  }
   const removalWeight=(id,index)=>index<2?1:id==='first-aid-kit'||E.byId.get(id)?.melee?8:10;
   function mulliganKit(p,seed,build,index){
     if(!Number.isInteger(index)||index<0||index>=10||!build.slots[index]||build.locks[index])return {ok:false,errors:['Choose an occupied, unheld item for a mulligan.']};
@@ -574,7 +597,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     result.slots[removed.index]=null;
     if(removed.index<2)result.ammo[removed.index]=null;
     const locks=build.locks.slice();locks[removed.index]=false;
-    return {...result,...validateKit(result.slots,{...p,mulligan:true},result.ammo),locks,removed,mulligan:true};
+    return {...result,...validateKit(result.slots,{...p,mulligan:true},result.ammo),locks,removed,secondaryLost:!!build.secondaryLost||removed.index===1,lostMedkit:removed.id==='first-aid-kit'?removed.index:build.lostMedkit??null,mulligan:true};
   }
   function loadoutMulligan(p,seed,build){
     const uses=build.loadoutMulligans??0,loss=uses+1;
@@ -597,7 +620,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
       removed.push(item);
     }
     const validation=validateKit(result.slots,{...p,mulligan:true},result.ammo);
-    return {...result,...validation,ok:validation.valid,locks,removed,mulligan:true,loadoutMulligans:loss};
+    return {...result,...validation,ok:validation.valid,locks,removed,secondaryLost:!!build.secondaryLost||removed.some(c=>c.index===1),lostMedkit:removed.find(c=>c.id==='first-aid-kit')?.index??build.lostMedkit??null,mulligan:true,loadoutMulligans:loss};
   }
   function uniqueWeapons(builds){const owners=new Map();return builds.every((b,i)=>b.slots.slice(0,2).filter(Boolean).every(id=>{id=E.byId.get(id)?.baseId||id;if(owners.has(id)&&owners.get(id)!==i)return false;owners.set(id,i);return true;}));}
   function generateSquad(profiles,builds,seed,unique=false){
@@ -619,7 +642,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     return {ok:false,errors:unique?['No squad with distinct teammate weapons was found. Adjust roles, bans or holds.',...errors]:errors};
   }
   function rouletteOrder(seed){return ['no-scopes','bows','budget300'].map(id=>({id,key:random(seed+':'+id)()})).sort((a,b)=>a.key-b.key).map(x=>x.id);}
-  Object.assign(E,{selectAmmo,ammoSlots,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,dontOwnWeapon,dontOwnTarot,mulliganKit,loadoutMulligan,uniqueWeapons,generateSquad,rouletteOrder});
+  Object.assign(E,{canQuarterMaster,quarterMaster,buyback,selectAmmo,ammoSlots,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,dontOwnWeapon,dontOwnTarot,mulliganKit,loadoutMulligan,uniqueWeapons,generateSquad,rouletteOrder});
 })();
 </script>
   <script>(function () {
@@ -638,7 +661,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
   function captureBuild() { builds[activeBuild] = {...builds[activeBuild],slots:slots.slice(),locks:locks.slice(),lastSeed,dirty}; }
   function loadBuild(index) { activeBuild=index; ({slots,locks,lastSeed,dirty}=structuredClone(builds[index])); }
   function selectedBuilds() { captureBuild(); return builds.slice(0,buildCount); }
-  function buildProfile(build) { return {...profile,rank:build.rank,traits:build.traits,role:build.role,mulligan:!!build.mulligan,unownedWeapons:build.unownedWeapons||[],unownedTarot:build.unownedTarot||[]}; }
+  function buildProfile(build) { return {...profile,rank:build.rank,traits:build.traits,rollQuartermaster:!!build.rollQuartermaster,role:build.role,mulligan:!!build.mulligan,unownedWeapons:build.unownedWeapons||[],unownedTarot:build.unownedTarot||[]}; }
   function hunterName(build,index) { return build.name || `Hunter ${index+1}`; }
   function canExport() { return (!profile.uniqueWeapons||E.uniqueWeapons(selectedBuilds()))&&selectedBuilds().every(b=>!b.dirty&&b.slots.some(Boolean)&&E.validateKit(b.slots,buildProfile(b),b.ammo).valid); }
   try {
@@ -662,7 +685,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
             b.traits=Array.isArray(b.traits)?[...new Set(b.traits.filter(t=>E.traitById.has(t)))].slice(0,15):profile.traits.slice();
             b.role=['any','sniper','close','support','shotgun-gamer'].includes(b.role)?b.role:'any';
             b.ammo=Array.isArray(b.ammo)&&b.ammo.length===2?b.ammo.map((id,n)=>E.ammoOption(b.slots[n],id)?id:null):[null,null];
-            return {unownedTarot:Array.isArray(b.unownedTarot)?[...new Set(b.unownedTarot.filter(id=>E.byId.get(id)?.category==='tarot-cards'))]:[],unownedWeapons:Array.isArray(b.unownedWeapons)?[...new Set(b.unownedWeapons.filter(id=>E.byId.get(id)?.kind==='weapon').map(id=>E.byId.get(id).baseId||id))]:[],mulligan:!!b.mulligan,loadoutMulligans:Number.isInteger(b.loadoutMulligans)&&b.loadoutMulligans>=0&&b.loadoutMulligans<=10?b.loadoutMulligans:0,name:b.name,rank:b.rank,traits:b.traits,role:b.role,ammo:b.ammo,slots:b.slots,locks:Array.from({length:10},(_,i)=>!!b.locks?.[i]&&!!b.slots[i]),lastSeed:typeof b.lastSeed==='string'?b.lastSeed:'',dirty:!!b.dirty||(b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid)};
+            return {secondaryLost:b.secondaryLost===undefined?!!b.mulligan:!!b.secondaryLost,rollQuartermaster:!!b.rollQuartermaster,lostMedkit:Number.isInteger(b.lostMedkit)&&b.lostMedkit>=2&&b.lostMedkit<10?b.lostMedkit:null,unownedTarot:Array.isArray(b.unownedTarot)?[...new Set(b.unownedTarot.filter(id=>E.byId.get(id)?.category==='tarot-cards'))]:[],unownedWeapons:Array.isArray(b.unownedWeapons)?[...new Set(b.unownedWeapons.filter(id=>E.byId.get(id)?.kind==='weapon').map(id=>E.byId.get(id).baseId||id))]:[],mulligan:!!b.mulligan,loadoutMulligans:Number.isInteger(b.loadoutMulligans)&&b.loadoutMulligans>=0&&b.loadoutMulligans<=10?b.loadoutMulligans:0,name:b.name,rank:b.rank,traits:b.traits,role:b.role,ammo:b.ammo,slots:b.slots,locks:Array.from({length:10},(_,i)=>!!b.locks?.[i]&&!!b.slots[i]),lastSeed:typeof b.lastSeed==='string'?b.lastSeed:'',dirty:!!b.dirty||(b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid)};
           });
           loadBuild(Number.isInteger(saved.activeBuild)&&saved.activeBuild>=0&&saved.activeBuild<buildCount?saved.activeBuild:0);
         }
@@ -712,7 +735,8 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const {slots, locks, lastSeed} = build;
     const item = E.byId.get(slots[index]), weapon = index < 2;
     const type = weapon ? 'weapon-card' : 'equipment-card';
-    if (!item) return `<article class="${type} empty-card"><div class="card-top"><span>${weapon ? (index ? 'SECONDARY' : 'PRIMARY') : `SLOT ${String(index-1).padStart(2,'0')}`}</span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(null,weapon)}</div><h3>${weapon ? (build.mulligan ? 'Lost to mulligan' : lastSeed ? 'Travelling light' : 'Undealt') : (build.mulligan ? 'Lost to mulligan' : 'Awaiting fate')}</h3>${weapon?`<p class="empty-caption">${lastSeed ? 'An empty position can be a legal part of the hand.' : 'Your next weapon is a roll away.'}</p>`:''}</article>`;
+    const recovery=index===1&&E.canQuarterMaster(buildProfile(build),build)?`<button data-quarter-master data-hunter="${hunter}" ${build.dirty||!lastSeed?'disabled':''} title="Roll only the secondary. Quartermaster applies to this hand until the next deal.">Quarter Master</button>`:index===build.lostMedkit?`<button data-buyback data-hunter="${hunter}" ${build.dirty||!lastSeed||build.slots.filter(id=>E.byId.get(id)?.kind==='tool').length<2?'disabled':''} title="Return your first aid kit by sacrificing two tools. Melee tool weight: 1; other tools: 1000. Holds do not protect tools.">Buyback (Lose 2 tools)</button>`:'';
+    if (!item) return `<article class="${type} empty-card"><div class="card-top"><span>${weapon ? (index ? 'SECONDARY' : 'PRIMARY') : `SLOT ${String(index-1).padStart(2,'0')}`}</span></div><div class="${weapon?'weapon':'equipment'}-art">${icon(null,weapon)}</div><h3>${weapon ? (build.mulligan ? 'Lost to mulligan' : lastSeed ? 'Travelling light' : 'Undealt') : (build.mulligan ? 'Lost to mulligan' : 'Awaiting fate')}</h3>${recovery}${weapon?`<p class="empty-caption">${lastSeed ? 'An empty position can be a legal part of the hand.' : 'Your next weapon is a roll away.'}</p>`:''}</article>`;
     const route = validation.routes?.[index];
     const benefit = E.benefits(item,buildProfile(build));
     const ammo=weapon?E.ammoOption(item.id,build.ammo[index]):null;
@@ -876,14 +900,14 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
       const challenges=roulette?E.rouletteOrder(seed):[profile.challenge];
       let dealt,chosen;
       for(const challenge of challenges){
-        const candidate=E.generateSquad(builds.slice(0,buildCount).map(b=>({...buildProfile(b),challenge})),builds.slice(0,buildCount),seed,profile.uniqueWeapons);
+        const candidate=E.generateSquad(builds.slice(0,buildCount).map(b=>({...buildProfile(b),rollQuartermaster:false,challenge})),builds.slice(0,buildCount),seed,profile.uniqueWeapons);
         if(candidate.ok){dealt=candidate;chosen=challenge;break;}
         dealt=candidate;
       }
       if(!dealt.ok){notice=[...(roulette?['No roulette challenge fits the current roles, bans, budget and holds.']:[]),...dealt.errors];if(!roulette)builds.slice(0,buildCount).forEach(b=>b.dirty=true);loadBuild(activeBuild);save();renderCards();return;}
       if(chosen!==profile.challenge)builds.slice(buildCount).forEach(b=>{if(b.slots.some(Boolean))b.dirty=true;});
       profile.challenge=chosen;
-      dealt.results.forEach((r,i)=>{builds[i]={...builds[i],slots:r.slots,ammo:r.ammo,locks:builds[i].locks,lastSeed:r.seed,dirty:false,mulligan:false,loadoutMulligans:0};});
+      dealt.results.forEach((r,i)=>{builds[i]={...builds[i],slots:r.slots,ammo:r.ammo,locks:builds[i].locks,lastSeed:r.seed,dirty:false,mulligan:false,rollQuartermaster:false,secondaryLost:false,lostMedkit:null,loadoutMulligans:0};});
       loadBuild(activeBuild);rollNumber++;notice=[];
       save();recordHistory();renderProfile();renderCards();revealCards();
       if(roulette){$('squad-options-dialog').close();toast('Challenge drawn: '+{'no-scopes':'No scopes',bows:'Everyone brings a Hunting Bow',budget300:'$300 per hunter'}[chosen]);}
@@ -914,7 +938,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:mulligan-${index+1}:${rollNumber+1}`;
     const result=E.mulliganKit(teammateProfile(hunter),seed,build,index);
     if(!result.ok){toast(result.errors.join(' '));return;}
-    Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,mulligan:true,lastSeed:seed});
+    Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,secondaryLost:result.secondaryLost,lostMedkit:result.lostMedkit,mulligan:true,lastSeed:seed});
     loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter,null,[{hunter,slots:[index,result.removed.index]}]);
     (document.querySelector(`[data-mulligan="${index}"][data-hunter="${hunter}"]`)||document.querySelector(`[data-loadout-mulligan="${hunter}"]`))?.focus({preventScroll:true});
     toast(hunterName(build,hunter)+': mulligan used. Lost '+E.byId.get(result.removed.id).name+'.');
@@ -926,10 +950,21 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:loadout-mulligan:${rollNumber+1}`;
     const result=E.loadoutMulligan(teammateProfile(hunter),seed,build);
     if(!result.ok){toast(result.errors.join(' '));return;}
-    Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,mulligan:true,loadoutMulligans:result.loadoutMulligans,lastSeed:seed});
+    Object.assign(build,{slots:result.slots,ammo:result.ammo,locks:result.locks,secondaryLost:result.secondaryLost,lostMedkit:result.lostMedkit,mulligan:true,loadoutMulligans:result.loadoutMulligans,lastSeed:seed});
     loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter);
     document.querySelector(`[data-loadout-mulligan="${hunter}"]`)?.focus({preventScroll:true});
     toast(hunterName(build,hunter)+': loadout mulligan. Lost '+result.removed.map(item=>E.byId.get(item.id).name).join(', ')+'.');
+  }
+  function recoverHand(hunter,kind){
+    if(rolling)return;
+    captureBuild();const build=builds[hunter];
+    if(!build||build.dirty||!build.lastSeed)return;
+    const seed=`${$('seed').value.trim()||freshSeed()}:hunter-${hunter+1}:${kind}:${rollNumber+1}`;
+    const result=E[kind](teammateProfile(hunter),seed,build);
+    if(!result.ok){toast(result.errors.join(' '));return;}
+    Object.assign(build,{slots:result.slots,ammo:result.ammo,lastSeed:seed},kind==='quarterMaster'?{rollQuartermaster:true}:{locks:result.locks,lostMedkit:null,mulligan:true});
+    loadBuild(activeBuild);rollNumber++;notice=[];save();recordHistory();renderCards();revealCards(hunter,null,[{hunter,slots:kind==='quarterMaster'?[1]:[...result.removed.map(c=>c.index),build.slots.indexOf('first-aid-kit')]}]);
+    toast(kind==='quarterMaster'?'Quartermaster applies to this hand only.':`First aid kit returned. Lost ${result.removed.map(c=>E.byId.get(c.id).name).join(', ')}.`);
   }
   function exportObject(){const hands=selectedBuilds().map((b,i)=>({hunter:i+1,name:hunterName(b,i),rank:b.rank,loadoutMulligans:b.loadoutMulligans??0,ammo:b.ammo.map((id,n)=>({...E.ammoOption(b.slots[n],id)})),role:b.role,traits:b.traits,profile:structuredClone(buildProfile(b)),seed:b.lastSeed,slots:b.slots.map((id,n)=>id?{position:n<2?`weapon-${n+1}`:`equipment-${n-1}`,id,name:E.byId.get(id).name,source:E.byId.get(id).source}:null),validation:E.validateKit(b.slots,buildProfile(b),b.ammo)}));return {app:"Dead Man's Hand",rulesVersion:E.data.version,profile:structuredClone(profile),...hands[activeBuild],buildCount,builds:hands};}
   function exportTeamText(){captureBuild();const current=activeBuild;const text=builds.slice(0,buildCount).map((b,i)=>{loadBuild(i);return `${hunterName(b,i)}\n${exportText()}`;}).join('\n\n────────────\n\n');loadBuild(current);return text;}
@@ -940,6 +975,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const restore=event.target.closest('[data-restore]');if(restore){const entry=library[restore.dataset.list]?.find(e=>e.id===restore.dataset.restore);if(entry)restoreSnapshot(entry);return;}
     const remove=event.target.closest('[data-delete-save]');if(remove){const list=remove.dataset.list;if(library[list]){library[list]=library[list].filter(e=>e.id!==remove.dataset.deleteSave);saveLibrary();renderLibrary();}return;}
     const replacement=event.target.closest('[data-dont-own]');if(replacement){if(!replacement.disabled)replaceUnownedWeapon(Number(replacement.dataset.hunter),Number(replacement.dataset.dontOwn));return;}
+    const recovery=event.target.closest('[data-quarter-master],[data-buyback]');if(recovery){if(!recovery.disabled)recoverHand(Number(recovery.dataset.hunter),recovery.hasAttribute('data-quarter-master')?'quarterMaster':'buyback');return;}
     const mulligan=event.target.closest('[data-mulligan]');if(mulligan){if(!mulligan.disabled)mulliganOne(Number(mulligan.dataset.hunter),Number(mulligan.dataset.mulligan));return;}
     const count=event.target.closest('[data-build-count]');if(count){if(rolling||Number(count.dataset.buildCount)===buildCount)return;captureBuild();buildCount=Number(count.dataset.buildCount);loadBuild(Math.min(activeBuild,buildCount-1));profile.team=['solo','duo','trio'][buildCount-1];changed();return;}
     const tab=event.target.closest('[data-build]');if(tab){if(rolling)return;captureBuild();loadBuild(Number(tab.dataset.build));save();renderProfile();renderCards();$('build-tabs').querySelector(`[data-build="${activeBuild}"]`).focus();return;}
@@ -1012,7 +1048,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     const changes=animate?state.builds.slice(0,state.buildCount).flatMap((build,i)=>{
       const previous=builds[i];
       if(!previous||previous.lastSeed===build.lastSeed)return [];
-      const singleReplacement=build.lastSeed.includes(':dont-own-')||build.mulligan&&(build.loadoutMulligans??0)===(previous.loadoutMulligans??0);
+      const singleReplacement=build.lastSeed.includes(':dont-own-')||build.lastSeed.includes(':quarterMaster:')||build.mulligan&&(build.loadoutMulligans??0)===(previous.loadoutMulligans??0);
       return [{hunter:i,slots:singleReplacement?build.slots.flatMap((id,n)=>id!==previous.slots[n]||JSON.stringify(build.ammo[n])!==JSON.stringify(previous.ammo[n])?[n]:[]):null}];
     }):[];
     finishReveal();
@@ -1041,7 +1077,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
   });
   const hostControls='[data-mode],[data-ban],#budget,#theme,#intensity,#challenge,#prefer-traits,#custom-ammo,#unique-weapons,#reveal-animation,#single-rerolls,#roulette-roll,#assign-roles,#clear-bans,#roll,#seed';
   const fixedControls='[data-build-count],#team,#reset,[data-restore]';
-  const hunterControls='[data-dont-own],[data-mulligan],[data-loadout-mulligan],[data-lock],[data-role],[data-hunter-name],[data-hunter-rank]';
+  const hunterControls='[data-quarter-master],[data-buyback],[data-dont-own],[data-mulligan],[data-loadout-mulligan],[data-lock],[data-role],[data-hunter-name],[data-hunter-rank]';
   const activeControls='[data-trait],#quartermaster,#clear-locks';
   const controls=[hostControls,fixedControls,hunterControls,activeControls].join(',');
   const me=()=>room?.members.find(member=>member.id===room.you);

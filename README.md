@@ -236,3 +236,8 @@ Each occupied card has an **M** button. It replaces that item and removes one ra
 ## Dual-wield pistol rolls
 
 Rolls can select 24 matched pistol pairs, displayed as Dual followed by the pistol name. A pair occupies one weapon position, uses the single pistol's capacity plus one, and costs two copies including supported custom ammunition. Stocked and scoped pistols and the Haymaker cannot roll as pairs. Holds, mulligans, exports and shared-room activity use the pair as one card; a mulligan losing that card removes the pair. Banning a pistol excludes its pair, and squad weapon uniqueness treats single and dual versions as the same weapon.
+
+
+A capacity-five primary with its original empty secondary offers **Quarter Master**. It rolls only the secondary, assumes Quartermaster for that hand, and leaves the trait selection unchanged. The temporary capacity survives saving and shared rooms, and expires on the next **Deal me in**. Held weapons must still fit the next deal's normal capacity.
+
+When a mulligan removes a First Aid Kit, its empty card offers **Buyback (Lose 2 tools)**. This restores the kit in that position and sacrifices exactly two remaining tools, including held tools. Weapons and consumables cannot pay this cost. Each melee tool has selection weight 1 versus 1000 for other tools, so melee loss is very rare when two other tools remain; with fewer alternatives, melee may be required. Buyback respects bans, access and spending limits, and fails without payment if the restored hand is invalid. Other lost positions remain empty.

@@ -25,7 +25,7 @@
     else if (Object.values(p.owned).some(n => !Number.isInteger(n) || n < 0 || n > 99)) errors.push('Owned quantities must be whole numbers from 0 to 99.');
     return errors;
   }
-  const capacity = p => p.traits.includes('quartermaster') ? data.rules.weaponCapacity.withQuartermaster : data.rules.weaponCapacity.default;
+  const capacity = p => (p.rollQuartermaster || p.traits.includes('quartermaster')) ? data.rules.weaponCapacity.withQuartermaster : data.rules.weaponCapacity.default;
   function canBuy(item, p) {
     if (restricted(item) || item.price === null || p.acquisition === 'owned') return false;
     const requirement = item.requirements;
@@ -214,9 +214,9 @@
     if (!validation.valid) return {ok: false, errors: validation.errors};
     return {ok: true, slots: result, seed: String(seed), ...validation, nodes};
   }
-  function rerollSlot(p, seed, slots, index, candidateFilter=()=>true) {
+  function rerollSlot(p, seed, slots, index, candidateFilter=()=>true, allowEmpty=false) {
     if (!Number.isInteger(index) || index < 0 || index >= 10) return {ok:false,errors:['Choose a valid slot.']};
-    if (p.mulligan && !slots[index]) return {ok:false,errors:['Lost slots stay empty until a fresh squad deal.']};
+    if (p.mulligan && !slots[index] && !allowEmpty) return {ok:false,errors:['Lost slots stay empty until a fresh squad deal.']};
     const current = validate(slots,p);
     if (!current.valid) return {ok:false,errors:['Deal a valid loadout before rerolling a slot.',...current.errors]};
     const rng = randomFromSeed(seed);
