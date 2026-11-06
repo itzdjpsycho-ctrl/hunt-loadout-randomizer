@@ -136,6 +136,9 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
 .special-ammo-choice{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}
 .special-ammo-choice+ .special-ammo-choice{margin-top:5px;padding-top:5px;border-top:1px solid #b88b4e55}
 .special-ammo-choice>span{color:#e0c69f;font-size:11px}
+
+.update-notice{position:sticky;top:10px;z-index:30;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:10px 0;padding:12px 16px;border:1px solid var(--gold);border-radius:4px;background:var(--panel);box-shadow:0 4px 16px #0005}
+.update-notice[hidden]{display:none}.update-notice p{margin:0;font-size:14px;flex:1 1 180px}.update-notice button{white-space:normal;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -153,6 +156,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
       <a href="#main" class="brand"><span class="brand-mark" aria-hidden="true">✣</span><span>DEAD MAN'S HAND<small>HUNT: SHOWDOWN 1896 · LOADOUT RANDOMIZER</small></span></a>
       <button class="quiet-button" id="rules-open"><span class="status-dot"></span> THE HOUSE RULES <span aria-hidden="true">↗</span></button>
     </header>
+    <aside id="update-notice" class="update-notice" role="status" aria-atomic="true" hidden><p id="update-message">A website update is available.</p><button id="update-refresh" class="solid-button">Refresh to update</button></aside>
     <main id="main">
       <section class="intro">
         <div><div class="eyebrow"><span></span> A LITTLE LUCK. A LOT OF BAD IDEAS.</div><h1>LOCK. ROLL. <em>HUNT.</em></h1><p>Draw a loadout. Make it work. Get out alive.</p></div>
@@ -1063,6 +1067,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
     loadBuild(Math.min(hunter??activeBuild,buildCount-1));rollNumber=state.rollNumber;$('seed').value=state.seedInput;
     notice=[];save();renderProfile();renderCards();if(changes.length)revealCards(null,null,changes);
   }
+  window.addEventListener('chaos-before-update-reload',event=>{if(rolling)event.preventDefault();});
   renderProfile();renderCards();
   window.ChaosApp={getState:()=>({profile:structuredClone(buildProfile(builds[activeBuild])),slots:slots.slice(),locks:locks.slice(),lastSeed,dirty,buildCount,activeBuild,builds:structuredClone(selectedBuilds())}),roll,exportObject,exportTeamText,getSharedState,applySharedState,toast};
 })();
@@ -1235,6 +1240,7 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
       if(room){applying=true;try{A.applySharedState(room.state);}finally{applying=false;}}
     }finally{if(stamp===epoch){busy=false;dirty=false;render();if(!online)refresh();}}
   }
+  window.addEventListener('chaos-before-update-reload',event=>{if(busy||dirty)event.preventDefault();});
   window.addEventListener('chaos-state-changed',()=>{
     if(!room||applying||stable(A.getSharedState())===baseline)return;
     if(!online||busy)return;
@@ -1308,7 +1314,47 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
       $('party-invite-name').focus();
     }catch(error){$('party-invite-seats').textContent='Invitation unavailable';$('party-invite-status').textContent=error.message;}
   }
+  // A background tab can suspend timers. Resume polling without replacing its seat.
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
+  for(const event of ['online','focus','pageshow'])window.addEventListener(event,refresh);
   setInterval(refresh,1000);
+})();
+</script>
+  <script>(function(){
+  'use strict';
+  const current=document.documentElement.dataset.buildVersion;
+  if(document.documentElement.hasAttribute('data-standalone')||!/^https?:$/.test(location.protocol)||!current)return;
+  const notice=document.getElementById('update-notice'),message=document.getElementById('update-message'),button=document.getElementById('update-refresh');
+  let checking=false,available=null;
+  async function check(){
+    if(document.hidden||checking||available)return;
+    checking=true;
+    try{
+      const url=new URL('assets/version.json',location.href);
+      url.searchParams.set('check',String(Date.now()));
+      const response=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(8000)});
+      if(!response.ok)return;
+      const result=await response.json();
+      if(typeof result?.version!=='string'||!/^[a-f0-9]{16}$/.test(result.version)||result.version===current)return;
+      available=result.version;
+      notice.hidden=false;
+    }catch{/* A failed update check leaves the current hand usable. */}
+    finally{checking=false;}
+  }
+  button.addEventListener('click',()=>{
+    if(!available)return;
+    if(!window.dispatchEvent(new Event('chaos-before-update-reload',{cancelable:true}))){
+      message.textContent='Wait for the current action to finish, then refresh to update.';
+      return;
+    }
+    const url=new URL(location.href);
+    url.searchParams.set('_build',available);
+    location.replace(url.href);
+  });
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)check();});
+  for(const event of ['online','focus','pageshow'])window.addEventListener(event,check);
+  setInterval(check,60000);
+  check();
 })();
 </script>
 </body>

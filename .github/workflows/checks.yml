@@ -25,6 +25,8 @@ jobs:
         run: python -m playwright install --with-deps chromium
       - name: Verify shared sessions in separate browsers
         run: python tests/browser_sessions.py
+      - name: Verify website update and refresh flow
+        run: python tests/browser_updates.py
       - name: Verify deployable container
         run: docker build -t hunt-loadout-randomizer .
       - name: Smoke-test Uvicorn container

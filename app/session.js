@@ -165,6 +165,7 @@
       if(room){applying=true;try{A.applySharedState(room.state);}finally{applying=false;}}
     }finally{if(stamp===epoch){busy=false;dirty=false;render();if(!online)refresh();}}
   }
+  window.addEventListener('chaos-before-update-reload',event=>{if(busy||dirty)event.preventDefault();});
   window.addEventListener('chaos-state-changed',()=>{
     if(!room||applying||stable(A.getSharedState())===baseline)return;
     if(!online||busy)return;
@@ -238,5 +239,8 @@
       $('party-invite-name').focus();
     }catch(error){$('party-invite-seats').textContent='Invitation unavailable';$('party-invite-status').textContent=error.message;}
   }
+  // A background tab can suspend timers. Resume polling without replacing its seat.
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
+  for(const event of ['online','focus','pageshow'])window.addEventListener(event,refresh);
   setInterval(refresh,1000);
 })();

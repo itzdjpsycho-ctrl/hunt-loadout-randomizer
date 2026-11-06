@@ -36,11 +36,15 @@ def create_app(site: Path = SITE, database: Path | None = None) -> FastAPI:
 
     @app.get("/", include_in_schema=False)
     async def index():
-        return FileResponse(site / "index.html", headers={"Cache-Control": "no-cache"})
+        return FileResponse(site / "index.html", headers={"Cache-Control": "no-store"})
 
     @app.get("/index.html", include_in_schema=False)
     async def index_file():
         return await index()
+
+    @app.get("/assets/version.json", include_in_schema=False)
+    async def build_version():
+        return FileResponse(site / "assets/version.json", headers={"Cache-Control": "no-store"})
 
     app.mount("/assets", StaticFiles(directory=site / "assets", check_dir=False), name="assets")
     return app

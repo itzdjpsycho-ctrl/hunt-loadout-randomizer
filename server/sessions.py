@@ -16,7 +16,6 @@ Identifier = Annotated[str, Field(max_length=100)]
 Traits = Annotated[list[Identifier], Field(max_length=15)]
 Ids = Annotated[list[Identifier], Field(max_length=500)]
 TTL = 24 * 60 * 60
-RECONNECT_GRACE = 60
 
 
 class Model(BaseModel):
@@ -166,16 +165,6 @@ class Rooms:
             json.dumps(room["state"]), json.dumps(room["members"]), room["revision"], time.time(), json.dumps(room.get("activity", [])), room["code"],
         ))
 
-    def release_disconnected(self, db, room):
-        remaining = [p for p in room["members"] if p["seen"] > time.time() - RECONNECT_GRACE]
-        if len(remaining) == len(room["members"]):
-            return
-        room["members"] = remaining
-        if remaining and not any(p["host"] for p in remaining):
-            remaining[0]["host"] = True
-        room["revision"] += 1
-        self.write(db, room)
-
     @staticmethod
     def record_changes(room, member, state):
         old = room["state"]
@@ -233,9 +222,7 @@ def session_router(rooms: Rooms):
     def invite(code: str, response: Response):
         with rooms.transaction() as db:
             room = rooms.load(db, code)
-            previous_host = next((p["name"] for p in room["members"] if p["host"]), "Hunter")
-            rooms.release_disconnected(db, room)
-            host = next((p["name"] for p in room["members"] if p["host"]), previous_host)
+            host = next((p["name"] for p in room["members"] if p["host"]), "Hunter")
             response.headers["Cache-Control"] = "no-store"
             return {"host": host, "members": len(room["members"]), "capacity": room["state"]["buildCount"]}
 
@@ -261,7 +248,6 @@ def session_router(rooms: Rooms):
     def join(code: str, body: JoinRoom, response: Response):
         with rooms.transaction() as db:
             room = rooms.load(db, code)
-            rooms.release_disconnected(db, room)
             taken = {p["hunter"] for p in room["members"]}
             seat = next((n for n in range(room["state"]["buildCount"]) if n not in taken), None)
             if seat is None:
@@ -280,7 +266,6 @@ def session_router(rooms: Rooms):
             room = rooms.load(db, code)
             member = rooms.member(room, authorization)
             member["seen"] = time.time()
-            rooms.release_disconnected(db, room)
             rooms.write(db, room)
             response.headers["Cache-Control"] = "no-store"
             return rooms.view(room, member)
@@ -292,7 +277,6 @@ def session_router(rooms: Rooms):
             room = rooms.load(db, code)
             member = rooms.member(room, authorization)
             member["seen"] = time.time()
-            rooms.release_disconnected(db, room)
             if body.revision != room["revision"]:
                 raise HTTPException(409, "Another player changed the room. Latest state restored; try your action again.")
             state = body.state.model_dump()

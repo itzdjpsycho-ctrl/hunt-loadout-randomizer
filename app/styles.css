@@ -129,3 +129,6 @@ html[data-standalone] .room-activity{display:none}.room-activity{background:#111
 .special-ammo-choice{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}
 .special-ammo-choice+ .special-ammo-choice{margin-top:5px;padding-top:5px;border-top:1px solid #b88b4e55}
 .special-ammo-choice>span{color:#e0c69f;font-size:11px}
+
+.update-notice{position:sticky;top:10px;z-index:30;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:10px 0;padding:12px 16px;border:1px solid var(--gold);border-radius:4px;background:var(--panel);box-shadow:0 4px 16px #0005}
+.update-notice[hidden]{display:none}.update-notice p{margin:0;font-size:14px;flex:1 1 180px}.update-notice button{white-space:normal;flex-shrink:0}

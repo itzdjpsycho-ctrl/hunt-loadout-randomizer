@@ -5,6 +5,8 @@ import os
 from pathlib import Path
 import re
 import socket
+import sqlite3
+from contextlib import closing
 import subprocess
 import sys
 import tempfile
@@ -175,12 +177,38 @@ with tempfile.TemporaryDirectory(dir=ARTIFACTS) as directory:
                 contexts[1].set_offline(True)
                 expect(guest.locator("#session-status")).to_contain_text("Reconnecting", timeout=15000)
                 expect(guest.locator('[data-hunter-name="1"]')).to_be_disabled()
+                # Age the disconnected seat past the former 60-second eviction boundary.
+                with closing(sqlite3.connect(Path(directory) / "rooms.db")) as db, db:
+                    members = json.loads(db.execute("SELECT members FROM rooms WHERE code=?", (code,)).fetchone()[0])
+                    for member in members:
+                        if member["hunter"] == 1:
+                            member["seen"] = time.time() - 3600
+                    db.execute("UPDATE rooms SET members=? WHERE code=?", (json.dumps(members), code))
+                expect(host.locator("#session-members li").filter(has_text="H2")).to_contain_text("away")
+                expect(host.locator("#session-members li")).to_have_count(2)
+                check("A long-disconnected guest remains in the party as away", True)
                 host.locator('[data-mulligan="3"][data-hunter="0"]').click()
                 connected(host)
                 contexts[1].set_offline(False)
                 connected(guest)
                 match(guest, shared(host))
                 check("Disconnect pauses edits and reconnect restores current room state", True)
+                check("Long outage preserves credentials and returns to the same hunter", guest.evaluate("JSON.parse(sessionStorage.getItem('dead-mans-hand.room.v1')).token") == previous_seat and guest.evaluate("ChaosApp.getState().activeBuild") == 1)
+                contexts[0].set_offline(True)
+                expect(host.locator("#session-status")).to_contain_text("Reconnecting", timeout=15000)
+                with closing(sqlite3.connect(Path(directory) / "rooms.db")) as db, db:
+                    members = json.loads(db.execute("SELECT members FROM rooms WHERE code=?", (code,)).fetchone()[0])
+                    for member in members:
+                        if member["hunter"] == 0:
+                            member["seen"] = time.time() - 3600
+                    db.execute("UPDATE rooms SET members=? WHERE code=?", (json.dumps(members), code))
+                expect(guest.locator("#session-members li").filter(has_text="H1")).to_contain_text("away")
+                expect(guest.locator("#roll")).to_be_disabled()
+                contexts[0].set_offline(False)
+                connected(host)
+                expect(host.locator("#session-status")).to_contain_text("Host")
+                expect(host.locator("#roll")).to_be_enabled()
+                check("An away host retains control and reconnects without a new seat", True)
                 for page, name in ((third, "Third"), (extra, "Extra")):
                     page.goto(url + "#room=" + code)
                     if page == third:

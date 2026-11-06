@@ -409,6 +409,7 @@
     loadBuild(Math.min(hunter??activeBuild,buildCount-1));rollNumber=state.rollNumber;$('seed').value=state.seedInput;
     notice=[];save();renderProfile();renderCards();if(changes.length)revealCards(null,null,changes);
   }
+  window.addEventListener('chaos-before-update-reload',event=>{if(rolling)event.preventDefault();});
   renderProfile();renderCards();
   window.ChaosApp={getState:()=>({profile:structuredClone(buildProfile(builds[activeBuild])),slots:slots.slice(),locks:locks.slice(),lastSeed,dirty,buildCount,activeBuild,builds:structuredClone(selectedBuilds())}),roll,exportObject,exportTeamText,getSharedState,applySharedState,toast};
 })();
