@@ -1,4 +1,4 @@
-﻿{
+{
     "schemaVersion":  2,
     "researchedOn":  "2026-09-23",
     "targetPatch":  "2.9",
@@ -9470,6 +9470,63 @@
                                        },
                       "unlockSummary":  "Bloodline rank 17 to buy",
                       "dualWield":  null
+                  },
+                  {
+                      "id": "long-derringer",
+                      "name": "Long Derringer",
+                      "kind": "tool",
+                      "capacity": null,
+                      "sourceUrl": "https://bayouindex.com/weapons/long-derringer/",
+                      "availability": "standard-candidate",
+                      "group": "Pocket pistols",
+                      "priceHuntDollars": 100,
+                      "priceSourceText": "100",
+                      "ammoType": "Long",
+                      "wikiCategories": [
+                          "Tools",
+                          "Long Ammo"
+                      ],
+                      "consumableLimitCategory": null,
+                      "family": null,
+                      "sourceRevision": null,
+                      "researchedOn": "2026-11-06",
+                      "sourceSnapshot": "sources/items/tool-long-derringer.html",
+                      "verification": "official announcement and community event record; price and artwork from extracted-game-data index; not checked in game",
+                      "notes": [
+                          "Single-shot Long Ammo tool; uses one equipment position and no weapon capacity.",
+                          "Community event Stage V completed October 27, 2026.",
+                          "No individual Bloodline unlock rank was established. The randomizer treats the globally unlocked community reward as available from rank 1."
+                      ],
+                      "requirements": {
+                          "checkedOn": "2026-11-06",
+                          "purchaseRoute": "bloodline-rank",
+                          "bloodlineRank": 1,
+                          "sourceUnlockText": "All Hallows Cleave community Stage V reward; completed October 27, 2026",
+                          "explicitArsenalUnlockConfirmation": false,
+                          "eventUnlockConfirmation": false,
+                          "ownedEquippableInstanceRequired": false,
+                          "excludedUntilReviewed": false,
+                          "equipmentSlots": 1,
+                          "maxIdenticalToolCopies": 1,
+                          "sources": [
+                              "https://www.huntshowdown.com/releasenotes/en_US/blood-testament-chapter-2-patch-notes",
+                              "https://huntshowdown.wiki.gg/wiki/Events/Blood_Testament",
+                              "https://bayouindex.com/weapons/long-derringer/"
+                          ],
+                          "evidence": [
+                              "Crytek identifies Long Derringer as a single-shot Long Ammo tool.",
+                              "Event record reports the community-wide unlock on October 27.",
+                              "Rank 1 is an app availability assumption after the global community unlock, not a verified personal rank requirement."
+                          ]
+                      },
+                      "unlockSummary": "Community reward unlocked October 27; available in the randomizer at all ranks",
+                      "dualWield": null,
+                      "imagePath": "assets/equipment/long-derringer.webp",
+                      "imageSource": "https://bayouindex.com/icons/2cdfcabe6593002c.webp",
+                      "recommendedTraits": [
+                          "crack-shot",
+                          "frontiersman"
+                      ]
                   },
                   {
                       "id":  "quad-derringer",

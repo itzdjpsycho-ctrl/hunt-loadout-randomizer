@@ -239,6 +239,7 @@
       const extra = p.team === 'solo' && p.traits.includes('catalyst') ? 2 : 1;
       let text = `+${extra} tool use${extra > 1 ? 's' : ''}`;
       if (item.id === 'quad-derringer') text = `+${extra * 4} reserve shots`;
+      if (item.id === 'long-derringer') text = `+${extra * 2} reserve rounds`;
       if (item.id === 'derringer-pennyshot') text = `+${extra * 2} reserve shells`;
       notes[notes.indexOf('Frontiersman')] = `Frontiersman: ${text}`;
     }

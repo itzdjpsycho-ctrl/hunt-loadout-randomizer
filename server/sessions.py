@@ -153,6 +153,12 @@ class Rooms:
             build.setdefault("lostMedkit", None)
             build.setdefault("unownedWeapons", [])
             build.setdefault("unownedTarot", [])
+            # Old rooms may retain two ammo choices on a corrected one-pool weapon.
+            # Reset obsolete topology to standard ammo; incoming writes remain strict.
+            for index, ammo in enumerate(build["ammo"]):
+                pools = self.catalog.get("ammoSlots", {}).get(build["slots"][index], [])
+                if isinstance(ammo, list) and len(ammo) != len(pools):
+                    build["ammo"][index] = None
         return {**dict(row), "state": state, "members": json.loads(row["members"]), "activity": json.loads(row["activity"])}
 
     def write(self, db, room):

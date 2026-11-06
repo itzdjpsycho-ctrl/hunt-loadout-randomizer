@@ -39,6 +39,21 @@
     assert(!E.buyback(p,'no-loss',{...b,lostMedkit:null}).ok);
     assert(!E.buyback(p,'poor',{...b,slots:partial(['conversion',null,null,melee.id])}).ok);
   });
+  test('Long Derringer is a $100 unique tool with Long Ammo and no weapon capacity',()=>{
+    const item=E.byId.get('long-derringer');assert(item&&item.kind==='tool'&&item.price===100&&item.ammo==='Long'&&!item.capacity);
+    assert(item.image.startsWith('data:image/webp;base64,')&&!E.eligibleWeapon(item));
+    const p={...profile(),mode:'chaos',mulligan:true};
+    const build={slots:partial(['conversion',null,'first-aid-kit','knife','decoys']),locks:Array(10).fill(false),ammo:[null,null]};
+    const roll=(p,b=build,index=4)=>E.rerollKit(p,'long-derringer-fixture',b,index,i=>i.id===item.id);
+    const r=roll(p);assert(r.ok,JSON.stringify(r.errors));assert(r.slots[4]===item.id);
+    assert(r.usedCapacity===E.byId.get('conversion').capacity);
+    assert(!roll({...p,excluded:[item.id]}).ok);
+    assert(!roll({...p,budget:r.cost-1}).ok);
+    assert(!roll(p,{...build,slots:build.slots.map((id,i)=>i===5?item.id:id)}).ok);
+    assert(!roll(p,build,0).ok);
+    assert(E.benefits(item,{...p,traits:['frontiersman']}).includes('Frontiersman: +2 reserve rounds'));
+    assert(E.benefits(item,{...p,team:'solo',traits:['frontiersman','catalyst']}).includes('Frontiersman: +4 reserve rounds'));
+  });
   test('Every mode deals first aid and a random melee tool; loadout mulligans preserve their slots until lost',()=>{
     const melee=new Set(),losses=new Set();
     for(const mode of ['playable','chaos','crazy'])for(let n=0;n<80;n++){
@@ -154,7 +169,7 @@
     assert(!E.generate(p,'too-many-held-melee',held).ok);
     assert(E.generate(p,'two-held-melee',partial([null,null,'knife','throwing-axes'])).ok);
   });
-  test('Catalog includes 227 base entries, 24 matched pistol pairs, three choice cards and 23 traits',()=>{assert(E.data.items.filter(i=>!i.dual&&!i.choice).length===227);assert(E.data.items.filter(i=>i.dual).length===24);assert(E.data.items.filter(i=>i.choice).length===3);assert(E.data.traits.length===23);});
+  test('Catalog includes 228 base entries, 24 matched pistol pairs, three choice cards and 23 traits',()=>{assert(E.data.items.filter(i=>!i.dual&&!i.choice).length===228);assert(E.data.items.filter(i=>i.dual).length===24);assert(E.data.items.filter(i=>i.choice).length===3);assert(E.data.traits.length===23);});
   test('Choice cards fit their slots, preserve holds and respect role and Tarot limits',()=>{
     const p={...profile(),customAmmo:true};
     const slots=partial(['wold-card-weapon',null,'first-aid-kit','knife','wold-card-equipment','any-tarot']);
@@ -312,6 +327,34 @@
   test('Mild chaos keeps essentials and Cursed remains legal',()=>{const p=profile();p.mode='crazy';for(const intensity of ['mild','unhinged','cursed']){p.intensity=intensity;for(let n=0;n<20;n++){const r=E.generate(p,intensity+n);assert(r.ok);assert(E.validate(r.slots,p).valid);if(intensity==='mild')assert(r.slots.includes('first-aid-kit')&&r.slots.some(id=>E.byId.get(id)?.melee));}}});
   test('Item bans apply to rolls, held items and slot rerolls',()=>{const p=profile();const r=E.generate(p,'ban-start');p.excluded=[r.slots[0]];const next=E.generate(p,'ban-next');assert(next.ok&&!next.slots.includes(p.excluded[0]));assert(!E.generate(p,'ban-held',r.slots).ok);assert(!E.rerollSlot(p,'ban-slot',r.slots,2).ok);});
   test('Ammo catalog includes split pools and excludes scarce ammo',()=>{assert(Object.keys(E.data.ammo.weapons).filter(id=>!E.byId.get(id).dual).length>91);for(const [id,options] of Object.entries(E.data.ammo.weapons)){assert(E.byId.has(id));for(const a of options){assert(Number.isInteger(a.cost)&&a.cost>=0&&a.source.startsWith('https://'));assert(!/dumdum|explosive|spitzer|frag/i.test(a.name));}}assert(E.ammoSlots('romero-77').length===2&&E.ammoSlots('lemat').length===2);assert(E.ammoSlots('romero-77-alamo').length===1&&E.ammoSlots('martini-henry-ironside').length===1);assert(E.ammoOption('conversion','fmj-ammo').cost===50);});
+  test('Repeating sniper rifles have one ammo pool; genuine split snipers keep two',()=>{
+    const p={...profile(),customAmmo:true,mode:'chaos',mulligan:true};
+    for(const id of ['centennial-sniper','infantry-73l-sniper','krag-sniper','mosin-nagant-sniper']){
+      assert(E.ammoSlots(id).length===1,id+' has an extra pool');
+      const option=E.ammoSlots(id)[0].options[0],slots=partial([id]);
+      assert(!E.ammoOption(id,[option,option]));
+      assert(!E.validateKit(slots,p,[[option,option],null]).valid);
+      for(let n=0;n<40;n++){
+        const ammo=E.selectAmmo(slots,p,'one-pool-'+id+n);
+        assert(!Array.isArray(ammo[0]),id+' generated multiple ammo types');
+        assert(E.validateKit(slots,p,ammo).valid);
+      }
+    }
+    for(const id of ['sparks-sniper','maynard-sniper','maynard-sniper-silencer','berthier-1892-marksman','dual-sparks-pistol','dual-sparks-pistol-silencer'])assert(E.ammoSlots(id).length===2,id+' lost its split pools');
+    for(const id of ['romero-77-alamo','martini-henry-ironside','dual-conversion'])assert(E.ammoSlots(id).length===1);
+  });
+  test('Saved ammo normalization clears obsolete topology while retaining valid split and barrel choices',()=>{
+    const slots=partial(['centennial-sniper','lemat']),ammo=[['fmj-ammo','poison-ammo'],['fmj-ammo','slug']];
+    const original=JSON.stringify(ammo),normalized=E.normalizeAmmo(slots,ammo);
+    assert(normalized[0]===null&&JSON.stringify(normalized[1])===JSON.stringify(ammo[1]));
+    assert(JSON.stringify(ammo)===original&&normalized[1]!==ammo[1]);
+    assert(JSON.stringify(E.normalizeAmmo(partial(['sparks','lemat']),ammo))===original);
+    assert(JSON.stringify(E.normalizeAmmo(slots,['fmj-ammo',null]))==='["fmj-ammo",null]');
+    assert(JSON.stringify(E.normalizeAmmo(slots,null))==='[null,null]');
+    const p={...profile(),customAmmo:true,mode:'chaos',mulligan:true};
+    const build={slots:partial(['centennial-sniper',null,'first-aid-kit','knife']),ammo:[null,null],locks:[true,...Array(9).fill(false)]};
+    const result=E.generateKit(p,'migrated-held-sniper',build);assert(result.ok,JSON.stringify(result.errors));
+  });
   test('Custom ammo respects compatibility budget and held weapon ammo',()=>{
     const p=profile();p.acquisition='purchase';p.customAmmo=true;p.unlocked=['conversion'];
     const build={slots:Array(10).fill(null),locks:Array(10).fill(false),ammo:[null,null]};

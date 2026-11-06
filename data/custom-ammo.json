@@ -3757,16 +3757,7 @@
                                  ],
                   "centennial-sniper":  [
                                             {
-                                                "name":  "Ammo 1",
-                                                "options":  [
-                                                                "fmj-ammo",
-                                                                "high-velocity-ammo",
-                                                                "poison-ammo",
-                                                                "subsonic-ammo"
-                                                            ]
-                                            },
-                                            {
-                                                "name":  "Ammo 2",
+                                                "name":  "Ammo",
                                                 "options":  [
                                                                 "fmj-ammo",
                                                                 "high-velocity-ammo",
@@ -3861,17 +3852,7 @@
                                            ],
                   "infantry-73l-sniper":  [
                                               {
-                                                  "name":  "Ammo 1",
-                                                  "options":  [
-                                                                  "fmj-ammo",
-                                                                  "high-velocity-ammo",
-                                                                  "incendiary-ammo",
-                                                                  "poison-ammo",
-                                                                  "subsonic-ammo"
-                                                              ]
-                                              },
-                                              {
-                                                  "name":  "Ammo 2",
+                                                  "name":  "Ammo",
                                                   "options":  [
                                                                   "fmj-ammo",
                                                                   "high-velocity-ammo",
@@ -3913,15 +3894,7 @@
                                     ],
                   "krag-sniper":  [
                                       {
-                                          "name":  "Ammo 1",
-                                          "options":  [
-                                                          "fmj-ammo",
-                                                          "incendiary-ammo",
-                                                          "subsonic-ammo"
-                                                      ]
-                                      },
-                                      {
-                                          "name":  "Ammo 2",
+                                          "name":  "Ammo",
                                           "options":  [
                                                           "fmj-ammo",
                                                           "incendiary-ammo",
@@ -4123,13 +4096,7 @@
                                            ],
                   "mosin-nagant-sniper":  [
                                               {
-                                                  "name":  "Ammo 1",
-                                                  "options":  [
-                                                                  "incendiary-ammo"
-                                                              ]
-                                              },
-                                              {
-                                                  "name":  "Ammo 2",
+                                                  "name":  "Ammo",
                                                   "options":  [
                                                                   "incendiary-ammo"
                                                               ]

@@ -1,6 +1,7 @@
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $catalog = Get-Content (Join-Path $root 'data/equipment.json') -Raw -Encoding utf8 | ConvertFrom-Json
+$layouts = Get-Content (Join-Path $root 'data/ammo-slot-layouts.json') -Raw -Encoding utf8 | ConvertFrom-Json
 $weapons = [ordered]@{}
 $slots = [ordered]@{}
 foreach ($item in $catalog.items | Where-Object { $_.kind -eq 'weapon' -and $_.availability -in @('standard-candidate','event-unlock-required') }) {
@@ -22,7 +23,8 @@ foreach ($item in $catalog.items | Where-Object { $_.kind -eq 'weapon' -and $_.a
                 [ordered]@{name='Bullets'; options=@($options | Where-Object { $_.id -notin $shells } | ForEach-Object { $_.id })},
                 [ordered]@{name='Shells'; options=@($options | Where-Object { $_.id -in $shells } | ForEach-Object { $_.id })}
             )
-        } elseif ($html -match 'per slot') {
+        } elseif ($item.id -in $layouts.splitReserveWeapons) {
+            # Split-reserve topology is audited explicitly; page prose can contain "Sniper slot size".
             # The current Ammo Types section already quotes the per-slot price.
             $ids = @($options | ForEach-Object { $_.id })
             $slots[$item.id] = @([ordered]@{name='Ammo 1';options=$ids},[ordered]@{name='Ammo 2';options=$ids})

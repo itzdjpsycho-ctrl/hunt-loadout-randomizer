@@ -37,7 +37,7 @@
             b={...b,name:typeof b.name==='string'?b.name.trim().slice(0,32):'',rank:Number.isInteger(b.rank)&&b.rank>=1&&b.rank<=100?b.rank:profile.rank};
             b.traits=Array.isArray(b.traits)?[...new Set(b.traits.filter(t=>E.traitById.has(t)))].slice(0,15):profile.traits.slice();
             b.role=['any','sniper','close','support','shotgun-gamer'].includes(b.role)?b.role:'any';
-            b.ammo=Array.isArray(b.ammo)&&b.ammo.length===2?b.ammo.map((id,n)=>E.ammoOption(b.slots[n],id)?id:null):[null,null];
+            b.ammo=E.normalizeAmmo(b.slots,b.ammo);
             return {secondaryLost:b.secondaryLost===undefined?!!b.mulligan:!!b.secondaryLost,rollQuartermaster:!!b.rollQuartermaster,lostMedkit:Number.isInteger(b.lostMedkit)&&b.lostMedkit>=2&&b.lostMedkit<10?b.lostMedkit:null,unownedTarot:Array.isArray(b.unownedTarot)?[...new Set(b.unownedTarot.filter(id=>E.byId.get(id)?.category==='tarot-cards'))]:[],unownedWeapons:Array.isArray(b.unownedWeapons)?[...new Set(b.unownedWeapons.filter(id=>E.byId.get(id)?.kind==='weapon').map(id=>E.byId.get(id).baseId||id))]:[],mulligan:!!b.mulligan,loadoutMulligans:Number.isInteger(b.loadoutMulligans)&&b.loadoutMulligans>=0&&b.loadoutMulligans<=10?b.loadoutMulligans:0,name:b.name,rank:b.rank,traits:b.traits,role:b.role,ammo:b.ammo,slots:b.slots,locks:Array.from({length:10},(_,i)=>!!b.locks?.[i]&&!!b.slots[i]),lastSeed:typeof b.lastSeed==='string'?b.lastSeed:'',dirty:!!b.dirty||(b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid)};
           });
           loadBuild(Number.isInteger(saved.activeBuild)&&saved.activeBuild>=0&&saved.activeBuild<buildCount?saved.activeBuild:0);
@@ -226,7 +226,7 @@
     if(!validSnapshot(entry)){toast('This saved squad is not compatible with the current catalog.');return;}
     recordHistory();
     profile=buyingProfile({...E.defaults(),...structuredClone(entry.profile)});
-    builds=structuredClone(entry.builds).map(b=>({...b,loadoutMulligans:b.loadoutMulligans??0}));buildCount=entry.buildCount;
+    builds=structuredClone(entry.builds).map(b=>({...b,ammo:E.normalizeAmmo(b.slots,b.ammo),loadoutMulligans:b.loadoutMulligans??0}));buildCount=entry.buildCount;
     builds.forEach(b=>{b.dirty=b.slots.some(Boolean)&&!E.validateKit(b.slots,buildProfile(b),b.ammo).valid;});
     loadBuild(Number.isInteger(entry.activeBuild)&&entry.activeBuild>=0&&entry.activeBuild<buildCount?entry.activeBuild:0);
     rollNumber=entry.rollNumber||0;$('seed').value=entry.seedInput||'';notice=[];save();renderProfile();renderCards();$('library-dialog').close();toast('Saved squad and its settings restored.');
@@ -405,7 +405,7 @@
       return [{hunter:i,slots:singleReplacement?build.slots.flatMap((id,n)=>id!==previous.slots[n]||JSON.stringify(build.ammo[n])!==JSON.stringify(previous.ammo[n])?[n]:[]):null}];
     }):[];
     finishReveal();
-    profile=buyingProfile(structuredClone(state.profile));builds=structuredClone(state.builds).map(b=>({...b,loadoutMulligans:b.loadoutMulligans??0}));buildCount=state.buildCount;
+    profile=buyingProfile(structuredClone(state.profile));builds=structuredClone(state.builds).map(b=>({...b,ammo:E.normalizeAmmo(b.slots,b.ammo),loadoutMulligans:b.loadoutMulligans??0}));buildCount=state.buildCount;
     loadBuild(Math.min(hunter??activeBuild,buildCount-1));rollNumber=state.rollNumber;$('seed').value=state.seedInput;
     notice=[];save();renderProfile();renderCards();if(changes.length)revealCards(null,null,changes);
   }

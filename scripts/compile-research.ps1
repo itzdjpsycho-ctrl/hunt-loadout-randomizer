@@ -92,6 +92,13 @@ foreach ($item in $items.Values) {
     if ($counter % 25 -eq 0) { Write-Output "Researched $counter / $($items.Count) items" }
 }
 . (Join-Path $PSScriptRoot 'add-requirements.ps1')
+# Preserve individually researched additions newer than the saved index snapshots.
+$additionsPath = Join-Path $projectRoot 'data/equipment-additions.json'
+if (Test-Path $additionsPath) {
+    foreach ($addition in (Get-Content $additionsPath -Raw -Encoding utf8 | ConvertFrom-Json)) {
+        $items[$addition.sourceUrl] = $addition
+    }
+}
 $catalog = [ordered]@{
     schemaVersion=2
     researchedOn='2026-09-23'

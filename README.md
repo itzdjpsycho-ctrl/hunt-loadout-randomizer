@@ -170,7 +170,7 @@ Open the test HTML pages in a browser to run engine checks. The UI harness embed
 ## Start here
 
 - [Requirements audit](research/requirements-audit.md): recheck of current equip limits, Bloodline unlocks, ownership and unresolved options.
-- [Equipment catalog](research/equipment-catalog.md): readable, linked inventory of 150 weapons/variants, 23 tools, and 54 consumables.
+- [Equipment catalog](research/equipment-catalog.md): readable, linked inventory of 150 weapons/variants, 24 tools, and 54 consumables.
 - [Loadout rules](research/loadout-rules.md): current capacity rules, patch changes, availability and source caveats.
 - [App design](research/randomizer-design.md): proposed modes, themes, controls and selection logic.
 - [Equipment JSON](data/equipment.json) and [CSV](data/equipment.csv): structured data for the eventual app.
@@ -178,7 +178,7 @@ Open the test HTML pages in a browser to run engine checks. The UI harness embed
 - `sources/`: downloaded reference pages, including an individual snapshot for every catalog entry.
 - [Compilation script](scripts/compile-research.ps1): reproduces the catalog from saved indexes and cached item pages.
 
-The 227 entries include restricted and historical equipment: 21 current tools plus two removed tools; 30 ordinary consumables, 14 scarce Tarot cards, and 10 event-specific consumables. Weapon variants are separate entries; cosmetic skins and dual-pistol configurations are not counted as new weapons. Four scarce weapons and three Burgess event unlocks are included and flagged.
+The 228 entries include restricted and historical equipment: 22 current tools plus two removed tools; 30 ordinary consumables, 14 scarce Tarot cards, and 10 event-specific consumables. Weapon variants are separate entries; cosmetic skins and dual-pistol configurations are not counted as new weapons. Four scarce weapons and three Burgess event unlocks are included and flagged.
 
 ## How to interpret the data
 
@@ -219,7 +219,7 @@ Equipment reference: [Hunt: Showdown 1896 Wiki](https://huntshowdown.wiki.gg/), 
 
 The pre-image app, executable, source, data and tests are saved in `backups/before-equipment-images-20260923-115859.zip`. Existing research snapshots and SDK downloads remain in the project folder.
 
-All 227 catalog entries have matching local equipment icons in `assets/equipment/`. Run `scripts/fetch-equipment-images.ps1` to restore missing downloads, then rebuild the EXE. The build embeds the icons in both the standalone HTML and EXE; no image requests are made while using the app. Empty slots retain neutral placeholders.
+All 228 catalog entries have matching local equipment icons in `assets/equipment/`. Run `scripts/fetch-equipment-images.ps1` to restore missing downloads, then rebuild the EXE. The build embeds the icons in both the standalone HTML and EXE; no image requests are made while using the app. Empty slots retain neutral placeholders.
 
 
 
@@ -241,3 +241,7 @@ Rolls can select 24 matched pistol pairs, displayed as Dual followed by the pist
 A capacity-five primary with its original empty secondary offers **Quarter Master**. It rolls only the secondary, assumes Quartermaster for that hand, and leaves the trait selection unchanged. The temporary capacity survives saving and shared rooms, and expires on the next **Deal me in**. Held weapons must still fit the next deal's normal capacity.
 
 When a mulligan removes a First Aid Kit, its empty card offers **Buyback (Lose 2 tools)**. This restores the kit in that position and sacrifices exactly two remaining tools, including held tools. Weapons and consumables cannot pay this cost. Each melee tool has selection weight 1 versus 1000 for other tools, so melee loss is very rare when two other tools remain; with fewer alternatives, melee may be required. Buyback respects bans, access and spending limits, and fails without payment if the restored hand is invalid. Other lost positions remain empty.
+
+The **Long Derringer** is included in the tool pool at $100, with Long Ammo and no weapon capacity cost. See [its research notes](research/long-derringer.md) for sources and the availability assumption after its October 27 community unlock. Individually researched catalog additions are preserved in `data/equipment-additions.json` when rerunning `scripts/compile-research.ps1`.
+
+Ammo slot counts use the audited split-reserve list in `data/ammo-slot-layouts.json`. Centennial Sniper, Infantry 73L Sniper, Krag Sniper and Mosin-Nagant Sniper each roll one ammo choice. Saved extra-slot ammo on corrected weapons resets to standard; genuine split reserves and bullet/shell combinations are preserved. See [the ammo audit](research/custom-ammo-audit.md).

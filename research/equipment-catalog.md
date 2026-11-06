@@ -1,6 +1,6 @@
-﻿# Equipment catalog
+# Equipment catalog
 
-Research snapshot: 23 September 2026. Prices are Hunt Dollars for the item alone; unknown prices are shown as a dash. Availability flags are explained in the README. Includes historical and restricted items for reference, not just a default randomization pool.
+Research snapshot: 23 September 2026; Long Derringer added 6 November 2026 (see [targeted research](long-derringer.md)). Prices are Hunt Dollars for the item alone; unknown prices are shown as a dash. Availability flags are explained in the README. Includes historical and restricted items for reference, not just a default randomization pool.
 
 ## weapon
 
@@ -179,6 +179,7 @@ Research snapshot: 23 September 2026. Prices are Hunt Dollars for the item alone
 | [Knuckle Knife](https://huntshowdown.wiki.gg/wiki/Tools/Knuckle_Knife) | - | Melee | 50 | standard-candidate | Bloodline rank 25 to buy |
 | [Multitool](https://huntshowdown.wiki.gg/wiki/Tools/Multitool) | - | Removed Tools | 0 | removed | Excluded pending review |
 | [Poison Trip Mines](https://huntshowdown.wiki.gg/wiki/Tools/Poison_Trip_Mines) | - | Traps | 30 | standard-candidate | Bloodline rank 29 to buy |
+| [Long Derringer](https://bayouindex.com/weapons/long-derringer/) | - | Pocket pistols | 100 | standard-candidate | Community reward unlocked October 27; app assumes availability at all ranks |
 | [Quad Derringer](https://huntshowdown.wiki.gg/wiki/Tools/Quad_Derringer) | - | Pocket pistols | 30 | standard-candidate | Bloodline rank 1 to buy |
 | [Spyglass](https://huntshowdown.wiki.gg/wiki/Tools/Spyglass) | - | Others | 8 | standard-candidate | Bloodline rank 1 to buy |
 | [Throwing Axes](https://huntshowdown.wiki.gg/wiki/Tools/Throwing_Axes) | - | Throwable Melee | 80 | standard-candidate | Bloodline rank 8 to buy |

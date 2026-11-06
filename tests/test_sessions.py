@@ -214,6 +214,29 @@ class SessionTests(unittest.TestCase):
             invalid["builds"][0]["ammo"][1] = ammo
             self.assertEqual(self.put(host, invalid, host["revision"]).status_code, 422)
 
+    def test_single_pool_snipers_reject_split_ammo_and_repair_persisted_room_topology(self):
+        catalog = json.loads((SITE / "session-catalog.json").read_text())
+        for weapon in ('centennial-sniper', 'infantry-73l-sniper', 'krag-sniper', 'mosin-nagant-sniper'):
+            state = squad()
+            state['profile']['customAmmo'] = True
+            build = state['builds'][0]
+            build['slots'][0] = weapon
+            build['locks'][0] = True
+            option = catalog['ammoSlots'][weapon][0]['options'][0]
+            build['ammo'][0] = option
+            host = self.create(state=state)
+            invalid = copy.deepcopy(host['state'])
+            invalid['builds'][0]['ammo'][0] = [option, option]
+            self.assertEqual(self.put(host, invalid, host['revision']).status_code, 422)
+            # Simulate a room saved before the catalog correction.
+            with closing(sqlite3.connect(self.database)) as db, db:
+                db.execute('UPDATE rooms SET state=? WHERE code=?', (json.dumps(invalid), host['code']))
+            restored = self.read(host)
+            self.assertIsNone(restored['state']['builds'][0]['ammo'][0])
+            self.assertTrue(restored['state']['builds'][0]['locks'][0])
+            response = self.put(host, restored['state'], restored['revision'])
+            self.assertEqual(response.status_code, 200, response.text)
+
     def test_loadout_mulligan_counter_syncs_and_legacy_defaults(self):
         legacy = squad()
         for build in legacy["builds"]:

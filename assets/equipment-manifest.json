@@ -1640,6 +1640,16 @@
         "sha256":  "C247A39845F6F7FE4AC5705563A4EF319C0C424CDA7A66EF00568E4BFCC9051D"
     },
     {
+        "id":  "long-derringer",
+        "path":  "assets/equipment/long-derringer.webp",
+        "source":  "https://bayouindex.com/icons/2cdfcabe6593002c.webp",
+        "page":  "https://bayouindex.com/weapons/long-derringer/",
+        "originalName":  "Long Derringer game icon (WebP)",
+        "width":  128,
+        "height":  128,
+        "sha256":  "BE30C9F32302A5A1A0E22359617CD51464EB50B5D9010BC09F1813324744DA65"
+    },
+    {
         "id":  "quad-derringer",
         "path":  "assets/equipment/quad-derringer.png",
         "source":  "https://huntshowdown.wiki.gg/images/Tool_Quad_Derringer.png?71f538",

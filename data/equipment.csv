@@ -1,4 +1,4 @@
-﻿"id","name","kind","family","capacity","ammoType","priceHuntDollars","availability","consumableLimitCategory","unlockSummary","bloodlineRank","group","sourceUrl"
+"id","name","kind","family","capacity","ammoType","priceHuntDollars","availability","consumableLimitCategory","unlockSummary","bloodlineRank","group","sourceUrl"
 "baseball-bat","Baseball Bat","weapon","Baseball Bat","1",,"40","standard-candidate",,"Confirm exact weapon unlocked to buy",,,"https://huntshowdown.wiki.gg/wiki/Weapons/Baseball_Bat"
 "bornheim-no-3","Bornheim No. 3","weapon","Bornheim No. 3","1","Compact","146","standard-candidate",,"Confirm exact weapon unlocked to buy",,,"https://huntshowdown.wiki.gg/wiki/Weapons/Bornheim_No._3"
 "bornheim-no-3-extended","Bornheim No. 3 Extended","weapon","Bornheim No. 3","1","Compact","203","standard-candidate",,"Confirm exact weapon unlocked to buy",,,"https://huntshowdown.wiki.gg/wiki/Weapons/Bornheim_No._3/Extended"
@@ -226,3 +226,4 @@
 "bronze-wormseed-shot","Bronze Wormseed Shot","consumable",,,,"40","event-review-required","shots","Excluded pending review",,"Event specific Consumables","https://huntshowdown.wiki.gg/wiki/Consumables/Bronze_Wormseed_Shot"
 "silver-wormseed-shot","Silver Wormseed Shot","consumable",,,,"80","event-review-required","shots","Excluded pending review",,"Event specific Consumables","https://huntshowdown.wiki.gg/wiki/Consumables/Silver_Wormseed_Shot"
 "gold-wormseed-shot","Gold Wormseed Shot","consumable",,,,"150","event-review-required","shots","Excluded pending review",,"Event specific Consumables","https://huntshowdown.wiki.gg/wiki/Consumables/Gold_Wormseed_Shot"
+"long-derringer","Long Derringer","tool","","","Long","100","standard-candidate","","Community reward unlocked October 27; available in the randomizer at all ranks","1","Pocket pistols","https://bayouindex.com/weapons/long-derringer/"

@@ -16,6 +16,9 @@ const items = await Promise.all(catalog.items.map(async item => {
   const section = html.match(/id="Recommended_Traits".*?<\/h2>(.*?)(?=<h2)/s)?.[1] || '';
   let synergies = [...section.matchAll(/href="\/wiki\/Traits\/([^"#]+)"/g)]
     .map(match => decodeURIComponent(match[1]).replaceAll('_', ' ').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+  synergies.push(...(item.recommendedTraits || []));
+  const imagePath = item.imagePath || 'assets/equipment/' + item.id + '.png';
+  const imageType = imagePath.endsWith('.webp') ? 'webp' : 'png';
   const melee = ['Melee', 'Throwable Melee'].includes(item.group) ||
     (item.kind === 'weapon' && (item.ammoType === null || /Bayonet|Riposte|Talon|Trauma|Mace|Claw|Striker|Brawler|Hatchet|Bomb Lance/i.test(item.name)));
   const limitedTool = item.kind === 'tool' && item.group !== 'Melee' && item.id !== 'spyglass';
@@ -36,7 +39,7 @@ const items = await Promise.all(catalog.items.map(async item => {
     group: item.group, melee, limitedTool,
     synergies: [...new Set(synergies.filter(id => traitIds.has(id) && id !== 'quartermaster'))].sort(),
     requirements: item.requirements, source: item.sourceUrl,
-    image: 'data:image/png;base64,' + (await readFile(join(root, 'assets/equipment', item.id + '.png'))).toString('base64'),
+    image: `data:image/${imageType};base64,` + (await readFile(join(root, imagePath))).toString('base64'),
   };
 }));
 // Matched pairs occupy one weapon position. Stocked/scoped variants and

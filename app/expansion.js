@@ -13,6 +13,12 @@
     if(choices.some(a=>!a))return undefined;
     return {id:id.some(Boolean)?id:null,name:choices.map((a,n)=>`${pools[n].name}: ${a.name}`).join(' · '),cost:choices.reduce((sum,a)=>sum+a.cost,0),slots:choices};
   }
+  function normalizeAmmo(slots,ammo){
+    return [0,1].map(n=>{
+      const id=Array.isArray(ammo)?ammo[n]??null:null;
+      return ammoOption(slots[n],id)?Array.isArray(id)?id.slice():id:null;
+    });
+  }
   function ammoChoices(weapon,enabled){
     if(!enabled||!options(weapon).length)return [{id:null,weight:1}];
     let choices=[{ids:[],weight:1}];
@@ -172,5 +178,5 @@
     return {ok:false,errors:unique?['No squad with distinct teammate weapons was found. Adjust roles, bans or holds.',...errors]:errors};
   }
   function rouletteOrder(seed){return ['no-scopes','bows','budget300'].map(id=>({id,key:random(seed+':'+id)()})).sort((a,b)=>a.key-b.key).map(x=>x.id);}
-  Object.assign(E,{canQuarterMaster,quarterMaster,buyback,selectAmmo,ammoSlots,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,dontOwnWeapon,dontOwnTarot,mulliganKit,loadoutMulligan,uniqueWeapons,generateSquad,rouletteOrder});
+  Object.assign(E,{normalizeAmmo,canQuarterMaster,quarterMaster,buyback,selectAmmo,ammoSlots,ammoOptions:options,ammoOption,validateKit,generateKit,rerollKit,dontOwnWeapon,dontOwnTarot,mulliganKit,loadoutMulligan,uniqueWeapons,generateSquad,rouletteOrder});
 })();
